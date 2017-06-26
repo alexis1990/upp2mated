@@ -1,0 +1,29 @@
+.header{
+	border-radius: 0px;
+	border:none;
+	margin-bottom:0px;
+	background: rgb(1, 137, 169);
+	a {
+		color: white !important;
+	}
+	.container{
+		.navbar-brand {
+			width: 180px;
+			height:auto;
+		}
+		.navbar-nav{
+			li{
+				color:white;
+			}
+		}
+		.dropdown{
+			.dropdown-toggle {
+				background: rgb(1, 137, 169);
+				color: white;
+			}
+			ul{
+				background: rgb(1, 137, 169);
+			}
+		}
+	}
+}

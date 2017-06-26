@@ -1,0 +1,33 @@
+.subheader{
+	border-radius: 0px;
+	border:none;
+	margin-bottom:0px;
+	background: rgba(228, 228, 228, 1);
+	a {
+		color: #0189A9 !important;
+		text-transform:uppercase;
+		.glyphicon{
+			margin-right: 5px;
+		}
+	}
+	.container{
+		.navbar-brand {
+			width: 180px;
+			height:auto;
+		}
+		.navbar-nav{
+			li{
+				color:white;
+			}
+		}
+		.dropdown{
+			.dropdown-toggle {
+				background: rgba(228, 228, 228, 1);
+				color: #0189A9;
+			}
+			ul{
+				background: rgba(228, 228, 228, 1);
+			}
+		}
+	}
+}

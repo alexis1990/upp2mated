@@ -1,0 +1,20 @@
+.subheader {
+  border-radius: 0px;
+  border: none;
+  margin-bottom: 0px;
+  background: #e4e4e4; }
+  .subheader a {
+    color: #0189A9 !important;
+    text-transform: uppercase; }
+    .subheader a .glyphicon {
+      margin-right: 5px; }
+  .subheader .container .navbar-brand {
+    width: 180px;
+    height: auto; }
+  .subheader .container .navbar-nav li {
+    color: white; }
+  .subheader .container .dropdown .dropdown-toggle {
+    background: #e4e4e4;
+    color: #0189A9; }
+  .subheader .container .dropdown ul {
+    background: #e4e4e4; }
