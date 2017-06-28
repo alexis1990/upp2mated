@@ -1,10 +1,30 @@
+@font-face {
+  font-family: 'Khand';
+  font-style: normal;
+  font-weight: 300;
+  src: url('./fonts/khand/khand-v5-latin-300.eot'); /* IE9 Compat Modes */
+  src: local('Khand Regular'), local('Khand'),
+       url('./fonts/khand/khand-v5-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/khand/khand-v5-latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/khand/khand-v5-latin-300.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/khand/khand-v5-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/khand/khand-v5-latin-300.svg#Khand') format('svg'); /* Legacy iOS */
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  	margin: 0;
+  	padding: 0;
+  	font-family: sans-serif;
+  	font-family: 'Khand';
+  	font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    text-align: center;
+    line-height: normal;
+    letter-spacing: 1px;
 }
 
 .nopadding {
-   padding: 0 !important;
-   margin: 0 !important;
+   	padding: 0 !important;
+   	margin: 0 !important;
 }

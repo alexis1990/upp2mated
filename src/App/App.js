@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
-import Home from './scenes/Home/index'
-import Sign from './scenes/Sign/index'
-import Header from './components/Header/index'
-import SubHeader from './components/SubHeader/index'
+import Home from '../scenes/Home/index'
+import Sign from '../scenes/Sign/index'
+import Header from '../components/Header/index'
+import SubHeader from '../components/SubHeader/index'
 
 const App = () => (
   <div>

@@ -3,17 +3,38 @@
 	border:none;
 	margin-bottom:0px;
 	background: rgb(1, 137, 169);
+	min-height:25px;
 	a {
 		color: white !important;
 	}
-	.container{
+	.container-fluid{
+		font-family:"Khand";
 		.navbar-brand {
 			width: 180px;
 			height:auto;
+			padding: 5px 10px 5px 25px;
 		}
 		.navbar-nav{
-			li{
+			.navbar-form {
+				margin:0;
+				height: 20px;
+    			padding-top: 1px;
+				input{
+					height: 20px;
+					width:150px;
+				}
+				button {
+
+				}
+			}
+			li {
 				color:white;
+				a {
+					padding: 5px 10px;
+					.user {
+						margin-left: 10px;
+					}
+				}
 			}
 		}
 		.dropdown{

@@ -6,7 +6,7 @@ import './styles/navbar.css';
 class Header extends PureComponent {
 	render(){
 		return(
-			<Navbar className="header" inverse collapseOnSelect>
+			<Navbar className="header" inverse collapseOnSelect fluid={true}>
 				<Navbar.Header>
 					<Navbar.Brand>
 					    <Image src={logo} rounded />
@@ -17,7 +17,7 @@ class Header extends PureComponent {
 					<Nav pullRight>
 					  	<Navbar.Form pullLeft>
 					        <FormGroup>
-					          	<FormControl type="text" placeholder="Search" />
+					          	<FormControl type="text" />
 					        </FormGroup>
 					        {' '}
 					        <Button bsStyle="link">
@@ -29,7 +29,7 @@ class Header extends PureComponent {
 				      	</NavItem>
 				      	<NavItem>
 				      		<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							<NavDropdown eventKey={3} title="Bonjour PRENOM NOM" id="basic-nav-dropdown">
+							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="user"/><span className="user">Bonjour PRENOM NOM</span></span>} id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1}>Editer mon profil</MenuItem>
 							</NavDropdown>
 						</NavItem>
