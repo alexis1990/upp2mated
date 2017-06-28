@@ -3,7 +3,7 @@ import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Navbar, Jumbotron, Button } from 'react-bootstrap'
-import './index.css';
+import './styles/index.css';
 
 const Home = props => (
   <div className="home">

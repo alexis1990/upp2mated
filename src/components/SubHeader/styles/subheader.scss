@@ -3,6 +3,7 @@
 	border:none;
 	margin-bottom:0px;
 	background: rgba(228, 228, 228, 1);
+	min-height: 30px;
 	a {
 		color: #0189A9 !important;
 		text-transform:uppercase;
@@ -10,7 +11,8 @@
 			margin-right: 5px;
 		}
 	}
-	.container{
+	.container-fluid{
+		padding: 0;
 		.navbar-brand {
 			width: 180px;
 			height:auto;
@@ -18,12 +20,16 @@
 		.navbar-nav{
 			li{
 				color:white;
+				a {
+					padding: 5px 10px;
+				}
 			}
 		}
 		.dropdown{
 			.dropdown-toggle {
 				background: rgba(228, 228, 228, 1);
 				color: #0189A9;
+				padding:0;
 			}
 			ul{
 				background: rgba(228, 228, 228, 1);

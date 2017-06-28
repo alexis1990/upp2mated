@@ -2,16 +2,31 @@
   border-radius: 0px;
   border: none;
   margin-bottom: 0px;
-  background: #0189a9; }
+  background: #0189a9;
+  min-height: 25px; }
   .header a {
     color: white !important; }
-  .header .container .navbar-brand {
-    width: 180px;
-    height: auto; }
-  .header .container .navbar-nav li {
-    color: white; }
-  .header .container .dropdown .dropdown-toggle {
-    background: #0189a9;
-    color: white; }
-  .header .container .dropdown ul {
-    background: #0189a9; }
+  .header .container-fluid {
+    font-family: "Khand"; }
+    .header .container-fluid .navbar-brand {
+      width: 180px;
+      height: auto;
+      padding: 5px 10px 5px 25px; }
+    .header .container-fluid .navbar-nav .navbar-form {
+      margin: 0;
+      height: 20px;
+      padding-top: 1px; }
+      .header .container-fluid .navbar-nav .navbar-form input {
+        height: 20px;
+        width: 150px; }
+    .header .container-fluid .navbar-nav li {
+      color: white; }
+      .header .container-fluid .navbar-nav li a {
+        padding: 5px 10px; }
+        .header .container-fluid .navbar-nav li a .user {
+          margin-left: 10px; }
+    .header .container-fluid .dropdown .dropdown-toggle {
+      background: #0189a9;
+      color: white; }
+    .header .container-fluid .dropdown ul {
+      background: #0189a9; }
