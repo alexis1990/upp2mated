@@ -1,22 +1,95 @@
-import React from 'react';
-import { Route, Link } from 'react-router-dom'
-import Home from '../scenes/Home/index'
+import React, { PureComponent, PropTypes } from 'react';
+import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux' 
+import Identification from '../scenes/Consultations/identification/index'
+import Team from '../scenes/Consultations/team/index'
 import Sign from '../scenes/Sign/index'
+import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
+import Wizard from '../components/Wizard/index'
 
-const App = () => (
-  <div>
-    <Header />
-    <SubHeader />
-      {/*<Link to="/">Home</Link>
-      <Link to="/about-us">About</Link>*/}
 
-    <main>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/sign-in" component={Sign} />
-    </main>
-  </div>
-)
+class App extends PureComponent {
+  
+  componentDidMount() {
+      window.addEventListener('scroll', this.fixedSubHeader);
+  }
 
-export default App;
+  componentWillUnmount() {
+      window.removeEventListener('scroll', this.fixedSubHeader);
+  }
+
+  fixedSubHeader(event) {
+      const scroll = event.srcElement.body.scrollTop;
+      var html = document.documentElement;
+      if(html.offsetHeight > 800 && scroll > 50) {
+        var subheader = document.querySelectorAll(".subheader");
+        [].forEach.call(subheader, function(el) {
+            if (!document.querySelector('.subheader.fixed')) {
+                subheader[0].className += " fixed";
+            }
+        });
+      } else {
+        var subheader = document.querySelectorAll(".subheader");
+        [].forEach.call(subheader, function(el) {
+            el.classList.remove("fixed");
+        });
+      }
+  }
+
+  render () {
+    const steps = {
+      wizard:{
+          stepsRFI: [
+          { id: 1, component: <Identification/> },
+          { id: 2, component: <Team/> },
+          // { id: 3, title: 'Fournisseurs' },
+          // { id: 4, title: 'Documentation' },
+          // { id: 5, title: 'Récapitulatif' },
+          // { id: 6, title: 'Confirmation' }
+        ]
+      }
+    }
+    return (
+      <div>
+        <Header />
+        <SubHeader />
+          {/*<Link to="/">Home</Link>
+          <Link to="/about-us">About</Link>*/}
+          <main>
+            <Router>
+              <div>
+                {/*<Wizard path="/consultations/">
+                  <Route path="1" component={Identification} />
+                  <Route exact path="2" component={Team} />
+                  <Route path="3" component={Confirmation} />
+                </Wizard>*/}
+                <Route path="/consultations" component={({ match }) => (
+                  <div>
+                    <Route path={`${match.url}/:stepId`} component={() => <Wizard steps={steps.wizard.stepsRFI} />}/>
+                    <Route exact path={match.url} render={() => (
+                      <h3>Please select a topic.</h3>
+                    )}/>
+                  </div>
+                )}/>
+                <Route exact path="/sign-in" component={Sign} />
+                <Route exact path="/kitui" component={KitUi} />
+              </div>
+            </Router>
+          </main>
+      </div>
+    )
+  }
+}
+
+function mapStateToProps(state, ownProps){
+  console.log('OWNNN', ownProps)
+  return {};
+}
+
+function mapDispatchToProps(){
+  
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

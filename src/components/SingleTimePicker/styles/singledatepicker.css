@@ -1,0 +1,9 @@
+.SingleDatePicker {
+  display: block !important; }
+  .SingleDatePicker .SingleDatePickerInput {
+    height: 32px; }
+    .SingleDatePicker .SingleDatePickerInput .DateInput {
+      font-size: 16px;
+      padding: 5px 5px 0px 12px; }
+      .SingleDatePicker .SingleDatePickerInput .DateInput .DateInput__display-text {
+        padding: 0; }

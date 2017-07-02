@@ -4,6 +4,11 @@
   margin-bottom: 0px;
   background: #e4e4e4;
   min-height: 30px; }
+  .subheader.fixed {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; }
   .subheader a {
     color: #0189A9 !important;
     text-transform: uppercase; }
@@ -15,9 +20,10 @@
       width: 180px;
       height: auto; }
     .subheader .container-fluid .navbar-nav li {
-      color: white; }
+      color: white;
+      margin-left: 10px; }
       .subheader .container-fluid .navbar-nav li a {
-        padding: 5px 10px; }
+        padding: 8px 10px; }
     .subheader .container-fluid .dropdown .dropdown-toggle {
       background: #e4e4e4;
       color: #0189A9;

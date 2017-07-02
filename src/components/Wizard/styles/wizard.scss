@@ -1,0 +1,11 @@
+.wizard{
+	.step{
+		padding: 5px;
+		color: white;
+		background: #e4e4e4;
+		text-align: center;
+		&.active{
+			background: rgb(1, 137, 169);	
+		}
+	}
+}
