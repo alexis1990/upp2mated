@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Navbar, NavItem, NavDropdown, MenuItem, Nav, Image, Col, FormGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
+import { Navbar, NavItem, NavDropdown, MenuItem, Nav, Glyphicon } from 'react-bootstrap';
 import './styles/subheader.css';
 
 class SubHeader extends PureComponent {
