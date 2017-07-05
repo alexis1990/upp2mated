@@ -10,9 +10,9 @@ export function nextPage(id) {
 }
 
 export function previousPage(id) {
-	const nextPage = id - 1;
+	const previousPage = id - 1;
 	return {
 		type: types.PREVIOUS_PAGE,
-		payload: nextPage.toString()
+		payload: previousPage.toString()
 	}
 }

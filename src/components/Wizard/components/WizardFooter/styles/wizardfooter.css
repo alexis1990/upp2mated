@@ -1,7 +1,17 @@
-.abandon {
-  float: left; }
-
-.next {
-  float: right;
-  background: #0189a9;
-  color: white; }
+.wizardFooter {
+  padding: 0px 0px 20px 15px; }
+  .wizardFooter a {
+    width: 80px;
+    height: 40px;
+    border-radius: 2px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle; }
+    .wizardFooter a.abandon {
+      float: left;
+      color: #0189a9;
+      border: 1px solid #0189a9; }
+    .wizardFooter a.next {
+      float: right;
+      background: #0189a9;
+      color: white; }

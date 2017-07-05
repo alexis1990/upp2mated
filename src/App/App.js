@@ -2,6 +2,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux' 
 import Identification from '../scenes/Consultations/identification/index'
+import Consultations from '../scenes/Consultations/'
 import Team from '../scenes/Consultations/team/index'
 import Sign from '../scenes/Sign/index'
 import KitUi from '../scenes/KitUi/index'
@@ -42,12 +43,12 @@ class App extends PureComponent {
     const steps = {
       wizard:{
           stepsRFI: [
-          { id: 1, component: <Identification/> },
-          { id: 2, component: <Team/> },
-          // { id: 3, title: 'Fournisseurs' },
-          // { id: 4, title: 'Documentation' },
-          // { id: 5, title: 'Récapitulatif' },
-          // { id: 6, title: 'Confirmation' }
+          { id: 1, component: <Identification/>, title: "Identification" },
+          { id: 2, component: <Team/> , title: "Equipe" }
+          // { id: 3, component:, title: 'Fournisseurs' },
+          // { id: 4, component:, title: 'Documentation' },
+          // { id: 5, component:, title: 'Récapitulatif' },
+          // { id: 6, component:, title: 'Confirmation' }
         ]
       }
     }
@@ -67,7 +68,10 @@ class App extends PureComponent {
                 </Wizard>*/}
                 <Route path="/consultations" component={({ match }) => (
                   <div>
-                    <Route path={`${match.url}/:stepId`} component={() => <Wizard steps={steps.wizard.stepsRFI} />}/>
+                    <Route path={`${match.url}/:stepId`} component={ ({match}) =>
+                      // <Wizard steps={steps.wizard.stepsRFI} />
+                      <Consultations match={match} steps={steps.wizard.stepsRFI} />
+                    }/>
                     <Route exact path={match.url} render={() => (
                       <h3>Please select a topic.</h3>
                     )}/>

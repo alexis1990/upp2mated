@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Link, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import WizardList from './components/WizardList'
+import WizardHeader from './components/WizardHeader'
 import WizardFooter from './components/WizardFooter'
 import './styles/wizard.css'
 
@@ -36,14 +36,15 @@ import './styles/wizard.css'
 
 const Wizard = ({ match, steps }) => (
 	<div>
+		<WizardHeader actualStep={match.params.stepId} steps={steps} />
 		{ steps[match.params.stepId - 1].component }
-		<WizardFooter actualStep={match.params.stepId}/>
+		{/*<WizardFooter actualStep={match.params.stepId}/>*/}
 	</div>
 )
 
 function mapStateToProps(state, ownProps) {
 	return {
-		pageId : ownProps.match.params.stepId
+		// pageId : ownProps.match.params.stepId
 	};
 }
 
