@@ -3,8 +3,7 @@ import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
-import Title from '../../../components/Title/index';
-import './styles/team.css';
+import FormContainer from './components/Form/Form.container';
 
 class Team extends PureComponent {
 	constructor(props){
@@ -15,7 +14,7 @@ class Team extends PureComponent {
 		console.log('this.props.stepsRFI', this.props.stepsRFI)
 		return(
 			<Col xs={12} md={12} lg={12}>
-				CORSICA
+				<FormContainer />
 			</Col>
 		);
 	}

@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
-import IdentificationForm from './Form.presentational';
-import './styles/form.css';
+import TeamForm from './Form.presentational';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
 import { reduxForm } from 'redux-form'
 
@@ -25,7 +24,7 @@ class FormContainer extends PureComponent {
 				<Row className="show-grid">
 					<Col xs={12} md={12} lg={12} className="consultation">
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
-							<IdentificationForm />
+							<TeamForm />
 							<WizardFooter />
 						</form>
 					</Col>
@@ -36,7 +35,7 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
-	// console.log('STTTTT', state, ownProps.match);
+	console.log('STATTTTTE', state)
 	return {};
 }
 
@@ -46,18 +45,6 @@ FormContainer = connect(
 )(FormContainer);
 
 export default FormContainer = reduxForm({
-  	form: 'Identification',
-   	destroyOnUnmount: false,
+  form: 'Team',
+   destroyOnUnmount: false,
 })(withRouter((FormContainer)))
-
-// You have to connect() to any reducers that you wish to connect to yourself
-// FormContainer = connect(
-//   (state, ownProps) => (console.log('STATEEEE', state, ownProps.match), {
-//     // initialValues: state.account.data // pull initial values from account reducer
-//   })
-//   // { load: loadAccount }               // bind account loading action creator
-// )(FormContainer)
-
-// export default withRouter(reduxForm({
-//   form: 'identification'
-// })(FormContainer));

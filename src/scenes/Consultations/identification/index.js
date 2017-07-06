@@ -23,6 +23,7 @@ class Identification extends PureComponent {
 }
 
 function mapStateToProps(state) {
+	console.log('staaaaate', state);
 	return{
 		stepsRFI : state.wizard.stepsRFI
 	}

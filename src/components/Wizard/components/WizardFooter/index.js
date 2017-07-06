@@ -1,29 +1,43 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { Col, Button } from 'react-bootstrap'
 import { bindActionCreators } from 'redux'
 import { nextPage, previousPage } from '../../../../Actions/wizard'
 import { Link } from 'react-router-dom'
 import './styles/wizardfooter.css'
 
-const WizardFooter = ({ previousPage, nextPage, actualStep }) => (
+function next(event, { history, stepId }) {
+  event.preventDefault();
+  history.push((parseInt(stepId) + 1).toString());
+}
+
+function previous(event, { history, stepId }) {
+  event.preventDefault();
+  history.push((parseInt(stepId) - 1).toString());
+}
+
+const WizardFooter = ({ actualStep, history, stepId }) => (
 	<Col xs={12} md={8} lg={12} className="wizardFooter">
-		<Link to={"/consultations/" + (actualStep - 1).toString()} className="abandon">
+		<Button onClick={(e) => previous(e, {history:history, stepId:stepId})} className="abandon">
 	      Annuler
-	    </Link>
-		<Button type="submit" className="next">
+	    </Button>
+		<Button onClick={ (e) => next(e, {history:history, stepId:stepId}) } type="submit" className="next">
 			Suivant
 		</Button>
 	</Col>
 )
 
 
-function mapStateToProps(state) {
-	return {};
+function mapStateToProps(state, ownProps) {
+	return {
+		stepId : ownProps.match.params.stepId
+	};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-	return bindActionCreators({ nextPage, previousPage }, dispatch);
+	
+	return bindActionCreators({}, dispatch);
 }
 
-export default connect (mapStateToProps, mapDispatchToProps) (WizardFooter);
+export default withRouter(connect (mapStateToProps, mapDispatchToProps) (WizardFooter));
