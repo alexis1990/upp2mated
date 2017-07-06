@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
 import IdentificationForm from './Form.presentational';
-import './styles/form.css';
+import validate from './validate'
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
 import { reduxForm } from 'redux-form'
+import './styles/form.css';
 
 class FormContainer extends PureComponent {
 
@@ -48,6 +49,7 @@ FormContainer = connect(
 export default FormContainer = reduxForm({
   	form: 'Identification',
    	destroyOnUnmount: false,
+   	validate
 })(withRouter((FormContainer)))
 
 // You have to connect() to any reducers that you wish to connect to yourself

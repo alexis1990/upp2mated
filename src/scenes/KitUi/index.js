@@ -1,36 +1,17 @@
 import React from 'react'
 import { FormGroup, FormControl, HelpBlock, ControlLabel, Radio, Checkbox, Button } from 'react-bootstrap'
-import FieldGroup from '../../components/Fields/index'
 import RangeTimePicker from '../../components/RangeTimePicker/index'
 import SingleTimePicker from '../../components/SingleTimePicker/index'
+import Input from '../../components/Fields/input'
+import Select from '../../components/Fields/select'
+import { Field, reduxForm } from 'redux-form'
 
 const KitUi = () => (
-	<form>
-	<SingleTimePicker />
-	<RangeTimePicker />
-    <FieldGroup
-      id="formControlsText"
-      type="text"
-      label="Text"
-      placeholder="Enter text"
-    />
-    <FieldGroup
-      id="formControlsEmail"
-      type="email"
-      label="Email address"
-      placeholder="Enter email"
-    />
-    <FieldGroup
-      id="formControlsPassword"
-      label="Password"
-      type="password"
-    />
-    <FieldGroup
-      id="formControlsFile"
-      type="file"
-      label="File"
-      help="Example block-level help text here."
-    />
+	 <form>
+    <Field type="text" name="aa" placeholder="Libellé" component={Input}>Libellé</Field>
+    <SingleTimePicker label="Date de clôture" controlId="deezd" />
+    <Field componentClass="select" name="aaddd" placeholder="nature" component={Select} >Nature</Field>
+	 <RangeTimePicker />
     <Checkbox checked readOnly>
       Checkbox
     </Checkbox>

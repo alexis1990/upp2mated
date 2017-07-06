@@ -3,9 +3,9 @@ import { FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap
 
 const Select = ({placeholder, type, input, meta}) => {
     return (
-    	<FormGroup controlId={input.name} validationState={meta.error ? 'error' : 'success'}>
+    	<FormGroup controlId={input.name} validationState={ meta.touched ? (meta.error ? 'error' : 'success') : ''}>
 	        <ControlLabel>Select</ControlLabel>
-	        <FormControl controlId="formControlsSelect" componentClass="select" placeholder="select" value={input.value} onChange={input.onChange}>
+	        <FormControl {...input} controlId="formControlsSelect" componentClass="select" placeholder="select" value={input.value} onChange={input.onChange}>
 				<option value="select">select</option>
 				<option value="other">...</option>
 			</FormControl>
