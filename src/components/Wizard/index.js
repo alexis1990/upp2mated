@@ -43,6 +43,7 @@ const Wizard = ({ match, steps }) => (
 )
 
 function mapStateToProps(state, ownProps) {
+	console.log('OWNNNN', ownProps)
 	return {
 		// pageId : ownProps.match.params.stepId
 	};

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 import Wizard from '../../components/Wizard/'
 import Title from '../../components/Title/'
-import {withRouter} from "react-router-dom"
+import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 
 const nextStep = (history, stepId) => history.push("/consultations/" + (parseInt(stepId) + 1));
@@ -32,7 +32,7 @@ class Consultations extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('STATEEEE', state, ownProps.match);
+	// console.log('STATEEEE', state, ownProps.match);
 	return{
 		stepId: ownProps.match.params.stepId
 	};
