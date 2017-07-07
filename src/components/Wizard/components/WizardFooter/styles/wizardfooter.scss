@@ -1,10 +1,7 @@
 .wizardFooter{
-	padding:0px 0px 20px 15px;
-	a{
-		width:80px;
-		height:40px;
-		border-radius: 2px;
-		line-height:40px;
+	padding:20px 0px 20px 20px;
+	button{
+		border-radius: 5px;
 		text-align:center;
 		vertical-align:middle;
 		&.abandon{
