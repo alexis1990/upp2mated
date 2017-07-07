@@ -24,7 +24,7 @@ class FormContainer extends PureComponent {
 		return(
 			<Grid className="form" fluid={true}>
 				<Row className="show-grid">
-					<Col xs={12} md={12} lg={12} className="consultation">
+					<Col xs={12} md={12} lg={12} className="consultations">
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
 							<IdentificationForm />
 							<WizardFooter />

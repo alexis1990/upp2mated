@@ -4,7 +4,11 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
 import TeamForm from './Form.presentational';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
-import { reduxForm } from 'redux-form'
+import { reduxForm, FieldArray } from 'redux-form'
+const Fields = [
+	{ value: "Fixo", label: "Fixo"},
+	{ value: "Celular", label: "Celular"},
+];
 
 class FormContainer extends PureComponent {
 
@@ -24,7 +28,7 @@ class FormContainer extends PureComponent {
 				<Row className="show-grid">
 					<Col xs={12} md={12} lg={12} className="consultation">
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
-							<TeamForm />
+							<FieldArray name="members" component={ TeamForm } fields={Fields}/>
 							<WizardFooter />
 						</form>
 					</Col>
