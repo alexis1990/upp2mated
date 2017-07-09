@@ -17,8 +17,12 @@ export function teamReducer(state = initialState, action = action) {
 	        }
 	    case types.REMOVE_FIELD:
 	      	return {
-	      		fields: state.filter((item, key )=> key !== action.payload)
-	      	}
+	            ...state,
+	            values: {
+	              ...state.values,
+	              Team: state.values.Team.filter((item, key )=> key !== action.payload)
+	            }
+	        }
 	    default:
 	      	return state;
 	}	
