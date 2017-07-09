@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import { wizardReducer } from '../reducers/wizardReducer/index'
+import { wizardReducer } from '../components/Wizard/components/WizardFooter/reducer'
+import { teamReducer } from '../scenes/Consultations/team/components/Form/reducer'
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
   	wizard: wizardReducer,
+  	// team: teamReducer,
    	routing: routerReducer,
-   	form: formReducer
+   	form: formReducer.plugin({
+    	Team: teamReducer
+	})	
 })

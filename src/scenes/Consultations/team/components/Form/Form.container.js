@@ -5,10 +5,6 @@ import { withRouter, Link, Route } from 'react-router-dom'
 import TeamForm from './Form.presentational';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
 import { reduxForm, FieldArray } from 'redux-form'
-const Fields = [
-	{ value: "Fixo", label: "Fixo"},
-	{ value: "Celular", label: "Celular"},
-];
 
 class FormContainer extends PureComponent {
 
@@ -22,13 +18,13 @@ class FormContainer extends PureComponent {
 	};
 
 	render(){
-		const { error, handleSubmit } = this.props
+		const { error, handleSubmit, fields } = this.props
 		return(
 			<Grid className="form" fluid={true}>
 				<Row className="show-grid">
 					<Col xs={12} md={12} lg={12} className="consultation">
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
-							<FieldArray name="members" component={ TeamForm } fields={Fields}/>
+							<FieldArray name="members" component={ TeamForm } fields={this.props.team}/>
 							<WizardFooter />
 						</form>
 					</Col>
@@ -39,8 +35,10 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('STATTTTTE', state)
-	return {};
+	console.log('STATTTTT', state)
+	return {
+		team: state.form.Team.values.Team
+	};
 }
 
 FormContainer = connect(
@@ -49,6 +47,6 @@ FormContainer = connect(
 )(FormContainer);
 
 export default FormContainer = reduxForm({
-  form: 'Team',
-   destroyOnUnmount: false,
+  	form: 'Team',
+   	destroyOnUnmount: false,
 })(withRouter((FormContainer)))

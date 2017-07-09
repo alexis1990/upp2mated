@@ -1,10 +1,10 @@
 const validate = values => {
   const errors = {}
   console.log('VALUEEE', values)
-  if (!values.libelle) {
-    errors.libelle = 'Champ obligatoire'
-  } else if (values.libelle.length > 0 && values.libelle.length < 6){
-  	errors.libelle = 'Le libellé doit contenir minimum 6 chiffres'
+  if (!values.consultationNumber) {
+    errors.consultationNumber = 'Champ obligatoire'
+  } else if (values.consultationNumber.length > 0 && values.consultationNumber.length < 6){
+  	errors.consultationNumber = 'Le libellé doit contenir minimum 6 chiffres'
   }
   // if (!values.lastName) {
   //   errors.lastName = 'Required'
