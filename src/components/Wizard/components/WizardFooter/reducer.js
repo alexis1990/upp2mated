@@ -1,5 +1,5 @@
-import initialState from '../initialState'
-import * as types from '../../Actions/types'
+import initialState from '../../initialState'
+import * as types from './actionTypes'
 
 
 export function wizardReducer(state = initialState.wizard, action = action) {

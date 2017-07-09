@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Col, Button } from 'react-bootstrap'
 import { bindActionCreators } from 'redux'
-import { nextPage, previousPage } from '../../../../Actions/wizard'
+import { nextPage, previousPage } from './actions'
 import { Link } from 'react-router-dom'
 import './styles/wizardfooter.css'
 
