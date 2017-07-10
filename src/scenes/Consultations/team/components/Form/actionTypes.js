@@ -1,2 +1,4 @@
-export const ADD_FIELD = "ADD_FIELD";
-export const REMOVE_FIELD = "REMOVE_FIELD";
+export const ADD_TEAM_FIELD = "ADD_TEAM_FIELD";
+export const REMOVE_TEAM_FIELD = "REMOVE_TEAM_FIELD";
+export const ADD_TECH_FIELD = "ADD_TECH_FIELD";
+export const REMOVE_TECH_FIELD = "REMOVE_TECH_FIELD";

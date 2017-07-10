@@ -1,13 +1,20 @@
 const initialState = {
-    values: {
-      Team :
-        [{
-          identity: '',
-          job: '',
-          nature: '',
-          employed: ''
-        }] 
-    }  
+  values: {
+    teamForm :
+    [{
+      identity: '',
+      job: '',
+      nature: '',
+      employed: ''
+    }],
+    techForm :
+    [{
+      identity: '',
+      job: '',
+      nature: '',
+      employed: ''
+    }],
+  }
 }
 
 export default initialState;

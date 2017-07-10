@@ -3,7 +3,7 @@ import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
-import FormContainer from './components/Form/Form.container';
+import FormContainer from './components/Form/index';
 
 class Team extends PureComponent {
 	constructor(props){

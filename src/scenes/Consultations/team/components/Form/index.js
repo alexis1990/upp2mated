@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
-import TeamForm from './Form.presentational';
+import TeamForm from './components/TeamForm.presentational';
+import TechForm from './components/TechForm.presentational';
+import TeamLeaderForm from './components/TeamLeaderForm.presentational';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
 import { reduxForm, FieldArray } from 'redux-form'
 
@@ -25,6 +27,8 @@ class FormContainer extends PureComponent {
 					<Col xs={12} md={12} lg={12} className="consultation">
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
 							<FieldArray name="members" component={ TeamForm } fields={this.props.team}/>
+							<FieldArray name="technical" component={ TechForm } fields={this.props.tech}/>
+							<FieldArray name="technical" component={ TeamLeaderForm } />
 							<WizardFooter />
 						</form>
 					</Col>
@@ -35,9 +39,9 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('STATTTTT', state)
 	return {
-		team: state.form.Team.values.Team
+		team: state.form.Team.values.teamForm,
+		tech: state.form.Team.values.techForm
 	};
 }
 
