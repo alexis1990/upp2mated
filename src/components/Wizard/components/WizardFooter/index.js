@@ -18,7 +18,7 @@ function previous(event, { history, stepId }) {
 }
 
 const WizardFooter = ({ actualStep, history, stepId }) => (
-	<Col xs={12} md={8} lg={12} className="wizardFooter">
+	<Col xs={12} md={12} lg={12} className="wizardFooter">
 		<Button onClick={(e) => previous(e, {history:history, stepId:stepId})} className="abandon">
 	      Annuler
 	    </Button>

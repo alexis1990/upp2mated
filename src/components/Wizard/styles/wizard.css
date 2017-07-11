@@ -1,7 +1,9 @@
-.wizard .step {
-  padding: 5px;
-  color: white;
-  background: #e4e4e4;
-  text-align: center; }
-  .wizard .step.active {
-    background: #0189a9; }
+.wizard {
+  padding-bottom: 20px; }
+  .wizard .step {
+    padding: 5px;
+    color: white;
+    background: #e4e4e4;
+    text-align: center; }
+    .wizard .step.active {
+      background: #0189a9; }

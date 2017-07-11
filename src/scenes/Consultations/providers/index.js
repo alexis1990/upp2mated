@@ -4,15 +4,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
 import FormContainer from './components/Form/index';
-import './styles/team.css'
+import './styles/providers.css'
 
-class Team extends PureComponent {
+class Providers extends PureComponent {
 	constructor(props){
 		super(props);
 	}
 
 	render(){
-		console.log('this.props.stepsRFI', this.props.stepsRFI)
 		return(
 			<FormContainer />
 		);
@@ -20,9 +19,7 @@ class Team extends PureComponent {
 }
 
 function mapStateToProps(state) {
-	return{
-		stepsRFI : state.wizard.stepsRFI
-	}
+	return{}
 }
 
 function mapDispatchToProps() {
@@ -32,4 +29,4 @@ function mapDispatchToProps() {
 export default connect(
   mapStateToProps, 
   mapDispatchToProps
-)(Team)
+)(Providers)

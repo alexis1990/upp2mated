@@ -19,9 +19,9 @@ class Consultations extends Component {
 	render(){
 		const { steps } = this.props;
 		return (
-			<Grid className="form" fluid={true}>
+			<Grid className="form" fluid>
 				<Row className="show-grid">
-					<Col xs={12} md={12} lg={12} className="consultation">
+					<Col xs={12} md={12} lg={12}>
 						<Title />
 						<Wizard steps={steps} />
 					</Col>

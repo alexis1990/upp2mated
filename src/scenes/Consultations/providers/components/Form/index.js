@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
-import TeamForm from './components/TeamForm.presentational';
-import TechForm from './components/TechForm.presentational';
-import TeamLeaderForm from './components/TeamLeaderForm.presentational';
+import ProvidersForm from './components/ProvidersForm.presentational';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
 import { reduxForm, FieldArray } from 'redux-form'
 
@@ -24,9 +22,7 @@ class FormContainer extends PureComponent {
 		return(
 			<Row className="show-grid">
 				<form onSubmit={handleSubmit(this.submit.bind(this))}>
-					<FieldArray name="members" component={ TeamForm } fields={this.props.team}/>
-					<FieldArray name="technical" component={ TechForm } fields={this.props.tech}/>
-					<FieldArray name="technical" component={ TeamLeaderForm } />
+					<FieldArray name="members" component={ ProvidersForm } fields={this.props.providers}/>
 					<WizardFooter />
 				</form>
 			</Row>
@@ -36,8 +32,7 @@ class FormContainer extends PureComponent {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		team: state.form.Team.values.teamReducer,
-		tech: state.form.Team.values.techReducer
+		providers: state.form.Providers.values.providersReducer,
 	};
 }
 
@@ -47,6 +42,6 @@ FormContainer = connect(
 )(FormContainer);
 
 export default FormContainer = reduxForm({
-  	form: 'Team',
+  	form: 'Providers',
    	destroyOnUnmount: false,
 })(withRouter((FormContainer)))

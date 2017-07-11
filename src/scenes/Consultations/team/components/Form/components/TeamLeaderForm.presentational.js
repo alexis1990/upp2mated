@@ -8,13 +8,12 @@ import renderInput from '../../../../../../components/Fields/input'
 import Select from '../../../../../../components/Fields/select'
 import RangeTimePicker from '../../../../../../components/RangeTimePicker/index'
 import SingleTimePicker from '../../../../../../components/SingleTimePicker/index'
-import '../../styles/style.css'
 const { DOM: { input } } = React
 
 
 const TechForm = ({ handleSubmit, fields, addTechField, removeTechField, teamLeaderActivate }) => {
 	return (
-		<Col xs={12} md={8} lg={12} className="team">
+		<Col xs={12} md={12} lg={12}>
 			<h5>Chef de Projet ?</h5>
 			<Row className="show-grid">
 				<Col xs={12} md={8} lg={12}>

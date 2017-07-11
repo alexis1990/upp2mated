@@ -21,3 +21,30 @@ body {
 .nopadding {
   padding: 0 !important;
   margin: 0 !important; }
+
+.small-text {
+  font-size: 12px;
+  line-height: 13px; }
+
+button {
+  border: none;
+  color: white; }
+  button.btn-action-button {
+    background-color: #0189a9 !important;
+    outline: none !important; }
+    button.btn-action-button.font-icon {
+      color: white;
+      font-size: 10px;
+      padding: 5px;
+      width: 25px;
+      height: 25px; }
+      button.btn-action-button.font-icon .glyphicon {
+        line-height: 0; }
+  button.btn-action-button::hover {
+    background-color: #0189a9;
+    opacity: 8; }
+  button.disabled-button {
+    background-color: #e4e4e4 !important; }
+
+input[type="checkbox"] {
+  margin: 5px; }
