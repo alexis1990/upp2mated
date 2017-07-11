@@ -3,7 +3,7 @@ import { FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap
 
 const Select = ({placeholder, type, input, meta , withoutLabel}) => {
     return (
-    	<FormGroup controlId={input.name} validationState={ meta.touched ? (meta.error ? 'error' : 'success') : ''}>
+    	<FormGroup bsSize="small" controlId={input.name} validationState={ meta.touched ? (meta.error ? 'error' : 'success') : ''}>
 	        { !withoutLabel && <ControlLabel>Select</ControlLabel> }
 	        <FormControl {...input} componentClass="select" placeholder="select" value={input.value} onChange={input.onChange}>
 				<option value="select">select</option>

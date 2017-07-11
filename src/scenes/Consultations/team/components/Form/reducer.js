@@ -3,43 +3,43 @@ import * as types from './actionTypes'
 import {reducer as formReducer} from 'redux-form';
 import _ from 'lodash'
 
+const newField = {};
+
 export function teamReducer(state = initialState, action = action) {
-			console.log('SSSSSSSS', state)
 	switch(action.type) {
-	    case types.ADD_FIELD:
-	    	const newField = {};
+	    case types.ADD_TEAM_FIELD:
 	      	return {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              Team: state.values.Team.concat(newField)
+	              teamForm: state.values.teamForm.concat(newField)
 	            }
 	        }
-	    case types.REMOVE_FIELD:
+	    case types.REMOVE_TEAM_FIELD:
 	      	return {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              Team: state.values.Team.filter((item, key )=> key !== action.payload)
+	              teamForm: state.values.teamForm.filter((item, key )=> key !== action.payload)
 	            }
 	        }
+	    case types.ADD_TECH_FIELD:
+	      	return { 
+	      		...state,
+	            values: {
+	              ...state.values,
+	              techForm: state.values.techForm.concat(newField)
+	            }  
+		    }
+	    case types.REMOVE_TECH_FIELD:
+	        return { 
+	      		...state,
+	            values: {
+	              ...state.values,
+	              techForm: state.values.techForm.filter((item, key )=> key !== action.payload)
+	            }  
+		    }
 	    default:
 	      	return state;
 	}	
 }
-// export function teamReducer(state = initialState.fields, action = action) {
-//   switch(action.type) {
-//     case types.ADD_FIELD:
-//     	const newField = {};
-//       	return { 
-// 	        ...state,
-// 	        fields: state.fields.concat(newField)
-// 	    }
-//     case types.REMOVE_FIELD:
-//       	return {
-//       		fields: state.fields.filter((item, key )=> key !== action.payload)
-//       	}
-//     default:
-//       	return state;
-//   }
-// }
