@@ -1,19 +1,12 @@
 const initialState = {
   values: {
-    teamReducer :
+    providersReducer :
     [{
       identity: '',
       job: '',
       nature: '',
       employed: ''
-    }],
-    techReducer :
-    [{
-      identity: '',
-      job: '',
-      nature: '',
-      employed: ''
-    }],
+    }]
   }
 }
 

@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import Identification from '../scenes/Consultations/identification/index'
 import Consultations from '../scenes/Consultations/'
 import Team from '../scenes/Consultations/team/index'
+import Providers from '../scenes/Consultations/providers/index'
 import Sign from '../scenes/Sign/index'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
-import Wizard from '../components/Wizard/index'
 
 
 class App extends PureComponent {
@@ -45,7 +45,8 @@ class App extends PureComponent {
           stepsRFI: [
           { id: 1, component: <Identification/>, title: "Identification" },
           { id: 2, component: <Team/> , title: "Equipe" },
-          { id: 3, component: <Team/> , title: "Equipe" }
+          { id: 3, component: <Team/> , title: "Equipe" },
+          { id: 4, component: <Providers/> , title: "Fournisseurs" }
           // { id: 3, component:, title: 'Fournisseurs' },
           // { id: 4, component:, title: 'Documentation' },
           // { id: 5, component:, title: 'Récapitulatif' },
@@ -62,15 +63,9 @@ class App extends PureComponent {
           <main>
             <Router>
               <div>
-                {/*<Wizard path="/consultations/">
-                  <Route path="1" component={Identification} />
-                  <Route exact path="2" component={Team} />
-                  <Route path="3" component={Confirmation} />
-                </Wizard>*/}
                 <Route path="/consultations" component={({ match }) => (
                   <div>
                     <Route path={`${match.url}/:stepId`} component={ ({match}) =>(
-                      // <Wizard steps={steps.wizard.stepsRFI} />
                       <Consultations match={match} stepId={match.params.stepId} steps={steps.wizard.stepsRFI} />)
                     }/>
                     <Route exact path={match.url} render={() => (
@@ -89,7 +84,7 @@ class App extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps){
-  console.log('OWNNN', ownProps)
+  console.log('STATEEE', state)
   return {};
 }
 

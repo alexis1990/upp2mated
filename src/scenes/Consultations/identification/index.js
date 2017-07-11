@@ -15,9 +15,7 @@ class Identification extends PureComponent {
 	render(){
 		console.log('this.props.stepsRFI', this.props.stepsRFI)
 		return(
-			<Col xs={12} md={12} lg={12}>
-				<FormContainer />
-			</Col>
+			<FormContainer />
 		);
 	}
 }

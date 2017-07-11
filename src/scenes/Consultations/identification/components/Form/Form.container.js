@@ -22,16 +22,12 @@ class FormContainer extends PureComponent {
 	render(){
 		const { error, handleSubmit } = this.props
 		return(
-			<Grid className="form" fluid={true}>
-				<Row className="show-grid">
-					<Col xs={12} md={12} lg={12} className="consultations">
-						<form onSubmit={handleSubmit(this.submit.bind(this))}>
-							<IdentificationForm />
-							<WizardFooter />
-						</form>
-					</Col>
-				</Row>
-			</Grid>
+			<Row className="show-grid">
+				<form onSubmit={handleSubmit(this.submit.bind(this))}>
+					<IdentificationForm />
+					<WizardFooter />
+				</form>
+			</Row>
 		);
 	}
 }

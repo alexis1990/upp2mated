@@ -3,7 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const WizardHeader = ({steps, actualStep}) => (
-	<Grid className="wizard">
+	<Grid className="wizard" fluid>
 		<Row className="show-grid">
 			{steps.map((step, index)=> (
 				<Col xs={12/steps.length} md={12/steps.length} lg={12/steps.length} className={"step " + (parseInt(actualStep) >= step.id ? 'active' : '')}> {index + 1}/ {step.title}</Col>

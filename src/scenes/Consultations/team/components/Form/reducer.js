@@ -12,7 +12,7 @@ export function teamReducer(state = initialState, action = action) {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              teamForm: state.values.teamForm.concat(newField)
+	              teamReducer: state.values.teamReducer.concat(newField)
 	            }
 	        }
 	    case types.REMOVE_TEAM_FIELD:
@@ -20,7 +20,7 @@ export function teamReducer(state = initialState, action = action) {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              teamForm: state.values.teamForm.filter((item, key )=> key !== action.payload)
+	              teamReducer: state.values.teamReducer.filter((item, key )=> key !== action.payload)
 	            }
 	        }
 	    case types.ADD_TECH_FIELD:
@@ -28,7 +28,7 @@ export function teamReducer(state = initialState, action = action) {
 	      		...state,
 	            values: {
 	              ...state.values,
-	              techForm: state.values.techForm.concat(newField)
+	              techReducer: state.values.techReducer.concat(newField)
 	            }  
 		    }
 	    case types.REMOVE_TECH_FIELD:
@@ -36,7 +36,7 @@ export function teamReducer(state = initialState, action = action) {
 	      		...state,
 	            values: {
 	              ...state.values,
-	              techForm: state.values.techForm.filter((item, key )=> key !== action.payload)
+	              techReducer: state.values.techReducer.filter((item, key )=> key !== action.payload)
 	            }  
 		    }
 	    default:
