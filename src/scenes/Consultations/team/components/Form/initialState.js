@@ -1,13 +1,13 @@
 const initialState = {
   values: {
-    teamReducer :
+    team :
     [{
       identity: '',
       job: '',
       nature: '',
       employed: ''
     }],
-    techReducer :
+    tech :
     [{
       identity: '',
       job: '',

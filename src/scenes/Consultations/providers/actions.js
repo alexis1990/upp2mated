@@ -1,5 +1,12 @@
 import * as types from './actionTypes'
 
+export function addNewProvider(newProvider) {
+	return {
+		type: types.ADD_NEW_PROVIDER,
+		payload: newProvider
+	}
+}
+
 export function addProvidersField() {
 	const newField = {};
 	return {

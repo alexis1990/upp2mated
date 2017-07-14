@@ -1,13 +1,12 @@
 import initialState from './initialState'
 import * as types from './actionTypes'
 import {reducer as formReducer} from 'redux-form';
-import _ from 'lodash'
-
 const newField = {};
 
 export function providersReducer(state = initialState, action = action) {
+			console.log('ACTTTTION', action.type)
 	switch(action.type) {
-	    case types.ADD_PROVIDERS_FIELD:
+		case types.ADD_PROVIDERS_FIELD:
 	      	return {
 	            ...state,
 	            values: {
@@ -23,6 +22,16 @@ export function providersReducer(state = initialState, action = action) {
 	              providersReducer: state.values.providersReducer.filter((item, key )=> key !== action.payload)
 	            }
 	        }
+	    case types.ADD_NEW_PROVIDER:
+	    	console.log('ACCCCTION', action.payload);
+	    	console.log('ACCCCTION111', state);
+	      	return {
+	      		...state,
+	            values: {
+	              ...state.values,
+	              listProviders: state.values.listProviders.concat(action.payload)
+	            }
+	      	}
 	    default:
 	    	return state;
 	}	

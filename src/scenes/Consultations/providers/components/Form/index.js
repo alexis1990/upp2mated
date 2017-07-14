@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
-import ProvidersForm from './components/ProvidersForm.presentational';
+import ProvidersForm from './components/ProvidersForm/ProvidersForm.presentational';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
 import { reduxForm, FieldArray } from 'redux-form'
 
@@ -22,7 +22,7 @@ class FormContainer extends PureComponent {
 		return(
 			<Row className="show-grid">
 				<form onSubmit={handleSubmit(this.submit.bind(this))}>
-					<FieldArray name="members" component={ ProvidersForm } fields={this.props.providers}/>
+					<FieldArray name="members" component={ ProvidersForm } fields={this.props.providersFields}/>
 					<WizardFooter />
 				</form>
 			</Row>
@@ -31,8 +31,9 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
+	console.log('STTTTTTATE', state)
 	return {
-		providers: state.form.Providers.values.providersReducer,
+		providersFields: state.form.Providers.values.providersReducer
 	};
 }
 

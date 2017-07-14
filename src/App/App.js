@@ -9,6 +9,7 @@ import Sign from '../scenes/Sign/index'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
+import Modal from '../components/Modal/index'
 
 
 class App extends PureComponent {

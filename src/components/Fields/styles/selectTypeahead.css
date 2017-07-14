@@ -1,0 +1,14 @@
+.bootstrap-typeahead {
+  padding: 0 !important;
+  z-index: 0 !important; }
+  .bootstrap-typeahead .bootstrap-typeahead-input {
+    margin-top: -1px;
+    margin-left: -1px; }
+    .bootstrap-typeahead .bootstrap-typeahead-input .form-control {
+      border-right: none !important;
+      border-radius: 0;
+      outline: none; }
+      .bootstrap-typeahead .bootstrap-typeahead-input .form-control:focus {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none; }
