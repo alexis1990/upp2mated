@@ -1,7 +1,9 @@
 .Providers{
 	padding-top: 20px;
 	padding-bottom: 20px;
+	z-index:0;
 	.fields{
 		text-align:center;
+		z-index:100;
 	}
 }

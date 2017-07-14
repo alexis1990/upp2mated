@@ -4,6 +4,8 @@ import Wizard from '../../components/Wizard/'
 import Title from '../../components/Title/'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
+import ProvidersModal from './providers/components/Modal/index'
+import Modal from '../../components/Modal/index'
 
 const nextStep = (history, stepId) => history.push("/consultations/" + (parseInt(stepId) + 1));
 
@@ -17,9 +19,10 @@ class Consultations extends Component {
 	// }
 
 	render(){
-		const { steps } = this.props;
+		const { steps, isVisible } = this.props;
 		return (
 			<Grid className="form" fluid>
+				<Modal isVisible={isVisible} component={<ProvidersModal />} />
 				<Row className="show-grid">
 					<Col xs={12} md={12} lg={12}>
 						<Title />
@@ -32,9 +35,10 @@ class Consultations extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	// console.log('STATEEEE', state, ownProps.match);
+	console.log('STATEEEE', state);
 	return{
-		stepId: ownProps.match.params.stepId
+		stepId: ownProps.match.params.stepId,
+		isVisible: state.modal
 	};
 }
 

@@ -13,7 +13,9 @@ class Providers extends PureComponent {
 
 	render(){
 		return(
-			<FormContainer />
+			<div>
+				<FormContainer />
+			</div>
 		);
 	}
 }

@@ -19,17 +19,17 @@ const TeamForm = ({ handleSubmit, fields, addTeamField, removeTeamField }) => {
 					<Col xs={12} md={12} lg={12} key={index}>
 						<Row className="show-grid line">
 					      	<Col sm={12} md={3} lg={3}>
-					      		<Field type="text" placeholder="Prénom nom créateur loggué" withoutLabel name={`teamReducer[${index}].identity`} component={renderInput}>Libellé</Field>
+					      		<Field type="text" placeholder="Prénom nom créateur loggué" withoutLabel name={`team[${index}].identity`} component={renderInput}>Libellé</Field>
 					      	</Col>
 					      	<Col sm={12} md={3} lg={3}>
-					      		<Field type="text" placeholder="Poste" withoutLabel name={`teamReducer[${index}].job`} component={renderInput}>Poste</Field>
+					      		<Field type="text" placeholder="Poste" withoutLabel name={`team[${index}].job`} component={renderInput}>Poste</Field>
 					      	</Col>
 					      	<Col sm={12} md={2} lg={2}>
-					      		<Field componentClass="select" withoutLabel name={`teamReducer[${index}].nature`} placeholder="nature" component={Select}>Nature</Field>
+					      		<Field componentClass="select" withoutLabel name={`team[${index}].nature`} placeholder="nature" component={Select}>Nature</Field>
 					      	</Col>
 					      	<Col sm={12} md={3} lg={3}>
 					      		<span>
-						          <Field name={`teamReducer[${index}].employed`} id='employed' component="input" type="checkbox"/>
+						          <Field name={`team[${index}].employed`} id='employed' component="input" type="checkbox"/>
 						        </span>
 					      		<span>
 					      			<label htmlFor="employed">Contact visible pour le fournisseur</label>

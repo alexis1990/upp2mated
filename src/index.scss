@@ -31,6 +31,18 @@ body {
     letter-spacing: 1px;
 }
 
+.hidden{
+  opacity:0;
+  top:500;
+  transition: all 10s ease-in-out;
+}
+
+.visible{
+  opacity:1;
+  top:0;
+  transition: all 10s ease-in-out;
+}
+
 .nopadding {
    	padding: 0 !important;
    	margin: 0 !important;
@@ -38,9 +50,13 @@ body {
 
 .small-text {
   font-size: $small-text;
-  line-height: 13px;
+  line-height: $small-text;
 }
 
+.small-glyph {
+  font-size: 9px;
+  line-height: 9px;
+}
 
 button {
   border: none;
@@ -48,6 +64,7 @@ button {
   &.btn-action-button{
       background-color: $blue !important;
       outline: none !important;
+      padding: 8px;
       &.font-icon{
         color:white;
         font-size: 10px;
@@ -58,6 +75,10 @@ button {
           line-height: 0;
         }
       }
+  }
+  &.btn-action-button-transparent{
+    background-color: white !important;
+    color:$blue;
   }
   &.btn-action-button::hover{
     background-color: $blue;
