@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { wizardReducer } from '../components/Wizard/components/WizardFooter/reducer'
-import { teamReducer } from '../scenes/Consultations/team/components/Form/reducer'
+import { teamReducer } from '../scenes/Consultations/team/reducer'
 import { providersReducer } from '../scenes/Consultations/providers/reducer'
 // import { newProvider } from '../scenes/Consultations/providers/components/Modal/reducer'
 import { modalReducer } from '../components/Modal/reducer'

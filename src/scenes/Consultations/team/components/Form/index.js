@@ -35,9 +35,10 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
+	console.log('TEAMMMMMMMM', state.form.Team)
 	return {
-		team: state.form.Team.values.teamReducer,
-		tech: state.form.Team.values.techReducer
+		team: state.form.Team.values.team,
+		tech: state.form.Team.values.tech
 	};
 }
 

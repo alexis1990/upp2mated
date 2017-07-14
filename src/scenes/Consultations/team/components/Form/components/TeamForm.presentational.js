@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addTeamField, removeTeamField } from '../actions'
+import { addTeamField, removeTeamField } from '../../../actions'
 import { FormGroup, FormControl, HelpBlock, ControlLabel, Radio, Checkbox, Button, Col, Row, Glyphicon } from 'react-bootstrap'
 import renderInput from '../../../../../../components/Fields/input'
 import Select from '../../../../../../components/Fields/select'
