@@ -1,0 +1,12 @@
+.box{
+	border: dashed 0.3px rgba(0,0,0,0.2);
+	margin: 20px 0;
+	padding: 20px 0;
+	position:relative;
+	h5{
+		position:absolute;
+		top: -18px;
+		padding: 0 10px;
+    	background-color: white;
+	}
+}
