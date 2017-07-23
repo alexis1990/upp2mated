@@ -6,7 +6,7 @@ const WizardHeader = ({steps, actualStep}) => (
 	<Grid className="wizard" fluid>
 		<Row className="show-grid">
 			{steps.map((step, index)=> (
-				<Col xs={12/steps.length} md={12/steps.length} lg={12/steps.length} className={"step " + (parseInt(actualStep) >= step.id ? 'active' : '')}> {index + 1}/ {step.title}</Col>
+				<Col style={{ width: 100/steps.length + '%' }} xs={12} md={12} lg={12} className={"step " + (parseInt(actualStep) >= step.id ? 'active' : '')}> {index + 1}/ {step.title}</Col>
 			))}
 			
 			{/*<Col xs={2} md={2} lg={2} className="step">2/ Equipe</Col>

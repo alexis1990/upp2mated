@@ -1,3 +1,6 @@
+.table {
+  margin-bottom: 0; }
+
 .table-responsive {
   padding: 5px;
   box-sizing: border-box;

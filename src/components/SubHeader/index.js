@@ -21,7 +21,7 @@ class SubHeader extends PureComponent {
 							</NavDropdown>
 						</NavItem>
 						<NavItem>
-							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="cog"/><span>paramétres du logiciel</span></span>} id="basic-nav-dropdown">
+							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="cog"/><span>paramétres</span></span>} id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1}>Anglais</MenuItem>
 							</NavDropdown>
 						</NavItem>

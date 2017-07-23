@@ -1,0 +1,13 @@
+.list {
+  padding: 0 10px; }
+  .list .element {
+    padding: 10px; }
+    .list .element .files ul {
+      margin-bottom: 0; }
+      .list .element .files ul li {
+        display: inline;
+        margin-right: 10px; }
+  .list .actions {
+    text-align: center; }
+    .list .actions span {
+      padding: 0 10px; }

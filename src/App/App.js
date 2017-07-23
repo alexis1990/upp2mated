@@ -6,12 +6,15 @@ import Consultations from '../scenes/Consultations/'
 import Team from '../scenes/Consultations/team/index'
 import Providers from '../scenes/Consultations/providers/index'
 import Documentation from '../scenes/Consultations/documentation/index'
+import Confirmation from '../scenes/Consultations/confirmation/index'
 import Summary from '../scenes/Consultations/summary/index'
+import CommercialFrame from '../scenes/Consultations/commercialFrame/index'
 import Sign from '../scenes/Sign/index'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
 import Modal from '../components/Modal/index'
+import 'react-datasheet/lib/react-datasheet.css';
 
 
 class App extends PureComponent {
@@ -48,11 +51,11 @@ class App extends PureComponent {
           stepsRFI: [
           { id: 1, component: <Identification/>, title: "Identification" },
           { id: 2, component: <Team/> , title: "Equipe" },
-          { id: 3, component: <Team/> , title: "Equipe" },
+          { id: 3, component: <CommercialFrame/> , title: "Trame commerciale" },
           { id: 4, component: <Providers/> , title: "Fournisseurs" },
           { id: 5, component: <Documentation/> , title: "Documentation" },
-          { id: 6, component: <Summary/> , title: "Récapitulatif" }
-          // { id: 3, component:, title: 'Fournisseurs' },
+          { id: 6, component: <Summary/> , title: "Récapitulatif" },
+          { id: 7, component: <Confirmation/>, title: 'Confirmation' },
           // { id: 4, component:, title: 'Documentation' },
           // { id: 5, component:, title: 'Récapitulatif' },
           // { id: 6, component:, title: 'Confirmation' }
