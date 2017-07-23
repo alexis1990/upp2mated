@@ -10,6 +10,7 @@
     "react-bootstrap": "^0.31.0",
     "react-bootstrap-table": "^3.4.6",
     "react-bootstrap-typeahead": "^1.4.2",
+    "react-datasheet": "^1.2.12",
     "react-dates": "^12.2.2",
     "react-dom": "^15.6.1",
     "react-dropzone": "^3.13.3",
