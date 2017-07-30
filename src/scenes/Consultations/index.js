@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 import ProvidersModal from './providers/components/Modal/index'
 import Modal from '../../components/Modal/index'
+import Spinner from '../../components/Spinner'
 
 const nextStep = (history, stepId) => history.push("/consultations/" + (parseInt(stepId) + 1));
 
@@ -19,16 +20,23 @@ class Consultations extends Component {
 	// }
 
 	render(){
-		const { steps, isVisible } = this.props;
+		const { steps, isVisible, isAuthenticated } = this.props;
 		return (
 			<Grid className="form" fluid>
 				<Modal isVisible={isVisible} component={<ProvidersModal />} />
-				<Row className="show-grid">
-					<Col xs={12} md={12} lg={12}>
-						<Title />
-						<Wizard steps={steps} />
-					</Col>
-				</Row>
+				{
+					isAuthenticated 
+					?
+					<Row className="show-grid">
+						<Col xs={12} md={12} lg={12}>
+							<Title />
+							<Wizard steps={steps} />
+						</Col>
+					</Row>
+					:
+					<Spinner />
+				}
+
 			</Grid>
 		)	
 	}
@@ -38,7 +46,8 @@ function mapStateToProps(state, ownProps) {
 	console.log('STATEEEE', state);
 	return{
 		stepId: ownProps.match.params.stepId,
-		isVisible: state.modal
+		isVisible: state.modal,
+		isAuthenticated: state.auth.isLogged
 	};
 }
 
@@ -46,4 +55,4 @@ function mapDispatchToProps() {
 	return{};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (withRouter(Consultations));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Consultations))

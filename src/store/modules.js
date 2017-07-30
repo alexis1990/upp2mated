@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux'
 import { wizardReducer } from '../components/Wizard/components/WizardFooter/reducer'
 import { teamReducer } from '../scenes/Consultations/team/reducer'
 import { providersReducer } from '../scenes/Consultations/providers/reducer'
+import { auth } from '../scenes/Authentication/reducer'
 // import { newProvider } from '../scenes/Consultations/providers/components/Modal/reducer'
 import { modalReducer } from '../components/Modal/reducer'
 import { reducer as formReducer } from 'redux-form'
@@ -12,11 +13,12 @@ import { reducer as formReducer } from 'redux-form'
 export default combineReducers({
   	wizard: wizardReducer,
   	modal: modalReducer,
+  	auth: auth,
   	// team: teamReducer,
    	routing: routerReducer,
    	form: formReducer.plugin({
     	Team: teamReducer,
-    	Providers: providersReducer,
+    	Providers: providersReducer
     	// NewProvider: newProvider
 	})	
 })
