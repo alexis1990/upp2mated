@@ -1,6 +1,5 @@
 import initialState from './initialState'
 import * as types from './actionTypes'
-import {reducer as formReducer} from 'redux-form';
 const newField = {};
 
 export function providersReducer(state = initialState, action = action) {

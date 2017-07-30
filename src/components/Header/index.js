@@ -1,9 +1,22 @@
 import React, { PureComponent } from 'react';
 import { Navbar, NavItem, NavDropdown, MenuItem, Nav, Image, Col, FormGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
 import logo from "./imgs/logo.png";
-import './styles/navbar.css';
+import { withRouter } from 'react-router-dom'
+import { logout } from './actions'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import './styles/navbar.css'
 
 class Header extends PureComponent {
+	constructor(props){
+		super(props);
+	}
+
+	logout() {
+		const { history } = this.props;
+		this.props.logout(history, sessionStorage);
+	}
+
 	render(){
 		return(
 			<Navbar className="header" inverse collapseOnSelect fluid={true}>
@@ -24,7 +37,7 @@ class Header extends PureComponent {
 					        	<Glyphicon glyph="search" />
 					        </Button>
 				      	</Navbar.Form>
-				      	<NavItem eventKey={2} href="#">
+				      	<NavItem eventKey={2}>
 				      		<Glyphicon glyph="envelope" />
 				      	</NavItem>
 				      	<NavItem>
@@ -38,7 +51,7 @@ class Header extends PureComponent {
 								<MenuItem eventKey={3.1}>Anglais</MenuItem>
 							</NavDropdown>
 						</NavItem>
-						<NavItem eventKey={2} href="#"><Glyphicon glyph="log-out" /></NavItem>
+						<NavItem eventKey={2} onClick={this.logout.bind(this)}><Glyphicon glyph="log-out" /></NavItem>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
@@ -46,4 +59,13 @@ class Header extends PureComponent {
 	}
 }
 
-export default Header;
+function mapStateToProps(state, props){
+	console.log('PROPS', props)
+	return{
+
+	}
+}
+
+const mapDispatchToProps = (dispatch, props) => bindActionCreators({ logout }, dispatch);
+
+export default withRouter(connect (mapStateToProps, mapDispatchToProps) (Header));

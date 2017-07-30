@@ -1,7 +1,5 @@
 import initialState from './initialState'
 import * as types from './actionTypes'
-import {reducer as formReducer} from 'redux-form';
-import _ from 'lodash'
 
 const newField = {};
 

@@ -1,36 +1,35 @@
 import React, { Component } from 'react'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
-import { withRouter } from "react-router-dom"
+import { Grid, Row, Col, Image } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
-import renderInput from '../../components/Fields/input'
+import { reduxForm } from 'redux-form'
 import { authenticate } from './actions'
 import { bindActionCreators } from 'redux'
 import Spinner from '../../components/Spinner'
+import logo from "../../logo.png"
+import LoginForm from './components/Login/index'
+import './styles/style.css'
 
 class Authentication extends Component {
 
 	submit(values) {
 		const { history } = this.props;
-		console.log('THIS.PROP¨S', this.props)
 		this.props.authenticate(values, history);
 	}
 
 	render(){
 		const { steps, isVisible, handleSubmit, isAuthenticated } = this.props;
-		
+
 		return (
-			<Grid fluid>
+			<Grid fluid style={{ height: window.innerHeight }}>
 			{	isAuthenticated == null ?
-				<Row className="show-grid">
-					<Col xs={12} md={6} lg={6}>
-					okokokok
+				<Row className="show-grid login-block">
+					<Col xs={12} md={6} lg={6} className="logo-box">
+						<Image src={logo} rounded />
 					</Col>
-					<Col xs={12} md={6} lg={6}>
+					<Col xs={12} md={6} lg={6} className="login-box">
+						<h2>Connexion :</h2>
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
-							<Field type="text" name="name" placeholder="Nom"  component={renderInput}>Nom :</Field>
-		    				<Field type="password" name="password" placeholder="Mot de passe"  component={renderInput}>Mot de Passe :</Field>
-		    				<Button type="submit">Enregistrez-vous</Button>
+							<LoginForm />
 		    			</form>
 					</Col>
 				</Row>
@@ -55,6 +54,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default withRouter(reduxForm({
+export default reduxForm({
   	form: 'Authentication'
-}) (connect(mapStateToProps, mapDispatchToProps)(Authentication)))
+}) (connect(mapStateToProps, mapDispatchToProps, null, {
+  pure: false
+})(Authentication))

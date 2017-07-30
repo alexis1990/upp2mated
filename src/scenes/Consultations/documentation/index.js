@@ -1,19 +1,14 @@
 import React, { PureComponent } from 'react';
-import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 import renderDropzoneInput from '../../../components/Fields/renderDropzoneInput'
 import WizardFooter from '../../../components/Wizard/components/WizardFooter/index'
 import './styles/documentation.css'
 const { DOM: { input } } = React
 
 class Documentation extends PureComponent {
-	constructor(props){
-		super(props)
-	}
-
 	render(){
 		return(
 			<Col>

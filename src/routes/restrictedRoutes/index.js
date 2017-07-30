@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { authentication } from '../../scenes/Authentication/actions'
@@ -30,7 +30,7 @@ export default function requireAuthentication(Component) {
                     history.push(`${redirectAfterLogin(location)}`);
                 }
                 if(!token) {
-                    history.push('/authentication');
+                    history.push('/');
                 }
             }
         }
@@ -49,7 +49,7 @@ export default function requireAuthentication(Component) {
         }
     }
 
-    const mapStateToProps = (state, props) => (console.log('rr', state, props),{
+    const mapStateToProps = (state, props) => ({
         token: state.auth.token,
         // userName: state.auth.userName,
         isAuthenticated: state.auth.isLogged
