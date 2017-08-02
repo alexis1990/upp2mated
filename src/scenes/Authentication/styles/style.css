@@ -1,23 +1,25 @@
-.login-block {
-  height: 100%; }
-  .login-block .logo-box {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    text-align: center; }
-  .login-block .login-box {
-    padding: 20px;
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    border-left: 1px solid grey; }
-    .login-block .login-box .connexion {
-      width: 100%; }
-      .login-block .login-box .connexion span {
-        display: inline-block; }
-        .login-block .login-box .connexion span.button {
-          float: right; }
+.img_background {
+  background: url("./imgs/background.png"); }
+  .img_background .login-block {
+    height: 100%; }
+    .img_background .login-block .logo-box {
+      position: relative;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      text-align: center; }
+    .img_background .login-block .login-box {
+      padding: 20px;
+      position: relative;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      border-left: 1px solid grey; }
+      .img_background .login-block .login-box .connexion {
+        width: 100%; }
+        .img_background .login-block .login-box .connexion span {
+          display: inline-block; }
+          .img_background .login-block .login-box .connexion span.button {
+            float: right; }

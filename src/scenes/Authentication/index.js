@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form'
 import { authenticate } from './actions'
 import { bindActionCreators } from 'redux'
 import Spinner from '../../components/Spinner'
-import logo from "../../logo.png"
+import logo from "./styles/imgs/logo.png"
 import LoginForm from './components/Login/index'
 import './styles/style.css'
 
@@ -20,7 +20,7 @@ class Authentication extends Component {
 		const { steps, isVisible, handleSubmit, isAuthenticated } = this.props;
 
 		return (
-			<Grid fluid style={{ height: window.innerHeight }}>
+			<Grid fluid style={{ height: window.innerHeight }} className="img_background">
 			{	isAuthenticated == null ?
 				<Row className="show-grid login-block">
 					<Col xs={12} md={6} lg={6} className="logo-box">
