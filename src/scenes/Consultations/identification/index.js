@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux'
+import { withRouter, Link, Route } from 'react-router-dom'
+import validate from './components/Form/validate'
 import { connect } from 'react-redux'
 import FormContainer from './components/Form/Form.container';
+import { reduxForm, Form } from 'redux-form'
 import './styles/identification.css';
 
 class Identification extends PureComponent {
@@ -10,9 +13,12 @@ class Identification extends PureComponent {
 	}
 
 	render(){
-		console.log('this.props.stepsRFI', this.props.stepsRFI)
+		console.log('this.props.stepsRFI', this.props.onSubmit)
+		const { error, handleSubmit } = this.props
 		return(
-			<FormContainer />
+			<Form model="user" onSubmit={handleSubmit}>
+				<FormContainer />
+			</Form>
 		);
 	}
 }
@@ -28,7 +34,18 @@ function mapDispatchToProps() {
 	return (dispatch) => bindActionCreators({}, dispatch);
 }
 
-export default connect(
-  mapStateToProps, 
-  mapDispatchToProps
-)(Identification)
+Identification = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Identification);
+
+export default Identification = reduxForm({
+  	form: 'Identification',
+   	destroyOnUnmount: false,
+   	validate
+})(withRouter((Identification)))
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(Identification)

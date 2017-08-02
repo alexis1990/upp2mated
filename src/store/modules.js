@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import { wizardReducer } from '../components/Wizard/components/WizardFooter/reducer'
+import { wizardReducer } from '../components/Wizard/reducer'
 import { teamReducer } from '../scenes/Consultations/team/reducer'
 import { providersReducer } from '../scenes/Consultations/providers/reducer'
 import { auth } from '../scenes/Authentication/reducer'
@@ -20,5 +20,5 @@ export default combineReducers({
     	Team: teamReducer,
     	Providers: providersReducer
     	// NewProvider: newProvider
-	})	
+	})
 })

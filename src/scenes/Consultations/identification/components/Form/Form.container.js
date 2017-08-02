@@ -10,23 +10,20 @@ import './styles/form.css';
 
 class FormContainer extends PureComponent {
 
-	submit(values) {
-		// nextStep(history, stepId);
-		const { history } = this.props;
-		// console.log('VVVVVV', this.props)
-		// console.log('VVVVVV', values)
-		// nextStep(history, stepId);
-
-	};
+	// submit(values) {
+	// 	// nextStep(history, stepId);
+	// 	const { history } = this.props;
+	// 	// console.log('VVVVVV', this.props)
+	// 	// console.log('VVVVVV', values)
+	// 	// nextStep(history, stepId);
+	//
+	// };
 
 	render(){
-		const { error, handleSubmit } = this.props
 		return(
 			<Row className="show-grid">
-				<form onSubmit={handleSubmit(this.submit.bind(this))}>
 					<IdentificationForm />
 					<WizardFooter />
-				</form>
 			</Row>
 		);
 	}
@@ -45,6 +42,7 @@ FormContainer = connect(
 export default FormContainer = reduxForm({
   	form: 'Identification',
    	destroyOnUnmount: false,
+		forceUnregisterOnUnmount: true,
    	validate
 })(withRouter((FormContainer)))
 

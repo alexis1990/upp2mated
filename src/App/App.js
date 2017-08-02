@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link, withRouter } from 'react-router-dom'
 import requireAuthentication from '../routes/restrictedRoutes/index'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 import Identification from '../scenes/Consultations/identification/index'
 import Authentication from '../scenes/Authentication/index'
 import Consultations from '../scenes/Consultations/'
@@ -64,7 +64,7 @@ const App = ({isAuthenticated}) => (
 
 
 // class App extends PureComponent {
-  
+
 //   componentDidMount() {
 //       window.addEventListener('scroll', this.fixedSubHeader);
 //   }
@@ -140,13 +140,13 @@ const App = ({isAuthenticated}) => (
 
 function mapStateToProps(state, ownProps){
   return {
-    isAuthenticated : state.auth.isLogged
+    isAuthenticated : state.auth.isLogged,
+    actualStep: state.wizard.actualStep
   };
 }
 
 function mapDispatchToProps(){
   return {
-
   }
 }
 
