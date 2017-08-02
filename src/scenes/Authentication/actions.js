@@ -11,8 +11,8 @@ export function authenticate(identifiers, history) {
 	return (dispatch) => {
 		dispatch(authentication(false))
 		instance.post('auth/login', {
-		    login: 'admin',
-		    password: 'upp2matedGodL1ke'
+		    login: identifiers.username,
+		    password: identifiers.password
 		})
 		.then(function (response) {
 			sessionStorage.setItem('token', response.data.token);
@@ -20,7 +20,8 @@ export function authenticate(identifiers, history) {
 			history.push('/consultations/1')
 		})
 		.catch(function (error) {
-			console.log('ERRROR', error);
+			console.log('ERRORRR', error)
+			dispatch(authentication(null))
 		});
 	}
 }
