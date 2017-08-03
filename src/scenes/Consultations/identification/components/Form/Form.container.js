@@ -23,7 +23,7 @@ class FormContainer extends PureComponent {
 		return(
 			<Row className="show-grid">
 					<IdentificationForm />
-					<WizardFooter />
+					{/*<WizardFooter />*/}
 			</Row>
 		);
 	}

@@ -7,23 +7,23 @@ import { nextPage, previousPage } from '../../actions'
 import { Link } from 'react-router-dom'
 import './styles/wizardfooter.css'
 
-function next(event, { history, stepId }) {
-  // history.push((parseInt(stepId) + 1).toString());
-  // nextPage(2)
-}
+// function next(event, { history, stepId }) {
+//   // history.push((parseInt(stepId) + 1).toString());
+//   // nextPage(2)
+// }
 
-function previous(event, { history, stepId }) {
-  event.preventDefault();
-  history.push((parseInt(stepId) - 1).toString());
-}
+// function previous(event, { history, stepId }) {
+//   event.preventDefault();
+//   history.push((parseInt(stepId) - 1).toString());
+// }
 
-const WizardFooter = ({ actualStep, history, stepId }) => (
+const WizardFooter = ({ actualStep, history, stepId, previousPage, onSubmit }) => (
 	<Col xs={12} md={12} lg={12} className="wizardFooter">
-		<Button onClick={(e) => previous(e, {history:history, stepId:stepId})} className="abandon">
+		<Button onClick={previousPage} className="abandon">
 	      Annuler
 	    </Button>
 		{/* <Button onClick={ (e) => next(e, {history:history, stepId:stepId}) } type="submit" className="next"> */}
-    <Button type="submit" className="next">
+    	<Button type="submit" onClick={onSubmit} className="next">
 			Suivant
 		</Button>
 	</Col>

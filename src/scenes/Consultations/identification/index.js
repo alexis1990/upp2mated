@@ -4,6 +4,7 @@ import { withRouter, Link, Route } from 'react-router-dom'
 import validate from './components/Form/validate'
 import { connect } from 'react-redux'
 import FormContainer from './components/Form/Form.container';
+import WizardFooter from '../../../components/Wizard/components/WizardFooter/index'
 import { reduxForm, Form } from 'redux-form'
 import './styles/identification.css';
 
@@ -13,11 +14,11 @@ class Identification extends PureComponent {
 	}
 
 	render(){
-		console.log('this.props.stepsRFI', this.props.onSubmit)
-		const { error, handleSubmit } = this.props
+		const { error, handleSubmit, previousPage } = this.props
 		return(
 			<Form model="user" onSubmit={handleSubmit}>
 				<FormContainer />
+				<WizardFooter previousPage={previousPage}/>
 			</Form>
 		);
 	}
@@ -44,8 +45,3 @@ export default Identification = reduxForm({
    	destroyOnUnmount: false,
    	validate
 })(withRouter((Identification)))
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Identification)
