@@ -7,7 +7,8 @@ const initialState = {
       { id: 4, title: 'Documentation' },
       { id: 5, title: 'Récapitulatif' },
       { id: 6, title: 'Confirmation' }
-    ]
+    ],
+		actualStep: 1
   }
 }
 

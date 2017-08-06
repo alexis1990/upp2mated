@@ -1,53 +1,50 @@
 import React, { Component } from 'react'
 import { withRouter, Link, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { submit } from 'redux-form'
 import WizardHeader from './components/WizardHeader'
 import WizardFooter from './components/WizardFooter'
+import { getFormValues } from 'redux-form';
 import './styles/wizard.css'
 
-// const Wizard = ({ match }) => (
-//   <div>
-//     { <h2>Topics</h2>
-//     <ul>
-//       <li>
-//         <Link to={`${match.url}/1`}>
-//           Rendering with React
-//         </Link>
-//       </li>
-//       <li>
-//         <Link to={`${match.url}/2`}>
-//           Components
-//         </Link>
-//       </li>
-//       <li>
-//         <Link to={`${match.url}/3`}>
-//           Props v. State
-//         </Link>
-//       </li>
-//     </ul>
+class Wizard extends Component {
+  constructor(props) {
+    super(props)
+    this.previousPage = this.previousPage.bind(this)
+  }
 
-//     {/* NESTED ROUTES }
-//     <Route path={`${match.url}/:stepId`} component={Steps}/>
-//     <Route exact path={match.url} render={() => (
-//       <h3>Please select a topic.</h3>
-//     )}/>
-//   </div>
-// )
+  previousPage() {
+    const { match, history } = this.props;
+    history.push((parseInt(match.params.stepId) - 1).toString());
+  }
 
-const Wizard = ({ match, steps }) => (
-	<div>
-		<WizardHeader actualStep={match.params.stepId} steps={steps} />
-		{ steps[match.params.stepId - 1].component }
-		{/*<WizardFooter actualStep={match.params.stepId}/>*/}
-	</div>
-)
+  render() {
+    const {onSubmit, steps, match, stepId} = this.props
+
+    return (
+      <div>
+					<WizardHeader actualStep={match.params.stepId} steps={steps} />
+					{React.cloneElement(
+				   	steps[stepId - 1].component,
+				    { onSubmit: onSubmit, previousPage: this.previousPage }
+					)}
+      </div>
+    )
+  }
+}
 
 function mapStateToProps(state, ownProps) {
-	console.log('OWNNNN', ownProps)
+  const formName = state.wizard.stepsRFI[state.wizard.actualStep - 1 ].title;
 	return {
-		// pageId : ownProps.match.params.stepId
+    formValues : getFormValues(formName)(state),
+		actualStep: state.wizard.actualStep
 	};
 }
 
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({}, dispatch);
+}
 
-export default withRouter(connect (mapStateToProps) (Wizard));
+
+export default withRouter(connect (mapStateToProps, mapDispatchToProps) (Wizard));

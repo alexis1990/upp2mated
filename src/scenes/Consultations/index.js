@@ -8,12 +8,12 @@ import ProvidersModal from './providers/components/Modal/index'
 import Modal from '../../components/Modal/index'
 import Spinner from '../../components/Spinner'
 
-const nextStep = (history, stepId) => history.push("/consultations/" + (parseInt(stepId) + 1));
+// const nextStep = (history, stepId) => history.push("/consultations/" + (parseInt(stepId) + 1));
 
 class Consultations extends Component {
 
 	// submit(e, values) {
-	// 	const { stepId, history } = this.props; 
+	// 	const { stepId, history } = this.props;
 	// 	e.preventDefault();
 	// 	nextStep(history, stepId);
 	// 	console.log('VVVVVV', values)
@@ -25,12 +25,12 @@ class Consultations extends Component {
 			<Grid className="form" fluid>
 				<Modal isVisible={isVisible} component={<ProvidersModal />} />
 				{
-					isAuthenticated 
+					isAuthenticated
 					?
 					<Row className="show-grid">
 						<Col xs={12} md={12} lg={12}>
 							<Title />
-							<Wizard steps={steps} />
+							<Wizard {...this.props} />
 						</Col>
 					</Row>
 					:
@@ -38,7 +38,7 @@ class Consultations extends Component {
 				}
 
 			</Grid>
-		)	
+		)
 	}
 }
 
