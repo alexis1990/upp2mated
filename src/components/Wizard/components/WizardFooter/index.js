@@ -23,7 +23,7 @@ const WizardFooter = ({ actualStep, history, stepId, previousPage, onSubmit }) =
 	      Annuler
 	    </Button>
 		{/* <Button onClick={ (e) => next(e, {history:history, stepId:stepId}) } type="submit" className="next"> */}
-    	<Button type="submit" onClick={onSubmit} className="next">
+    	<Button type="submit" className="next">
 			Suivant
 		</Button>
 	</Col>

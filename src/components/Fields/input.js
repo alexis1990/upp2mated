@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap';
 
 const renderInput = ({ label, withoutLabel, placeholder, type, input, meta}) => {
-    console.log('METTTT', meta)
+    console.log('METTTT', input)
     return (
       <FormGroup bsSize="small" controlId={input.name} validationState={meta.touched ? ( meta.error ? 'error' : 'success' ) : ''}>
         {

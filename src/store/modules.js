@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { wizardReducer } from '../components/Wizard/reducer'
+import { identificationReducer } from '../scenes/Consultations/identification/reducer'
 import { teamReducer } from '../scenes/Consultations/team/reducer'
 import { providersReducer } from '../scenes/Consultations/providers/reducer'
 import { auth } from '../scenes/Authentication/reducer'
@@ -17,6 +18,7 @@ export default combineReducers({
   	// team: teamReducer,
    	routing: routerReducer,
    	form: formReducer.plugin({
+   		Identification: identificationReducer,
     	Team: teamReducer,
     	Providers: providersReducer
     	// NewProvider: newProvider

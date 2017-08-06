@@ -1,4 +1,5 @@
 import React from 'react'
+import './axios.config'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
 import { render } from 'react-dom'
