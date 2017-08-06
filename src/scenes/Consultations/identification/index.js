@@ -10,6 +10,8 @@ import { nextPage } from '../../../components/Wizard/actions'
 import { reduxForm, Form } from 'redux-form'
 import './styles/identification.css';
 
+// const navigateToNextStep = (nextPage, history, match) => nextPage(history, '/consultations/', match.params.stepId);
+
 class Identification extends PureComponent {
 	constructor(props){
 		super(props)
@@ -17,9 +19,9 @@ class Identification extends PureComponent {
 
 	submit (values){
 		const {nextPage, match, history, submitFormToAPI} = this.props
-		console.log('kokokookook', submitFormToAPI)
-		submitFormToAPI(values);
-    	// nextPage(history, '/consultations/', match.params.stepId);
+		const stepId = match.params.stepId;
+		submitFormToAPI(values, nextPage, history, stepId);
+
   	}
 
 	render(){
