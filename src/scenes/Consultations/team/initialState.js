@@ -1,19 +1,25 @@
 const initialState = {
   values: {
-    team :
+    commercial :
     [{
       identity: '',
+      consultationPersonType: 'COMMERCIAL',
       job: '',
-      nature: '',
-      employed: ''
+      permission: '',
+      visibleBySupplier: false
     }],
     tech :
     [{
       identity: '',
+      consultationPersonType: 'TECHNICAL',
       job: '',
-      nature: '',
-      employed: ''
+      permission: '',
+      visibleBySupplier: false
     }],
+    teamUsers: {
+      users : [],
+      isLoading: false
+    }
   }
 }
 

@@ -10,7 +10,7 @@ export function teamReducer(state = initialState, action = action) {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              team: state.values.team.concat(newField)
+	              commercial: state.values.commercial.concat(newField)
 	            }
 	        }
 	    case types.REMOVE_TEAM_FIELD:
@@ -18,26 +18,34 @@ export function teamReducer(state = initialState, action = action) {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              team: state.values.team.filter((item, key )=> key !== action.payload)
+	              commercial: state.values.commercial.filter((item, key )=> key !== action.payload)
 	            }
 	        }
 	    case types.ADD_TECH_FIELD:
-	      	return { 
+	      	return {
 	      		...state,
 	            values: {
 	              ...state.values,
 	              tech: state.values.tech.concat(newField)
-	            }  
+	            }
 		    }
 	    case types.REMOVE_TECH_FIELD:
-	        return { 
+	        return {
 	      		...state,
 	            values: {
 	              ...state.values,
 	              tech: state.values.tech.filter((item, key )=> key !== action.payload)
-	            }  
+	            }
 		    }
+			case types.LOAD_TEAM_USERS:
+					return {
+						...state,
+							values: {
+								...state.values,
+								teamUsers: action.payload
+							}
+				}
 	    default:
 	      	return state;
-	}	
+	}
 }

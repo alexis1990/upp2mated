@@ -18,6 +18,7 @@ class Team extends PureComponent {
 }
 
 function mapStateToProps(state) {
+	console.log('STAEEEEE', state)
 	return{
 		stepsRFI : state.wizard.stepsRFI
 	}
@@ -28,6 +29,6 @@ function mapDispatchToProps() {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(Team)

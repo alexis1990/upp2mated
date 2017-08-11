@@ -1,25 +1,59 @@
-import React, { PureComponent } from 'react'
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates'
-import moment from 'moment' 
+import React, { Component, PropTypes } from 'react';
+import { DateRangePicker } from 'react-dates';
+import {} from 'react-dates/css/styles.scss';
+import { Field } from 'redux-form';
+import moment from 'moment'; // eslint-disable-line
 
-class RangeTimePicker extends PureComponent {
-	constructor(props){
-		super(props);
-		this.state = {
-			startDate : moment(),
-			endDate : moment()
-		}
-	}
+class DateRangePickerWrapper extends Component {
+  static propTypes = {
+    displayFormat: PropTypes.string,
+    className: PropTypes.string,
+    input: PropTypes.object,
+    meta: PropTypes.object
+  };
 
-	render() {
-		return <DateRangePicker
-			  startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-			  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-			  onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-			  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-			  onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-			/>
-	}
+  static defaultProps = {
+    displayFormat: 'DD.MM.YYYY',
+    className: ''
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      focusedInput: null
+    };
+    this.onFocusChange = this.onFocusChange;
+  }
+
+  onFocusChange(focusedInput) {
+    this.setState({ focusedInput : focusedInput });
+  }
+
+  render() {
+    const { focusedInput } = this.state;
+    const { className, name, input: { onChange, value }, meta: { error, touched } } = this.props;
+    if (value) {
+      if (value.startDate && (typeof value.startDate !== 'object')) value.startDate = moment(value.startDate);
+      if (value.endDate && (typeof value.endDate !== 'object')) value.endDate = moment(value.endDate);
+    }
+
+    return (
+      <div>
+        <div className={`date-range-picker ${className}` + (error && touched ? ' has-error ' : '')}>
+          <DateRangePicker
+            {...this.props}
+            displayFormat={this.props.displayFormat}
+            onDatesChange={val => onChange(val)}
+            onFocusChange={this.onFocusChange.bind(this)}
+            focusedInput={focusedInput}
+            startDate={(value && value.startDate) || null}
+            endDate={(value && value.endDate) || null}
+          />
+        </div>
+        {error && touched && <div message={error && touched ? error : ''}></div>}
+      </div>
+    );
+  }
 }
 
-export default RangeTimePicker;
+export default props => <Field {...props} component={DateRangePickerWrapper} />;

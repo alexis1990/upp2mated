@@ -1,4 +1,5 @@
 import * as types from './actionTypes'
+import axios from '../../../axios.config'
 
 export function addNewProvider(newProvider) {
 	return {

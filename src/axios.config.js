@@ -8,11 +8,11 @@ axios.interceptors.request.use((request) => {
 	request.headers['Authorization'] = `Bearer ${token}`;
 	return request;
 }, (error) => {
-	return Promise.reject(error);	
+	return Promise.reject(error);
 });
 
-axios.interceptors.response.use((response) => {	
-	return response.data.data;
+axios.interceptors.response.use((response) => {
+	return response.data;
 }, (error) => {
 	return Promise.reject(error);
 });
