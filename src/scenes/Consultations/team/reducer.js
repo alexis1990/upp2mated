@@ -1,7 +1,13 @@
 import initialState from './initialState'
 import * as types from './actionTypes'
 
-const newField = {};
+const newField = {
+      identity: '',
+      consultationPersonType: 'COMMERCIAL',
+      job: '',
+      permission: '',
+      visibleBySupplier: false
+    };
 
 export function teamReducer(state = initialState, action = action) {
 	switch(action.type) {
@@ -38,14 +44,11 @@ export function teamReducer(state = initialState, action = action) {
 	            }
 		    }
 			case types.LOAD_TEAM_USERS:
-					return {
-						...state,
-							values: {
-								...state.values,
-								teamUsers: action.payload
-							}
+				return {
+					...state,
+					teamUsers: action.payload
 				}
-	    default:
-	      	return state;
+	    	default:
+	      		return state;
 	}
 }

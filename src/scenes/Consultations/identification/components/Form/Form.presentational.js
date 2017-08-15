@@ -10,7 +10,7 @@ const IdentificationForm = props => {
 	return (
 		<Col xs={12} md={8} lg={6} className="Identification">
 			<Field type="text" name="consultationType" placeholder="Type" component={renderInput}>Type</Field>
-	    	<Field type="number" name="consultationNumber" placeholder="Numéro de la consultation"  component={renderInput}>Numéro de la consultation</Field>
+	    	{/*<Field type="number" name="consultationNumber" placeholder="Numéro de la consultation"  component={renderInput}>Numéro de la consultation</Field>*/}
 	    	<Field type="text" name="label" placeholder="Libellé"  component={renderInput}>Libellé</Field>
 	    	<DateRangePickerWrapper name="endDate" label="Date de clôture" controlId="formControlsDateCloture" />
 	    	{/*<Field componentClass="select" name="consultationType" placeholder="nature" component={Select}>Nature</Field>*/}

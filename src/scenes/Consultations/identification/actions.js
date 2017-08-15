@@ -7,6 +7,7 @@ export function submitFormToAPI(values, nextPage, history, stepId) {
   		return (dispatch) =>(
 			step1.then(function (response) {
 				console.log('RESSSPPPP', response);
+				sessionStorage.setItem('consultationId', response.id)
 				// navigateToNextStep();
 				nextPage(history, '/consultations/', stepId)
 			})

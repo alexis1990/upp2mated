@@ -1,16 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addTechField, removeTechField } from '../../../actions'
+import { addTechField, removeTechField } from '../../../../actions'
 import { FormGroup, FormControl, HelpBlock, ControlLabel, Radio, Checkbox, Button, Col, Row, Glyphicon } from 'react-bootstrap'
-import renderInput from '../../../../../../components/Fields/input'
-import Select from '../../../../../../components/Fields/select'
-import RangeTimePicker from '../../../../../../components/RangeTimePicker/index'
-import SingleTimePicker from '../../../../../../components/SingleTimePicker/index'
-import SelectTypeahead from '../../../../../../components/Fields/selectTypeahead'
+import _ from 'lodash'
+import renderInput from '../../../../../../../components/Fields/input'
+import Select from '../../../../../../../components/Fields/select'
+import RangeTimePicker from '../../../../../../../components/RangeTimePicker/index'
+import SingleTimePicker from '../../../../../../../components/SingleTimePicker/index'
+import SelectTypeahead from '../../../../../../../components/Fields/selectTypeahead'
+import { permissionsOptions } from '../../../../utils/selectOptions' 
 import { Field, reduxForm } from 'redux-form'
 const { DOM: { input } } = React
-
 
 const TechForm = ({ handleSubmit, fields, addTechField, removeTechField, listTeamMembers }) => {
 	return (
@@ -21,17 +22,17 @@ const TechForm = ({ handleSubmit, fields, addTechField, removeTechField, listTea
 					<Col xs={12} md={12} lg={12} key={index}>
 						<Row className="show-grid line">
 					      	<Col sm={12} md={3} lg={3}>
-										<Field type="select" withButton withGlyph="plus" options={listTeamMembers}  placeholder="Chercher fournisseur par nom" withoutLabel name={`tech[${index}].user`} component={SelectTypeahead}>Chercher fournisseur par nom</Field>
+								<Field type="select" withButton withGlyph="plus" options={listTeamMembers}  placeholder="Chercher fournisseur par nom" withoutLabel name={`tech[${index}].user`} component={SelectTypeahead}>Chercher fournisseur par nom</Field>
 					      	</Col>
 					      	<Col sm={12} md={3} lg={3}>
 					      		<Field type="text" placeholder="Poste" withoutLabel name={`tech[${index}].job`} component={renderInput}>Poste</Field>
 					      	</Col>
 					      	<Col sm={12} md={2} lg={2}>
-					      		<Field componentClass="select" withoutLabel name={`tech[${index}].permission`} placeholder="nature" component={Select}>Nature</Field>
+					      		<Field componentClass="select" withoutLabel name={`tech[${index}].permission`} placeholder="nature" component={Select} options={permissionsOptions}>Nature</Field>
 					      	</Col>
 					      	<Col sm={12} md={3} lg={3}>
 					      		<span>
-						          <Field name={`tech[${index}].visibleBySupplier`} id='visibleBySupplier' component="input" type="checkbox"/>
+						          <Field name={`tech[${index}].visibleBySupplier`} id='visibleBySupplier' normalize={(v) => { return _.isBoolean(v) ? v : false; }} component="input" type="checkbox"/>
 						        </span>
 					      		<span>
 					      			<label htmlFor="visibleBySupplier">Contact visible pour le fournisseur</label>

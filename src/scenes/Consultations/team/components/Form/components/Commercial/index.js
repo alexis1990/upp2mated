@@ -1,26 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addTeamField, removeTeamField } from '../../../actions'
+import { addTeamField, removeTeamField } from '../../../../actions'
 import { FormGroup, FormControl, HelpBlock, ControlLabel, Radio, Checkbox, Button, Col, Row, Glyphicon } from 'react-bootstrap'
-import renderInput from '../../../../../../components/Fields/input'
-import Select from '../../../../../../components/Fields/select'
-import RangeTimePicker from '../../../../../../components/RangeTimePicker/index'
-import SingleTimePicker from '../../../../../../components/SingleTimePicker/index'
-import SelectTypeahead from '../../../../../../components/Fields/selectTypeahead'
+import renderInput from '../../../../../../../components/Fields/input'
+import Select from '../../../../../../../components/Fields/select'
+import RangeTimePicker from '../../../../../../../components/RangeTimePicker/index'
+import SingleTimePicker from '../../../../../../../components/SingleTimePicker/index'
+import SelectTypeahead from '../../../../../../../components/Fields/selectTypeahead'
 import { Field, reduxForm } from 'redux-form'
 const { DOM: { input } } = React
 
-const TeamForm = ({ handleSubmit, fields, addTeamField, removeTeamField, listTeamMembers }) => {
+const Commercial = ({ handleSubmit, fields, addTeamField, removeTeamField, listTeamMembers }) => {
 	return (
 		<Col xs={12} md={12} lg={12}>
-			<h4>Equipe Commercial</h4>
+			<h4>Equipe Technique</h4>
 			<Row className="show-grid">
+			{console.log('FIELLLDSS', fields)}
 			    {fields.map((field, index) =>
 					<Col xs={12} md={12} lg={12} key={index}>
 						<Row className="show-grid line">
 					      	<Col sm={12} md={3} lg={3}>
-										<Field type="select" withButton withGlyph="plus" options={listTeamMembers}  placeholder="Chercher fournisseur par nom" withoutLabel name={`commercial[${index}].user`} component={SelectTypeahead}>Chercher fournisseur par nom</Field>
+								<Field type="select" withButton withGlyph="plus" options={listTeamMembers}  placeholder="Chercher fournisseur par nom" withoutLabel name={`commercial[${index}].user`} component={SelectTypeahead}>Chercher fournisseur par nom</Field>
 					      		{/* <Field type="text" placeholder="Prénom nom créateur loggué" withoutLabel name={`team[${index}].identity`} component={renderInput}>Libellé</Field> */}
 					      	</Col>
 					      	<Col sm={12} md={3} lg={3}>
@@ -62,4 +63,4 @@ function mapDispatchToProps(dispatch, ownProps) {
 	return bindActionCreators({ addTeamField, removeTeamField }, dispatch);
 }
 
-export default connect (mapStateToProps, mapDispatchToProps) (TeamForm);
+export default connect (mapStateToProps, mapDispatchToProps) (Commercial);
