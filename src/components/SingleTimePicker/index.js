@@ -14,13 +14,14 @@ class SingleTimePicker extends PureComponent {
 	}
 
 	render() {
-		const { id, label } = this.props;
-
+		const { id, label, name } = this.props;
+		console.log('NAME', this.props)
 		return (
 			<div>
 		    	<FormGroup controlId={id}>
 	      			<ControlLabel>{label}</ControlLabel>
 					<SingleDatePicker
+						name={name}
 					  date={this.state.date} // momentPropTypes.momentObj or null
 					  onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
 					  focused={this.state.focused} // PropTypes.bool

@@ -1,19 +1,22 @@
 const initialState = {
+  teamUsers: {
+    users : [],
+    isLoading: false
+  },
   values: {
-    team :
-    [{
-      identity: '',
-      job: '',
-      nature: '',
-      employed: ''
-    }],
     tech :
     [{
-      identity: '',
+      user: '',
+      consultationPersonType: 'TECHNICAL',
       job: '',
-      nature: '',
-      employed: ''
+      permission: "DECISION_MAKER",
+      visibleBySupplier: false
     }],
+    teamLeader: {
+      consultationPersonType: 'PROJECT_LEAD',
+      permission: "DECISION_MAKER",
+      active: false
+    }
   }
 }
 

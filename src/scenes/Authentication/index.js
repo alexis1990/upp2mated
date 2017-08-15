@@ -30,14 +30,14 @@ class Authentication extends Component {
 						<h2>Connexion :</h2>
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
 							<LoginForm />
-		    			</form>
+		    		</form>
 					</Col>
 				</Row>
-				: 
+				:
 				<Spinner />
 			}
 			</Grid>
-		)	
+		)
 	}
 }
 

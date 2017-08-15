@@ -5,6 +5,7 @@ import { withRouter, Link, Route } from 'react-router-dom'
 import ProvidersForm from './components/ProvidersForm/ProvidersForm.presentational';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
 import { reduxForm, FieldArray } from 'redux-form'
+import { Form } from 'redux-form'
 
 class FormContainer extends PureComponent {
 
@@ -18,13 +19,13 @@ class FormContainer extends PureComponent {
 	};
 
 	render(){
-		const { error, handleSubmit, fields } = this.props
+		const { error, handleSubmit, onSubmit, previousPage, fields } = this.props
 		return(
 			<Row className="show-grid">
-				<form onSubmit={handleSubmit(this.submit.bind(this))}>
+				<Form onSubmit={handleSubmit(onSubmit)}>
 					<FieldArray name="members" component={ ProvidersForm } fields={this.props.providersFields}/>
-					<WizardFooter />
-				</form>
+					<WizardFooter previousPage={previousPage} />
+				</Form>
 			</Row>
 		);
 	}

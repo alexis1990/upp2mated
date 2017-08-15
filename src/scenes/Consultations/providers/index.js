@@ -9,10 +9,15 @@ class Providers extends PureComponent {
 		super(props);
 	}
 
+	submit(values) {
+		console.log('SUBMITTTT', values)
+	}
+
 	render(){
+		const { previousPage } = this.props;
 		return(
 			<div>
-				<FormContainer />
+				<FormContainer onSubmit={this.submit.bind(this)} previousPage={previousPage} />
 			</div>
 		);
 	}
@@ -27,6 +32,6 @@ function mapDispatchToProps() {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(Providers)
