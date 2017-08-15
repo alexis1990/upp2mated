@@ -1,0 +1,15 @@
+.list-supliers{
+	padding: 20px;
+	.actions{
+		width:80px;
+		.action-button {
+			background:white;
+			border:none;
+			width: 30%;
+			outline: none;
+			&:hover{
+				color:blue;
+			}
+		}
+	}
+}
