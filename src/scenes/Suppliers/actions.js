@@ -27,15 +27,13 @@ function loadUser(isLoading, contact) {
 
 export function loadSuppliers(pageId){
 	return (dispatch) => {
-		dispatch(isLoadingData(true))
 		axios.get(`/u2m-api/v1/suppliers/?page=${pageId}`)
-		  .then(function (response) {
-		    console.log('RRRR', response);
-				dispatch(loadUsers(false, response))
-		  })
-		  .catch(function (error) {
-		    console.log(error);
-		  });
+		.then(function (response) {
+			dispatch(loadUsers(false, response))
+		})
+		.catch(function (error) {
+			console.log('ERRORloadSuppliers', error);
+		});
 	}
 }
 
@@ -43,24 +41,23 @@ export function loadSupplier(id){
 	return (dispatch) => {
 		dispatch(isLoadingData(true))
 		axios.get(`/u2m-api/v1/suppliers/${id}`)
-		  .then(function (response) {
-		    console.log('RRRRSUPPLIER', response);
-				dispatch(loadUser(false, response))
-		  })
-		  .catch(function (error) {
-		    console.log('ERRORSUPPLIER',error);
-		  });
+		.then(function (response) {
+			dispatch(loadUser(false, response))
+		})
+		.catch(function (error) {
+			console.log('ERRORloadSupplier',error);
+		});
 	}
 }
 
 export function postSupplier(supplier){
 	return (dispatch) => {
 		axios.post('/u2m-api/v1/suppliers/', supplier)
-		  .then(function (response) {
-		    console.log('POSTRESULT', response);
-		  })
-		  .catch(function (error) {
-		    console.log(error);
-		  });
+		.then(function (response) {
+			console.log('POSTRESULT', response);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
 	}
 }

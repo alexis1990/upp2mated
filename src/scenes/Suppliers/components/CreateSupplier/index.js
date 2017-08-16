@@ -11,7 +11,7 @@ class CreateSupplier extends Component {
 
 	submit(values) {
 		const { history, postSupplier } = this.props;
-    postSupplier(values)
+    	postSupplier(values)
 	}
 
 	render(){
@@ -23,8 +23,8 @@ class CreateSupplier extends Component {
 					<Col xs={12} md={6} lg={6}>
 						<h2>Nouveau Fournisseur :</h2>
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
-              <Supplier />
-		    		</form>
+              				<Supplier />
+		    			</form>
 					</Col>
 				</Row>
 			</Grid>
@@ -39,7 +39,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-    postSupplier
+    	postSupplier
 	}, dispatch);
 }
 

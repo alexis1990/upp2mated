@@ -5,25 +5,24 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { loadSupplier } from '../../actions'
 import { bindActionCreators } from 'redux'
-import { Table, ButtonGroup, Button, Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap'
+import ContactList from './components/ContactList/index'
+import { Table, ButtonGroup, Button, Glyphicon } from 'react-bootstrap'
 import Spinner from '../../../../components/Spinner'
 import '../../styles/style.css'
 
 class Supplier extends Component {
 	componentDidMount(){
 		const { loadSupplier, match } = this.props;
-    console.log('PROPPPPPPP', this.props)
 		loadSupplier(match.params.id);
 	}
 
 	render(){
 		const { supplier, isLoading } = this.props;
-    console.log('SUPPPPP', this.props)
 		return (
 			<Grid fluid>
 				<Row className="show-grid login-block">
           {
-            isLoading ?
+            isLoading || typeof supplier === 'undefined' ?
             <Spinner />
             :
             <div>
@@ -32,16 +31,7 @@ class Supplier extends Component {
                 <p>Nom interlocuteur : { supplier.name }</p>
               </Col>
               <Col xs={12} md={12} lg={6} className="list-supliers">
-                  <h3>Contacts :</h3>
-                  <div style={{height: 500 + 'px', overflow: 'scroll'}}>
-                    <ListGroup>
-                      {
-                        supplier.contactPersonList.map((contact) => (
-                          <ListGroupItem>{contact.name} ({contact.email})</ListGroupItem>
-                        ))
-                      }
-                    </ListGroup>
-                </div>
+                <ContactList suppliers={supplier.contactPersonList}/>
               </Col>
             </div>
           }
@@ -52,7 +42,7 @@ class Supplier extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-      console.log('SUPPPPP', state)
+      console.log('SUPPPPP', state.suppliers)
 	return{
     supplier: state.suppliers.supplier,
     isLoading: state.suppliers.isLoading

@@ -24,7 +24,6 @@ class Suppliers extends Component {
 	}
 
 	handleSelect(eventKey) {
-		console.log('EVENTTT', eventKey)
 		const { loadSuppliers } = this.props;
 		loadSuppliers(eventKey);
 		this.setState({
@@ -77,10 +76,10 @@ class Suppliers extends Component {
 						    </tbody>
 						</Table>
 						<Pagination
-		          bsSize="medium"
-		          items={suppliers.totalPages}
-		          activePage={this.state.activePage}
-		          onSelect={this.handleSelect} />
+							bsSize="medium"
+							items={suppliers.totalPages}
+							activePage={this.state.activePage}
+							onSelect={this.handleSelect} />
 					</Col>
 				</Row>
 			</Grid>
@@ -89,7 +88,6 @@ class Suppliers extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('STATEEEE', state)
 	return{
 		suppliers: state.suppliers.suppliers
 	};

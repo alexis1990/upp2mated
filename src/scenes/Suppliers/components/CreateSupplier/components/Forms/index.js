@@ -15,7 +15,7 @@ const Supplier = ({ handleSubmit, fields, addTeamField, removeTeamField, listTea
           <Col xs={12} md={12} lg={12}>
             <Field type="text" placeholder="Nom" withoutLabel name={`name`} component={renderInput}>Nom</Field>
             <Field type="text" placeholder="Email" withoutLabel name={`email`} component={renderInput}>Email</Field>
-            <Field type="text" placeholder="organisation" withoutLabel name={`organization`} component={renderInput}>Organisation</Field>
+            <Field type="text" placeholder="Organisation" withoutLabel name={`organization`} component={renderInput}>Organisation</Field>
             <Field type="text" placeholder="Poste" withoutLabel name={`jobPosition`} component={renderInput}>Poste</Field>
           </Col>
           <Col xs={12} md={8} lg={12}>
