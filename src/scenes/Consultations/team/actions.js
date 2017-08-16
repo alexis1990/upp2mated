@@ -3,10 +3,8 @@ import axios from '../../../axios.config'
 import _ from 'lodash'
 
 export function addTeamField() {
-	const newField = {};
 	return {
-		type: types.ADD_TEAM_FIELD,
-		payload: newField
+		type: types.ADD_TEAM_FIELD
 	}
 }
 
@@ -18,10 +16,8 @@ export function removeTeamField(index) {
 }
 
 export function addTechField() {
-	const newField = {};
 	return {
-		type: types.ADD_TECH_FIELD,
-		payload: newField
+		type: types.ADD_TECH_FIELD
 	}
 }
 

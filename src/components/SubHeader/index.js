@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom'
 import { Navbar, NavItem, NavDropdown, MenuItem, Nav, Glyphicon } from 'react-bootstrap';
 import './styles/subheader.css';
 
@@ -9,6 +10,15 @@ class SubHeader extends PureComponent {
 				<Navbar.Collapse>
 					<Nav pullLeft>
 				      	<NavItem eventKey={1}><Glyphicon glyph="dashboard" />dashboard</NavItem>
+				      	<NavItem eventKey={1}>
+					      	<Glyphicon glyph="dashboard" />
+					      	<Link to="/suppliers">Fournisseurs</Link>
+				      	</NavItem>
+					  	{/*<NavItem>
+							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="file"/><span>fournisseurs</span></span>} id="basic-nav-dropdown">
+								<MenuItem containerElement={} eventKey={3.1}>Anglais</MenuItem>
+							</NavDropdown>
+						</NavItem>*/}
 					  	<NavItem>
 							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="file"/><span>consultation</span></span>} id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1}>Anglais</MenuItem>

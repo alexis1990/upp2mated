@@ -1,14 +1,6 @@
 import initialState from './initialState'
 import * as types from './actionTypes'
 
-const newField = {
-      identity: '',
-      consultationPersonType: 'COMMERCIAL',
-      job: '',
-      permission: '',
-      visibleBySupplier: false
-    };
-
 export function teamReducer(state = initialState, action = action) {
 	switch(action.type) {
 	    case types.ADD_TEAM_FIELD:
@@ -16,7 +8,7 @@ export function teamReducer(state = initialState, action = action) {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              commercial: state.values.commercial.concat(newField)
+	              commercial: state.values.commercial.concat(state.values.tech)
 	            }
 	        }
 	    case types.REMOVE_TEAM_FIELD:
@@ -32,7 +24,7 @@ export function teamReducer(state = initialState, action = action) {
 	      		...state,
 	            values: {
 	              ...state.values,
-	              tech: state.values.tech.concat(newField)
+	              tech: state.values.tech.concat(state.values.tech)
 	            }
 		    }
 	    case types.REMOVE_TECH_FIELD:
