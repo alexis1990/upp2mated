@@ -13,6 +13,8 @@ import Summary from '../scenes/Consultations/summary/index'
 import CommercialFrame from '../scenes/Consultations/commercialFrame/index'
 import Sign from '../scenes/Sign/index'
 import Suppliers from '../scenes/Suppliers/index'
+import Supplier from '../scenes/Suppliers/components/Supplier/index'
+import CreateSupplier from '../scenes/Suppliers/components/CreateSupplier/index'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
@@ -57,6 +59,8 @@ const App = ({isAuthenticated}) => (
             </div>
           )}/>
           <Route exact path="/suppliers" component={requireAuthentication(Suppliers)} />
+          <Route exact path="/suppliers/:id" component={requireAuthentication(Supplier)} />
+          <Route exact path="/suppliers/supplier/new" component={requireAuthentication(CreateSupplier)} />
           <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
           <Route exact path="/kitui" component={KitUi} />
       </Switch>

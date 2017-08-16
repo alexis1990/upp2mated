@@ -5,6 +5,7 @@ import { identificationReducer } from '../scenes/Consultations/identification/re
 import { teamReducer } from '../scenes/Consultations/team/reducer'
 import { providersReducer } from '../scenes/Consultations/providers/reducer'
 import { auth } from '../scenes/Authentication/reducer'
+import { suppliersReducer } from '../scenes/Suppliers/reducer'
 // import { newProvider } from '../scenes/Consultations/providers/components/Modal/reducer'
 import { modalReducer } from '../components/Modal/reducer'
 import { reducer as formReducer } from 'redux-form'
@@ -17,6 +18,7 @@ export default combineReducers({
   	auth: auth,
   	// team: teamReducer,
    	routing: routerReducer,
+    suppliers: suppliersReducer,
    	form: formReducer.plugin({
    		Identification: identificationReducer,
     	Team: teamReducer,
