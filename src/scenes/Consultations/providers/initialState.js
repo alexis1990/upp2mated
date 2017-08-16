@@ -10,7 +10,7 @@ const initialState = {
       survey: false,
       presenceProvider: false
     }],
-    listProviders :
+    suppliers :
     [{
     	name:'Alstom',
     	mail:'Alstom@gmail.com',

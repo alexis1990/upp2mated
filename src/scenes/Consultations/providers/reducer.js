@@ -22,8 +22,6 @@ export function providersReducer(state = initialState, action = action) {
 	            }
 	        }
 	    case types.ADD_NEW_PROVIDER:
-	    	console.log('ACCCCTION', action.payload);
-	    	console.log('ACCCCTION111', state);
 	      	return {
 	      		...state,
 	            values: {

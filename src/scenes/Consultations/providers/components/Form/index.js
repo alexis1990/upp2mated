@@ -2,12 +2,18 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
-import ProvidersForm from './components/ProvidersForm/ProvidersForm.presentational';
+import { Form, reduxForm, FieldArray } from 'redux-form'
+import { bindActionCreators } from 'redux'
+import ProvidersForm from './components/ProvidersForm/index';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
-import { reduxForm, FieldArray } from 'redux-form'
-import { Form } from 'redux-form'
+import { loadSuppliers } from '../../actions'
 
 class FormContainer extends PureComponent {
+
+	componentDidMount(){
+		const { loadSuppliers } = this.props;
+		loadSuppliers();
+	}
 
 	submit(values) {
 		// nextStep(history, stepId);
@@ -15,15 +21,14 @@ class FormContainer extends PureComponent {
 		// console.log('VVVVVV', this.props)
 		// console.log('VVVVVV', values)
 		// nextStep(history, stepId);
-
 	};
 
 	render(){
-		const { error, handleSubmit, onSubmit, previousPage, fields } = this.props
+		const { error, handleSubmit, onSubmit, previousPage, fields, providersFields, suppliers } = this.props
 		return(
 			<Row className="show-grid">
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<FieldArray name="members" component={ ProvidersForm } fields={this.props.providersFields}/>
+					<FieldArray name="members" component={ ProvidersForm } fields={providersFields} suppliers={suppliers}/>
 					<WizardFooter previousPage={previousPage} />
 				</Form>
 			</Row>
@@ -32,15 +37,20 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('STTTTTTATE', state)
+	console.log('okokokokok', state)
 	return {
-		providersFields: state.form.Providers.values.providersReducer
+		providersFields: state.form.Providers.values.providersReducer,
+		suppliers: state.suppliers.suppliers.content
 	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ loadSuppliers }, dispatch)
 }
 
 FormContainer = connect(
     mapStateToProps,
-    // mapDispatchToProps
+    mapDispatchToProps
 )(FormContainer);
 
 export default FormContainer = reduxForm({

@@ -22,3 +22,46 @@ export function removeProvidersField(index) {
 		payload: index
 	}
 }
+
+
+function loadSuppliersSuccess( isLoading, contact) {
+	console.log('ACCC', contact)
+	return {
+		type: types.LOAD_SUPPLIERS,
+		payload:  { suppliers : contact, isLoading: isLoading }
+	}
+}
+
+export function loadSuppliers(){
+	return (dispatch) => {
+		axios.get(`/u2m-api/v1/suppliers/`)
+		.then(function (response) {
+			dispatch(loadSuppliersSuccess(false, response))
+		})
+		.catch(function (error) {
+			console.log('ERRORloadSuppliers', error);
+		});
+	}
+}
+
+function loadContactsSuccess(isLoading, contact) {
+	return {
+		type: types.LOAD_SUPPLIER,
+		payload: { supplier : contact, isLoading: isLoading }
+	}
+}
+
+export function loadContacts(contact){
+	console.log('contact[0].id', contact[0].id)
+	if(contact[0].id) {
+		return (dispatch) => {
+			axios.get(`/u2m-api/v1/suppliers/${contact[0].id}`)
+			.then(function (response) {
+				dispatch(loadContactsSuccess(false, response))
+			})
+			.catch(function (error) {
+				console.log('ERRORloadSupplier',error);
+			});
+		}		
+	}
+}
