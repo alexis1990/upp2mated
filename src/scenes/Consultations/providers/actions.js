@@ -51,17 +51,29 @@ function loadContactsSuccess(isLoading, contact) {
 	}
 }
 
+function loadContactsError(isLoading, contact) {
+	return {
+		type: types.LOAD_SUPPLIER,
+		payload: { supplier : contact, isLoading: isLoading }
+	}
+}
+
 export function loadContacts(contact){
-	console.log('contact[0].id', contact[0].id)
-	if(contact[0].id) {
+	console.log('IM ALIVE')
+	if(contact[0] && contact[0].id) {
 		return (dispatch) => {
 			axios.get(`/u2m-api/v1/suppliers/${contact[0].id}`)
 			.then(function (response) {
+				console.log('okokokokokokkokkok', response)
 				dispatch(loadContactsSuccess(false, response))
 			})
 			.catch(function (error) {
 				console.log('ERRORloadSupplier',error);
 			});
-		}		
+		}
+	}
+		console.log('IM ALIVE')
+	return (dispatch) => {
+		dispatch(loadContactsError(false, { contactPersonList: [] }))
 	}
 }

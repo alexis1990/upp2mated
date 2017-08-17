@@ -24,11 +24,11 @@ class FormContainer extends PureComponent {
 	};
 
 	render(){
-		const { error, handleSubmit, onSubmit, previousPage, fields, providersFields, suppliers } = this.props
+		const { error, handleSubmit, onSubmit, previousPage, fields, providersFields, suppliers, supplier } = this.props
 		return(
 			<Row className="show-grid">
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<FieldArray name="members" component={ ProvidersForm } fields={providersFields} suppliers={suppliers}/>
+					<FieldArray name="members" component={ ProvidersForm } fields={providersFields} suppliers={suppliers} supplier={supplier}/>
 					<WizardFooter previousPage={previousPage} />
 				</Form>
 			</Row>
@@ -40,7 +40,8 @@ function mapStateToProps(state, ownProps) {
 	console.log('okokokokok', state)
 	return {
 		providersFields: state.form.Providers.values.providersReducer,
-		suppliers: state.suppliers.suppliers.content
+		suppliers: state.suppliers.suppliers.content,
+		supplier: state.suppliers.supplier
 	};
 }
 
