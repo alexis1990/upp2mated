@@ -3,14 +3,27 @@ import * as types from './actionTypes'
 const newField = {};
 
 export function providersReducer(state = initialState, action = action) {
-			console.log('ACTTTTION', action.type)
+			console.log('ACTTTTION',  state.values.consultationSupplierList)
 	switch(action.type) {
 		case types.ADD_PROVIDERS_FIELD:
 	      	return {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              consultationSupplierList: state.values.consultationSupplierList.concat(newField)
+	              consultationSupplierList: [...state.values.consultationSupplierList, {
+						      supplier: [
+						        {
+						          contactPersonList: []
+						        }
+						      ],
+						      interlocutor: {
+						      	id: '',
+						      	name: ''
+						      },
+						      referenceCustomerRequested: false,
+						      qualitySecurityServey: false,
+						      supplierPresence: false,
+						    }]
 	            }
 	        }
 	    case types.REMOVE_PROVIDERS_FIELD:
@@ -31,5 +44,5 @@ export function providersReducer(state = initialState, action = action) {
 	      	}
 	    default:
 	    	return state;
-	}	
+	}
 }

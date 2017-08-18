@@ -2,10 +2,11 @@ const initialState = {
   values: {
   	consultationSupplierList :
     [{
-      supplier: {
-      	id: '',
-      	name: ''
-      },
+      supplier: [
+        {
+          contactPersonList:[]
+        }
+      ],
       interlocutor: {
       	id: '',
       	name: ''

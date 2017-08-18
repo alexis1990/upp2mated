@@ -6,6 +6,7 @@ import { Form, reduxForm, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import ProvidersForm from './components/ProvidersForm/index';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
+import { formValueSelector } from 'redux-form';
 import { loadSuppliers } from '../../actions'
 
 class FormContainer extends PureComponent {
@@ -24,11 +25,11 @@ class FormContainer extends PureComponent {
 	};
 
 	render(){
-		const { error, handleSubmit, onSubmit, previousPage, fields, providersFields, suppliers, supplier } = this.props
+		const { error, handleSubmit, onSubmit, previousPage, fields, providersFields, suppliers, contacts } = this.props
 		return(
 			<Row className="show-grid">
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<FieldArray name="members" component={ ProvidersForm } fields={providersFields} suppliers={suppliers} supplier={supplier}/>
+					<FieldArray name="members" component={ ProvidersForm } fields={providersFields} suppliers={suppliers} contacts={contacts}/>
 					<WizardFooter previousPage={previousPage} />
 				</Form>
 			</Row>
@@ -37,11 +38,12 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('okokokokok', state)
+	console.log('stateeeeee', state)
+	// const selector = formValueSelector('Providers')
 	return {
 		providersFields: state.form.Providers.values.consultationSupplierList,
 		suppliers: state.suppliers.suppliers.content,
-		supplier: state.suppliers.supplier
+		// contacts: selector(state, 'consultationSupplierList')
 	};
 }
 

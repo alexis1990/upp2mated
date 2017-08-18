@@ -9,10 +9,8 @@ export function addNewProvider(newProvider) {
 }
 
 export function addProvidersField() {
-	const newField = {};
 	return {
-		type: types.ADD_PROVIDERS_FIELD,
-		payload: newField
+		type: types.ADD_PROVIDERS_FIELD
 	}
 }
 
@@ -44,55 +42,17 @@ export function loadSuppliers(){
 	}
 }
 
-function loadContactsSuccess(isLoading, contact) {
+export function loadContacts(values) {
+	console.log('VALUES', values)
 	return {
-		type: types.LOAD_SUPPLIER,
-		payload: { supplier : contact, isLoading: isLoading }
-	}
-}
-
-function loadContactsError(isLoading, contact) {
-	return {
-		type: types.LOAD_SUPPLIER,
-		payload: { supplier : contact, isLoading: isLoading }
-	}
-}
-
-export function loadContacts(contact){
-	if(contact[0] && contact[0].id) {
-		return (dispatch) => {
-			axios.get(`/u2m-api/v1/suppliers/${contact[0].id}`)
-			.then(function (response) {
-				console.log('okokokokokokkokkok', response)
-				dispatch(loadContactsSuccess(false, response))
-			})
-			.catch(function (error) {
-				console.log('ERRORloadSupplier',error);
-			});
-		}
-	}
-	return (dispatch) => {
-		dispatch(
-			loadContactsError(false, { 
-				contactPersonList: [{
-					supplier: {
-						id: '',
-						name: ''
-					},
-					interlocutor: {
-						id: '',
-						name: ''
-					}
-				}] 
-			})
-		)
+		type: types.LOAD_CONTACTS
 	}
 }
 
 export function postSuppliersChoices(suppliersInfo) {
 
 	const consultationSupplierList = {
-		...suppliersInfo, 
+		...suppliersInfo,
 		consultationSupplierList : suppliersInfo.consultationSupplierList.map((supplierInfo, index) => {
 			return {
 				...suppliersInfo.consultationSupplierList[index],

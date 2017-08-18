@@ -3,7 +3,6 @@ const initialState = {
     content:[]
   },
   supplier: {
-  	id: 0,
     name: '',
     contactPersonList: []
   },
