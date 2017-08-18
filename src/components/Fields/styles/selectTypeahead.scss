@@ -1,17 +1,22 @@
-.bootstrap-typeahead{
-    padding: 0 !important;
-    z-index: 0 !important;
-	.bootstrap-typeahead-input{
-		margin-top:-1px;
-		margin-left:-1px;
-		.form-control {
-			border-right: none !important;
-			border-radius: 0;
-			outline: none;
-			&:focus {
-				-webkit-box-shadow: none;
-				-moz-box-shadow: none;
-				box-shadow: none;
+.input-group{
+	width:100%;
+	.form-group{
+		.bootstrap-typeahead{
+		    padding: 0 !important;
+		    z-index: 0 !important;
+			.bootstrap-typeahead-input{
+				margin-top:-1px;
+				margin-left:-1px;
+				.form-control {
+					border-right: none !important;
+					border-radius: 0;
+					outline: none;
+					&:focus {
+						-webkit-box-shadow: none;
+						-moz-box-shadow: none;
+						box-shadow: none;
+					}
+				}
 			}
 		}
 	}

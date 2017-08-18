@@ -59,7 +59,6 @@ function loadContactsError(isLoading, contact) {
 }
 
 export function loadContacts(contact){
-	console.log('IM ALIVE')
 	if(contact[0] && contact[0].id) {
 		return (dispatch) => {
 			axios.get(`/u2m-api/v1/suppliers/${contact[0].id}`)
@@ -72,8 +71,46 @@ export function loadContacts(contact){
 			});
 		}
 	}
-		console.log('IM ALIVE')
 	return (dispatch) => {
-		dispatch(loadContactsError(false, { contactPersonList: [] }))
+		dispatch(
+			loadContactsError(false, { 
+				contactPersonList: [{
+					supplier: {
+						id: '',
+						name: ''
+					},
+					interlocutor: {
+						id: '',
+						name: ''
+					}
+				}] 
+			})
+		)
+	}
+}
+
+export function postSuppliersChoices(suppliersInfo) {
+
+	const consultationSupplierList = {
+		...suppliersInfo, 
+		consultationSupplierList : suppliersInfo.consultationSupplierList.map((supplierInfo, index) => {
+			return {
+				...suppliersInfo.consultationSupplierList[index],
+				supplier: suppliersInfo.consultationSupplierList[index].supplier[0].id,
+				interlocutor: suppliersInfo.consultationSupplierList[index].interlocutor[0].id
+			}
+		})
+	}
+
+	console.log('SUPPPPPPP', consultationSupplierList);
+	return (dispatch) => {
+		const consultationId = sessionStorage.getItem('consultationId');
+		axios.post(`/u2m-api/v1/consultation/${consultationId}/step4`, consultationSupplierList)
+		.then(function (response) {
+			console.log(response);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
 	}
 }

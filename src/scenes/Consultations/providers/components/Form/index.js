@@ -39,7 +39,7 @@ class FormContainer extends PureComponent {
 function mapStateToProps(state, ownProps) {
 	console.log('okokokokok', state)
 	return {
-		providersFields: state.form.Providers.values.providersReducer,
+		providersFields: state.form.Providers.values.consultationSupplierList,
 		suppliers: state.suppliers.suppliers.content,
 		supplier: state.suppliers.supplier
 	};

@@ -10,7 +10,7 @@ export function providersReducer(state = initialState, action = action) {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              providersReducer: state.values.providersReducer.concat(newField)
+	              consultationSupplierList: state.values.consultationSupplierList.concat(newField)
 	            }
 	        }
 	    case types.REMOVE_PROVIDERS_FIELD:
@@ -18,7 +18,7 @@ export function providersReducer(state = initialState, action = action) {
 	            ...state,
 	            values: {
 	              ...state.values,
-	              providersReducer: state.values.providersReducer.filter((item, key )=> key !== action.payload)
+	              consultationSupplierList: state.values.consultationSupplierList.filter((item, key )=> key !== action.payload)
 	            }
 	        }
 	    case types.ADD_NEW_PROVIDER:

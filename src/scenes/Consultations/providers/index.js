@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { postSuppliersChoices } from './actions'
 import FormContainer from './components/Form/index';
 import './styles/providers.css'
 
@@ -10,7 +11,8 @@ class Providers extends PureComponent {
 	}
 
 	submit(values) {
-		console.log('SUBMITTTT', values)
+		const { postSuppliersChoices } = this.props;
+		postSuppliersChoices(values);
 	}
 
 	render(){
@@ -28,7 +30,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({}, dispatch);
+	return (dispatch) => bindActionCreators({ postSuppliersChoices }, dispatch);
 }
 
 export default connect(
