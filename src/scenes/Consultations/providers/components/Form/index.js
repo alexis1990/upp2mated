@@ -16,14 +16,6 @@ class FormContainer extends PureComponent {
 		loadSuppliers();
 	}
 
-	submit(values) {
-		// nextStep(history, stepId);
-		const { history } = this.props;
-		// console.log('VVVVVV', this.props)
-		// console.log('VVVVVV', values)
-		// nextStep(history, stepId);
-	};
-
 	render(){
 		const { error, handleSubmit, onSubmit, previousPage, fields, providersFields, suppliers, contacts } = this.props
 		return(
@@ -38,12 +30,12 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('stateeeeee', state)
-	// const selector = formValueSelector('Providers')
+	const selector = formValueSelector('Providers')
+	console.log('SSSS', selector(state, 'consultationSupplierList'))
 	return {
 		providersFields: state.form.Providers.values.consultationSupplierList,
 		suppliers: state.suppliers.suppliers.content,
-		// contacts: selector(state, 'consultationSupplierList')
+		contacts: selector(state, 'consultationSupplierList')
 	};
 }
 

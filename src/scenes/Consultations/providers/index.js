@@ -11,6 +11,7 @@ class Providers extends PureComponent {
 	}
 
 	submit(values) {
+		console.log('okokokkkoko', values)
 		const { postSuppliersChoices } = this.props;
 		postSuppliersChoices(values);
 	}

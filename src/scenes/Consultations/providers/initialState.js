@@ -7,10 +7,7 @@ const initialState = {
           contactPersonList:[]
         }
       ],
-      interlocutor: {
-      	id: '',
-      	name: ''
-      },
+      interlocutor: null,
       referenceCustomerRequested: false,
       qualitySecurityServey: false,
       supplierPresence: false,

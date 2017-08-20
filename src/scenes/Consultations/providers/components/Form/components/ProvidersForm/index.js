@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addProvidersField, removeProvidersField, loadContacts } from '../../../../actions'
+import { addProvidersField, removeProvidersField } from '../../../../actions'
 import _ from 'lodash'
 import {
 	FormGroup,
@@ -26,23 +26,25 @@ import { Field, reduxForm } from 'redux-form'
 import './styles/style.css'
 const { DOM: { input } } = React
 
-const ProvidersForm = ({ handleSubmit, fields, addProvidersField, removeProvidersField, isModalVisible, suppliers, contacts, loadContacts }) => (console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<', contacts),
+const isSupplierExisting = (contacts, index) => contacts[index].supplier && contacts[index].supplier.length > 0;
+
+const ProvidersForm = ({ handleSubmit, fields, addProvidersField, removeProvidersField, isModalVisible, suppliers, contacts }) => (
 	<Col xs={12} md={12} lg={12} className="Providers">
 		<h4>Fournisseurs</h4>
 		<Row className="show-grid">
 		    {fields.map((field, index) =>
 				<Col xs={12} md={12} lg={12} key={index} className="fields">
-					{console.log('FIEEEEE', contacts)}
 					<Row className="show-grid">
 				      	<Col sm={2} md={2} lg={4}>
-					      	<Field type="select" withButton withGlyph="plus" onClick={() => isModalVisible(true)} onChange={(values) => loadContacts(values)}  options={suppliers} placeholder="Chercher fournisseur par nom" withoutLabel name={`consultationSupplierList[${index}].supplier`} component={selectTypeahead}>Chercher fournisseur par nom</Field>
+					      	<Field type="select" withButton withGlyph="plus" onClick={() => isModalVisible(true)}  options={suppliers} placeholder="Chercher fournisseur par nom" withoutLabel name={`consultationSupplierList[${index}].supplier`} component={selectTypeahead}>Chercher fournisseur par nom</Field>
 				      	</Col>
 				      	{/*<Col sm={2} md={2} lg={2}>
 				      		<Field type="text" placeholder="Adresse e-mail" withoutLabel name={`consultationSupplierList[${index}].mail`} component={renderInput}>Adresse e-mail</Field>
 				      	</Col>*/}
-								{/* <Col sm={2} md={2} lg={3}>
-									<Field type="select" options={contacts[index].supplier && contacts[index].supplier.length > 0 ? contacts[index].supplier[0].contactPersonList : [{}]}  placeholder="Nom de l'interlocuteur" withoutLabel name={`consultationSupplierList[${index}].interlocutor`} component={selectTypeahead}>Nom de l'interlocuteur</Field>
-								</Col> */}
+				      	{console.log('okokkooo', contacts)}
+						{ <Col sm={2} md={2} lg={3}>
+							<Field type="select" options={ isSupplierExisting(contacts, index) ? contacts[index].supplier[0].contactPersonList : []}  placeholder="Nom de l'interlocuteur" withoutLabel name={`consultationSupplierList[${index}].interlocutor`} component={selectTypeahead}>Nom de l'interlocuteur</Field>
+						</Col> }
 				      	{/*<Col sm={2} md={2} lg={2}>
 				      		<Field type="text" component={renderInput} withoutLabel name={`consultationSupplierList[${index}].job`} placeholder="Poste">Poste</Field>
 				      	</Col>*/}
@@ -89,7 +91,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, ownProps) {
 
-	return bindActionCreators({ addProvidersField, isModalVisible, removeProvidersField, loadContacts }, dispatch);
+	return bindActionCreators({ addProvidersField, isModalVisible, removeProvidersField }, dispatch);
 }
 
 export default connect (mapStateToProps, mapDispatchToProps) (ProvidersForm);

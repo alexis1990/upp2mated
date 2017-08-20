@@ -9,31 +9,30 @@ class selectTypeahead extends Component {
 		const { options, placeholder, type, input, meta , withoutLabel, withButton, withGlyph, onClick } = this.props;
 		console.log('INPUTTTTTT', options)
 		return (
-			<InputGroup>
+			<div className="typeahead">
 		    	<FormGroup bsSize="small" controlId={input.name}  validationState={ meta.touched ? (meta.error ? 'error' : 'success') : ''}>
 			        { !withoutLabel && <ControlLabel>Select</ControlLabel> }
 			        <FormControl
 								{...input}
-								// selected={options.slice(0, 1)}
+								selected={options.slice(0, 1)}
 								bodyContainer
 								className="input-typeahead"
 								componentClass={Typeahead}
 								labelKey={option => `${option.name} ${option.id}`}
+								onBlur = {option => {}}
 								options={options}
 								clearButton
 								placeholder={placeholder}
 								>
-								</FormControl>
-			        <FormControl.Feedback />
-		      	</FormGroup>
-		  		{ 	withButton &&
-			  		<InputGroup.Button>
+					</FormControl>
+					{ 	
+		  			withButton &&
 			        	<Button onClick={onClick} bsStyle="action-button small-text" type="button">
 			        		{ withGlyph && <Glyphicon className="small-glyph" glyph={withGlyph} />}
 			        	</Button>
-			      	</InputGroup.Button>
-			    }
-		   </InputGroup>
+			    	}
+		      	</FormGroup>
+		   </div>
 		)
 	}
 }

@@ -42,27 +42,22 @@ export function loadSuppliers(){
 	}
 }
 
-export function loadContacts(values) {
-	console.log('VALUES', values)
-	return {
-		type: types.LOAD_CONTACTS
-	}
-}
-
 export function postSuppliersChoices(suppliersInfo) {
-
 	const consultationSupplierList = {
 		...suppliersInfo,
 		consultationSupplierList : suppliersInfo.consultationSupplierList.map((supplierInfo, index) => {
+			const interlocutorValue = suppliersInfo.consultationSupplierList[index].interlocutor;
+			console.log('INTEEE', interlocutorValue)
 			return {
 				...suppliersInfo.consultationSupplierList[index],
 				supplier: suppliersInfo.consultationSupplierList[index].supplier[0].id,
-				interlocutor: suppliersInfo.consultationSupplierList[index].interlocutor[0].id
+				interlocutor: interlocutorValue
+							? interlocutorValue[index].id
+							: suppliersInfo.consultationSupplierList[index].supplier[0].contactPersonList[0].id
 			}
 		})
 	}
 
-	console.log('SUPPPPPPP', consultationSupplierList);
 	return (dispatch) => {
 		const consultationId = sessionStorage.getItem('consultationId');
 		axios.post(`/u2m-api/v1/consultation/${consultationId}/step4`, consultationSupplierList)
