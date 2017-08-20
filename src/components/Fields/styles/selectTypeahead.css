@@ -1,14 +1,26 @@
-.bootstrap-typeahead {
+.form-group .bootstrap-typeahead {
   padding: 0 !important;
-  z-index: 0 !important; }
-  .bootstrap-typeahead .bootstrap-typeahead-input {
+  z-index: 0 !important;
+  padding: 0; }
+  .form-group .bootstrap-typeahead .bootstrap-typeahead-input {
     margin-top: -1px;
     margin-left: -1px; }
-    .bootstrap-typeahead .bootstrap-typeahead-input .form-control {
+    .form-group .bootstrap-typeahead .bootstrap-typeahead-input .form-control {
       border-right: none !important;
       border-radius: 0;
       outline: none; }
-      .bootstrap-typeahead .bootstrap-typeahead-input .form-control:focus {
+      .form-group .bootstrap-typeahead .bootstrap-typeahead-input .form-control:focus {
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none; }
+  .form-group .bootstrap-typeahead .bootstrap-typeahead-clear-button.close {
+    z-index: 100;
+    position: absolute;
+    top: 17%;
+    right: 5%;
+    outline: none; }
+
+.form-group button {
+  position: absolute;
+  top: 0;
+  right: 0; }

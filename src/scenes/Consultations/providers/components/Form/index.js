@@ -2,28 +2,26 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
-import ProvidersForm from './components/ProvidersForm/ProvidersForm.presentational';
+import { Form, reduxForm, FieldArray } from 'redux-form'
+import { bindActionCreators } from 'redux'
+import ProvidersForm from './components/ProvidersForm/index';
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
-import { reduxForm, FieldArray } from 'redux-form'
-import { Form } from 'redux-form'
+import { formValueSelector } from 'redux-form';
+import { loadSuppliers } from '../../actions'
 
 class FormContainer extends PureComponent {
 
-	submit(values) {
-		// nextStep(history, stepId);
-		const { history } = this.props;
-		// console.log('VVVVVV', this.props)
-		// console.log('VVVVVV', values)
-		// nextStep(history, stepId);
-
-	};
+	componentDidMount(){
+		const { loadSuppliers } = this.props;
+		loadSuppliers();
+	}
 
 	render(){
-		const { error, handleSubmit, onSubmit, previousPage, fields } = this.props
+		const { error, handleSubmit, onSubmit, previousPage, fields, providersFields, suppliers, contacts } = this.props
 		return(
 			<Row className="show-grid">
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<FieldArray name="members" component={ ProvidersForm } fields={this.props.providersFields}/>
+					<FieldArray name="members" component={ ProvidersForm } fields={providersFields} suppliers={suppliers} contacts={contacts}/>
 					<WizardFooter previousPage={previousPage} />
 				</Form>
 			</Row>
@@ -32,15 +30,22 @@ class FormContainer extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('STTTTTTATE', state)
+	const selector = formValueSelector('Providers')
+	console.log('SSSS', selector(state, 'consultationSupplierList'))
 	return {
-		providersFields: state.form.Providers.values.providersReducer
+		providersFields: state.form.Providers.values.consultationSupplierList,
+		suppliers: state.suppliers.suppliers.content,
+		contacts: selector(state, 'consultationSupplierList')
 	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ loadSuppliers }, dispatch)
 }
 
 FormContainer = connect(
     mapStateToProps,
-    // mapDispatchToProps
+    mapDispatchToProps
 )(FormContainer);
 
 export default FormContainer = reduxForm({

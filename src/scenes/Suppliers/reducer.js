@@ -5,12 +5,14 @@ export function suppliersReducer(state = initialState, action = action) {
 	switch(action.type) {
 		case types.LOAD_SUPPLIERS:
 	      	return {
-            	suppliers: action.payload.suppliers, isLoading: action.payload.isLoading
-          	}
+							...state,
+            	suppliers: action.payload.suppliers, supplier: { contactPersonList : [] }, isLoading: action.payload.isLoading
+          }
       	case types.LOAD_SUPPLIER:
+					console.log('ACTUALSTATE', state)
 	        return {
 	          	...state,
-	          	supplier: action.payload.supplier, isLoading: action.payload.isLoading
+	          	supplier: action.payload.supplier, suppliers: { ...state.suppliers }, isLoading: action.payload.isLoading
 	        }
       	case types.IS_LOADING_SUPPLIER:
 	        return {

@@ -1,21 +1,16 @@
 const initialState = {
   values: {
-  	providersReducer :
+  	consultationSupplierList :
     [{
-      provider: '',
-      mail: '',
-      interlocutor: '',
-      job: '',
-      client: false,
-      survey: false,
-      presenceProvider: false
-    }],
-    listProviders :
-    [{
-    	name:'Alstom',
-    	mail:'Alstom@gmail.com',
-    	interlocutor:'Mr Richard',
-    	job:'Directeur'
+      supplier: [
+        {
+          contactPersonList:[]
+        }
+      ],
+      interlocutor: null,
+      referenceCustomerRequested: false,
+      qualitySecurityServey: false,
+      supplierPresence: false,
     }]
   }
 }
