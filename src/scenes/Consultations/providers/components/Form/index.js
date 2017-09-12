@@ -10,8 +10,12 @@ import { formValueSelector } from 'redux-form';
 import { loadSuppliers } from '../../actions'
 
 class FormContainer extends PureComponent {
+	constructor() {
+		super();
+		this.onSearch = this.onSearch.bind(this);
+	}
 
-	componentDidMount(){
+	onSearch() {
 		const { loadSuppliers } = this.props;
 		loadSuppliers();
 	}
@@ -21,7 +25,7 @@ class FormContainer extends PureComponent {
 		return(
 			<Row className="show-grid">
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<FieldArray name="members" component={ ProvidersForm } fields={providersFields} suppliers={suppliers} contacts={contacts}/>
+					<FieldArray name="members" component={ ProvidersForm } fields={providersFields} suppliers={suppliers} contacts={contacts} onSearch={this.onSearch}/>
 					<WizardFooter previousPage={previousPage} />
 				</Form>
 			</Row>
@@ -31,7 +35,6 @@ class FormContainer extends PureComponent {
 
 function mapStateToProps(state, ownProps) {
 	const selector = formValueSelector('Providers')
-	console.log('SSSS', selector(state, 'consultationSupplierList'))
 	return {
 		providersFields: state.form.Providers.values.consultationSupplierList,
 		suppliers: state.suppliers.suppliers.content,

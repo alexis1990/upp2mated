@@ -28,7 +28,7 @@ const { DOM: { input } } = React
 
 const isSupplierExisting = (contacts, index) => contacts[index].supplier && contacts[index].supplier.length > 0;
 
-const ProvidersForm = ({ handleSubmit, fields, addProvidersField, removeProvidersField, isModalVisible, suppliers, contacts }) => (
+const ProvidersForm = ({ handleSubmit, fields, addProvidersField, removeProvidersField, isModalVisible, suppliers, contacts, onSearch }) => (console.log('oKOKKKOK', onSearch),
 	<Col xs={12} md={12} lg={12} className="Providers">
 		<h4>Fournisseurs</h4>
 		<Row className="show-grid">
@@ -36,7 +36,7 @@ const ProvidersForm = ({ handleSubmit, fields, addProvidersField, removeProvider
 				<Col xs={12} md={12} lg={12} key={index} className="fields">
 					<Row className="show-grid">
 				      	<Col sm={2} md={2} lg={4}>
-					      	<Field type="select" withButton withGlyph="plus" onClick={() => isModalVisible(true)}  options={suppliers} placeholder="Chercher fournisseur par nom" withoutLabel name={`consultationSupplierList[${index}].supplier`} component={selectTypeahead}>Chercher fournisseur par nom</Field>
+					      	<Field type="select" withButton withGlyph="plus" onClick={() => isModalVisible(true)} onSearch={onSearch}   options={suppliers} placeholder="Chercher fournisseur par nom" withoutLabel name={`consultationSupplierList[${index}].supplier`} component={selectTypeahead}>Chercher fournisseur par nom</Field>
 				      	</Col>
 				      	{/*<Col sm={2} md={2} lg={2}>
 				      		<Field type="text" placeholder="Adresse e-mail" withoutLabel name={`consultationSupplierList[${index}].mail`} component={renderInput}>Adresse e-mail</Field>

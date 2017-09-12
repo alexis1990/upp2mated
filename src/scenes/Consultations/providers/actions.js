@@ -1,4 +1,5 @@
 import * as types from './actionTypes'
+import { change } from 'redux-form'
 import axios from '../../../axios.config'
 
 export function addNewProvider(newProvider) {
@@ -42,6 +43,14 @@ export function loadSuppliers(){
 	}
 }
 
+// export function reInitInterlocutors(statut, index) {
+// 	if(statut){
+// 	return (dispatch) => {
+// 		dispatch(change(`consultationSupplierList[${index}].interlocutor`, []));
+// 	};		
+// }
+// }
+
 export function postSuppliersChoices(suppliersInfo) {
 	const consultationSupplierList = {
 		...suppliersInfo,
@@ -51,14 +60,13 @@ export function postSuppliersChoices(suppliersInfo) {
 			return {
 				...suppliersInfo.consultationSupplierList[index],
 				supplier: suppliersInfo.consultationSupplierList[index].supplier[0].id,
-				interlocutor: interlocutorValue
-							? interlocutorValue[index].id
-							: suppliersInfo.consultationSupplierList[index].supplier[0].contactPersonList[0].id
+				interlocutor: interlocutorValue[0].id
 			}
 		})
 	}
 
 	return (dispatch) => {
+		console.log('INTEEE', consultationSupplierList)
 		const consultationId = sessionStorage.getItem('consultationId');
 		axios.post(`/u2m-api/v1/consultation/${consultationId}/step4`, consultationSupplierList)
 		.then(function (response) {
