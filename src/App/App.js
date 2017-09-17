@@ -15,6 +15,8 @@ import Sign from '../scenes/Sign/index'
 import Suppliers from '../scenes/Suppliers/index'
 import Supplier from '../scenes/Suppliers/components/Supplier/index'
 import CreateSupplier from '../scenes/Suppliers/components/CreateSupplier/index'
+import Administration from '../scenes/Administration/index'
+import TeamView from '../scenes/Administration/components/Team/index'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
@@ -61,6 +63,8 @@ const App = ({isAuthenticated}) => (
           <Route exact path="/suppliers" component={requireAuthentication(Suppliers)} />
           <Route exact path="/suppliers/:id" component={requireAuthentication(Supplier)} />
           <Route exact path="/suppliers/supplier/new" component={requireAuthentication(CreateSupplier)} />
+          <Route exact path="/administration" component={requireAuthentication(Administration)} />
+          <Route exact path="/administration/team/:id" component={requireAuthentication(TeamView)} />
           <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
           <Route exact path="/kitui" component={KitUi} />
       </Switch>

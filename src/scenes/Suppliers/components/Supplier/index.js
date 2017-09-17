@@ -26,11 +26,11 @@ class Supplier extends Component {
             <Spinner />
             :
             <div>
-              <Col xs={12} md={12} lg={6} className="list-supliers">
+              <Col xs={12} md={12} lg={6} className="list">
                 <h3>Fournisseurs</h3>
                 <p>Nom interlocuteur : { supplier.name }</p>
               </Col>
-              <Col xs={12} md={12} lg={6} className="list-supliers">
+              <Col xs={12} md={12} lg={6} className="list">
                 <ContactList suppliers={supplier.contactPersonList}/>
               </Col>
             </div>
