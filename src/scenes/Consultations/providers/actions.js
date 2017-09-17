@@ -43,14 +43,6 @@ export function loadSuppliers(){
 	}
 }
 
-// export function reInitInterlocutors(statut, index) {
-// 	if(statut){
-// 	return (dispatch) => {
-// 		dispatch(change(`consultationSupplierList[${index}].interlocutor`, []));
-// 	};		
-// }
-// }
-
 export function postSuppliersChoices(suppliersInfo) {
 	const consultationSupplierList = {
 		...suppliersInfo,

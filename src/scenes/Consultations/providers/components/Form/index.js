@@ -4,10 +4,11 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { withRouter, Link, Route } from 'react-router-dom'
 import { Form, reduxForm, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
-import ProvidersForm from './components/ProvidersForm/index';
+import ProvidersForm from './components/ProvidersForm/index'
 import WizardFooter from '../../../../../components/Wizard/components/WizardFooter/index'
-import { formValueSelector } from 'redux-form';
+import { formValueSelector } from 'redux-form'
 import { loadSuppliers } from '../../actions'
+import validate from './validate'
 
 class FormContainer extends PureComponent {
 	constructor() {
@@ -54,4 +55,5 @@ FormContainer = connect(
 export default FormContainer = reduxForm({
   	form: 'Providers',
    	destroyOnUnmount: false,
+   	validate
 })(withRouter((FormContainer)))

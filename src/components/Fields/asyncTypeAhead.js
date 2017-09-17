@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { FormGroup, FormControl, InputGroup, Button, HelpBlock, ControlLabel, Glyphicon } from 'react-bootstrap'
-import { Typeahead } from 'react-bootstrap-typeahead'
+import { AsyncTypeahead } from 'react-bootstrap-typeahead'
 import _ from 'lodash'
 import './styles/selectTypeahead.css'
 
-class selectTypeahead extends Component {
+class asyncTypeahead extends Component {
 	onSearch(){
 		console.log('okokokok')
 	}
@@ -18,12 +18,14 @@ class selectTypeahead extends Component {
 								{...input}
 								bodyContainer
 								className="input-typeahead"
-								componentClass={Typeahead}
+								componentClass={AsyncTypeahead}
 								labelKey={option => `${option.name} ${option.id}`}
 								onBlur = {option => {}}
 								options={options}
 								clearButton
 								placeholder={placeholder}
+								selected={ selected && options.slice(0, 1)}
+								onSearch={onSearch}
 								>
 					</FormControl>
 					{ 	
@@ -37,21 +39,5 @@ class selectTypeahead extends Component {
 		)
 	}
 }
-// const selectTypeahead = ({ options, placeholder, type, input, meta , withoutLabel, withButton, withGlyph, onClick }) => (console.log('OPPPPPPPP', input),
-// 	<InputGroup>
-//     	<FormGroup bsSize="small" controlId={input.name}  validationState={ meta.touched ? (meta.error ? 'error' : 'success') : ''}>
-// 	        { !withoutLabel && <ControlLabel>Select</ControlLabel> }
-// 	        <FormControl {...input} submitFormOnEnter allowNew bodyContainer className="input-typeahead" componentClass={Typeahead} labelKey="name" options={options} placeholder={placeholder} value={input.value} onChange={input.onChange}></FormControl>
-// 	        <FormControl.Feedback />
-//       	</FormGroup>
-//   		{ 	withButton &&
-// 	  		<InputGroup.Button>
-// 	        	<Button onClick={onClick} bsStyle="action-button small-text" type="button">
-// 	        		{ withGlyph && <Glyphicon className="small-glyph" glyph={withGlyph} />}
-// 	        	</Button>
-// 	      	</InputGroup.Button>
-// 	    }
-//     </InputGroup>
-// );
-//
-export default selectTypeahead;
+
+export default asyncTypeahead;
