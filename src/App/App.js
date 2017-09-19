@@ -16,8 +16,8 @@ import Suppliers from '../scenes/Suppliers/index'
 import Supplier from '../scenes/Suppliers/components/Supplier/index'
 import CreateSupplier from '../scenes/Suppliers/components/CreateSupplier/index'
 import Administration from '../scenes/Administration/index'
-import CreateTeam from '../scenes/Administration/components/CreateTeam/index'
-import TeamView from '../scenes/Administration/components/Team/index'
+import CreateTeam from '../scenes/Administration/components/Teams/SaveTeam/'
+import TeamView from '../scenes/Administration/components/Teams/Team/'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
@@ -65,8 +65,9 @@ const App = ({isAuthenticated}) => (
           <Route exact path="/suppliers/:id" component={requireAuthentication(Supplier)} />
           <Route exact path="/suppliers/supplier/new" component={requireAuthentication(CreateSupplier)} />
           <Route exact path="/administration" component={requireAuthentication(Administration)} />
-          <Route exact path="/administration/team/:id" component={requireAuthentication(TeamView)} />
-          <Route exact path="/administration/team/new" component={requireAuthentication(CreateTeam)} />
+          <Route exact path="/administration/teams/:id" component={requireAuthentication(TeamView)} />
+          <Route exact path="/administration/teams/team/new" component={requireAuthentication(CreateTeam)} />
+          <Route exact path="/administration/teams/team/edit/:id" component={requireAuthentication(CreateTeam)} />
           <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
           <Route exact path="/kitui" component={KitUi} />
       </Switch>

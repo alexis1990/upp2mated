@@ -28,8 +28,8 @@ class Teams extends Component {
 			            		</Col>
 			            		<Col xs={3} md={3} lg={3} className="panel-head">
 				            		<Button>
-				            			<Link to={`administration/team/new/`}>
-				            				<Glyphicon glyph="plus"/>Ajouter un Utilisateur
+				            			<Link to={`/administration/teams/team/new/`}>
+				            				<Glyphicon glyph="plus"/>Ajouter une Equipe
 				            			</Link>
 				            		</Button>
 			            		</Col>
@@ -51,8 +51,8 @@ class Teams extends Component {
 													<td>{ team.description }</td>
 													<td className="actions" colSpan="2">
 														<ButtonGroup justified>
-															<Button className="action-button"><Link to={`/administration/team/` + team.id}><Glyphicon glyph="eye-open"/></Link></Button>
-															<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<2')}><Glyphicon glyph="pencil"/></Button>
+															<Button className="action-button"><Link to={`/administration/teams/` + team.id}><Glyphicon glyph="eye-open"/></Link></Button>
+															<Button className="action-button"><Link to={`/administration/teams/team/edit/` + team.id}><Glyphicon glyph="pencil"/></Link></Button>
 															<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove"/></Button>
 														</ButtonGroup>
 													</td>

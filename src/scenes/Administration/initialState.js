@@ -4,7 +4,10 @@ const initialState = {
     	isLoading: true
     },
     team: {
-    	data: {},
+    	data: {
+            teamMembers: [],
+            teamManagers: []
+        },
     	isLoading: true
     }
 }

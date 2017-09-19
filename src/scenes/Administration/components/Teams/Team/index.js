@@ -3,8 +3,8 @@ import { Grid, Tab, Row, Col, Nav, NavItem } from 'react-bootstrap'
 import { withRouter, Link, Route } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { fetchTeam } from '../../actions'
-import Spinner from '../../../../components/Spinner'
+import { fetchTeam } from '../../../actions'
+import Spinner from '../../../../../components/Spinner'
 
 class TeamView extends Component {
 	
