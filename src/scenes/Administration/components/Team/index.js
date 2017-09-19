@@ -19,13 +19,15 @@ class TeamView extends Component {
 
 		return(
 			<Row className="team">
-	        	<Col xs={12} md={12} lg={12} className="team">
+	        	<Col xs={12} md={12} lg={12}>
 	        		{	isLoading ?
 	        				<Spinner />
 	        			:
-	        				<div>
-		    					{ team.name}
-							</div>
+	        				<Row>
+	        					<Col xs={12} md={12} lg={12}>
+		    						{ team.name}
+								</Col>
+							</Row>
 					}
 				</Col>
 			</Row>

@@ -4,7 +4,7 @@ const initialState = {
     	isLoading: true
     },
     team: {
-    	date: {},
+    	data: {},
     	isLoading: true
     }
 }

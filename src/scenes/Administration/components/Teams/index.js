@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Table, ButtonGroup, Button, Pagination, Glyphicon } from 'react-bootstrap'
+import { Row, Col, Table, ButtonGroup, Button, ButtonToolbar, Pagination, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter, Link, Route } from 'react-router-dom'
@@ -14,39 +14,54 @@ class Teams extends Component {
 	render(){
 		const { teams, isLoading } = this.props;
 		return(
-			<Row className="team">
-		        	<Col xs={12} md={12} lg={12} className="list">
+			<Row className="teams">
+		        	<Col xs={12} md={12} lg={12}>
 		        		{ isLoading ? 
 		        			<Spinner />
 		        		:
 		        		<div>
-			    			<h3>
-			            		Equipes
-			        		</h3>
-							<Table responsive>
-							    <thead>
-							      <tr>
-							        <th>Equipe</th>
-							        <th>Description</th>
-							        <th>Actions</th>
-							      </tr>
-							    </thead>
-							    <tbody>
-									{ teams.map((team) => (
-										<tr>
-											<td>{ team.name }</td>
-											<td>{ team.description }</td>
-											<td className="actions" colSpan="2">
-												<ButtonGroup justified>
-													<Button className="action-button"><Link to={`/administration/team/` + team.id}><Glyphicon glyph="eye-open"/></Link></Button>
-													<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<2')}><Glyphicon glyph="pencil"/></Button>
-													<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove"/></Button>
-												</ButtonGroup>
-											</td>
-										</tr>
-									))}
-							    </tbody>
-							</Table>
+		        			<Row className="clearfix equal">
+				        		<Col xs={9} md={9} lg={9}>
+				        			<h3>
+				            			Equipes
+				        			</h3>
+			            		</Col>
+			            		<Col xs={3} md={3} lg={3} className="panel-head">
+				            		<Button>
+				            			<Link to={`administration/team/new/`}>
+				            				<Glyphicon glyph="plus"/>Ajouter un Utilisateur
+				            			</Link>
+				            		</Button>
+			            		</Col>
+		            		</Row>
+		            		<Row className="clearfix">
+			            		<Col xs={12} md={12} lg={12} className="list">
+									<Table responsive>
+									    <thead>
+									      <tr>
+									        <th>Equipe</th>
+									        <th>Description</th>
+									        <th>Actions</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+											{ teams.map((team) => (
+												<tr>
+													<td>{ team.name }</td>
+													<td>{ team.description }</td>
+													<td className="actions" colSpan="2">
+														<ButtonGroup justified>
+															<Button className="action-button"><Link to={`/administration/team/` + team.id}><Glyphicon glyph="eye-open"/></Link></Button>
+															<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<2')}><Glyphicon glyph="pencil"/></Button>
+															<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove"/></Button>
+														</ButtonGroup>
+													</td>
+												</tr>
+											))}
+									    </tbody>
+									</Table>
+								</Col>
+							</Row>
 							{/*<Pagination
 								bsSize="medium"
 								items={teams.totalPages}

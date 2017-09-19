@@ -78,3 +78,7 @@ input[type="checkbox"] {
       outline: none; }
       .list .actions .action-button:hover {
         color: blue; }
+
+.equal {
+  display: -webkit-flex;
+  display: flex; }

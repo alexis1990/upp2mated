@@ -1,3 +1,15 @@
 .administration {
 	padding: 20px;
+	.team{	
+	}
+	.teams{
+		.panel-head{
+			position:relative;
+			button{
+				position: absolute;
+    			bottom: 20%;
+    			right: 10%;
+			}
+		}
+	}
 }

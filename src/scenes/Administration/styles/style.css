@@ -1,2 +1,8 @@
 .administration {
   padding: 20px; }
+  .administration .teams .panel-head {
+    position: relative; }
+    .administration .teams .panel-head button {
+      position: absolute;
+      bottom: 20%;
+      right: 10%; }
