@@ -96,11 +96,11 @@ input[type="checkbox"] {
 .list{
   padding: 0 20px;
   .actions{
-    width:100px;
+    // width:200px;
     .action-button {
       background:white;
       border:none;
-      width: 30%;
+      width: 50px;
       outline: none;
       &:hover{
         color:blue;

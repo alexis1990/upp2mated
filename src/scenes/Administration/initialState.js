@@ -9,6 +9,18 @@ const initialState = {
             teamManagers: []
         },
     	isLoading: true
+    },
+    createTeam: {
+        values: {
+            name:'okok'
+        }
+    },
+    users: {
+    	data: {
+            teamMembers: [],
+            teamManagers: []
+        },
+    	isLoading: true
     }
 }
 

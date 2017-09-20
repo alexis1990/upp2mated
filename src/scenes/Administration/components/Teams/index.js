@@ -47,9 +47,9 @@ class Teams extends Component {
 									    <tbody>
 											{ teams.map((team) => (
 												<tr>
-													<td>{ team.name }</td>
-													<td>{ team.description }</td>
-													<td className="actions" colSpan="2">
+													<td width="40%">{ team.name }</td>
+													<td width="30%">{ team.description }</td>
+													<td className="actions" width="30%">
 														<ButtonGroup justified>
 															<Button className="action-button"><Link to={`/administration/teams/` + team.id}><Glyphicon glyph="eye-open"/></Link></Button>
 															<Button className="action-button"><Link to={`/administration/teams/team/edit/` + team.id}><Glyphicon glyph="pencil"/></Link></Button>
