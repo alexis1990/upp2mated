@@ -58,6 +58,13 @@ export function fetchUsers(page) {
 	}
 }
 
+export function selectedMember(member) {
+	return {
+		type: types.ADD_MEMBER,
+		payload: member
+	}
+}
+
 export function selectedMembers(member) {
 	return {
 		type: types.ADD_MEMBER,

@@ -15,7 +15,8 @@ export function administationReducer(state= initialState, action= action) {
 			return {
 				...state,
 				createTeam: {
-					values: {
+					...state.createTeam, values: {
+						...state.createTeam.values,
 						teamMembers: state.createTeam.values.teamMembers.concat(action.payload)
 					}
 				}

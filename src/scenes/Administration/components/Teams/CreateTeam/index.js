@@ -18,7 +18,7 @@ class CreateTeam extends Component {
 	}
 
 	render(){
-		const { users, team, isLoading, isModalVisible, isVisible } =  this.props;
+		const { users, team, teamMembers, isLoading, isModalVisible, isVisible } =  this.props;
 		return(
 			<div className="create-team">
                 <Modal isVisible={ isVisible } component={ <UsersList /> } />
@@ -49,7 +49,7 @@ class CreateTeam extends Component {
 								</tr>
 							</thead>
 							<tbody>
-								{ team.teamMembers.map((user) => (
+								{ teamMembers.map((user) => (
 									<tr>
 										<td width='30%'>{ user.firstname } { user.lastname }</td>
 										<td width='40%'>{ user.email }</td>
@@ -72,9 +72,9 @@ class CreateTeam extends Component {
 }
 
 function mapStateToProps(state) {
-	console.log('STATTTE', state)
 	return {
         team: state.form.Administration.team.data,
+        teamMembers: state.form.Administration.createTeam.values.teamMembers,
         isVisible: state.modal
 	}
 }
@@ -89,5 +89,8 @@ CreateTeam = connect(
 )(CreateTeam);
 
 export default CreateTeam = reduxForm({
-  	form: 'Administration.createTeam'
+  	form: 'Administration.createTeam',
+  	initialValues: {
+  		teamMembers: []
+  	}
 })(withRouter((CreateTeam)))

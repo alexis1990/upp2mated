@@ -12,7 +12,6 @@ const initialState = {
     },
     createTeam: {
         values: {
-            name:'okok'
         }
     },
     users: {
