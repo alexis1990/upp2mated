@@ -5,7 +5,19 @@
 }
 .administration {
 	padding: 20px;
-	.team{	
+	.nav {
+		.active {
+			a{
+				background: #0189a9;
+				&:hover {
+					background: #0189a9;
+				}
+				&:focus {
+					background: #0189a9;
+				}
+			}
+
+		}
 	}
 	.teams{
 		.panel-head{

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchTeam } from '../../../actions'
 import Spinner from '../../../../../components/Spinner'
+import TeamMembers from '../components/TeamMembers/'
 
 class TeamView extends Component {
 	
@@ -18,19 +19,22 @@ class TeamView extends Component {
 		const { isLoading, team } = this.props;
 
 		return(
-			<Row className="team">
-	        	<Col xs={12} md={12} lg={12}>
-	        		{	isLoading ?
-	        				<Spinner />
-	        			:
-	        				<Row>
-	        					<Col xs={12} md={12} lg={12}>
-		    						{ team.name}
-								</Col>
-							</Row>
-					}
-				</Col>
-			</Row>
+			<Col xs={12} md={12} lg={12}>
+				{	isLoading ?
+						<Spinner />
+					:
+						<Row>
+							<Col xs={6} md={6} lg={6}>
+								<h3>{ team.name}</h3>
+								<div><strong>Description :</strong></div>
+								<p>{ team.description}</p>
+							</Col>
+							<Col xs={6} md={6} lg={6} className="list">
+								<TeamMembers teamMembers={team.teamMembers} />
+							</Col>
+						</Row>
+				}
+			</Col>
 		)
 	}
 }
