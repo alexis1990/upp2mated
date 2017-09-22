@@ -5,6 +5,7 @@ import { withRouter, Link, Route } from 'react-router-dom'
 import renderInput from '../../../../../components/Fields/input'
 import Modal from '../../../../../components/Modal/'
 import { isModalVisible } from '../../../../../components/Modal/actions'
+import { postNewTeam } from '../../../actions'
 import TeamCreationForm from '../components/TeamCreationForm'
 import UsersList from '../../Users/components/UsersList'
 import { bindActionCreators } from 'redux'
@@ -13,8 +14,10 @@ import { connect } from 'react-redux'
 
 class CreateTeam extends Component {
 
-	postTeam(values) {
-		console.log('VALUESSS', values)
+	postTeam(e) {
+		e.preventDefault();
+		const { postNewTeam, newTeam, history } = this.props;
+		postNewTeam(newTeam, history);
 	}
 
 	render(){
@@ -24,8 +27,11 @@ class CreateTeam extends Component {
                 <Modal isVisible={ isVisible } component={ <UsersList /> } />
 	        	<Col xs={6} md={6} lg={6}>
 					<h3> Equipe </h3>
-					<Form onSubmit={this.postTeam()}>
-                        <TeamCreationForm />						
+					<Form onSubmit={(e) => this.postTeam(e)}>
+                        <TeamCreationForm />
+						<Button type="submit">
+							Submit
+						</Button>						
 					</Form>
 				</Col>
 				<Col xs={6} md={6} lg={6} className="members list">
@@ -74,23 +80,22 @@ class CreateTeam extends Component {
 function mapStateToProps(state) {
 	return {
         team: state.form.Administration.team.data,
-        teamMembers: state.form.Administration.createTeam.values.teamMembers,
+		teamMembers: state.form.Administration.createTeam.values.teamMembers,
+		newTeam: state.form.Administration.createTeam.values,
         isVisible: state.modal
 	}
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ isModalVisible }, dispatch);
+	return (dispatch) => bindActionCreators({ isModalVisible, postNewTeam }, dispatch);
 }
-
-CreateTeam = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(CreateTeam);
 
 export default CreateTeam = reduxForm({
   	form: 'Administration.createTeam',
   	initialValues: {
   		teamMembers: []
   	}
-})(withRouter((CreateTeam)))
+})(withRouter(connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateTeam)))

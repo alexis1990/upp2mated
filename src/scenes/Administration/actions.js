@@ -46,6 +46,16 @@ export function fetchTeam(id) {
 	}
 }
 
+export function postNewTeam(newTeam, history) {
+	return (dispatch, getState) => {
+		axios.post('/u2m-api/v1/team/', newTeam).then((response) => {
+			history.push('/administration/')
+		}, (errorResponse) => {
+			console.log('ERROR', errorResponse)
+		})
+	}
+}
+
 export function fetchUsers(page) {
 	return (dispatch) => {
 		dispatch(loadUsers({}, true))
@@ -58,16 +68,25 @@ export function fetchUsers(page) {
 	}
 }
 
-export function selectedMember(member) {
+export function removeMember(member) {
+	console.log('REMOVE')
+	return {
+		type: types.REMOVE_MEMBER,
+		payload: member
+	}
+}
+
+export function addMember(member) {
+	console.log('ADD')
 	return {
 		type: types.ADD_MEMBER,
 		payload: member
 	}
 }
 
-export function selectedMembers(member) {
-	return {
-		type: types.ADD_MEMBER,
-		payload: member
+export function selectedMember(member) {
+	return (dispatch, getState) => {
+		const teamMembersState = getState().form.Administration.createTeam.values.teamMembers;
+		teamMembersState.includes(member) ? dispatch(removeMember(member)) : dispatch(addMember(member));
 	}
 }
