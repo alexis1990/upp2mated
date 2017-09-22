@@ -1,0 +1,32 @@
+.create-team{
+	.members{
+		padding-top: 20px;
+	}
+}
+.administration {
+	padding: 20px;
+	.nav {
+		.active {
+			a{
+				background: #0189a9;
+				&:hover {
+					background: #0189a9;
+				}
+				&:focus {
+					background: #0189a9;
+				}
+			}
+
+		}
+	}
+	.teams{
+		.panel-head{
+			position:relative;
+			button{
+				position: absolute;
+    			bottom: 20%;
+    			right: 10%;
+			}
+		}
+	}
+}

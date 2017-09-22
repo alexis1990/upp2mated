@@ -59,12 +59,12 @@ class Suppliers extends Component {
 						    <tbody>
 									{ suppliers.content.map((supplier) => (
 										<tr>
-											<td>{ supplier.name }</td>
-											<td>{ supplier.subsidiary }</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td className="actions" colSpan="2">
+											<td width="20%">{ supplier.name }</td>
+											<td width="20%">{ supplier.subsidiary }</td>
+											<td width="10%"> Table cell</td>
+											<td width="10%">Table cell</td>
+											<td width="20%">Table cell</td>
+											<td className="actions" width="20%">
 											<ButtonGroup justified>
 												<Button className="action-button"><Link to={`/suppliers/${supplier.id}`}><Glyphicon glyph="eye-open"/></Link></Button>
 												<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<2')}><Glyphicon glyph="pencil"/></Button>

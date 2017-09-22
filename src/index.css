@@ -66,3 +66,17 @@ button {
 
 input[type="checkbox"] {
   margin: 5px; }
+
+.list {
+  padding: 0 20px; }
+  .list .actions .action-button {
+    background: white;
+    border: none;
+    width: 50px;
+    outline: none; }
+    .list .actions .action-button:hover {
+      color: blue; }
+
+.equal {
+  display: -webkit-flex;
+  display: flex; }
