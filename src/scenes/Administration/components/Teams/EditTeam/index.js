@@ -5,8 +5,11 @@ import { withRouter, Link, Route } from 'react-router-dom'
 import renderInput from '../../../../../components/Fields/input'
 import TeamCreationForm from '../components/TeamCreationForm/'
 import TeamMembers from '../components/TeamMembers/'
+import UsersList from '../../Users/components/UsersList'
+import Modal from '../../../../../components/Modal/'
+import { isModalVisible } from '../../../../../components/Modal/actions'
 import { bindActionCreators } from 'redux'
-import { fetchTeam } from '../../../actions'
+import { fetchTeam, selectedMemberEdition } from '../../../actions'
 import Spinner from '../../../../../components/Spinner'
 import { connect } from 'react-redux'
 
@@ -21,10 +24,16 @@ class EditTeam extends Component {
 		console.log('VALUESSS', values)
 	}
 
+	manageMembers(member){
+		const { selectedMemberEdition } = this.props;
+		selectedMemberEdition(member);	
+	}
+
 	render(){
-		const { team, isLoading } =  this.props;
+		const { team, isLoading, isModalVisible, isVisible } =  this.props;
 		return(
 			<div className="create-team">
+				<Modal isVisible={ isVisible } component={ <UsersList teamMembers={team.teamMembers} manageMembers={this.manageMembers.bind(this)} /> } />
 	        	<Col xs={6} md={6} lg={6}>
 					<h3> Equipe { team.name } </h3>
 					<Form onSubmit={this.postTeam()}>
@@ -36,7 +45,17 @@ class EditTeam extends Component {
 						<Spinner />
 					:
 					<div>
-						<TeamMembers teamMembers={ team.teamMembers } />				
+						<Col xs={9} md={9} lg={9}>
+                                <h4> Membres </h4>
+                        </Col>
+						<Col xs={3} md={3} lg={3} className="panel-head">
+							<Button onClick={() => isModalVisible(true)}>
+								<Glyphicon glyph="plus"/>Ajouter une Equipe
+							</Button>
+                        </Col>
+						<Col xs={12} md={12} lg={12} className="panel-head">
+							<TeamMembers teamMembers={ team.teamMembers } />
+						</Col>			
 					</div>
 					}
 				</Col>
@@ -46,15 +65,16 @@ class EditTeam extends Component {
 }
 
 function mapStateToProps(state) {
-	console.log('STATTTE', state)
+	console.log('STATTTE', state.form.Administration.editTeam)
 	return {
-		team: state.form.Administration.team.data,
-		isLoading: state.form.Administration.team.isLoading
+		team: state.form.Administration.editTeam.values,
+		isLoading: state.form.Administration.editTeam.isLoading,
+		isVisible: state.modal
 	}
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ fetchTeam }, dispatch);
+	return (dispatch) => bindActionCreators({ fetchTeam, isModalVisible, selectedMemberEdition }, dispatch);
 }
 
 EditTeam = connect(
@@ -63,5 +83,8 @@ EditTeam = connect(
 )(EditTeam);
 
 export default EditTeam = reduxForm({
-  	form: 'Administration.editTeam'
+	form: 'Administration.editTeam',
+	initialValues: {
+		teamMembers: []
+	}
 })(withRouter((EditTeam)))

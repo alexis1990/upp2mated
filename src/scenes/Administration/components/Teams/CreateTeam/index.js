@@ -7,7 +7,9 @@ import Modal from '../../../../../components/Modal/'
 import { isModalVisible } from '../../../../../components/Modal/actions'
 import { postNewTeam } from '../../../actions'
 import TeamCreationForm from '../components/TeamCreationForm/'
+import TeamMembers from '../components/TeamMembers/'
 import UsersList from '../../Users/components/UsersList'
+import { selectedMemberCreation } from '../../../actions'
 import { bindActionCreators } from 'redux'
 import Spinner from '../../../../../components/Spinner'
 import { connect } from 'react-redux'
@@ -20,11 +22,16 @@ class CreateTeam extends Component {
 		postNewTeam(newTeam, history);
 	}
 
+	manageMembers(member) {
+        const { selectedMemberCreation } = this.props;
+        selectedMemberCreation(member);
+    }
+
 	render(){
 		const { users, team, teamMembers, isLoading, isModalVisible, isVisible } =  this.props;
 		return(
 			<div className="create-team">
-                <Modal isVisible={ isVisible } component={ <UsersList /> } />
+                <Modal isVisible={ isVisible } component={ <UsersList teamMembers={teamMembers} manageMembers={this.manageMembers.bind(this)} /> } />
 	        	<Col xs={6} md={6} lg={6}>
 					<h3> Equipe </h3>
 					<Form onSubmit={(e) => this.postTeam(e)}>
@@ -46,30 +53,11 @@ class CreateTeam extends Component {
                                 </Button>
                             </Col>
                         </Row>
-						<Table responsive>
-							<thead>
-								<tr>
-									<th>Nom</th>
-									<th>Email</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{ teamMembers.map((user) => (
-									<tr>
-										<td width='30%'>{ user.firstname } { user.lastname }</td>
-										<td width='40%'>{ user.email }</td>
-										<td width='30%' className="actions" colSpan="2">
-											<ButtonGroup justified>
-												<Button className="action-button"><Link to={`/administration/teams/` + user.id}><Glyphicon glyph="eye-open"/></Link></Button>
-												<Button className="action-button"><Link to={`/administration/teams/team/edit/` + user.id}><Glyphicon glyph="pencil"/></Link></Button>
-												<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove"/></Button>
-											</ButtonGroup>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</Table>						
+						<Row>
+							<Col xs={12} md={12} lg={12}>
+								<TeamMembers teamMembers={ teamMembers } />
+							</Col>
+						</Row>					
 					</div>
 				</Col>
 			</div>
@@ -87,7 +75,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ isModalVisible, postNewTeam }, dispatch);
+	return (dispatch) => bindActionCreators({ isModalVisible, postNewTeam, selectedMemberCreation }, dispatch);
 }
 
 export default CreateTeam = reduxForm({

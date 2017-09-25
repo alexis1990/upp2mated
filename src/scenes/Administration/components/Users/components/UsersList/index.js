@@ -3,7 +3,7 @@ import { Grid, Tab, Row, Col, Nav, NavItem, ButtonGroup, Button, Glyphicon, Pagi
 import { withRouter, Link, Route } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { fetchUsers, selectedMember } from '../../../../actions'
+import { fetchUsers } from '../../../../actions'
 import { Field, reduxForm } from 'redux-form'
 import Spinner from '../../../../../../components/Spinner'
 import _ from 'lodash'
@@ -30,13 +30,14 @@ class UsersList extends Component {
         fetchUsers(page);
     }
 
-    addMembers(member) {
-        const { selectedMember } = this.props;
-        selectedMember(member);
+    selectedMembers(user) {
+        const { teamMembers } = this.props;
+        console.log('TEAMMEBERS', teamMembers)
+        if(teamMembers.some((member) => member.id === user.id)) return true;
     }
 
 	render(){
-		const { isLoading, users, actions } = this.props;
+		const { isLoading, users, actions, manageMembers } = this.props;
 
 		return(
 			<Row className="users">
@@ -58,7 +59,7 @@ class UsersList extends Component {
                                             { users.content.map((user, index) => (
                                                 <tr>
                                                     <td width='10%'>						      		
-                                                        <input type="checkbox" name="selected" onChange={() => this.addMembers(user)} checked={user.selected} />
+                                                        <input type="checkbox" name="selected" onChange={() => manageMembers(user)} checked={this.selectedMembers(user)} />
                                                     </td>
                                                     <td width='30%'>{ user.firstname } { user.lastname }</td>
                                                     <td width='30%' >{ user.email }</td>
@@ -67,7 +68,7 @@ class UsersList extends Component {
                                                             <ButtonGroup justified>
                                                                 <Button className="action-button"><Link to={`/administration/teams/` + user.id}><Glyphicon glyph="eye-open"/></Link></Button>
                                                                 <Button className="action-button"><Link to={`/administration/teams/team/edit/` + user.id}><Glyphicon glyph="pencil"/></Link></Button>
-                                                                <Button className="action-button" onClick={() => this.addMembers(user)}><Glyphicon glyph="remove"/></Button>
+                                                                <Button className="action-button" onClick={() => manageMembers(user)}><Glyphicon glyph="remove"/></Button>
                                                             </ButtonGroup>
                                                         </td>
                                                         :
@@ -93,13 +94,13 @@ class UsersList extends Component {
 
 function mapStateToProps(state) {
 	return {
-		users: state.form.Administration.users.data,
+        users: state.form.Administration.users.data,
 		isLoading: state.form.Administration.users.isLoading
 	}
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ fetchUsers, selectedMember }, dispatch);
+	return (dispatch) => bindActionCreators({ fetchUsers }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps) (UsersList);
