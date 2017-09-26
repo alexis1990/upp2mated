@@ -25,6 +25,11 @@ const initialState = {
             teamManagers: []
         },
     	isLoading: true
+    },
+    user: {
+        data: {
+        },
+        isLoading: true
     }
 }
 

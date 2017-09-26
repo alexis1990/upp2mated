@@ -22,6 +22,8 @@ export function administationReducer(state= initialState, action= action) {
 			}
 		case types.LOAD_USERS:
 			return { ...state, users: action.payload}
+		case types.LOAD_USER:
+			return { ...state, user: action.payload}
 		case types.ADD_MEMBER_CREATION:
 			return {
 				...state,

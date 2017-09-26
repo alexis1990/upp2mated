@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { fetchTeam } from '../../../actions'
 import Spinner from '../../../../../components/Spinner'
 import TeamMembers from '../components/TeamMembers/'
+import './styles/style.css'
 
 class TeamView extends Component {
 	
@@ -24,7 +25,7 @@ class TeamView extends Component {
 						<Spinner />
 					:
 						<Row>
-							<Col xs={6} md={6} lg={6}>
+							<Col xs={6} md={6} lg={6} className="team">
 								<h3>{ team.name}</h3>
 								<div><strong>Description :</strong></div>
 								<p>{ team.description}</p>

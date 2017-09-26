@@ -28,6 +28,13 @@ export function loadUsers(users, isLoading) {
 	}
 }
 
+export function loadUser(user, isLoading) {
+	return {
+		type: types.LOAD_USER,
+		payload: { data: user, isLoading: isLoading }
+	}
+}
+
 export function fetchTeams() {
 	return (dispatch) => {
 		dispatch(loadTeams([], true))
@@ -73,6 +80,19 @@ export function fetchUsers(page) {
 		})
 	}
 }
+
+export function fetchUser(id) {
+	return (dispatch) => {
+		dispatch(loadUsers({}, true))
+		const size = 10;
+		axios.get(`/u2m-api/v1/person/${id}`).then((user) => {
+			dispatch(loadUser(user, false));
+		}, (errorResponse) => {
+			console.log('ERROR', errorResponse)
+		})
+	}
+}
+
 
 export function removeMemberCreation(member) {
 	console.log('REMOVE')

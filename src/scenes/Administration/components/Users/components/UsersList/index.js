@@ -7,6 +7,7 @@ import { fetchUsers } from '../../../../actions'
 import { Field, reduxForm } from 'redux-form'
 import Spinner from '../../../../../../components/Spinner'
 import _ from 'lodash'
+import './styles/style.css'
 
 class UsersList extends Component {
     constructor(){
@@ -44,10 +45,11 @@ class UsersList extends Component {
 	        		{	isLoading ?
 	        				<Spinner />
 	        			:
-                        <Col xs={12} md={12} lg={12} className="list">
+                        <Col xs={12} md={12} lg={12} className="list users-list">
                             <Table responsive>
-                                <thead>
+                                <thead className="panel-header-user">
                                     <tr>
+                                        { checkboxOption ? <th></th> : null }
                                         <th>Nom</th>
                                         <th>Email</th>
                                         { actions ? <th className="align-center">Actions</th> : null }
@@ -57,7 +59,7 @@ class UsersList extends Component {
                                     { users.content.map((user, index) => (
                                         <tr>
                                             { checkboxOption ? 
-                                            <td width='10%'>						      		
+                                            <td width='10%' className="select-user">						      		
                                                 <input type="checkbox" name="selected" onChange={() => manageMembers(user)} checked={this.selectedMembers(user)} />
                                             </td> 
                                             : 
@@ -68,7 +70,7 @@ class UsersList extends Component {
                                             { actions ? 
                                                 <td width='30%' className="actions" colSpan="2">
                                                     <ButtonGroup justified>
-                                                        <Button className="action-button"><Link to={`/administration/teams/` + user.id}><Glyphicon glyph="eye-open"/></Link></Button>
+                                                        <Button className="action-button"><Link to={`/administration/users/` + user.id}><Glyphicon glyph="eye-open"/></Link></Button>
                                                         <Button className="action-button"><Link to={`/administration/teams/team/edit/` + user.id}><Glyphicon glyph="pencil"/></Link></Button>
                                                         <Button className="action-button" onClick={() => manageMembers(user)}><Glyphicon glyph="remove"/></Button>
                                                     </ButtonGroup>
@@ -81,7 +83,7 @@ class UsersList extends Component {
                                 </tbody>
                             </Table>
                             <Pagination
-                                bsSize="medium"
+                                bsSize="small"
                                 items={users.totalPages}
                                 activePage={this.state.activePage}
                                 onSelect={this.handleSelect} />

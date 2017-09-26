@@ -1,0 +1,6 @@
+.table-responsive {
+  padding: 0; }
+  .table-responsive .select-user {
+    padding: 0 15px; }
+    .table-responsive .select-user input {
+      height: 26px !important; }
