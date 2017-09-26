@@ -32,34 +32,36 @@ class CreateTeam extends Component {
 		return(
 			<div className="create-team">
                 <Modal isVisible={ isVisible } component={ <UsersList teamMembers={teamMembers} manageMembers={this.manageMembers.bind(this)} /> } />
-	        	<Col xs={6} md={6} lg={6}>
-					<h3> Equipe </h3>
-					<Form onSubmit={(e) => this.postTeam(e)}>
-                        <TeamCreationForm />
-						<Button type="submit">
+	        	<Form onSubmit={(e) => this.postTeam(e)}>
+		        	<Col xs={6} md={6} lg={6}>
+						<h3> Equipe </h3>			
+	                    <TeamCreationForm />						
+					</Col>
+					<Col xs={6} md={6} lg={6} className="members list">
+						<div>
+	                        <Row className="clearfix equal">
+	                            <Col xs={9} md={9} lg={9}>
+	                                <h4> Membres </h4>
+	                            </Col>
+	                            <Col xs={3} md={3} lg={3} className="panel-head">
+	                                <Button onClick={() => isModalVisible(true)}>
+	                                    <Glyphicon glyph="plus"/>Gérer les membres
+	                                </Button>
+	                            </Col>
+	                        </Row>
+							<Row>
+								<Col xs={12} md={12} lg={12}>
+									<TeamMembers teamMembers={ teamMembers } />
+								</Col>
+							</Row>			
+						</div>
+					</Col>
+					<Col xs={12} md={12} lg={12}>
+						<Button type="submit" className="pull-right">
 							Submit
-						</Button>						
-					</Form>
-				</Col>
-				<Col xs={6} md={6} lg={6} className="members list">
-					<div>
-                        <Row className="clearfix equal">
-                            <Col xs={9} md={9} lg={9}>
-                                <h4> Membres </h4>
-                            </Col>
-                            <Col xs={3} md={3} lg={3} className="panel-head">
-                                <Button onClick={() => isModalVisible(true)}>
-                                    <Glyphicon glyph="plus"/>Ajouter une Equipe
-                                </Button>
-                            </Col>
-                        </Row>
-						<Row>
-							<Col xs={12} md={12} lg={12}>
-								<TeamMembers teamMembers={ teamMembers } />
-							</Col>
-						</Row>					
-					</div>
-				</Col>
+						</Button>
+					</Col>
+				</Form>
 			</div>
 		)
 	}
@@ -82,7 +84,8 @@ export default CreateTeam = reduxForm({
   	form: 'Administration.createTeam',
   	initialValues: {
   		teamMembers: []
-  	}
+  	},
+  	destroyOnUnmount: false
 })(withRouter(connect(
 	mapStateToProps,
 	mapDispatchToProps

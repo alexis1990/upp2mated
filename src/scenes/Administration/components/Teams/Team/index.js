@@ -40,6 +40,7 @@ class TeamView extends Component {
 }
 
 function mapStateToProps(state) {
+	console.log('STATTEEETEAM', state)
 	return {
 		team: state.form.Administration.team.data,
 		isLoading: state.form.Administration.team.isLoading

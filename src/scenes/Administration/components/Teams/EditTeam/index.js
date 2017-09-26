@@ -50,7 +50,7 @@ class EditTeam extends Component {
                         </Col>
 						<Col xs={3} md={3} lg={3} className="panel-head">
 							<Button onClick={() => isModalVisible(true)}>
-								<Glyphicon glyph="plus"/>Ajouter une Equipe
+								<Glyphicon glyph="plus"/>Gérer les membres
 							</Button>
                         </Col>
 						<Col xs={12} md={12} lg={12} className="panel-head">
@@ -86,5 +86,6 @@ export default EditTeam = reduxForm({
 	form: 'Administration.editTeam',
 	initialValues: {
 		teamMembers: []
-	}
+	},
+	destroyOnUnmount: false
 })(withRouter((EditTeam)))
