@@ -12,9 +12,10 @@ export function administationReducer(state= initialState, action= action) {
 				editTeam: {
 					...state.editTeam, 
 					values: { 
-						...state.editTeam.values, 
+						...state.editTeam.values,
+						id: action.payload.data.id,
 						name: action.payload.data.name,
-						teamMembers : state.editTeam.values.teamMembers.concat(action.payload.data.teamMembers)
+						teamMembers : action.payload.data.teamMembers
 					},
 					isLoading: action.payload.isLoading
 				}

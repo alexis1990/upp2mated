@@ -119,3 +119,13 @@ export function selectedMemberEdition(selectedMember) {
 		teamMembersState.some((member) => member.id === selectedMember.id) ? dispatch(removeMemberEdition(selectedMember)) : dispatch(addMemberEdition(selectedMember));
 	}
 }
+
+export function editTeam(team, history) {
+	return (dispatch) => {
+		axios.post('/u2m-api/v1/team/', team).then((response) => {
+			history.push('/administration/')
+		}, (errorResponse) => {
+			console.log('ERROR', errorResponse)
+		})
+	}
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Tab, Row, Col, Nav, NavItem, ButtonGroup, Button, Glyphicon, Pagination } from 'react-bootstrap'
+import { Grid, Tab, Row, Col, Nav, NavItem, ButtonGroup, Button, Glyphicon, Pagination, Table } from 'react-bootstrap'
 import { withRouter, Link, Route } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -37,56 +37,56 @@ class UsersList extends Component {
     }
 
 	render(){
-		const { isLoading, users, actions, manageMembers } = this.props;
+		const { isLoading, users, actions, manageMembers, checkboxOption } = this.props;
 
 		return(
 			<Row className="users">
-	        	<Col xs={12} md={12} lg={12}>
 	        		{	isLoading ?
 	        				<Spinner />
 	        			:
-	        				<Row>
-	        					<Col xs={12} md={12} lg={12} className="list">
-                                    <div>
-                                        <thead>
-                                            <tr>
-                                                <th>Nom</th>
-                                                <th>Email</th>
-                                                { actions ? <th>Actions</th> : null }
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            { users.content.map((user, index) => (
-                                                <tr>
-                                                    <td width='10%'>						      		
-                                                        <input type="checkbox" name="selected" onChange={() => manageMembers(user)} checked={this.selectedMembers(user)} />
-                                                    </td>
-                                                    <td width='30%'>{ user.firstname } { user.lastname }</td>
-                                                    <td width='30%' >{ user.email }</td>
-                                                    { actions ? 
-                                                        <td width='30%' className="actions" colSpan="2">
-                                                            <ButtonGroup justified>
-                                                                <Button className="action-button"><Link to={`/administration/teams/` + user.id}><Glyphicon glyph="eye-open"/></Link></Button>
-                                                                <Button className="action-button"><Link to={`/administration/teams/team/edit/` + user.id}><Glyphicon glyph="pencil"/></Link></Button>
-                                                                <Button className="action-button" onClick={() => manageMembers(user)}><Glyphicon glyph="remove"/></Button>
-                                                            </ButtonGroup>
-                                                        </td>
-                                                        :
-                                                        null
-                                                    }
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                        <Pagination
-                                        bsSize="medium"
-                                        items={users.totalPages}
-                                        activePage={this.state.activePage}
-                                        onSelect={this.handleSelect} />
-                                    </div>
-								</Col>
-							</Row>
+                        <Col xs={12} md={12} lg={12} className="list">
+                            <Table responsive>
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        { actions ? <th className="align-center">Actions</th> : null }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    { users.content.map((user, index) => (
+                                        <tr>
+                                            { checkboxOption ? 
+                                            <td width='10%'>						      		
+                                                <input type="checkbox" name="selected" onChange={() => manageMembers(user)} checked={this.selectedMembers(user)} />
+                                            </td> 
+                                            : 
+                                            ''
+                                            }
+                                            <td width='30%'>{ user.firstname } { user.lastname }</td>
+                                            <td width='30%' >{ user.email }</td>
+                                            { actions ? 
+                                                <td width='30%' className="actions" colSpan="2">
+                                                    <ButtonGroup justified>
+                                                        <Button className="action-button"><Link to={`/administration/teams/` + user.id}><Glyphicon glyph="eye-open"/></Link></Button>
+                                                        <Button className="action-button"><Link to={`/administration/teams/team/edit/` + user.id}><Glyphicon glyph="pencil"/></Link></Button>
+                                                        <Button className="action-button" onClick={() => manageMembers(user)}><Glyphicon glyph="remove"/></Button>
+                                                    </ButtonGroup>
+                                                </td>
+                                                :
+                                                null
+                                            }
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                            <Pagination
+                                bsSize="medium"
+                                items={users.totalPages}
+                                activePage={this.state.activePage}
+                                onSelect={this.handleSelect} />
+                        </Col>
 					}
-				</Col>
 			</Row>
 		)
 	}
