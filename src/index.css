@@ -80,3 +80,6 @@ input[type="checkbox"] {
 .equal {
   display: -webkit-flex;
   display: flex; }
+
+.align-center {
+  text-align: center; }

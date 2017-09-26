@@ -4,14 +4,20 @@ import * as types from './actionTypes'
 export function loadTeams(teams, isLoading) {
 	return {
 		type: types.LOAD_TEAMS,
-		payload: { data: teams, isLoading: isLoading }
+		payload: { 
+			data: teams, 
+			isLoading: isLoading 
+		}
 	}
 }
 
-export function loadTeam(team, isLoading) {
+export function loadTeam(teamMembers, isLoading) {
 	return {
 		type: types.LOAD_TEAM,
-		payload: { data: team, isLoading: isLoading }
+		payload: { 
+			data: teamMembers, 
+			isLoading: isLoading 
+		}
 	}
 }
 
@@ -36,7 +42,7 @@ export function fetchTeams() {
 
 export function fetchTeam(id) {
 	return (dispatch) => {
-		dispatch(loadTeam({}, true))
+		dispatch(loadTeam({ teamMembers: [] }, true))
 
 		axios.get(`${'/u2m-api/v1/team/' + id }`).then((team) => {
 			dispatch(loadTeam(team, false));
@@ -68,25 +74,58 @@ export function fetchUsers(page) {
 	}
 }
 
-export function removeMember(member) {
+export function removeMemberCreation(member) {
 	console.log('REMOVE')
 	return {
-		type: types.REMOVE_MEMBER,
+		type: types.REMOVE_MEMBER_CREATION,
 		payload: member
 	}
 }
 
-export function addMember(member) {
+export function addMemberCreation(member) {
 	console.log('ADD')
 	return {
-		type: types.ADD_MEMBER,
+		type: types.ADD_MEMBER_CREATION,
 		payload: member
 	}
 }
 
-export function selectedMember(member) {
+export function selectedMemberCreation(selectedMember) {
 	return (dispatch, getState) => {
 		const teamMembersState = getState().form.Administration.createTeam.values.teamMembers;
-		teamMembersState.includes(member) ? dispatch(removeMember(member)) : dispatch(addMember(member));
+		teamMembersState.some((member) => member.id === selectedMember.id) ? dispatch(removeMemberCreation(selectedMember)) : dispatch(addMemberCreation(selectedMember));
+	}
+}
+
+export function removeMemberEdition(member) {
+	console.log('REMOVE')
+	return {
+		type: types.REMOVE_MEMBER_EDITION,
+		payload: member
+	}
+}
+
+export function addMemberEdition(member) {
+	console.log('ADD', member)
+	return {
+		type: types.ADD_MEMBER_EDITION,
+		payload: member
+	}
+}
+
+export function selectedMemberEdition(selectedMember) {
+	return (dispatch, getState) => {
+		const teamMembersState = getState().form.Administration.editTeam.values.teamMembers;
+		teamMembersState.some((member) => member.id === selectedMember.id) ? dispatch(removeMemberEdition(selectedMember)) : dispatch(addMemberEdition(selectedMember));
+	}
+}
+
+export function editTeam(team, history) {
+	return (dispatch) => {
+		axios.post('/u2m-api/v1/team/', team).then((response) => {
+			history.push('/administration/')
+		}, (errorResponse) => {
+			console.log('ERROR', errorResponse)
+		})
 	}
 }

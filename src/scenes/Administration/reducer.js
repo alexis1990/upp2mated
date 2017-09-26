@@ -6,10 +6,23 @@ export function administationReducer(state= initialState, action= action) {
 		case types.LOAD_TEAMS:
 			return { ...state, teams: action.payload}
 		case types.LOAD_TEAM:
-			return { ...state, team: action.payload}
+			console.log('LOADTEAM', action.payload)
+			return { ...state, 
+				team: action.payload,
+				editTeam: {
+					...state.editTeam, 
+					values: { 
+						...state.editTeam.values,
+						id: action.payload.data.id,
+						name: action.payload.data.name,
+						teamMembers : action.payload.data.teamMembers
+					},
+					isLoading: action.payload.isLoading
+				}
+			}
 		case types.LOAD_USERS:
 			return { ...state, users: action.payload}
-		case types.ADD_MEMBER:
+		case types.ADD_MEMBER_CREATION:
 			return {
 				...state,
 				createTeam: {
@@ -19,7 +32,7 @@ export function administationReducer(state= initialState, action= action) {
 					}
 				}
 			}
-		case types.REMOVE_MEMBER:
+		case types.REMOVE_MEMBER_CREATION:
 			return {
 				...state,
 				createTeam: {
@@ -29,6 +42,26 @@ export function administationReducer(state= initialState, action= action) {
 					}
 				}
 			}
+		case types.ADD_MEMBER_EDITION:
+			return {
+				...state,
+				editTeam: {
+					...state.editTeam, values: {
+						...state.editTeam.values,
+						teamMembers: state.editTeam.values.teamMembers.concat(action.payload)
+					}
+				}
+			}
+		case types.REMOVE_MEMBER_EDITION:
+			return {
+				...state,
+				editTeam: {
+					...state.editTeam, values: {
+						...state.editTeam.values,
+						teamMembers: state.editTeam.values.teamMembers.filter((x) => x.id !== action.payload.id)
+					}
+				}
+			}		
 		default:
 	    	return state;
 	}

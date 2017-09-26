@@ -41,7 +41,7 @@ class Teams extends Component {
 									      <tr>
 									        <th>Equipe</th>
 									        <th>Description</th>
-									        <th>Actions</th>
+									        <th className="align-center">Actions</th>
 									      </tr>
 									    </thead>
 									    <tbody>

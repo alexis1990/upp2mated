@@ -7,7 +7,9 @@ import Modal from '../../../../../components/Modal/'
 import { isModalVisible } from '../../../../../components/Modal/actions'
 import { postNewTeam } from '../../../actions'
 import TeamCreationForm from '../components/TeamCreationForm/'
+import TeamMembers from '../components/TeamMembers/'
 import UsersList from '../../Users/components/UsersList'
+import { selectedMemberCreation } from '../../../actions'
 import { bindActionCreators } from 'redux'
 import Spinner from '../../../../../components/Spinner'
 import { connect } from 'react-redux'
@@ -20,58 +22,46 @@ class CreateTeam extends Component {
 		postNewTeam(newTeam, history);
 	}
 
+	manageMembers(member) {
+        const { selectedMemberCreation } = this.props;
+        selectedMemberCreation(member);
+    }
+
 	render(){
 		const { users, team, teamMembers, isLoading, isModalVisible, isVisible } =  this.props;
 		return(
 			<div className="create-team">
-                <Modal isVisible={ isVisible } component={ <UsersList /> } />
-	        	<Col xs={6} md={6} lg={6}>
-					<h3> Equipe </h3>
-					<Form onSubmit={(e) => this.postTeam(e)}>
-                        <TeamCreationForm />
-						<Button type="submit">
+                <Modal isVisible={ isVisible } component={ <UsersList checkboxOption teamMembers={teamMembers} manageMembers={this.manageMembers.bind(this)} /> } />
+	        	<Form onSubmit={(e) => this.postTeam(e)}>
+		        	<Col xs={6} md={6} lg={6}>
+						<h3> Equipe </h3>			
+	                    <TeamCreationForm />						
+					</Col>
+					<Col xs={6} md={6} lg={6} className="members list">
+						<div>
+	                        <Row className="clearfix equal">
+	                            <Col xs={9} md={9} lg={9}>
+	                                <h4> Membres </h4>
+	                            </Col>
+	                            <Col xs={3} md={3} lg={3} className="panel-head">
+	                                <Button onClick={() => isModalVisible(true)}>
+	                                    <Glyphicon glyph="plus"/>Gérer les membres
+	                                </Button>
+	                            </Col>
+	                        </Row>
+							<Row>
+								<Col xs={12} md={12} lg={12}>
+									<TeamMembers teamMembers={ teamMembers } />
+								</Col>
+							</Row>			
+						</div>
+					</Col>
+					<Col xs={12} md={12} lg={12}>
+						<Button type="submit" className="pull-right">
 							Submit
-						</Button>						
-					</Form>
-				</Col>
-				<Col xs={6} md={6} lg={6} className="members list">
-					<div>
-                        <Row className="clearfix equal">
-                            <Col xs={9} md={9} lg={9}>
-                                <h4> Membres </h4>
-                            </Col>
-                            <Col xs={3} md={3} lg={3} className="panel-head">
-                                <Button onClick={() => isModalVisible(true)}>
-                                    <Glyphicon glyph="plus"/>Ajouter une Equipe
-                                </Button>
-                            </Col>
-                        </Row>
-						<Table responsive>
-							<thead>
-								<tr>
-									<th>Nom</th>
-									<th>Email</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{ teamMembers.map((user) => (
-									<tr>
-										<td width='30%'>{ user.firstname } { user.lastname }</td>
-										<td width='40%'>{ user.email }</td>
-										<td width='30%' className="actions" colSpan="2">
-											<ButtonGroup justified>
-												<Button className="action-button"><Link to={`/administration/teams/` + user.id}><Glyphicon glyph="eye-open"/></Link></Button>
-												<Button className="action-button"><Link to={`/administration/teams/team/edit/` + user.id}><Glyphicon glyph="pencil"/></Link></Button>
-												<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove"/></Button>
-											</ButtonGroup>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</Table>						
-					</div>
-				</Col>
+						</Button>
+					</Col>
+				</Form>
 			</div>
 		)
 	}
@@ -87,14 +77,15 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ isModalVisible, postNewTeam }, dispatch);
+	return (dispatch) => bindActionCreators({ isModalVisible, postNewTeam, selectedMemberCreation }, dispatch);
 }
 
 export default CreateTeam = reduxForm({
   	form: 'Administration.createTeam',
   	initialValues: {
   		teamMembers: []
-  	}
+  	},
+  	destroyOnUnmount: false
 })(withRouter(connect(
 	mapStateToProps,
 	mapDispatchToProps

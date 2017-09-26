@@ -14,6 +14,11 @@ const initialState = {
         values: {
         }
     },
+    editTeam: {
+        values: {
+            teamMembers: []
+        }
+    },
     users: {
     	data: {
             teamMembers: [],
