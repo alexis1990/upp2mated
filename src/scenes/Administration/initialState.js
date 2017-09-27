@@ -28,6 +28,7 @@ const initialState = {
     },
     user: {
         data: {
+            teamMembers: [],
         },
         isLoading: true
     }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchUser } from '../../../actions'
 import Spinner from '../../../../../components/Spinner'
+import TeamsList from '../../Teams/components/TeamsList/'
 import './styles/style.css'
 
 class User extends Component {
@@ -16,7 +17,7 @@ class User extends Component {
 
 	render(){
 
-		const { user, isLoading } = this.props;
+		const { user, isLoading, memberOfTeams } = this.props;
 		console.log('USSS', user)
 		return(
 			<Row className="user">
@@ -24,9 +25,22 @@ class User extends Component {
 				    { isLoading ?
 				    	<Spinner />
 		        	:
-						<h3>
-			            	Utilisateur { user.firstname } { user.lastname }
-			        	</h3>
+						<Row>
+							<Col xs={6} md={6} lg={6}>
+								<h3>
+									Utilisateur { user.firstname } { user.lastname }
+								</h3>
+								<p>
+									Email : { user.email }
+								</p>
+								<p>
+									Poste : { user.jobPosition }
+								</p>
+							</Col>
+							<Col xs={6} md={6} lg={6}>
+								<TeamsList teams={ memberOfTeams } />
+							</Col>
+						</Row>
 		        	}
 				</Col>
 			</Row>
@@ -37,6 +51,7 @@ class User extends Component {
 function mapStateToProps(state) {
 	return {
 		user : state.form.Administration.user.data,
+		memberOfTeams : state.form.Administration.user.data.teamList,
 		isLoading : state.form.Administration.user.isLoading
 	}
 }

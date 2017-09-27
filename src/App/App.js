@@ -20,6 +20,7 @@ import EditTeam from '../scenes/Administration/components/Teams/EditTeam/'
 import CreateTeam from '../scenes/Administration/components/Teams/CreateTeam/'
 import TeamView from '../scenes/Administration/components/Teams/Team/'
 import User from '../scenes/Administration/components/Users/User/'
+import CreateUser from '../scenes/Administration/components/Users/CreateUser/'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
@@ -71,6 +72,7 @@ const App = ({isAuthenticated}) => (
           <Route exact path="/administration/teams/team/new" component={requireAuthentication(CreateTeam)} />
           <Route exact path="/administration/teams/team/edit/:id" component={requireAuthentication(EditTeam)} />
           <Route exact path="/administration/users/:id" component={requireAuthentication(User)} />
+          <Route exact path="/administration/users/user/new" component={requireAuthentication(CreateUser)} />
           <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
           <Route exact path="/kitui" component={KitUi} />
       </Switch>
