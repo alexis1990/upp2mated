@@ -33,7 +33,6 @@ class UsersList extends Component {
 
     selectedMembers(user) {
         const { teamMembers } = this.props;
-        console.log('TEAMMEBERS', teamMembers)
         if(teamMembers.some((member) => member.id === user.id)) return true;
     }
 
@@ -72,7 +71,7 @@ class UsersList extends Component {
                                                     <ButtonGroup justified>
                                                         <Button className="action-button"><Link to={`/administration/users/` + user.id}><Glyphicon glyph="eye-open"/></Link></Button>
                                                         <Button className="action-button"><Link to={`/administration/teams/team/edit/` + user.id}><Glyphicon glyph="pencil"/></Link></Button>
-                                                        <Button className="action-button" onClick={() => manageMembers(user)}><Glyphicon glyph="remove"/></Button>
+                                                        <Button className="action-button" onClick={() => {}}><Glyphicon glyph="remove"/></Button>
                                                     </ButtonGroup>
                                                 </td>
                                                 :

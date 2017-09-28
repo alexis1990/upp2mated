@@ -12,6 +12,7 @@ const initialState = {
     },
     createTeam: {
         values: {
+            teamList: []
         }
     },
     editTeam: {

@@ -63,7 +63,28 @@ export function administationReducer(state= initialState, action= action) {
 						teamMembers: state.editTeam.values.teamMembers.filter((x) => x.id !== action.payload.id)
 					}
 				}
-			}		
+			}
+		case types.ADD_TEAM_CREATION:
+		console.log('okokokokokokok')
+			return {
+				...state,
+				createUser: {
+					...state.createUser, values: {
+						...state.createUser.values,
+						teamList: state.createUser.values.teamList.concat(action.payload)
+					}
+				}
+			}
+		case types.REMOVE_TEAM_CREATION:
+			return {
+				...state,
+				createUser: {
+					...state.createUser, values: {
+						...state.createUser.values,
+						teamList: state.createUser.values.teamList.filter((x) => x.id !== action.payload.id)
+					}
+				}
+			}			
 		default:
 	    	return state;
 	}

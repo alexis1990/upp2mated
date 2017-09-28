@@ -2,8 +2,15 @@ import React from 'react'
 import { Table, ButtonGroup, Button, Glyphicon } from 'react-bootstrap'
 import Spinner from '../../../../../../components/Spinner'
 import { Link } from 'react-router-dom'
+import './styles/style.css'
 
-const TeamsList = ({ teams, actions, isLoading }) => (
+function selectedMembers(user) {
+    // const { teamMembers } = this.props;
+    // console.log('TEAMMEBERS', teamMembers)
+    // if(teamMembers.some((member) => member.id === user.id)) return true;
+}
+
+const TeamsList = ({ teams, actions, isLoading, manageTeams, checkboxOption }) => (
     isLoading ?
         <Spinner />
     :
@@ -18,6 +25,13 @@ const TeamsList = ({ teams, actions, isLoading }) => (
             <tbody>
                 { teams.map((team) => (
                     <tr>
+                        { checkboxOption ? 
+                            <td width='10%' className="select-user">                                    
+                                <input type="checkbox" name="selected" onChange={() => manageTeams(team)} checked={selectedMembers(team)} />
+                            </td> 
+                            : 
+                            ''
+                        }
                         <td width="40%">{ team.name }</td>
                         <td width="30%">{ team.description }</td>
                         { actions ? 
