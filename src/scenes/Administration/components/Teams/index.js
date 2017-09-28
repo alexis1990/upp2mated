@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter, Link, Route } from 'react-router-dom'
 import Spinner from '../../../../components/Spinner'
+import TeamsList from './components/TeamsList/'
 import { fetchTeams } from '../../actions'
 
 class Teams extends Component {
@@ -36,30 +37,7 @@ class Teams extends Component {
 		            		</Row>
 		            		<Row className="clearfix">
 			            		<Col xs={12} md={12} lg={12} className="list">
-									<Table responsive>
-									    <thead>
-									      <tr>
-									        <th>Equipe</th>
-									        <th>Description</th>
-									        <th className="align-center">Actions</th>
-									      </tr>
-									    </thead>
-									    <tbody>
-											{ teams.map((team) => (
-												<tr>
-													<td width="40%">{ team.name }</td>
-													<td width="30%">{ team.description }</td>
-													<td className="actions" width="30%">
-														<ButtonGroup justified>
-															<Button className="action-button"><Link to={`/administration/teams/` + team.id}><Glyphicon glyph="eye-open"/></Link></Button>
-															<Button className="action-button"><Link to={`/administration/teams/team/edit/` + team.id}><Glyphicon glyph="pencil"/></Link></Button>
-															<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove"/></Button>
-														</ButtonGroup>
-													</td>
-												</tr>
-											))}
-									    </tbody>
-									</Table>
+									<TeamsList actions teams={teams} />
 								</Col>
 							</Row>
 							{/*<Pagination

@@ -12,6 +12,7 @@ const initialState = {
     },
     createTeam: {
         values: {
+            teamList: []
         }
     },
     editTeam: {
@@ -25,6 +26,12 @@ const initialState = {
             teamManagers: []
         },
     	isLoading: true
+    },
+    user: {
+        data: {
+            teamMembers: [],
+        },
+        isLoading: true
     }
 }
 
