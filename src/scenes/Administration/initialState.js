@@ -32,6 +32,14 @@ const initialState = {
             teamMembers: [],
         },
         isLoading: true
+    },
+    authorization: {
+        tenant: {
+            values: {
+                teams : [],
+                users : []
+            }
+        }
     }
 }
 

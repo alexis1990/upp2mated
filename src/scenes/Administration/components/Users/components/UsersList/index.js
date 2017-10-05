@@ -32,12 +32,12 @@ class UsersList extends Component {
     }
 
     selectedMembers(user) {
-        const { teamMembers } = this.props;
-        if(teamMembers.some((member) => member.id === user.id)) return true;
+        const { users } = this.props;
+        if(users.some((member) => member.id === user.id)) return true;
     }
 
 	render(){
-		const { isLoading, users, actions, manageMembers, checkboxOption } = this.props;
+		const { isLoading, usersList, actions, manageMembers, checkboxOption } = this.props;
 
 		return(
 			<Row className="users">
@@ -55,7 +55,7 @@ class UsersList extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    { users.content.map((user, index) => (
+                                    { usersList.content.map((user, index) => (
                                         <tr>
                                             { checkboxOption ? 
                                             <td width='10%' className="select-user">						      		
@@ -83,7 +83,7 @@ class UsersList extends Component {
                             </Table>
                             <Pagination
                                 bsSize="small"
-                                items={users.totalPages}
+                                items={usersList.totalPages}
                                 activePage={this.state.activePage}
                                 onSelect={this.handleSelect} />
                         </Col>
@@ -95,7 +95,7 @@ class UsersList extends Component {
 
 function mapStateToProps(state) {
 	return {
-        users: state.form.Administration.users.data,
+        usersList: state.form.Administration.users.data,
 		isLoading: state.form.Administration.users.isLoading
 	}
 }

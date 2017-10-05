@@ -54,6 +54,7 @@ class Teams extends Component {
 }
 
 function mapStateToProps(state) {
+	console.log('STTTTTTATE', state)
 	return {
 		teams: state.form.Administration.teams.data,
 		isLoading: state.form.Administration.teams.isLoading

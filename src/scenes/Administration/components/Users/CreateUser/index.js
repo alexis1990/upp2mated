@@ -74,7 +74,7 @@ function mapStateToProps(state) {
             data: state.form.Administration.teams.data,
             isLoading: state.form.Administration.teams.isLoading
         },
-        isVisible: state.modal
+        isVisible: state.modal.mode
 	}
 }
 

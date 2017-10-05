@@ -39,7 +39,7 @@ class EditTeam extends Component {
 		const { team, isLoading, isModalVisible, isVisible } =  this.props;
 		return(
 			<div className="create-team">
-				<Modal isVisible={ isVisible } component={ <UsersList checkboxOption teamMembers={team.teamMembers} manageMembers={this.manageMembers.bind(this)} /> } />
+				<Modal isVisible={ isVisible } component={ <UsersList checkboxOption users={team.teamMembers} manageMembers={this.manageMembers.bind(this)} /> } />
 	        	<Form onSubmit={this.editTeam}>
 					<Col xs={6} md={6} lg={6}>
 						<h3> Equipe { team.name } </h3>					
@@ -74,11 +74,10 @@ class EditTeam extends Component {
 }
 
 function mapStateToProps(state) {
-	console.log('STATTTE', state.form.Administration.editTeam.values)
 	return {
 		team: state.form.Administration.editTeam.values,
 		isLoading: state.form.Administration.editTeam.isLoading,
-		isVisible: state.modal
+		isVisible: state.modal.mode
 	}
 }
 

@@ -84,7 +84,59 @@ export function administationReducer(state= initialState, action= action) {
 						teamList: state.createUser.values.teamList.filter((x) => x.id !== action.payload.id)
 					}
 				}
-			}			
+			}
+		case types.ADD_TEAM_TENANT:
+			return {
+				...state,
+				authorization: {
+					...state.authorization, tenant: {
+						...state.authorization.tenant.tenant,
+						values: {
+							...state.authorization.tenant.values, 
+							teams: state.authorization.tenant.values.teams.concat(action.payload)
+						}
+					}
+				}
+			}
+		case types.REMOVE_TEAM_TENANT:
+			return {
+				...state,
+				authorization: {
+					...state.authorization, tenant: {
+						...state.authorization.tenant.tenant,
+						values: {
+							...state.authorization.tenant.values, 
+							teams: state.authorization.tenant.values.teams.filter((x) => x.id !== action.payload.id)
+						}
+					}
+				}
+			}
+		case types.ADD_USER_TENANT:
+			return {
+				...state,
+				authorization: {
+					...state.authorization, tenant: {
+						...state.authorization.tenant.tenant,
+						values: {
+							...state.authorization.tenant.values, 
+							users: state.authorization.tenant.values.users.concat(action.payload)
+						}
+					}
+				}
+			}
+		case types.REMOVE_USER_TENANT:
+			return {
+				...state,
+				authorization: {
+					...state.authorization, tenant: {
+						...state.authorization.tenant.tenant,
+						values: {
+							...state.authorization.tenant.values, 
+							users: state.authorization.tenant.values.users.filter((x) => x.id !== action.payload.id)
+						}
+					}
+				}
+			}		
 		default:
 	    	return state;
 	}
