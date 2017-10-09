@@ -16,7 +16,8 @@ function selectedMembers(user) {
 class TeamsList extends Component {
 
     render() {
-        const { teams, actions, isLoading, manageTeams, checkboxOption } = this.props;
+        const { teams, actions, isLoading, manageTeams, checkboxOption, type } = this.props;
+        console.log('TYPPPPPPE', type)
         return (
             isLoading ?
                 <Spinner />
@@ -34,7 +35,7 @@ class TeamsList extends Component {
                             <tr>
                                 { checkboxOption ? 
                                     <td width='10%' className="select-user">                                    
-                                        <input type="checkbox" name="selected" onChange={() => manageTeams(team)} checked={selectedMembers(team)} />
+                                        <input type="checkbox" name="selected" onChange={() => manageTeams({ team: team, type: type})} checked={selectedMembers(team)} />
                                     </td> 
                                     : 
                                     ''

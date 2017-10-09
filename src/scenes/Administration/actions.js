@@ -68,7 +68,6 @@ export function editTeam(team, history) {
 }
 
 export function addTeamCreation(member) {
-	console.log('ADD')
 	return {
 		type: types.ADD_TEAM_CREATION,
 		payload: member
@@ -76,7 +75,6 @@ export function addTeamCreation(member) {
 }
 
 export function removeTeamCreation(member) {
-	console.log('REMOVE')
 	return {
 		type: types.REMOVE_TEAM_CREATION,
 		payload: member
@@ -84,7 +82,6 @@ export function removeTeamCreation(member) {
 }
 
 export function selectedTeamCreation(selectedTeam) {
-	console.log('okokokokok')
 	return (dispatch, getState) => {
 		const teamListState = getState().form.Administration.createUser.values.teamList;
 		teamListState.some((team) => team.id === selectedTeam.id) ? dispatch(removeTeamCreation(selectedTeam)) : dispatch(addTeamCreation(selectedTeam));
@@ -143,7 +140,6 @@ export function postNewUser(newUser, history) {
 
 
 export function removeMemberCreation(member) {
-	console.log('REMOVE')
 	return {
 		type: types.REMOVE_MEMBER_CREATION,
 		payload: member
@@ -151,7 +147,6 @@ export function removeMemberCreation(member) {
 }
 
 export function addMemberCreation(member) {
-	console.log('ADD')
 	return {
 		type: types.ADD_MEMBER_CREATION,
 		payload: member
@@ -166,7 +161,6 @@ export function selectedMemberCreation(selectedMember) {
 }
 
 export function removeMemberEdition(member) {
-	console.log('REMOVE')
 	return {
 		type: types.REMOVE_MEMBER_EDITION,
 		payload: member
@@ -174,7 +168,6 @@ export function removeMemberEdition(member) {
 }
 
 export function addMemberEdition(member) {
-	console.log('ADD', member)
 	return {
 		type: types.ADD_MEMBER_EDITION,
 		payload: member
@@ -189,45 +182,45 @@ export function selectedMemberEdition(selectedMember) {
 }
 
 //Authorization & Roles
-export function addTeamToTenant(team) {
+export function addTeamToAuthorizationList(team, type) {
 	return {
-		type: types.ADD_TEAM_TENANT,
-		payload: team
+		type: types.ADD_TEAM_AUHORIZATION_LIST,
+		payload: { team: team, type: type }
 	}
 }
 
-export function removeTeamToTenant(team) {
+export function removeTeamToAuthorizationList(team, type) {
 	return {
-		type: types.REMOVE_TEAM_TENANT,
-		payload: team
+		type: types.REMOVE_TEAM_AUHORIZATION_LIST,
+		payload: { team: team, type: type }
 	}
 }
 
-export function selectedTeamTenant(selectedTeam) {
+export function selectedTeamAuthorization(selectedTeam, type) {
 	return (dispatch, getState) => {
-		const teamListState = getState().form.Administration.authorization.tenant.values.teams;
-		teamListState.some((team) => team.id === selectedTeam.id) ? dispatch(removeTeamToTenant(selectedTeam)) : dispatch(addTeamToTenant(selectedTeam));
+		const teamListState = getState().form.Administration.authorization[type].values.teams;
+		teamListState.some((item) => item.team.id === selectedTeam.id) ? dispatch(removeTeamToAuthorizationList(selectedTeam, type)) : dispatch(addTeamToAuthorizationList(selectedTeam, type));
 	}
 }
 
-export function addUserToTenant(user) {
+export function addUserToAuthorizationList(user, type) {
 	return {
-		type: types.ADD_USER_TENANT,
-		payload: user
+		type: types.ADD_USER_AUHORIZATION_LIST,
+		payload: { user: user, type: type }
 	}
 }
 
-export function removeUserToTenant(user) {
+export function removeUserToAuthorizationList(user, type) {
 	return {
-		type: types.REMOVE_USER_TENANT,
-		payload: user
+		type: types.REMOVE_USER_AUHORIZATION_LIST,
+		payload: { user: user, type: type }
 	}
 }
 
-export function selectedUserTenant(selectedUser) {
+export function selectedUserAuthorization(selectedUser, type) {
 	return (dispatch, getState) => {
-		const usersListState = getState().form.Administration.authorization.tenant.values.users;
-		usersListState.some((user) => user.id === selectedUser.id) ? dispatch(removeUserToTenant(selectedUser)) : dispatch(addUserToTenant(selectedUser));
+		const usersListState = getState().form.Administration.authorization[type].values.users;
+		usersListState.some((item) => item.user.id === selectedUser.id) ? dispatch(removeUserToAuthorizationList(selectedUser, type)) : dispatch(addUserToAuthorizationList(selectedUser, type));
 	}
 }
 

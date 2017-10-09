@@ -2,11 +2,12 @@ import initialState from './initialState'
 import * as types from './actionTypes'
 
 export function administationReducer(state= initialState, action= action) {
+	let type = '';
+
 	switch(action.type) {
 		case types.LOAD_TEAMS:
 			return { ...state, teams: action.payload}
 		case types.LOAD_TEAM:
-			console.log('LOADTEAM', action.payload)
 			return { ...state, 
 				team: action.payload,
 				editTeam: {
@@ -65,7 +66,6 @@ export function administationReducer(state= initialState, action= action) {
 				}
 			}
 		case types.ADD_TEAM_CREATION:
-		console.log('okokokokokokok')
 			return {
 				...state,
 				createUser: {
@@ -85,54 +85,58 @@ export function administationReducer(state= initialState, action= action) {
 					}
 				}
 			}
-		case types.ADD_TEAM_TENANT:
+		case types.ADD_TEAM_AUHORIZATION_LIST:
+			type = action.payload.type;
 			return {
 				...state,
 				authorization: {
-					...state.authorization, tenant: {
-						...state.authorization.tenant.tenant,
+					...state.authorization, [type]: {
+						...state.authorization[type],
 						values: {
-							...state.authorization.tenant.values, 
-							teams: state.authorization.tenant.values.teams.concat(action.payload)
+							...state.authorization[type].values, 
+							teams: state.authorization[type].values.teams.concat(action.payload)
 						}
 					}
 				}
 			}
-		case types.REMOVE_TEAM_TENANT:
+		case types.REMOVE_TEAM_AUHORIZATION_LIST:
+			type = action.payload.type;
 			return {
 				...state,
 				authorization: {
-					...state.authorization, tenant: {
-						...state.authorization.tenant.tenant,
+					...state.authorization, [type]: {
+						...state.authorization[type],
 						values: {
-							...state.authorization.tenant.values, 
-							teams: state.authorization.tenant.values.teams.filter((x) => x.id !== action.payload.id)
+							...state.authorization[type].values, 
+							teams: state.authorization[type].values.teams.filter((x) => x.team.id !== action.payload.team.id)
 						}
 					}
 				}
 			}
-		case types.ADD_USER_TENANT:
+		case types.ADD_USER_AUHORIZATION_LIST:
+			type = action.payload.type;
 			return {
 				...state,
 				authorization: {
-					...state.authorization, tenant: {
-						...state.authorization.tenant.tenant,
+					...state.authorization, [type]: {
+						...state.authorization[type],
 						values: {
-							...state.authorization.tenant.values, 
-							users: state.authorization.tenant.values.users.concat(action.payload)
+							...state.authorization[type].values, 
+							users: state.authorization[type].values.users.concat(action.payload)
 						}
 					}
 				}
 			}
-		case types.REMOVE_USER_TENANT:
+		case types.REMOVE_USER_AUHORIZATION_LIST:
+			type = action.payload.type;
 			return {
 				...state,
 				authorization: {
-					...state.authorization, tenant: {
-						...state.authorization.tenant.tenant,
+					...state.authorization, [type]: {
+						...state.authorization[type],
 						values: {
-							...state.authorization.tenant.values, 
-							users: state.authorization.tenant.values.users.filter((x) => x.id !== action.payload.id)
+							...state.authorization[type].values, 
+							users: state.authorization[type].values.users.filter((x) => x.user.id !== action.payload.user.id )
 						}
 					}
 				}

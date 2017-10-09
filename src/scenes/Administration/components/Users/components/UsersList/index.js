@@ -37,7 +37,7 @@ class UsersList extends Component {
     }
 
 	render(){
-		const { isLoading, usersList, actions, manageMembers, checkboxOption } = this.props;
+		const { isLoading, usersList, actions, manageMembers, checkboxOption, type } = this.props;
 
 		return(
 			<Row className="users">
@@ -59,7 +59,7 @@ class UsersList extends Component {
                                         <tr>
                                             { checkboxOption ? 
                                             <td width='10%' className="select-user">						      		
-                                                <input type="checkbox" name="selected" onChange={() => manageMembers(user)} checked={this.selectedMembers(user)} />
+                                                <input type="checkbox" name="selected" onChange={() => manageMembers({ user: user, type: type})} checked={this.selectedMembers(user)} />
                                             </td> 
                                             : 
                                             ''

@@ -39,6 +39,12 @@ const initialState = {
                 teams : [],
                 users : []
             }
+        },
+        director: {
+            values: {
+                teams : [],
+                users : []
+            }
         }
     }
 }
