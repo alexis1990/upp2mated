@@ -5,13 +5,13 @@ import { isModalVisible } from './actions'
 import { bindActionCreators } from 'redux'
 import './styles/style.css'
 
-const Modal = ({ component, isVisible, isModalVisible, nameModal, activeNameModal}) => (console.log('NAMMMME', nameModal, activeNameModal),
+const Modal = ({ component, isVisible, isModalVisible, nameModal, activeNameModal }) => (console.log('NAMMMME', nameModal, activeNameModal),
 	<Grid className={`modal_background ${isVisible && nameModal == activeNameModal ? 'visible' : 'hidden'}`}>
 		<Row className={`modal_container ${isVisible && nameModal == activeNameModal ? 'visible' : 'hidden'}`}>
 			<Button className="pull-right" onClick={() => isModalVisible(false)} bsStyle="action-button-transparent small-text" type="button">
-				<Glyphicon glyph="remove"/>
+				<Glyphicon glyph="remove" />
 			</Button>
-			{ component }
+			{component}
 		</Row>
 	</Grid>
 );
@@ -24,8 +24,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators( {isModalVisible}, dispatch)
+	return bindActionCreators({ isModalVisible }, dispatch)
 }
 
 
-export default connect (mapStateToProps, mapDispatchToProps) (Modal);
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

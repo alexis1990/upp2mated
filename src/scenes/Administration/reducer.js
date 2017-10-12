@@ -1,30 +1,31 @@
 import initialState from './initialState'
 import * as types from './actionTypes'
 
-export function administationReducer(state= initialState, action= action) {
+export function administationReducer(state = initialState, action = action) {
 	let type = '';
 
-	switch(action.type) {
+	switch (action.type) {
 		case types.LOAD_TEAMS:
-			return { ...state, teams: action.payload}
+			return { ...state, teams: action.payload }
 		case types.LOAD_TEAM:
-			return { ...state, 
+			return {
+				...state,
 				team: action.payload,
 				editTeam: {
-					...state.editTeam, 
-					values: { 
+					...state.editTeam,
+					values: {
 						...state.editTeam.values,
 						id: action.payload.data.id,
 						name: action.payload.data.name,
-						teamMembers : action.payload.data.teamMembers
+						teamMembers: action.payload.data.teamMembers
 					},
 					isLoading: action.payload.isLoading
 				}
 			}
 		case types.LOAD_USERS:
-			return { ...state, users: action.payload}
+			return { ...state, users: action.payload }
 		case types.LOAD_USER:
-			return { ...state, user: action.payload}
+			return { ...state, user: action.payload }
 		case types.ADD_MEMBER_CREATION:
 			return {
 				...state,
@@ -66,6 +67,7 @@ export function administationReducer(state= initialState, action= action) {
 				}
 			}
 		case types.ADD_TEAM_CREATION:
+			console.log('action.payload', action.payload)
 			return {
 				...state,
 				createUser: {
@@ -93,7 +95,7 @@ export function administationReducer(state= initialState, action= action) {
 					...state.authorization, [type]: {
 						...state.authorization[type],
 						values: {
-							...state.authorization[type].values, 
+							...state.authorization[type].values,
 							teams: state.authorization[type].values.teams.concat(action.payload)
 						}
 					}
@@ -107,8 +109,8 @@ export function administationReducer(state= initialState, action= action) {
 					...state.authorization, [type]: {
 						...state.authorization[type],
 						values: {
-							...state.authorization[type].values, 
-							teams: state.authorization[type].values.teams.filter((x) => x.team.id !== action.payload.team.id)
+							...state.authorization[type].values,
+							teams: state.authorization[type].values.teams.filter((x) => x.id !== action.payload.id)
 						}
 					}
 				}
@@ -121,7 +123,7 @@ export function administationReducer(state= initialState, action= action) {
 					...state.authorization, [type]: {
 						...state.authorization[type],
 						values: {
-							...state.authorization[type].values, 
+							...state.authorization[type].values,
 							users: state.authorization[type].values.users.concat(action.payload)
 						}
 					}
@@ -135,13 +137,13 @@ export function administationReducer(state= initialState, action= action) {
 					...state.authorization, [type]: {
 						...state.authorization[type],
 						values: {
-							...state.authorization[type].values, 
-							users: state.authorization[type].values.users.filter((x) => x.user.id !== action.payload.user.id )
+							...state.authorization[type].values,
+							users: state.authorization[type].values.users.filter((x) => x.id !== action.payload.id)
 						}
 					}
 				}
-			}		
+			}
 		default:
-	    	return state;
+			return state;
 	}
 }

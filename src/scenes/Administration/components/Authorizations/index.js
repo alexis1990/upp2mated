@@ -1,4 +1,4 @@
-import React, { Component }from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Collapse, Well, Button, Col, Row } from 'react-bootstrap'
 import { reduxForm } from 'redux-form'
@@ -21,22 +21,23 @@ class Authorizations extends Component {
 
 	manageTeams(team) {
 		const { selectedTeamAuthorization } = this.props;
-		selectedTeamAuthorization(team.team, team.type);
+		console.log('TEAMMM', team)
+		selectedTeamAuthorization(team, team.type);
 	}
 
 	manageUsers(user) {
 		const { selectedUserAuthorization } = this.props;
-		selectedUserAuthorization(user.user, user.type);
+		selectedUserAuthorization(user, user.type);
 	}
 
 	submitRowAuthorization(rowAuthorization) {
 		postRowAuthorization(rowAuthorization);
 	}
 
-	render(){
+	render() {
 		const { teams, users, isVisible, isLoading, tenantTeams, tenantUsers, isModalVisible, directorTeams, directorUsers } = this.props;
 
-		return(
+		return (
 			<Col xs={12} md={12} lg={12} className="authorization">
 				<Row>
 					<Col xs={6} md={6} lg={6} >
@@ -51,65 +52,65 @@ class Authorizations extends Component {
 					</Col>
 				</Row>
 				<div className="toggle-block">
-					<Button xs={12} md={12} lg={12} onClick={ ()=> this.setState({ open: !this.state.open })} className="toggle-button">
-			          	<Col xs={6} md={6} lg={6} >
-			          		Administrateur Tenant
+					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: !this.state.open })} className="toggle-button">
+						<Col xs={6} md={6} lg={6} >
+							Administrateur Tenant
 			          	</Col>
-			          	<Col xs={6} md={6} lg={6} >
-			          		Personne ayant tous les droit
+						<Col xs={6} md={6} lg={6} >
+							Personne ayant tous les droit
 			          	</Col>
-			        </Button>
-			        <Collapse in={this.state.open}>
-			          <div>
-			            <Modal activeNameModal='tenant.teams' isVisible={ isVisible } component={ <TeamsList teams={teams} type="tenant" checkboxOption manageTeams={ (values, type) => this.manageTeams(values, type)} /> } />
-			            <Modal activeNameModal='tenant.users' isVisible={ isVisible } component={ <UsersList users={tenantUsers} type="tenant" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} /> } />
-			            <Well>
-			            	<Row className="panel-header">
-			            		<PanelHeaderTeams nameModal="tenant.teams" />
-			          		</Row>
-			          		<Row className="panel-body">
-				            	<ListAuthorizations list={tenantTeams} name="teams" section="tenant" onSubmit={values => this.submitRowAuthorization(values, "tenant")} />
-			          		</Row>
-			          		<Row className="panel-header">
-				            	<PanelHeaderUsers nameModal="tenant.users" />
-			          		</Row>
-			          		<Row className="panel-body">
-				            	<ListAuthorizations list={tenantUsers} name="users" section="tenant" onSubmit={values => this.submitRowAuthorization(values, "tenant")} />
-			          		</Row>
-			            </Well>
-			          </div>
-			        </Collapse>
-		        </div>
-		        <div className="toggle-block">
-					<Button xs={12} md={12} lg={12} onClick={ ()=> this.setState({ open: !this.state.open })} className="toggle-button">
-			          	<Col xs={6} md={6} lg={6} >
-			          		Directeur
+					</Button>
+					<Collapse in={this.state.open}>
+						<div>
+							<Modal activeNameModal='tenant.teams' isVisible={isVisible} component={<TeamsList teams={teams} type="tenant" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
+							<Modal activeNameModal='tenant.users' isVisible={isVisible} component={<UsersList users={tenantUsers} type="tenant" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} />} />
+							<Well>
+								<Row className="panel-header">
+									<PanelHeaderTeams nameModal="tenant.teams" />
+								</Row>
+								<Row className="panel-body">
+									<ListAuthorizations list={tenantTeams} name="teams" section="tenant" onSubmit={values => this.submitRowAuthorization(values, "tenant")} />
+								</Row>
+								<Row className="panel-header">
+									<PanelHeaderUsers nameModal="tenant.users" />
+								</Row>
+								<Row className="panel-body">
+									<ListAuthorizations list={tenantUsers} name="users" section="tenant" onSubmit={values => this.submitRowAuthorization(values, "tenant")} />
+								</Row>
+							</Well>
+						</div>
+					</Collapse>
+				</div>
+				<div className="toggle-block">
+					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: !this.state.open })} className="toggle-button">
+						<Col xs={6} md={6} lg={6} >
+							Directeur
 			          	</Col>
-			          	<Col xs={6} md={6} lg={6} >
-			          		Peut modifier les fournisseurs et voir toutes les consultations
+						<Col xs={6} md={6} lg={6} >
+							Peut modifier les fournisseurs et voir toutes les consultations
 			          	</Col>
-			        </Button>
-			        <Collapse in={this.state.open}>
-			          <div>
-			            <Modal activeNameModal='director.teams' isVisible={ isVisible } component={ <TeamsList teams={teams} type="director" checkboxOption manageTeams={ (values, type) => this.manageTeams(values, type)} /> } />
-			            <Modal activeNameModal='director.users' isVisible={ isVisible } component={ <UsersList users={tenantUsers} type="director" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} /> } />
-			            <Well>
-			            	<Row className="panel-header">
-			            		<PanelHeaderTeams nameModal="director.teams" />
-			          		</Row>
-			          		<Row className="panel-body">
-				            	<ListAuthorizations list={directorTeams} name="teams" section="director" onSubmit={values => this.submitRowAuthorization(values)} />
-			          		</Row>
-			          		<Row className="panel-header">
-				            	<PanelHeaderUsers nameModal="director.users" />
-			          		</Row>
-			          		<Row className="panel-body">
-				            	<ListAuthorizations list={directorUsers} name="users" section="director" onSubmit={values => this.submitRowAuthorization(values)} />
-			          		</Row>
-			            </Well>
-			          </div>
-			        </Collapse>
-		        </div>
+					</Button>
+					<Collapse in={this.state.open}>
+						<div>
+							<Modal activeNameModal='director.teams' isVisible={isVisible} component={<TeamsList teams={teams} type="director" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
+							<Modal activeNameModal='director.users' isVisible={isVisible} component={<UsersList users={tenantUsers} type="director" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} />} />
+							<Well>
+								<Row className="panel-header">
+									<PanelHeaderTeams nameModal="director.teams" />
+								</Row>
+								<Row className="panel-body">
+									<ListAuthorizations list={directorTeams} name="teams" section="director" onSubmit={values => this.submitRowAuthorization(values)} />
+								</Row>
+								<Row className="panel-header">
+									<PanelHeaderUsers nameModal="director.users" />
+								</Row>
+								<Row className="panel-body">
+									<ListAuthorizations list={directorUsers} name="users" section="director" onSubmit={values => this.submitRowAuthorization(values)} />
+								</Row>
+							</Well>
+						</div>
+					</Collapse>
+				</div>
 			</Col>
 		)
 	}
@@ -123,7 +124,7 @@ function mapStateToProps(state) {
 		tenantUsers: state.form.Administration.authorization.tenant.values.users,
 		directorTeams: state.form.Administration.authorization.director.values.teams,
 		directorUsers: state.form.Administration.authorization.director.values.users,
-		isVisible : state.modal.mode,
+		isVisible: state.modal.mode,
 	}
 }
 
@@ -131,4 +132,4 @@ function mapDispatchToProps() {
 	return (dispatch) => bindActionCreators({ fetchUsers, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization }, dispatch)
 }
 
-export default connect (mapStateToProps, mapDispatchToProps) (Authorizations);
+export default connect(mapStateToProps, mapDispatchToProps)(Authorizations);

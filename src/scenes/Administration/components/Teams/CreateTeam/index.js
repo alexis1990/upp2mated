@@ -23,37 +23,37 @@ class CreateTeam extends Component {
 	}
 
 	manageMembers(member) {
-        const { selectedMemberCreation } = this.props;
-        selectedMemberCreation(member);
-    }
+		const { selectedMemberCreation } = this.props;
+		selectedMemberCreation(member);
+	}
 
-	render(){
-		const { users, team, teamMembers, isLoading, isModalVisible, isVisible } =  this.props;
-		return(
+	render() {
+		const { users, team, teamMembers, isLoading, isModalVisible, isVisible } = this.props;
+		return (
 			<div className="create-team">
-                <Modal isVisible={ isVisible } component={ <UsersList checkboxOption users={teamMembers} manageMembers={this.manageMembers.bind(this)} /> } />
-	        	<Form onSubmit={(e) => this.postTeam(e)}>
-		        	<Col xs={6} md={6} lg={6}>
-						<h3> Equipe </h3>			
-	                    <TeamCreationForm />						
+				<Modal isVisible={isVisible} component={<UsersList checkboxOption users={teamMembers} manageMembers={this.manageMembers.bind(this)} />} />
+				<Form onSubmit={(e) => this.postTeam(e)}>
+					<Col xs={6} md={6} lg={6}>
+						<h3> Equipe </h3>
+						<TeamCreationForm />
 					</Col>
 					<Col xs={6} md={6} lg={6} className="members list">
 						<div>
-	                        <Row className="clearfix equal">
-	                            <Col xs={9} md={9} lg={9}>
-	                                <h4> Membres </h4>
-	                            </Col>
-	                            <Col xs={3} md={3} lg={3} className="panel-head">
-	                                <Button onClick={() => isModalVisible(true)}>
-	                                    <Glyphicon glyph="plus"/>Gérer les membres
+							<Row className="clearfix equal">
+								<Col xs={9} md={9} lg={9}>
+									<h4> Membres </h4>
+								</Col>
+								<Col xs={3} md={3} lg={3} className="panel-head">
+									<Button onClick={() => isModalVisible(true)}>
+										<Glyphicon glyph="plus" />Gérer les membres
 	                                </Button>
-	                            </Col>
-	                        </Row>
+								</Col>
+							</Row>
 							<Row>
 								<Col xs={12} md={12} lg={12}>
-									<TeamMembers teamMembers={ teamMembers } />
+									<TeamMembers teamMembers={teamMembers} />
 								</Col>
-							</Row>			
+							</Row>
 						</div>
 					</Col>
 					<Col xs={12} md={12} lg={12}>
@@ -69,10 +69,10 @@ class CreateTeam extends Component {
 
 function mapStateToProps(state) {
 	return {
-        team: state.form.Administration.team.data,
+		team: state.form.Administration.team.data,
 		teamMembers: state.form.Administration.createTeam.values.teamMembers,
 		newTeam: state.form.Administration.createTeam.values,
-        isVisible: state.modal.mode
+		isVisible: state.modal.mode
 	}
 }
 
@@ -81,11 +81,11 @@ function mapDispatchToProps() {
 }
 
 export default CreateTeam = reduxForm({
-  	form: 'Administration.createTeam',
-  	initialValues: {
-  		teamMembers: []
-  	},
-  	destroyOnUnmount: false
+	form: 'Administration.createTeam',
+	initialValues: {
+		teamMembers: []
+	},
+	destroyOnUnmount: false
 })(withRouter(connect(
 	mapStateToProps,
 	mapDispatchToProps
