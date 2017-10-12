@@ -5,7 +5,7 @@ import { isModalVisible } from './actions'
 import { bindActionCreators } from 'redux'
 import './styles/style.css'
 
-const Modal = ({ component, isVisible, isModalVisible, nameModal, activeNameModal }) => (console.log('NAMMMME', nameModal, activeNameModal),
+const Modal = ({ component, isVisible, isModalVisible, nameModal, activeNameModal }) => (
 	<Grid className={`modal_background ${isVisible && nameModal == activeNameModal ? 'visible' : 'hidden'}`}>
 		<Row className={`modal_container ${isVisible && nameModal == activeNameModal ? 'visible' : 'hidden'}`}>
 			<Button className="pull-right" onClick={() => isModalVisible(false)} bsStyle="action-button-transparent small-text" type="button">
@@ -17,7 +17,6 @@ const Modal = ({ component, isVisible, isModalVisible, nameModal, activeNameModa
 );
 
 function mapStateToProps(state) {
-	console.log('STATEEEMODALL', state)
 	return {
 		nameModal: state.modal.name
 	};

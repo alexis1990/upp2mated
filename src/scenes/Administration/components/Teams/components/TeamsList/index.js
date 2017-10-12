@@ -17,7 +17,6 @@ class TeamsList extends Component {
 
     render() {
         const { teams, actions, isLoading, manageTeams, checkboxOption, type } = this.props;
-        console.log('TYPPPPPPE', type)
         return (
             isLoading ?
                 <Spinner />
@@ -62,7 +61,6 @@ class TeamsList extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('STATTTTEEE', state)
     return {}
 }
 

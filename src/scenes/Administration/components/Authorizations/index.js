@@ -16,7 +16,10 @@ import './styles/style.css'
 class Authorizations extends Component {
 	constructor() {
 		super()
-		this.state = {};
+		this.state = {
+			open: false,
+			id: 1
+		};
 	}
 
 	manageTeams(team) {
@@ -35,7 +38,7 @@ class Authorizations extends Component {
 	}
 
 	render() {
-		const { teams, users, isVisible, isLoading, tenantTeams, tenantUsers, isModalVisible, directorTeams, directorUsers } = this.props;
+		const { teamsList, usersList, isVisible, isLoading, tenantTeams, tenantUsers, isModalVisible, directorTeams, directorUsers } = this.props;
 
 		return (
 			<Col xs={12} md={12} lg={12} className="authorization">
@@ -52,7 +55,7 @@ class Authorizations extends Component {
 					</Col>
 				</Row>
 				<div className="toggle-block">
-					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: !this.state.open })} className="toggle-button">
+					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 1 })} className="toggle-button">
 						<Col xs={6} md={6} lg={6} >
 							Administrateur Tenant
 			          	</Col>
@@ -60,9 +63,9 @@ class Authorizations extends Component {
 							Personne ayant tous les droit
 			          	</Col>
 					</Button>
-					<Collapse in={this.state.open}>
+					<Collapse in={this.state.open && this.state.id == 1}>
 						<div>
-							<Modal activeNameModal='tenant.teams' isVisible={isVisible} component={<TeamsList teams={teams} type="tenant" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
+							<Modal activeNameModal='tenant.teams' isVisible={isVisible} component={<TeamsList teams={teamsList} type="tenant" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
 							<Modal activeNameModal='tenant.users' isVisible={isVisible} component={<UsersList users={tenantUsers} type="tenant" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} />} />
 							<Well>
 								<Row className="panel-header">
@@ -82,7 +85,7 @@ class Authorizations extends Component {
 					</Collapse>
 				</div>
 				<div className="toggle-block">
-					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: !this.state.open })} className="toggle-button">
+					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 2 })} className="toggle-button">
 						<Col xs={6} md={6} lg={6} >
 							Directeur
 			          	</Col>
@@ -90,10 +93,10 @@ class Authorizations extends Component {
 							Peut modifier les fournisseurs et voir toutes les consultations
 			          	</Col>
 					</Button>
-					<Collapse in={this.state.open}>
+					<Collapse in={this.state.open && this.state.id == 2}>
 						<div>
-							<Modal activeNameModal='director.teams' isVisible={isVisible} component={<TeamsList teams={teams} type="director" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
-							<Modal activeNameModal='director.users' isVisible={isVisible} component={<UsersList users={tenantUsers} type="director" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} />} />
+							<Modal activeNameModal='director.teams' isVisible={isVisible} component={<TeamsList teams={teamsList} type="director" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
+							<Modal activeNameModal='director.users' isVisible={isVisible} component={<UsersList users={directorUsers} type="director" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} />} />
 							<Well>
 								<Row className="panel-header">
 									<PanelHeaderTeams nameModal="director.teams" />
@@ -118,8 +121,8 @@ class Authorizations extends Component {
 
 function mapStateToProps(state) {
 	return {
-		teams: state.form.Administration.teams.data,
-		users: state.form.Administration.users.data.content,
+		teamsList: state.form.Administration.teams.data,
+		usersList: state.form.Administration.users.data.content,
 		tenantTeams: state.form.Administration.authorization.tenant.values.teams,
 		tenantUsers: state.form.Administration.authorization.tenant.values.users,
 		directorTeams: state.form.Administration.authorization.director.values.teams,
