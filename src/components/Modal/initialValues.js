@@ -1,5 +1,6 @@
 const initialValues = {
-	modal:false
+	modal: false,
+	name: ''
 }
 
 export default initialValues;

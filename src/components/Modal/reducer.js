@@ -5,7 +5,7 @@ import * as types from './actionTypes'
 export function modalReducer(state = initialState.modal, action = action) {
   switch(action.type) {
     case types.VISIBLE_MODAL:
-      return action.payload;
+      return {mode: action.payload.mode, name: action.payload.name};
     default:
       return state;
   }

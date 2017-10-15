@@ -46,7 +46,7 @@ function mapStateToProps(state, ownProps) {
 	console.log('STATEEEE', state);
 	return{
 		stepId: ownProps.match.params.stepId,
-		isVisible: state.modal,
+		isVisible: state.modal.mode,
 		isAuthenticated: state.auth.isLogged
 	};
 }

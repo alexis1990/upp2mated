@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Tab, Row, Col, Nav, NavItem, Button } from 'react-bootstrap'
 import Teams from './components/Teams/'
 import Users from './components/Users/'
+import Authorizations from './components/Authorizations/'
 import './styles/style.css'
 
 class Administration extends Component {
@@ -21,6 +22,9 @@ class Administration extends Component {
 					          	<NavItem eventKey="second">
 					            	Utilisateurs
 					          	</NavItem>
+					          	<NavItem eventKey="third">
+					            	Droits et roles
+					          	</NavItem>
 					        </Nav>
 				      	</Col>
 				      	<Col sm={8}>
@@ -30,6 +34,9 @@ class Administration extends Component {
 					          	</Tab.Pane>
 					          	<Tab.Pane eventKey="second">
 					            	<Users />
+					          	</Tab.Pane>
+					          	<Tab.Pane eventKey="third">
+					            	<Authorizations />
 					          	</Tab.Pane>
 					        </Tab.Content>
 				      	</Col>

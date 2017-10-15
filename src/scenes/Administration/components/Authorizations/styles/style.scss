@@ -1,0 +1,22 @@
+.authorization {
+	.toggle-block{
+		padding: 10px 0;
+		border-color: transparent;
+		.panel-header{
+			outline: none;
+		}
+		.panel-body{
+
+		}
+		.toggle-button {
+			width:100% !important;
+			outline: none;
+			background: #e4e4e4;
+			color: #0189a9;
+		}
+	}
+	.well {
+		background:#ecece !important;
+		color: #0189a9;
+	}
+}

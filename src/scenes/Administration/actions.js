@@ -1,12 +1,14 @@
 import axios from 'axios'
 import * as types from './actionTypes'
 
+//////// TEAMS
+
 export function loadTeams(teams, isLoading) {
 	return {
 		type: types.LOAD_TEAMS,
-		payload: { 
-			data: teams, 
-			isLoading: isLoading 
+		payload: {
+			data: teams,
+			isLoading: isLoading
 		}
 	}
 }
@@ -14,24 +16,10 @@ export function loadTeams(teams, isLoading) {
 export function loadTeam(teamMembers, isLoading) {
 	return {
 		type: types.LOAD_TEAM,
-		payload: { 
-			data: teamMembers, 
-			isLoading: isLoading 
+		payload: {
+			data: teamMembers,
+			isLoading: isLoading
 		}
-	}
-}
-
-export function loadUsers(users, isLoading) {
-	return {
-		type: types.LOAD_USERS,
-		payload: { data: users, isLoading: isLoading }
-	}
-}
-
-export function loadUser(user, isLoading) {
-	return {
-		type: types.LOAD_USER,
-		payload: { data: user, isLoading: isLoading }
 	}
 }
 
@@ -51,7 +39,7 @@ export function fetchTeam(id) {
 	return (dispatch) => {
 		dispatch(loadTeam({ teamMembers: [] }, true))
 
-		axios.get(`${'/u2m-api/v1/team/' + id }`).then((team) => {
+		axios.get(`${'/u2m-api/v1/team/' + id}`).then((team) => {
 			dispatch(loadTeam(team, false));
 		}, (errorResponse) => {
 			console.log('ERROR', errorResponse)
@@ -69,13 +57,51 @@ export function postNewTeam(newTeam, history) {
 	}
 }
 
-export function postNewUser(newUser, history) {
-	return (dispatch, getState) => {
-		axios.post('/u2m-api/v1/person/', newUser).then((response) => {
+export function editTeam(team, history) {
+	return (dispatch) => {
+		axios.post('/u2m-api/v1/team/', team).then((response) => {
 			history.push('/administration/')
 		}, (errorResponse) => {
 			console.log('ERROR', errorResponse)
 		})
+	}
+}
+
+export function addTeamCreation(member) {
+	console.log('MMMMM', member);
+	return {
+		type: types.ADD_TEAM_CREATION,
+		payload: member
+	}
+}
+
+export function removeTeamCreation(member) {
+	return {
+		type: types.REMOVE_TEAM_CREATION,
+		payload: member
+	}
+}
+
+export function selectedTeamCreation(selectedTeam) {
+	return (dispatch, getState) => {
+		const teamListState = getState().form.Administration.createUser.values.teamList;
+		teamListState.some((team) => team.id === selectedTeam.id) ? dispatch(removeTeamCreation(selectedTeam)) : dispatch(addTeamCreation(selectedTeam));
+	}
+}
+
+//////// USERS
+
+export function loadUsers(users, isLoading) {
+	return {
+		type: types.LOAD_USERS,
+		payload: { data: users, isLoading: isLoading }
+	}
+}
+
+export function loadUser(user, isLoading) {
+	return {
+		type: types.LOAD_USER,
+		payload: { data: user, isLoading: isLoading }
 	}
 }
 
@@ -103,9 +129,18 @@ export function fetchUser(id) {
 	}
 }
 
+export function postNewUser(newUser, history) {
+	return (dispatch, getState) => {
+		axios.post('/u2m-api/v1/person/', newUser).then((response) => {
+			history.push('/administration/')
+		}, (errorResponse) => {
+			console.log('ERROR', errorResponse)
+		})
+	}
+}
+
 
 export function removeMemberCreation(member) {
-	console.log('REMOVE')
 	return {
 		type: types.REMOVE_MEMBER_CREATION,
 		payload: member
@@ -113,7 +148,6 @@ export function removeMemberCreation(member) {
 }
 
 export function addMemberCreation(member) {
-	console.log('ADD')
 	return {
 		type: types.ADD_MEMBER_CREATION,
 		payload: member
@@ -128,7 +162,6 @@ export function selectedMemberCreation(selectedMember) {
 }
 
 export function removeMemberEdition(member) {
-	console.log('REMOVE')
 	return {
 		type: types.REMOVE_MEMBER_EDITION,
 		payload: member
@@ -136,7 +169,6 @@ export function removeMemberEdition(member) {
 }
 
 export function addMemberEdition(member) {
-	console.log('ADD', member)
 	return {
 		type: types.ADD_MEMBER_EDITION,
 		payload: member
@@ -150,36 +182,72 @@ export function selectedMemberEdition(selectedMember) {
 	}
 }
 
-export function editTeam(team, history) {
-	return (dispatch) => {
-		axios.post('/u2m-api/v1/team/', team).then((response) => {
-			history.push('/administration/')
-		}, (errorResponse) => {
-			console.log('ERROR', errorResponse)
-		})
-	}
-}
-
-export function addTeamCreation(member) {
-	console.log('ADD')
+//Authorization & Roles
+export function addTeamToAuthorizationList(team, type) {
 	return {
-		type: types.ADD_TEAM_CREATION,
-		payload: member
+		type: types.ADD_TEAM_AUHORIZATION_LIST,
+		payload: { ...team, type: type }
 	}
 }
 
-export function removeTeamCreation(member) {
-	console.log('REMOVE')
+export function removeTeamToAuthorizationList(team, type) {
 	return {
-		type: types.REMOVE_TEAM_CREATION,
-		payload: member
+		type: types.REMOVE_TEAM_AUHORIZATION_LIST,
+		payload: { ...team, type: type }
 	}
 }
 
-export function selectedTeamCreation(selectedTeam) {
-	console.log('okokokokok')
+export function selectedTeamAuthorization(selectedTeam, type) {
 	return (dispatch, getState) => {
-		const teamListState = getState().form.Administration.createUser.values.teamList;
-		teamListState.some((team) => team.id === selectedTeam.id) ? dispatch(removeTeamCreation(selectedTeam)) : dispatch(addTeamCreation(selectedTeam));
+		const teamListState = getState().form.Administration.authorization[type].values.teams;
+		teamListState.some((item) => item.id === selectedTeam.id) ? dispatch(removeTeamToAuthorizationList(selectedTeam, type)) : dispatch(addTeamToAuthorizationList(selectedTeam, type));
 	}
+}
+
+export function addUserToAuthorizationList(user, type) {
+	return {
+		type: types.ADD_USER_AUHORIZATION_LIST,
+		payload: { ...user, type: type }
+	}
+}
+
+export function removeUserToAuthorizationList(user, type) {
+	return {
+		type: types.REMOVE_USER_AUHORIZATION_LIST,
+		payload: { ...user, type: type }
+	}
+}
+
+export function selectedUserAuthorization(selectedUser, type) {
+	return (dispatch, getState) => {
+		const usersListState = getState().form.Administration.authorization[type].values.users;
+		usersListState.some((item) => item.id === selectedUser.id) ? dispatch(removeUserToAuthorizationList(selectedUser, type)) : dispatch(addUserToAuthorizationList(selectedUser, type));
+	}
+}
+
+export function loadRoles(roles) {
+	return {
+		type: types.LOAD_ROLES,
+		payload: roles
+	}
+}
+
+export function getRoles() {
+	return (dispatch) => {
+		axios.get(`/u2m-api/v1/role/`).then((roles) => {
+			dispatch(loadRoles(roles));
+		}, (errorResponse) => {
+			console.log('ROLES', errorResponse)
+		})		
+	}
+}
+
+export function postRowAuthorization(rowAuthorization) {
+	const rowSelected = rowAuthorization.teams[0];
+
+	axios.post(`/u2m-api/v1/role/${rowSelected.function}/person/${rowSelected.id}`).then((response) => {
+		console.log('TEAM AUTHORISATION', response)
+	}, (errorResponse) => {
+		console.log('TEAM AUTHORISATION ERROR', errorResponse)
+	})
 }
