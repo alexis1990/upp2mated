@@ -1,0 +1,8 @@
+.date-range-picker .DateRangePicker {
+  width: 100%; }
+  .date-range-picker .DateRangePicker .DateRangePickerInput {
+    width: 100%; }
+    .date-range-picker .DateRangePicker .DateRangePickerInput .DateInput {
+      width: 45%; }
+    .date-range-picker .DateRangePicker .DateRangePickerInput .DateRangePickerInput__arrow {
+      width: 10%; }

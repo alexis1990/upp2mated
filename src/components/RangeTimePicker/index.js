@@ -3,6 +3,7 @@ import { DateRangePicker } from 'react-dates';
 import {} from 'react-dates/css/styles.scss';
 import { Field } from 'redux-form';
 import moment from 'moment'; // eslint-disable-line
+import './styles/styles.css'
 
 class DateRangePickerWrapper extends Component {
   static propTypes = {
@@ -43,6 +44,8 @@ class DateRangePickerWrapper extends Component {
           <DateRangePicker
             {...this.props}
             displayFormat={this.props.displayFormat}
+            startDatePlaceholderText='Date de début de la consultation'
+            endDatePlaceholderText='Date de fin de la consultation'
             onDatesChange={val => onChange(val)}
             onFocusChange={this.onFocusChange.bind(this)}
             focusedInput={focusedInput}

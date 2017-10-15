@@ -1,6 +1,7 @@
 const initialState = {
   values: {
-      consultationType: 'RFQ'
+      consultationType: 'RFQ',
+      currency: 'EUR'
   }
 }
 
