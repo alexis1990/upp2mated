@@ -5,7 +5,7 @@ const Select = ({placeholder, type, input, meta , withoutLabel, options }) => {c
     return (
     	<FormGroup bsSize="small" controlId={input.name} validationState={ meta.touched ? (meta.error ? 'error' : 'success') : ''}>
 	        { !withoutLabel && <ControlLabel>Select</ControlLabel> }
-	        <FormControl {...input} componentClass="select" placeholder="select" value={input.value} onChange={input.onChange}>
+	        <FormControl {...input} componentClass="select" placeholder="select" value={input.value} onChange={input.onChange} >
 				{ 	options ? options.map(
 						(option) => <option value={option.value} >{option.name}</option>
 					) : []

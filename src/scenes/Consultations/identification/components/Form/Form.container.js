@@ -29,7 +29,8 @@ function mapStateToProps(state) {
 	return{
 		stepsRFI : state.wizard.stepsRFI,
 		initialValues: {
-			consultationType: 'RFQ'
+			consultationType: 'RFQ',
+			currency: 'EUR'
 		}
 	}
 }

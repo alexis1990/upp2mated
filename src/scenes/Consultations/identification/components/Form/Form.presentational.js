@@ -14,7 +14,7 @@ const IdentificationForm = props => {
 	    	<Field type="text" name="label" placeholder="Nom"  component={renderInput}>Libellé</Field>
 	    	<DateRangePickerWrapper name="date" label="Date" controlId="formControlsDateCloture" />
 	    	{/*<Field componentClass="select" name="consultationType" placeholder="nature" component={Select}>Nature</Field>*/}
-	    	{/* <Field componentClass="select" name="currency" placeholder="Devise" component={Select}>Devise</Field> */}
+	    	<Field componentClass="select" name="currency" placeholder="Devise" options={[{value: 'EUR', name: 'EUR'}]} component={Select}>Devise</Field>
   		</Col>
   	)
 }
