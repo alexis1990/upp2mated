@@ -87,6 +87,12 @@ export function administationReducer(state = initialState, action = action) {
 					}
 				}
 			}
+		case types.LOAD_ROLES:
+			return {
+				...state, authorization : {
+					...state.authorization, roles: action.payload 
+				}
+			}
 		case types.ADD_TEAM_AUHORIZATION_LIST:
 			type = action.payload.type;
 			return {

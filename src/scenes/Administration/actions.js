@@ -225,6 +225,23 @@ export function selectedUserAuthorization(selectedUser, type) {
 	}
 }
 
+export function loadRoles(roles) {
+	return {
+		type: types.LOAD_ROLES,
+		payload: roles
+	}
+}
+
+export function getRoles() {
+	return (dispatch) => {
+		axios.get(`/u2m-api/v1/role/`).then((roles) => {
+			dispatch(loadRoles(roles));
+		}, (errorResponse) => {
+			console.log('ROLES', errorResponse)
+		})		
+	}
+}
+
 export function postRowAuthorization(rowAuthorization) {
 	const rowSelected = rowAuthorization.teams[0];
 

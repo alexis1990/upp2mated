@@ -34,6 +34,7 @@ const initialState = {
         isLoading: true
     },
     authorization: {
+        roles: [],
         tenant: {
             values: {
                 teams : [],
@@ -41,6 +42,12 @@ const initialState = {
             }
         },
         director: {
+            values: {
+                teams : [],
+                users : []
+            }
+        },
+        buyer: {
             values: {
                 teams : [],
                 users : []

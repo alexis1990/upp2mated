@@ -8,7 +8,7 @@ import { Field, reduxForm } from 'redux-form'
 let formSection = '';
 
 const ListAuthorizations = (props) => {
-	const { handleSubmit, onSubmit, list, name, section } = props; // Notice two functions, not one! Only onSubmit is passed in by you as a prop. The other is passed in by redux-form
+	const { handleSubmit, onSubmit, list, name, section, roles } = props; // Notice two functions, not one! Only onSubmit is passed in by you as a prop. The other is passed in by redux-form
 	formSection = section;
 	return (
 		<Row>
@@ -19,10 +19,10 @@ const ListAuthorizations = (props) => {
 							{(item && item.email) || (item && item.name)}
 						</Col>
 						<Col xs={4} md={4} lg={4} >
-							<Field componentClass="select" options={[{ name: 'okokok', values: 'okokko' }, { name: 'okokok', values: 'okokko' }]} withoutLabel name={`${name}[${index}].function`} component={Select}></Field>
+							<Field componentClass="select" options={roles} withoutLabel name={`${name}[${index}].function`} component={Select}></Field>
 						</Col>
 						<Col xs={4} md={4} lg={4} >
-							<Field componentClass="select" options={[{ name: 'okokok', values: 'okokko' }, { name: 'okokok', values: 'okokko' }]} withoutLabel name={`${name}[${index}].level`} component={Select}></Field>
+							<Field componentClass="select" options={roles} withoutLabel name={`${name}[${index}].level`} component={Select}></Field>
 						</Col>
 						<Col xs={1} md={1} lg={1} >
 							<Button type="submit" bsStyle="action-button font-icon"><Glyphicon glyph="ok" /></Button>
@@ -37,7 +37,9 @@ const ListAuthorizations = (props) => {
 }
 
 function mapStateToProps(state) {
-	return {}
+	return {
+		roles: state.form.Administration.authorization.roles
+	}
 }
 
 function mapDispatchToProps(state) {

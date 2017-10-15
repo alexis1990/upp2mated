@@ -1,5 +1,14 @@
 .authorization .toggle-block {
   padding: 10px 0;
   border-color: transparent; }
+  .authorization .toggle-block .panel-header {
+    outline: none; }
   .authorization .toggle-block .toggle-button {
-    width: 100% !important; }
+    width: 100% !important;
+    outline: none;
+    background: #e4e4e4;
+    color: #0189a9; }
+
+.authorization .well {
+  background: #ecece !important;
+  color: #0189a9; }

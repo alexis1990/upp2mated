@@ -7,7 +7,7 @@ import { isModalVisible } from '../../../../components/Modal/actions'
 import TeamsList from '../Teams/components/TeamsList'
 import UsersList from '../Users/components/UsersList'
 import Modal from '../../../../components/Modal/'
-import { fetchUsers, selectedTeamAuthorization, selectedUserAuthorization, postRowAuthorization } from '../../actions'
+import { fetchUsers, selectedTeamAuthorization, selectedUserAuthorization, postRowAuthorization, getRoles } from '../../actions'
 import ListAuthorizations from './components/ListAuthorizations/'
 import PanelHeaderTeams from './components/PanelHeaderTeams'
 import PanelHeaderUsers from './components/PanelHeaderUsers'
@@ -20,6 +20,10 @@ class Authorizations extends Component {
 			open: false,
 			id: 1
 		};
+	}
+
+	componentWillMount(){
+		this.props.getRoles();
 	}
 
 	manageTeams(team) {
@@ -38,7 +42,7 @@ class Authorizations extends Component {
 	}
 
 	render() {
-		const { teamsList, usersList, isVisible, isLoading, tenantTeams, tenantUsers, isModalVisible, directorTeams, directorUsers } = this.props;
+		const { teamsList, usersList, isVisible, isLoading, tenantTeams, tenantUsers, isModalVisible, directorTeams, directorUsers, buyerTeams, buyerUsers } = this.props;
 
 		return (
 			<Col xs={12} md={12} lg={12} className="authorization">
@@ -114,6 +118,36 @@ class Authorizations extends Component {
 						</div>
 					</Collapse>
 				</div>
+				<div className="toggle-block">
+					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 3 })} className="toggle-button">
+						<Col xs={6} md={6} lg={6} >
+							Acheteur
+			          	</Col>
+						<Col xs={6} md={6} lg={6} >
+							Peut voir les consultations de son équipe
+			          	</Col>
+					</Button>
+					<Collapse in={this.state.open && this.state.id == 3}>
+						<div>
+							<Modal activeNameModal='buyer.teams' isVisible={isVisible} component={<TeamsList teams={teamsList} type="buyer" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
+							<Modal activeNameModal='buyer.users' isVisible={isVisible} component={<UsersList users={directorUsers} type="buyer" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} />} />
+							<Well>
+								<Row className="panel-header">
+									<PanelHeaderTeams nameModal="buyer.teams" />
+								</Row>
+								<Row className="panel-body">
+									<ListAuthorizations list={buyerTeams} name="teams" section="buyer" onSubmit={values => this.submitRowAuthorization(values)} />
+								</Row>
+								<Row className="panel-header">
+									<PanelHeaderUsers nameModal="buyer.users" />
+								</Row>
+								<Row className="panel-body">
+									<ListAuthorizations list={buyerUsers} name="users" section="buyer" onSubmit={values => this.submitRowAuthorization(values)} />
+								</Row>
+							</Well>
+						</div>
+					</Collapse>
+				</div>
 			</Col>
 		)
 	}
@@ -127,12 +161,14 @@ function mapStateToProps(state) {
 		tenantUsers: state.form.Administration.authorization.tenant.values.users,
 		directorTeams: state.form.Administration.authorization.director.values.teams,
 		directorUsers: state.form.Administration.authorization.director.values.users,
+		buyerTeams: state.form.Administration.authorization.buyer.values.teams,
+		buyerUsers: state.form.Administration.authorization.buyer.values.users,
 		isVisible: state.modal.mode,
 	}
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ fetchUsers, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization }, dispatch)
+	return (dispatch) => bindActionCreators({ fetchUsers, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getRoles }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorizations);
