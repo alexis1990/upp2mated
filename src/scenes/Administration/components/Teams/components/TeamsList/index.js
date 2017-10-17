@@ -7,16 +7,16 @@ import { fetchTeams } from '../../../../actions'
 import { Link } from 'react-router-dom'
 import './styles/style.css'
 
-function selectedMembers(user) {
-    // const { teamMembers } = this.props;
-    // console.log('TEAMMEBERS', teamMembers)
-    // if(teamMembers.some((member) => member.id === user.id)) return true;
-}
-
 class TeamsList extends Component {
 
+    selectedTeams(team) {
+        const { teamsSelected } = this.props;
+        console.log('TEAMLIST', teamsSelected, team)
+        if(teamsSelected.some((teamInList) => teamInList.id === team.id)) return true;
+    }
+
     render() {
-        const { teams, actions, isLoading, manageTeams, checkboxOption, type } = this.props;
+        const { teams, actions, isLoading, manageTeams, checkboxOption, type, teamsSelected } = this.props;
         return (
             isLoading ?
                 <Spinner />
@@ -34,7 +34,7 @@ class TeamsList extends Component {
                             <tr>
                                 {checkboxOption ?
                                     <td width='10%' className="select-user">
-                                        <input type="checkbox" name="selected" onChange={() => manageTeams({ ...team, type: type })} checked={selectedMembers(team)} />
+                                        <input type="checkbox" name="selected" onChange={() => manageTeams({ ...team, type: type })} checked={teamsSelected && this.selectedTeams(team)} />
                                     </td>
                                     :
                                     ''

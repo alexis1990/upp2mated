@@ -7,7 +7,14 @@ import { isModalVisible } from '../../../../components/Modal/actions'
 import TeamsList from '../Teams/components/TeamsList'
 import UsersList from '../Users/components/UsersList'
 import Modal from '../../../../components/Modal/'
-import { fetchUsers, selectedTeamAuthorization, selectedUserAuthorization, postRowAuthorization, getRoles } from '../../actions'
+import { 
+	fetchUsers, 
+	selectedTeamAuthorization, 
+	selectedUserAuthorization, 
+	postRowAuthorization, 
+	getResponsibilities, 
+	getScopes 
+} from '../../actions'
 import ListAuthorizations from './components/ListAuthorizations/'
 import PanelHeaderTeams from './components/PanelHeaderTeams'
 import PanelHeaderUsers from './components/PanelHeaderUsers'
@@ -23,7 +30,9 @@ class Authorizations extends Component {
 	}
 
 	componentWillMount(){
-		this.props.getRoles();
+		const { getResponsibilities, getScopes } = this.props;
+		getResponsibilities();
+		getScopes();
 	}
 
 	manageTeams(team) {
@@ -37,8 +46,9 @@ class Authorizations extends Component {
 		selectedUserAuthorization(user, user.type);
 	}
 
-	submitRowAuthorization(rowAuthorization) {
-		postRowAuthorization(rowAuthorization);
+	submitRowAuthorization(formValues, index, type) {
+		console.log('RPPPPPPPP', formValues, index, type)
+		postRowAuthorization(formValues);
 	}
 
 	render() {
@@ -76,13 +86,13 @@ class Authorizations extends Component {
 									<PanelHeaderTeams nameModal="tenant.teams" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={tenantTeams} name="teams" section="tenant" onSubmit={values => this.submitRowAuthorization(values, "tenant")} />
+									<ListAuthorizations list={tenantTeams} name="teams" onSubmit={this.submitRowAuthorization} form='Administration.authorization.tenant' />
 								</Row>
 								<Row className="panel-header">
 									<PanelHeaderUsers nameModal="tenant.users" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={tenantUsers} name="users" section="tenant" onSubmit={values => this.submitRowAuthorization(values, "tenant")} />
+									<ListAuthorizations list={tenantUsers} name="users" onSubmit={this.submitRowAuthorization} form='Administration.authorization.tenant' />
 								</Row>
 							</Well>
 						</div>
@@ -168,7 +178,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ fetchUsers, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getRoles }, dispatch)
+	return (dispatch) => bindActionCreators({ fetchUsers, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities, getScopes }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorizations);

@@ -89,6 +89,27 @@ export function selectedTeamCreation(selectedTeam) {
 	}
 }
 
+export function selectedTeamEdition(selectedTeam) {
+	return (dispatch, getState) => {
+		const teamListState = getState().form.Administration.editUser.values.teamList;
+		teamListState.some((member) => member.id === selectedTeam.id) ? dispatch(removeTeamEdition(selectedTeam)) : dispatch(addTeamEdition(selectedTeam));
+	}
+}
+
+export function removeTeamEdition(member) {
+	return {
+		type: types.REMOVE_TEAM_EDITION,
+		payload: member
+	}
+}
+
+export function addTeamEdition(member) {
+	return {
+		type: types.ADD_TEAM_EDITION,
+		payload: member
+	}
+}
+
 //////// USERS
 
 export function loadUsers(users, isLoading) {
@@ -139,6 +160,23 @@ export function postNewUser(newUser, history) {
 	}
 }
 
+export function editUser(user, history) {
+	return (dispatch, getState) => {
+		axios.post('/u2m-api/v1/person/', user).then((response) => {
+			history.push('/administration/')
+		}, (errorResponse) => {
+			console.log('ERROR', errorResponse)
+		})
+	}
+}
+
+export function selectedMemberCreation(selectedMember) {
+	return (dispatch, getState) => {
+		const teamMembersState = getState().form.Administration.createTeam.values.teamMembers;
+		teamMembersState.some((member) => member.id === selectedMember.id) ? dispatch(removeMemberCreation(selectedMember)) : dispatch(addMemberCreation(selectedMember));
+	}
+}
+
 
 export function removeMemberCreation(member) {
 	return {
@@ -154,10 +192,10 @@ export function addMemberCreation(member) {
 	}
 }
 
-export function selectedMemberCreation(selectedMember) {
+export function selectedMemberEdition(selectedMember) {
 	return (dispatch, getState) => {
-		const teamMembersState = getState().form.Administration.createTeam.values.teamMembers;
-		teamMembersState.some((member) => member.id === selectedMember.id) ? dispatch(removeMemberCreation(selectedMember)) : dispatch(addMemberCreation(selectedMember));
+		const teamMembersState = getState().form.Administration.editTeam.values.teamMembers;
+		teamMembersState.some((member) => member.id === selectedMember.id) ? dispatch(removeMemberEdition(selectedMember)) : dispatch(addMemberEdition(selectedMember));
 	}
 }
 
@@ -172,13 +210,6 @@ export function addMemberEdition(member) {
 	return {
 		type: types.ADD_MEMBER_EDITION,
 		payload: member
-	}
-}
-
-export function selectedMemberEdition(selectedMember) {
-	return (dispatch, getState) => {
-		const teamMembersState = getState().form.Administration.editTeam.values.teamMembers;
-		teamMembersState.some((member) => member.id === selectedMember.id) ? dispatch(removeMemberEdition(selectedMember)) : dispatch(addMemberEdition(selectedMember));
 	}
 }
 
@@ -225,25 +256,44 @@ export function selectedUserAuthorization(selectedUser, type) {
 	}
 }
 
-export function loadRoles(roles) {
+export function loadResponsibility(roles) {
 	return {
-		type: types.LOAD_ROLES,
+		type: types.LOAD_RESPONSILITIES,
 		payload: roles
 	}
 }
 
-export function getRoles() {
+export function getResponsibilities() {
 	return (dispatch) => {
-		axios.get(`/u2m-api/v1/role/`).then((roles) => {
-			dispatch(loadRoles(roles));
+		axios.get(`/u2m-api/v1/authorization-type/functions/`).then((responsibilities) => {
+			const formattedResponsibilities = responsibilities.map((responsibility) => {{return { name: responsibility, value: responsibility }}});
+			dispatch(loadResponsibility(formattedResponsibilities));
 		}, (errorResponse) => {
 			console.log('ROLES', errorResponse)
 		})		
 	}
 }
 
+export function loadScope(scopes) {
+	return {
+		type: types.LOAD_SCOPES,
+		payload: scopes
+	}
+}
+
+export function getScopes() {
+	return (dispatch) => {
+		axios.get(`/u2m-api/v1/authorization-type/scopes/`).then((scopes) => {
+			const formattedScopes = scopes.map((scope) => {{return { name: scope, value: scope }}});
+			dispatch(loadScope(formattedScopes));
+		}, (errorResponse) => {
+			console.log('Scopes', errorResponse)
+		})		
+	}
+}
+
 export function postRowAuthorization(rowAuthorization) {
-	const rowSelected = rowAuthorization.teams[0];
+	const rowSelected = rowAuthorization.teams[0]; ///DYNAMICCC !!!!
 
 	axios.post(`/u2m-api/v1/role/${rowSelected.function}/person/${rowSelected.id}`).then((response) => {
 		console.log('TEAM AUTHORISATION', response)

@@ -33,8 +33,12 @@ const initialState = {
         },
         isLoading: true
     },
+    editUser: {
+        values: {
+            teamList: [],
+        }
+    },
     authorization: {
-        roles: [],
         tenant: {
             values: {
                 teams : [],

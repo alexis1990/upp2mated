@@ -22,6 +22,7 @@ class UsersList extends Component {
         const { fetchUsers, match } = this.props;
         const { activePage } = this.state;
 
+        //TODO: :::BUG::: MULTIPLE REQUEST
         fetchUsers(activePage);
     }
 
@@ -70,7 +71,7 @@ class UsersList extends Component {
                                             <td width='30%' className="actions" colSpan="2">
                                                 <ButtonGroup justified>
                                                     <Button className="action-button"><Link to={`/administration/users/` + user.id}><Glyphicon glyph="eye-open" /></Link></Button>
-                                                    <Button className="action-button"><Link to={`/administration/teams/team/edit/` + user.id}><Glyphicon glyph="pencil" /></Link></Button>
+                                                    <Button className="action-button"><Link to={`/administration/users/user/edit/` + user.id}><Glyphicon glyph="pencil" /></Link></Button>
                                                     <Button className="action-button" onClick={() => { }}><Glyphicon glyph="remove" /></Button>
                                                 </ButtonGroup>
                                             </td>

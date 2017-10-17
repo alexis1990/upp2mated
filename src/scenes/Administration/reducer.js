@@ -25,7 +25,24 @@ export function administationReducer(state = initialState, action = action) {
 		case types.LOAD_USERS:
 			return { ...state, users: action.payload }
 		case types.LOAD_USER:
-			return { ...state, user: action.payload }
+			return {
+				...state,
+				team: action.payload,
+				editUser: {
+					...state.editTeam,
+					values: {
+						...state.editTeam.values,
+						id: action.payload.data.id,
+						login: action.payload.data.login,
+						email: action.payload.data.email,
+						lastname:  action.payload.data.lastname,
+						firstname: action.payload.data.firstname,
+						teamList: action.payload.data.teamList,
+						job: action.payload.data.job
+					},
+					isLoading: action.payload.isLoading
+				}
+			}
 		case types.ADD_MEMBER_CREATION:
 			return {
 				...state,
@@ -87,10 +104,37 @@ export function administationReducer(state = initialState, action = action) {
 					}
 				}
 			}
-		case types.LOAD_ROLES:
+		case types.ADD_TEAM_EDITION:
+			console.log('action.payload', action.payload)
+			return {
+				...state,
+				editUser: {
+					...state.editUser, values: {
+						...state.editUser.values,
+						teamList: state.editUser.values.teamList.concat(action.payload)
+					}
+				}
+			}
+		case types.REMOVE_TEAM_EDITION:
+			return {
+				...state,
+				editUser: {
+					...state.editUser, values: {
+						...state.editUser.values,
+						teamList: state.editUser.values.teamList.filter((x) => x.id !== action.payload.id)
+					}
+				}
+			}
+		case types.LOAD_RESPONSILITIES:
 			return {
 				...state, authorization : {
-					...state.authorization, roles: action.payload 
+					...state.authorization, responsibilities: action.payload 
+				}
+			}
+		case types.LOAD_SCOPES:
+			return {
+				...state, authorization : {
+					...state.authorization, scopes: action.payload 
 				}
 			}
 		case types.ADD_TEAM_AUHORIZATION_LIST:
