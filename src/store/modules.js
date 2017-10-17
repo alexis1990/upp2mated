@@ -14,17 +14,17 @@ import { reducer as formReducer } from 'redux-form'
 // const allReducers = Object.assign({}, reducers1, reducers2);
 
 export default combineReducers({
-  	wizard: wizardReducer,
-  	modal: modalReducer,
-  	auth: auth,
-  	// team: teamReducer,
-   	routing: routerReducer,
-    suppliers: suppliersReducer,
-   	form: formReducer.plugin({
-   		Identification: identificationReducer,
-    	Team: teamReducer,
-    	Providers: providersReducer,
-      	Administration: administationReducer
-    	// NewProvider: newProvider
+	wizard: wizardReducer,
+	modal: modalReducer,
+	auth: auth,
+	// team: teamReducer,
+	routing: routerReducer,
+	form: formReducer.plugin({
+		Identification: identificationReducer,
+		Team: teamReducer,
+		Providers: providersReducer,
+		Administration: administationReducer,
+		Suppliers: suppliersReducer,
+		// NewProvider: newProvider
 	})
 })

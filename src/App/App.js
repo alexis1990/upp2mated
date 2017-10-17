@@ -13,8 +13,8 @@ import Summary from '../scenes/Consultations/summary/index'
 import CommercialFrame from '../scenes/Consultations/commercialFrame/index'
 import Sign from '../scenes/Sign/index'
 import Suppliers from '../scenes/Suppliers/index'
-import Supplier from '../scenes/Suppliers/components/Supplier/index'
-import CreateSupplier from '../scenes/Suppliers/components/CreateSupplier/index'
+import Supplier from '../scenes/Suppliers/Supplier/index'
+import ManageSupplier from '../scenes/Suppliers/ManageSupplier/index'
 import Administration from '../scenes/Administration/index'
 import EditTeam from '../scenes/Administration/components/Teams/EditTeam/'
 import CreateTeam from '../scenes/Administration/components/Teams/CreateTeam/'
@@ -28,22 +28,22 @@ import Modal from '../components/Modal/index'
 import 'react-datasheet/lib/react-datasheet.css';
 
 const steps = {
-  wizard:{
-      stepsRFI: [
-      { id: 1, component: <Identification/>, title: "Identification" },
-      { id: 2, component: <Team/> , title: "Equipe" },
-      { id: 3, component: <CommercialFrame/> , title: "Trame commerciale" },
-      { id: 4, component: <Providers/> , title: "Fournisseurs" },
-      { id: 5, component: <Documentation/> , title: "Documentation" },
-      { id: 6, component: <Summary/> , title: "Récapitulatif" },
-      { id: 7, component: <Confirmation/>, title: 'Confirmation' },
+  wizard: {
+    stepsRFI: [
+      { id: 1, component: <Identification />, title: "Identification" },
+      { id: 2, component: <Team />, title: "Equipe" },
+      { id: 3, component: <CommercialFrame />, title: "Trame commerciale" },
+      { id: 4, component: <Providers />, title: "Fournisseurs" },
+      { id: 5, component: <Documentation />, title: "Documentation" },
+      { id: 6, component: <Summary />, title: "Récapitulatif" },
+      { id: 7, component: <Confirmation />, title: 'Confirmation' },
     ]
   }
 }
 
-const App = ({isAuthenticated}) => (
+const App = ({ isAuthenticated }) => (
   <div>
-    { isAuthenticated ?
+    {isAuthenticated ?
       <div>
         <Header />
         <SubHeader />
@@ -53,28 +53,29 @@ const App = ({isAuthenticated}) => (
     }
     <main>
       <Switch>
-          <Route exact path="/" component={Authentication}/>
-          <Route path="/consultations" component={({ match }) => (
-            <div>
-              <Route path={`${match.url}/:stepId`} component={ requireAuthentication(({match}) =>(
-                <Consultations match={match} stepId={match.params.stepId} steps={steps.wizard.stepsRFI} />))
-              }/>
-              <Route exact path={match.url} render={() => (
-                <h3>Please select a topic.</h3>
-              )}/>
-            </div>
-          )}/>
-          <Route exact path="/suppliers" component={requireAuthentication(Suppliers)} />
-          <Route exact path="/suppliers/:id" component={requireAuthentication(Supplier)} />
-          <Route exact path="/suppliers/supplier/new" component={requireAuthentication(CreateSupplier)} />
-          <Route exact path="/administration" component={requireAuthentication(Administration)} />
-          <Route exact path="/administration/teams/:id" component={requireAuthentication(TeamView)} />
-          <Route exact path="/administration/teams/team/new" component={requireAuthentication(CreateTeam)} />
-          <Route exact path="/administration/teams/team/edit/:id" component={requireAuthentication(EditTeam)} />
-          <Route exact path="/administration/users/:id" component={requireAuthentication(User)} />
-          <Route exact path="/administration/users/user/new" component={requireAuthentication(CreateUser)} />
-          <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
-          <Route exact path="/kitui" component={KitUi} />
+        <Route exact path="/" component={Authentication} />
+        <Route path="/consultations" component={({ match }) => (
+          <div>
+            <Route path={`${match.url}/:stepId`} component={requireAuthentication(({ match }) => (
+              <Consultations match={match} stepId={match.params.stepId} steps={steps.wizard.stepsRFI} />))
+            } />
+            <Route exact path={match.url} render={() => (
+              <h3>Please select a topic.</h3>
+            )} />
+          </div>
+        )} />
+        <Route exact path="/suppliers" component={requireAuthentication(Suppliers)} />
+        <Route exact path="/suppliers/:id" component={requireAuthentication(Supplier)} />
+        <Route exact path="/suppliers/supplier/new" component={requireAuthentication(ManageSupplier)} />
+        <Route exact path="/suppliers/supplier/edit/:id" component={requireAuthentication(ManageSupplier)} />
+        <Route exact path="/administration" component={requireAuthentication(Administration)} />
+        <Route exact path="/administration/teams/:id" component={requireAuthentication(TeamView)} />
+        <Route exact path="/administration/teams/team/new" component={requireAuthentication(CreateTeam)} />
+        <Route exact path="/administration/teams/team/edit/:id" component={requireAuthentication(EditTeam)} />
+        <Route exact path="/administration/users/:id" component={requireAuthentication(User)} />
+        <Route exact path="/administration/users/user/new" component={requireAuthentication(CreateUser)} />
+        <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
+        <Route exact path="/kitui" component={KitUi} />
       </Switch>
     </main>
   </div>
@@ -156,14 +157,14 @@ const App = ({isAuthenticated}) => (
 //   }
 // }
 
-function mapStateToProps(state, ownProps){
+function mapStateToProps(state, ownProps) {
   return {
-    isAuthenticated : state.auth.isLogged,
+    isAuthenticated: state.auth.isLogged,
     actualStep: state.wizard.actualStep
   };
 }
 
-function mapDispatchToProps(){
+function mapDispatchToProps() {
   return {
   }
 }
