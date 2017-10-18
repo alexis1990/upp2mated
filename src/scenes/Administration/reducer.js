@@ -87,23 +87,21 @@ export function administationReducer(state = initialState, action = action) {
 					}
 				}
 			}
-		case types.LOAD_ROLES:
+		case types.LOAD_RESPONSIBILITIES:
 			return {
-				...state, authorization: {
-					...state.authorization, roles: action.payload
+				...state, authorization : {
+					...state.authorization, responsibilities: action.payload
 				}
 			}
 		case types.ADD_TEAM_AUHORIZATION_LIST:
 			type = action.payload.type;
+			console.log('ACTIPN', action.payload)
 			return {
 				...state,
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						values: {
-							...state.authorization[type].values,
-							teams: state.authorization[type].values.teams.concat(action.payload)
-						}
+						teams: state.authorization[type].teams.concat({ values: action.payload})
 					}
 				}
 			}
@@ -114,24 +112,19 @@ export function administationReducer(state = initialState, action = action) {
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						values: {
-							...state.authorization[type].values,
-							teams: state.authorization[type].values.teams.filter((x) => x.id !== action.payload.id)
-						}
+						teams: state.authorization[type].teams.filter((x) => x.id !== action.payload.id)
 					}
 				}
 			}
 		case types.ADD_USER_AUHORIZATION_LIST:
 			type = action.payload.type;
+			console.log('AAAAA', action.payload)
 			return {
 				...state,
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						values: {
-							...state.authorization[type].values,
-							users: state.authorization[type].values.users.concat(action.payload)
-						}
+						users: state.authorization[type].users.concat({ values: action.payload})
 					}
 				}
 			}
@@ -142,10 +135,7 @@ export function administationReducer(state = initialState, action = action) {
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						values: {
-							...state.authorization[type].values,
-							users: state.authorization[type].values.users.filter((x) => x.id !== action.payload.id)
-						}
+						users: state.authorization[type].users.filter((x) => x.id !== action.payload.id)
 					}
 				}
 			}

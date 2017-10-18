@@ -34,12 +34,10 @@ const initialState = {
         isLoading: true
     },
     authorization: {
-        roles: [],
+        responsibilities: [],
         tenant: {
-            values: {
-                teams : [],
-                users : []
-            }
+            teams : [],
+            users : []
         },
         director: {
             values: {

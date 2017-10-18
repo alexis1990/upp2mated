@@ -7,7 +7,7 @@ import { isModalVisible } from '../../../../components/Modal/actions'
 import TeamsList from '../Teams/components/TeamsList'
 import UsersList from '../Users/components/UsersList'
 import Modal from '../../../../components/Modal/'
-import { fetchUsers, selectedTeamAuthorization, selectedUserAuthorization, postRowAuthorization, getRoles } from '../../actions'
+import { fetchUsers, selectedTeamAuthorization, selectedUserAuthorization, postRowAuthorization, getResponsibilities } from '../../actions'
 import ListAuthorizations from './components/ListAuthorizations/'
 import PanelHeaderTeams from './components/PanelHeaderTeams'
 import PanelHeaderUsers from './components/PanelHeaderUsers'
@@ -23,7 +23,7 @@ class Authorizations extends Component {
 	}
 
 	componentWillMount(){
-		this.props.getRoles();
+		this.props.getResponsibilities();
 	}
 
 	manageTeams(team) {
@@ -37,8 +37,9 @@ class Authorizations extends Component {
 		selectedUserAuthorization(user, user.type);
 	}
 
-	submitRowAuthorization(rowAuthorization) {
-		postRowAuthorization(rowAuthorization);
+	submitRowAuthorization(rowSelected) {
+		console.log('okokokoko', rowSelected)
+		postRowAuthorization(rowSelected);
 	}
 
 	render() {
@@ -76,19 +77,19 @@ class Authorizations extends Component {
 									<PanelHeaderTeams nameModal="tenant.teams" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={tenantTeams} name="teams" section="tenant" onSubmit={values => this.submitRowAuthorization(values, "tenant")} />
+									<ListAuthorizations list={tenantTeams} name="teams" formName="Administration.authorization.tenant.teams" onSubmit={this.submitRowAuthorization} />
 								</Row>
 								<Row className="panel-header">
 									<PanelHeaderUsers nameModal="tenant.users" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={tenantUsers} name="users" section="tenant" onSubmit={values => this.submitRowAuthorization(values, "tenant")} />
+									<ListAuthorizations list={tenantUsers} name="users" formName="Administration.authorization.tenant.users" onSubmit={this.submitRowAuthorization} />
 								</Row>
 							</Well>
 						</div>
 					</Collapse>
 				</div>
-				<div className="toggle-block">
+				{/*<div className="toggle-block">
 					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 2 })} className="toggle-button">
 						<Col xs={6} md={6} lg={6} >
 							Directeur
@@ -147,7 +148,7 @@ class Authorizations extends Component {
 							</Well>
 						</div>
 					</Collapse>
-				</div>
+				</div>*/}
 			</Col>
 		)
 	}
@@ -157,8 +158,8 @@ function mapStateToProps(state) {
 	return {
 		teamsList: state.form.Administration.teams.data,
 		usersList: state.form.Administration.users.data.content,
-		tenantTeams: state.form.Administration.authorization.tenant.values.teams,
-		tenantUsers: state.form.Administration.authorization.tenant.values.users,
+		tenantTeams: state.form.Administration.authorization.tenant.teams,
+		tenantUsers: state.form.Administration.authorization.tenant.users,
 		directorTeams: state.form.Administration.authorization.director.values.teams,
 		directorUsers: state.form.Administration.authorization.director.values.users,
 		buyerTeams: state.form.Administration.authorization.buyer.values.teams,
@@ -168,7 +169,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ fetchUsers, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getRoles }, dispatch)
+	return (dispatch) => bindActionCreators({ fetchUsers, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorizations);
