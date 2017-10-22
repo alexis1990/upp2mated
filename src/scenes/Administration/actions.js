@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as types from './actionTypes'
+import { arrayPush, arrayRemove } from 'redux-form';
 
 //////// TEAMS
 
@@ -200,7 +201,7 @@ export function removeTeamToAuthorizationList(team, type) {
 export function selectedTeamAuthorization(selectedTeam, type) {
 	return (dispatch, getState) => {
 		const teamListState = getState().form.Administration.authorization[type].teams;
-		teamListState.some((item) => item.id === selectedTeam.id) ? dispatch(removeTeamToAuthorizationList(selectedTeam, type)) : dispatch(addTeamToAuthorizationList(selectedTeam, type));
+		teamListState.some((item) => item.team.values.id === selectedTeam.id) ? dispatch(removeTeamToAuthorizationList(selectedTeam, type)) : dispatch(addTeamToAuthorizationList(selectedTeam, type));
 	}
 }
 
@@ -221,7 +222,7 @@ export function removeUserToAuthorizationList(user, type) {
 export function selectedUserAuthorization(selectedUser, type) {
 	return (dispatch, getState) => {
 		const usersListState = getState().form.Administration.authorization[type].users;
-		usersListState.some((item) => item.id === selectedUser.id) ? dispatch(removeUserToAuthorizationList(selectedUser, type)) : dispatch(addUserToAuthorizationList(selectedUser, type));
+		usersListState.some((item) => item.user.values.id === selectedUser.id) ? dispatch(removeUserToAuthorizationList(selectedUser, type)) : dispatch(addUserToAuthorizationList(selectedUser, type));
 	}
 }
 
@@ -246,12 +247,11 @@ export function getResponsibilities() {
 }
 
 export function postRowAuthorization(rowSelected) {
-	console.log('ROOOOOOW', rowSelected)
-	// const rowSelected = rowAuthorization.teams[0];
-
-	// axios.post(`/u2m-api/v1/role/${rowSelected.function}/person/${rowSelected.id}`).then((response) => {
-	// 	console.log('TEAM AUTHORISATION', response)
-	// }, (errorResponse) => {
-	// 	console.log('TEAM AUTHORISATION ERROR', errorResponse)
-	// })
+	return (dispatch) => {
+		axios.post(`/u2m-api/v1/role/${rowSelected.function}/person/${rowSelected.id}`).then((response) => {
+			console.log('TEAM AUTHORISATION', response)
+		}, (errorResponse) => {
+			console.log('TEAM AUTHORISATION ERROR', errorResponse)
+		})
+	}
 }

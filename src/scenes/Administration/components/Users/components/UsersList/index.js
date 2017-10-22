@@ -31,9 +31,9 @@ class UsersList extends Component {
         fetchUsers(page);
     }
 
-    selectedMembers(user) {
+    selectedMembers(userSelected) {
         const { users } = this.props;
-        if (users.some((member) => member.id === user.id)) return true;
+        if (users.some((user) => user.user.values.id === userSelected.id)) return true;
     }
 
     render() {

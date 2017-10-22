@@ -40,16 +40,12 @@ const initialState = {
             users : []
         },
         director: {
-            values: {
-                teams : [],
-                users : []
-            }
+            teams : [],
+            users : []
         },
         buyer: {
-            values: {
-                teams : [],
-                users : []
-            }
+            teams : [],
+            users : []
         }
     }
 }

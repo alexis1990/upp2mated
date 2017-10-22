@@ -7,7 +7,7 @@ import { isModalVisible } from '../../../../components/Modal/actions'
 import TeamsList from '../Teams/components/TeamsList'
 import UsersList from '../Users/components/UsersList'
 import Modal from '../../../../components/Modal/'
-import { fetchUsers, selectedTeamAuthorization, selectedUserAuthorization, postRowAuthorization, getResponsibilities } from '../../actions'
+import { fetchUsers, selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities } from '../../actions'
 import ListAuthorizations from './components/ListAuthorizations/'
 import PanelHeaderTeams from './components/PanelHeaderTeams'
 import PanelHeaderUsers from './components/PanelHeaderUsers'
@@ -35,11 +35,6 @@ class Authorizations extends Component {
 	manageUsers(user) {
 		const { selectedUserAuthorization } = this.props;
 		selectedUserAuthorization(user, user.type);
-	}
-
-	submitRowAuthorization(rowSelected) {
-		console.log('okokokoko', rowSelected)
-		postRowAuthorization(rowSelected);
 	}
 
 	render() {
@@ -77,19 +72,19 @@ class Authorizations extends Component {
 									<PanelHeaderTeams nameModal="tenant.teams" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={tenantTeams} name="teams" formName="Administration.authorization.tenant.teams" onSubmit={this.submitRowAuthorization} />
+									<ListAuthorizations list={tenantTeams} name="team" form="Administration.authorization.tenant.teams" onSubmit={this.submitRowAuthorization} />
 								</Row>
 								<Row className="panel-header">
 									<PanelHeaderUsers nameModal="tenant.users" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={tenantUsers} name="users" formName="Administration.authorization.tenant.users" onSubmit={this.submitRowAuthorization} />
+									<ListAuthorizations list={tenantUsers} name="user" form="Administration.authorization.tenant.users" onSubmit={this.submitRowAuthorization} />
 								</Row>
 							</Well>
 						</div>
 					</Collapse>
 				</div>
-				{/*<div className="toggle-block">
+				<div className="toggle-block">
 					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 2 })} className="toggle-button">
 						<Col xs={6} md={6} lg={6} >
 							Directeur
@@ -107,13 +102,13 @@ class Authorizations extends Component {
 									<PanelHeaderTeams nameModal="director.teams" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={directorTeams} name="teams" section="director" onSubmit={values => this.submitRowAuthorization(values)} />
+									<ListAuthorizations list={directorTeams} name="team" form="Administration.authorization.director.teams" onSubmit={values => this.submitRowAuthorization(values)} />
 								</Row>
 								<Row className="panel-header">
 									<PanelHeaderUsers nameModal="director.users" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={directorUsers} name="users" section="director" onSubmit={values => this.submitRowAuthorization(values)} />
+									<ListAuthorizations list={directorUsers} name="user" form="Administration.authorization.director.users" onSubmit={values => this.submitRowAuthorization(values)} />
 								</Row>
 							</Well>
 						</div>
@@ -137,18 +132,18 @@ class Authorizations extends Component {
 									<PanelHeaderTeams nameModal="buyer.teams" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={buyerTeams} name="teams" section="buyer" onSubmit={values => this.submitRowAuthorization(values)} />
+									<ListAuthorizations list={buyerTeams} name="team" form="Administration.authorization.buyer.teams" onSubmit={values => this.submitRowAuthorization(values)} />
 								</Row>
 								<Row className="panel-header">
 									<PanelHeaderUsers nameModal="buyer.users" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={buyerUsers} name="users" section="buyer" onSubmit={values => this.submitRowAuthorization(values)} />
+									<ListAuthorizations list={buyerUsers} name="user" form="Administration.authorization.buyer.users" onSubmit={values => this.submitRowAuthorization(values)} />
 								</Row>
 							</Well>
 						</div>
 					</Collapse>
-				</div>*/}
+				</div>
 			</Col>
 		)
 	}
@@ -160,10 +155,10 @@ function mapStateToProps(state) {
 		usersList: state.form.Administration.users.data.content,
 		tenantTeams: state.form.Administration.authorization.tenant.teams,
 		tenantUsers: state.form.Administration.authorization.tenant.users,
-		directorTeams: state.form.Administration.authorization.director.values.teams,
-		directorUsers: state.form.Administration.authorization.director.values.users,
-		buyerTeams: state.form.Administration.authorization.buyer.values.teams,
-		buyerUsers: state.form.Administration.authorization.buyer.values.users,
+		directorTeams: state.form.Administration.authorization.director.teams,
+		directorUsers: state.form.Administration.authorization.director.users,
+		buyerTeams: state.form.Administration.authorization.buyer.teams,
+		buyerUsers: state.form.Administration.authorization.buyer.users,
 		isVisible: state.modal.mode,
 	}
 }
