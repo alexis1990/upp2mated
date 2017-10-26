@@ -3,7 +3,7 @@ import { Grid, Row, Col, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { loadSuppliers } from './actions'
+import { fetchSuppliers } from './actions'
 import { bindActionCreators } from 'redux'
 import { Table, ButtonGroup, Button, Glyphicon, Pagination } from 'react-bootstrap'
 import Spinner from '../../components/Spinner'
@@ -12,68 +12,68 @@ import './styles/style.css'
 class Suppliers extends Component {
 	constructor() {
 		super();
-		this.state= {
+		this.state = {
 			activePage: 1
 		}
 		this.handleSelect = this.handleSelect.bind(this);
 	}
-	componentDidMount(){
-		const { loadSuppliers } = this.props;
+	componentDidMount() {
+		const { fetchSuppliers } = this.props;
 		const { activePage } = this.state;
-		loadSuppliers(activePage);
+		fetchSuppliers(activePage);
 	}
 
 	handleSelect(eventKey) {
-		const { loadSuppliers } = this.props;
-		loadSuppliers(eventKey);
+		const { fetchSuppliers } = this.props;
+		fetchSuppliers(eventKey);
 		this.setState({
-		    activePage: eventKey
+			activePage: eventKey
 		});
 	}
 
-	render(){
+	render() {
 		const { suppliers } = this.props;
 
 		return (
 			<Grid fluid>
 				<Row className="show-grid login-block">
 					<Col xs={12} md={12} lg={12} className="new_supplier">
-						 <Link to="/suppliers/supplier/new">
-							 <Button type="submit" bsStyle="action-button">
-								 <Glyphicon glyph="plus"/>Nouveau Fournisseur
+						<Link to="/suppliers/supplier/new">
+							<Button type="submit" bsStyle="action-button">
+								<Glyphicon glyph="plus" />Nouveau Fournisseur
 							 </Button>
-						 </Link>
+						</Link>
 					</Col>
-					<Col xs={12} md={12} lg={12} className="list-supliers">
+					<Col xs={12} md={12} lg={12} className="list-supliers list">
 						<Table responsive>
-						    <thead>
-						      <tr>
-						        <th>Nom fournisseur</th>
-						        <th>Core business</th>
-						        <th>Technologie</th>
-						        <th>Evaluation</th>
-						        <th>Claims</th>
-						        <th>Actions</th>
-						      </tr>
-						    </thead>
-						    <tbody>
-									{ suppliers.content.map((supplier) => (
-										<tr>
-											<td width="20%">{ supplier.name }</td>
-											<td width="20%">{ supplier.subsidiary }</td>
-											<td width="10%"> Table cell</td>
-											<td width="10%">Table cell</td>
-											<td width="20%">Table cell</td>
-											<td className="actions" width="20%">
+							<thead>
+								<tr>
+									<th>Nom fournisseur</th>
+									<th>Core business</th>
+									<th>Technologie</th>
+									<th>Evaluation</th>
+									<th>Claims</th>
+									<th className="align-center">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{suppliers.content.map((supplier) => (
+									<tr>
+										<td width="20%">{supplier.name}</td>
+										<td width="20%">{supplier.subsidiary}</td>
+										<td width="10%"> Table cell</td>
+										<td width="10%">Table cell</td>
+										<td width="20%">Table cell</td>
+										<td className="actions" width="20%">
 											<ButtonGroup justified>
-												<Button className="action-button"><Link to={`/suppliers/${supplier.id}`}><Glyphicon glyph="eye-open"/></Link></Button>
-												<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<2')}><Glyphicon glyph="pencil"/></Button>
-												<Button className="action-button" onClick={()=> console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove"/></Button>
+												<Button className="action-button"><Link to={`/suppliers/${supplier.id}`}><Glyphicon glyph="eye-open" /></Link></Button>
+												<Button className="action-button"><Link to={`/suppliers/supplier/edit/${supplier.id}`}><Glyphicon glyph="pencil" /></Link></Button>
+												<Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
 											</ButtonGroup>
-											</td>
-										</tr>
-									))}
-						    </tbody>
+										</td>
+									</tr>
+								))}
+							</tbody>
 						</Table>
 						<Pagination
 							bsSize="medium"
@@ -82,22 +82,22 @@ class Suppliers extends Component {
 							onSelect={this.handleSelect} />
 					</Col>
 				</Row>
-			</Grid>
+			</Grid >
 		)
 	}
 }
 
 function mapStateToProps(state, ownProps) {
-	return{
-		suppliers: state.suppliers.suppliers
+	return {
+		suppliers: state.form.Suppliers.suppliers
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		loadSuppliers
+		fetchSuppliers
 	}, dispatch);
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (Suppliers)
+export default connect(mapStateToProps, mapDispatchToProps)(Suppliers)

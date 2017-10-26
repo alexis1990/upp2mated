@@ -89,8 +89,8 @@ export function administationReducer(state = initialState, action = action) {
 			}
 		case types.LOAD_ROLES:
 			return {
-				...state, authorization : {
-					...state.authorization, roles: action.payload 
+				...state, authorization: {
+					...state.authorization, roles: action.payload
 				}
 			}
 		case types.ADD_TEAM_AUHORIZATION_LIST:
@@ -148,6 +148,12 @@ export function administationReducer(state = initialState, action = action) {
 						}
 					}
 				}
+			}
+		case types.LOAD_QUALITY_SURVEY_FORM:
+			console.log('IJJJJJJ', action.payload)
+			return {
+				...state,
+				qualitySurvey: { values: action.payload }
 			}
 		default:
 			return state;

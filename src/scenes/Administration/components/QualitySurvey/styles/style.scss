@@ -1,0 +1,34 @@
+.form-creation {
+    padding: 20px;
+    ul {
+        list-style: none;
+        padding: 0;
+        .add-section-row{
+            text-align: right; 
+        }
+        .trash-row {
+            text-align: right;
+        }
+       .sections {
+           margin: 20px;
+           padding: 20px;
+           border: 1px solid grey;
+           background: #ececec;
+           .add-question-row{
+                text-align: left; 
+            }
+           .trash-row {
+               text-align: right;
+           }
+           .question-row {
+               padding: 10px 0;
+               .add-question-button {
+                   height: 72px;
+                   line-height: 80px;
+                   vertical-align: middle;
+                   text-align: center;
+               }
+           }
+       }
+   }
+}
