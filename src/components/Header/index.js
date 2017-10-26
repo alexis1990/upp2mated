@@ -5,7 +5,10 @@ import { withRouter } from 'react-router-dom'
 import { logout } from './actions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { setLocale } from 'react-redux-i18n';
 import './styles/navbar.css'
+
+var Translate = require('react-redux-i18n').Translate;
 
 class Header extends PureComponent {
 	constructor(props){
@@ -15,6 +18,16 @@ class Header extends PureComponent {
 	logout() {
 		const { history } = this.props;
 		this.props.logout(history, sessionStorage);
+	}
+
+	setLanguageToSessionStorage(lang) {
+		sessionStorage.setItem('lang', lang)
+	}
+
+	changeLanguage(lang) {
+		const { setLocale } = this.props;
+		setLocale(lang);
+		this.setLanguageToSessionStorage(lang);
 	}
 
 	render(){
@@ -43,12 +56,13 @@ class Header extends PureComponent {
 				      	<NavItem>
 				      		<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="user"/><span className="user">Bonjour PRENOM NOM</span></span>} id="basic-nav-dropdown">
-								<MenuItem eventKey={3.1}>Editer mon profil</MenuItem>
+								<MenuItem eventKey={3.1}><Translate value="application.title"/></MenuItem>
 							</NavDropdown>
 						</NavItem>
 						<NavItem>
 							<NavDropdown eventKey={3} title="Français" id="basic-nav-dropdown">
-								<MenuItem eventKey={3.1}>Anglais</MenuItem>
+								<MenuItem eventKey={3.1} onClick={()=> this.changeLanguage('en')}>Anglais</MenuItem>
+								<MenuItem eventKey={3.1} onClick={()=> this.changeLanguage('nl')}>Français</MenuItem>
 							</NavDropdown>
 						</NavItem>
 						<NavItem eventKey={2} onClick={this.logout.bind(this)}><Glyphicon glyph="log-out" /></NavItem>
@@ -66,6 +80,6 @@ function mapStateToProps(state, props){
 	}
 }
 
-const mapDispatchToProps = (dispatch, props) => bindActionCreators({ logout }, dispatch);
+const mapDispatchToProps = (dispatch, props) => bindActionCreators({ logout, setLocale }, dispatch);
 
 export default withRouter(connect (mapStateToProps, mapDispatchToProps) (Header));

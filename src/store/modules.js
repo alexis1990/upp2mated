@@ -7,6 +7,7 @@ import { providersReducer } from '../scenes/Consultations/providers/reducer'
 import { auth } from '../scenes/Authentication/reducer'
 import { suppliersReducer } from '../scenes/Suppliers/reducer'
 import { administationReducer } from '../scenes/Administration/reducer'
+import { loadTranslations, setLocale, i18nReducer } from 'react-redux-i18n';
 // import { newProvider } from '../scenes/Consultations/providers/components/Modal/reducer'
 import { modalReducer } from '../components/Modal/reducer'
 import { reducer as formReducer } from 'redux-form'
@@ -24,7 +25,8 @@ export default combineReducers({
    		Identification: identificationReducer,
     	Team: teamReducer,
     	Providers: providersReducer,
-      	Administration: administationReducer
+		Administration: administationReducer
     	// NewProvider: newProvider
-	})
+	}),
+	i18n: i18nReducer
 })
