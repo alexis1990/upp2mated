@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import { Collapse, Well, Button, Col, Row } from 'react-bootstrap'
 import { reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux'
-import { isModalVisible } from '../../../../components/Modal/actions'
-import TeamsList from '../Teams/components/TeamsList'
-import UsersList from '../Users/components/UsersList'
-import Modal from '../../../../components/Modal/'
-import { fetchUsers, selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities } from '../../actions'
+import { isModalVisible } from '../../../../../../components/Modal/actions'
+import TeamsList from '../../../Teams/components/TeamsList'
+import UsersList from '../../../Users/components/UsersList'
+import Modal from '../../../../../../components/Modal/'
+import { fetchUsers, fetchTeams } from '../../../../actions'
+import { selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities, getScopes } from '../../actions'
 import ListAuthorizations from './components/ListAuthorizations/'
 import PanelHeaderTeams from './components/PanelHeaderTeams'
 import PanelHeaderUsers from './components/PanelHeaderUsers'
@@ -22,8 +23,11 @@ class Authorizations extends Component {
 		};
 	}
 
-	componentWillMount(){
-		this.props.getResponsibilities();
+	componentWillMount() {
+		const { getResponsibilities, getScopes, fetchTeams } = this.props;
+		fetchTeams();
+		getResponsibilities();
+		getScopes();
 	}
 
 	manageTeams(team) {
@@ -164,7 +168,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ fetchUsers, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities }, dispatch)
+	return (dispatch) => bindActionCreators({ fetchUsers, fetchTeams, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities, getScopes }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorizations);

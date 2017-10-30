@@ -89,8 +89,26 @@ export function administationReducer(state = initialState, action = action) {
 			}
 		case types.LOAD_RESPONSIBILITIES:
 			return {
-				...state, authorization : {
+				...state, authorization: {
 					...state.authorization, responsibilities: action.payload
+				}
+			}
+		case types.LOAD_SCOPES:
+			return {
+				...state, authorization: {
+					...state.authorization, scopes: action.payload
+				}
+			}
+		case types.LOAD_ROLES:
+			return {
+				...state, authorization: {
+					...state.authorization, roles: action.payload
+				}
+			}
+		case types.LOAD_ROLE:
+			return {
+				...state, authorization: {
+					...state.authorization, role: action.payload
 				}
 			}
 		case types.ADD_TEAM_AUHORIZATION_LIST:
@@ -101,7 +119,7 @@ export function administationReducer(state = initialState, action = action) {
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						teams: state.authorization[type].teams.concat({ team: { values: action.payload}})
+						teams: state.authorization[type].teams.concat({ team: { values: action.payload } })
 					}
 				}
 			}
@@ -123,7 +141,7 @@ export function administationReducer(state = initialState, action = action) {
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						users: state.authorization[type].users.concat({ user: { values: action.payload} })
+						users: state.authorization[type].users.concat({ user: { values: action.payload } })
 					}
 				}
 			}

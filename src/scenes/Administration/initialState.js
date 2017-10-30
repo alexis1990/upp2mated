@@ -1,14 +1,14 @@
 const initialState = {
     teams: {
-    	data: [],
-    	isLoading: true
+        data: [],
+        isLoading: true
     },
     team: {
-    	data: {
+        data: {
             teamMembers: [],
             teamManagers: []
         },
-    	isLoading: true
+        isLoading: true
     },
     createTeam: {
         values: {
@@ -21,11 +21,11 @@ const initialState = {
         }
     },
     users: {
-    	data: {
+        data: {
             teamMembers: [],
             teamManagers: []
         },
-    	isLoading: true
+        isLoading: true
     },
     user: {
         data: {
@@ -35,17 +35,18 @@ const initialState = {
     },
     authorization: {
         responsibilities: [],
+        roles: [],
         tenant: {
-            teams : [],
-            users : []
+            teams: [],
+            users: []
         },
         director: {
-            teams : [],
-            users : []
+            teams: [],
+            users: []
         },
         buyer: {
-            teams : [],
-            users : []
+            teams: [],
+            users: []
         }
     }
 }

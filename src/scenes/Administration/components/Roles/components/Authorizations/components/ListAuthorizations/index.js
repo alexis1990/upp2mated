@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { Row, Col, Button, Form, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators, compose } from 'redux'
-import Select from '../../../../../../components/Fields/select'
-import renderInput from '../../../../../../components/Fields/input'
 import { Field, reduxForm, formValueSelector } from 'redux-form'
 import RowAuthorizations from './components/FormAuthorization'
 import { postRowAuthorization } from '../../../../actions'
 
 
-class ListAuthorizations extends Component{
+class ListAuthorizations extends Component {
 	constructor() {
 		super();
 		this.submitRowAuthorization = this.submitRowAuthorization.bind(this)
@@ -19,15 +17,15 @@ class ListAuthorizations extends Component{
 		const { postRowAuthorization } = this.props;
 		postRowAuthorization(rowSelected);
 	}
-	
+
 	render() {
-		const { list, formName, name, responsibilities, handleSubmit } = this.props;
+		const { list, formName, name, responsibilities, scopes, handleSubmit } = this.props;
 
 		return (
 			<div>
-				{	list.map((item, index) => {
-						return <RowAuthorizations form={`${formName}[${index}].${name}`} item={item} name={name} responsibilities={responsibilities} onSubmit={this.submitRowAuthorization} />
-					})
+				{list.map((item, index) => {
+					return <RowAuthorizations form={`${formName}[${index}].${name}`} item={item} name={name} responsibilities={responsibilities} scopes={scopes} onSubmit={this.submitRowAuthorization} />
+				})
 				}
 			</div>
 		)
@@ -39,6 +37,7 @@ class ListAuthorizations extends Component{
 function mapStateToProps(state, ownProps) {
 	return {
 		responsibilities: state.form.Administration.authorization.responsibilities,
+		scopes: state.form.Administration.authorization.scopes,
 		formName: ownProps.form,
 	}
 }
@@ -48,4 +47,4 @@ function mapDispatchToProps(state) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (ListAuthorizations);
+export default connect(mapStateToProps, mapDispatchToProps)(ListAuthorizations);
