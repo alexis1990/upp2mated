@@ -36,9 +36,10 @@ class FormContainer extends PureComponent {
 
 function mapStateToProps(state, ownProps) {
 	const selector = formValueSelector('Providers')
+
 	return {
 		providersFields: state.form.Providers.values.consultationSupplierList,
-		suppliers: state.suppliers.suppliers.content,
+		suppliers: state.form.Suppliers.suppliers.content,
 		contacts: selector(state, 'consultationSupplierList')
 	};
 }
