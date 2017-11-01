@@ -1,25 +1,2 @@
 .form-creation {
   padding: 20px; }
-  .form-creation ul {
-    list-style: none;
-    padding: 0; }
-    .form-creation ul .add-section-row {
-      text-align: right; }
-    .form-creation ul .trash-row {
-      text-align: right; }
-    .form-creation ul .sections {
-      margin: 20px;
-      padding: 20px;
-      border: 1px solid grey;
-      background: #ececec; }
-      .form-creation ul .sections .add-question-row {
-        text-align: left; }
-      .form-creation ul .sections .trash-row {
-        text-align: right; }
-      .form-creation ul .sections .question-row {
-        padding: 10px 0; }
-        .form-creation ul .sections .question-row .add-question-button {
-          height: 72px;
-          line-height: 80px;
-          vertical-align: middle;
-          text-align: center; }
