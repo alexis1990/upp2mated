@@ -1,0 +1,37 @@
+ul {
+    list-style: none;
+    padding: 0;
+    .add-section-row{
+        text-align: right; 
+    }
+    .trash-row {
+        text-align: right;
+    }
+   .sections {
+       margin: 20px;
+       padding: 20px;
+       border: 1px solid grey;
+       background: #ececec;
+       cursor: move;
+       .add-question-row{
+            text-align: left; 
+        }
+       .trash-row {
+           text-align: right;
+       }
+       .question-row {
+           padding: 10px 0;
+           cursor: move;
+           .question-field {
+                width: 60%;
+                text-align: center;
+                display: inline-block;
+            }
+           .add-question-button {
+               width: 40%;
+               text-align: center;
+               display: inline-block;
+           }
+       }
+   }
+}

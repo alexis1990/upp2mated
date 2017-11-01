@@ -28,6 +28,9 @@ import SubHeader from '../components/SubHeader/index'
 import Modal from '../components/Modal/index'
 import 'react-datasheet/lib/react-datasheet.css';
 
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 const steps = {
   wizard: {
     stepsRFI: [
@@ -171,4 +174,4 @@ function mapDispatchToProps() {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DragDropContext(HTML5Backend)(App)));
