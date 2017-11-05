@@ -8,10 +8,11 @@ import TeamsList from '../../../Teams/components/TeamsList'
 import UsersList from '../../../Users/components/UsersList'
 import Modal from '../../../../../../components/Modal/'
 import { fetchUsers, fetchTeams } from '../../../../actions'
-import { selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities, getScopes } from '../../actions'
+import { selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities, getScopes, resetAuthorizationsList } from '../../actions'
 import ListAuthorizations from './components/ListAuthorizations/'
 import PanelHeaderTeams from './components/PanelHeaderTeams'
 import PanelHeaderUsers from './components/PanelHeaderUsers'
+import CollapseHeader from './components/CollapseHeader'
 import './styles/style.css'
 
 class Authorizations extends Component {
@@ -30,9 +31,14 @@ class Authorizations extends Component {
 		getScopes();
 	}
 
+    componentWillUnmount() {
+		const { resetAuthorizationsList } = this.props;
+		resetAuthorizationsList();
+    }
+
+
 	manageTeams(team) {
 		const { selectedTeamAuthorization } = this.props;
-		console.log('TEAMMM', team)
 		selectedTeamAuthorization(team, team.type);
 	}
 
@@ -42,7 +48,7 @@ class Authorizations extends Component {
 	}
 
 	render() {
-		const { teamsList, usersList, isVisible, isLoading, tenantTeams, tenantUsers, isModalVisible, directorTeams, directorUsers, buyerTeams, buyerUsers } = this.props;
+		const { teamsList, usersList, isVisible, isLoading, tenantTeams, tenantUsers, isModalVisible, directorTeams, directorUsers, buyerTeams, buyerUsers, tenantRole } = this.props;
 
 		return (
 			<Col xs={12} md={12} lg={12} className="authorization">
@@ -60,12 +66,7 @@ class Authorizations extends Component {
 				</Row>
 				<div className="toggle-block">
 					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 1 })} className="toggle-button">
-						<Col xs={6} md={6} lg={6} >
-							Administrateur Tenant
-			          	</Col>
-						<Col xs={6} md={6} lg={6} >
-							Personne ayant tous les droit
-			          	</Col>
+						<CollapseHeader form="Administration.authorization.tenant.role" role={tenantRole} />
 					</Button>
 					<Collapse in={this.state.open && this.state.id == 1}>
 						<div>
@@ -76,20 +77,20 @@ class Authorizations extends Component {
 									<PanelHeaderTeams nameModal="tenant.teams" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={tenantTeams} name="team" form="Administration.authorization.tenant.teams" onSubmit={this.submitRowAuthorization} />
+									<ListAuthorizations list={tenantTeams} name="team" form="Administration.authorization.tenant.teams" role={tenantRole} onSubmit={this.submitRowAuthorization} />
 								</Row>
 								<Row className="panel-header">
 									<PanelHeaderUsers nameModal="tenant.users" />
 								</Row>
 								<Row className="panel-body">
-									<ListAuthorizations list={tenantUsers} name="user" form="Administration.authorization.tenant.users" onSubmit={this.submitRowAuthorization} />
+									<ListAuthorizations list={tenantUsers} name="user" form="Administration.authorization.tenant.users" role={tenantRole} onSubmit={this.submitRowAuthorization} />
 								</Row>
 							</Well>
 						</div>
 					</Collapse>
 				</div>
 				<div className="toggle-block">
-					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 2 })} className="toggle-button">
+					{/* <Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 2 })} className="toggle-button">
 						<Col xs={6} md={6} lg={6} >
 							Directeur
 			          	</Col>
@@ -116,10 +117,10 @@ class Authorizations extends Component {
 								</Row>
 							</Well>
 						</div>
-					</Collapse>
+					</Collapse> */}
 				</div>
 				<div className="toggle-block">
-					<Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 3 })} className="toggle-button">
+					{/* <Button xs={12} md={12} lg={12} onClick={() => this.setState({ open: true, id: 3 })} className="toggle-button">
 						<Col xs={6} md={6} lg={6} >
 							Acheteur
 			          	</Col>
@@ -146,7 +147,7 @@ class Authorizations extends Component {
 								</Row>
 							</Well>
 						</div>
-					</Collapse>
+					</Collapse> */}
 				</div>
 			</Col>
 		)
@@ -159,6 +160,7 @@ function mapStateToProps(state) {
 		usersList: state.form.Administration.users.data.content,
 		tenantTeams: state.form.Administration.authorization.tenant.teams,
 		tenantUsers: state.form.Administration.authorization.tenant.users,
+		tenantRole: state.form.Administration.authorization.tenant.role,
 		directorTeams: state.form.Administration.authorization.director.teams,
 		directorUsers: state.form.Administration.authorization.director.users,
 		buyerTeams: state.form.Administration.authorization.buyer.teams,
@@ -168,7 +170,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-	return (dispatch) => bindActionCreators({ fetchUsers, fetchTeams, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities, getScopes }, dispatch)
+	return (dispatch) => bindActionCreators({ fetchUsers, fetchTeams, isModalVisible, selectedTeamAuthorization, selectedUserAuthorization, getResponsibilities, getScopes, resetAuthorizationsList }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authorizations);

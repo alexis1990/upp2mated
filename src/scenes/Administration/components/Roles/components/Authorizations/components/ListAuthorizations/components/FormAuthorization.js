@@ -8,7 +8,7 @@ import { Field, reduxForm } from 'redux-form'
 import { postRowAuthorization } from '../../../../../../../actions'
 
 let RowAuthorizations = (props) => {
-	const { handleSubmit, responsibilities, scopes, name } = props;
+	const { handleSubmit, name, role } = props;
 
 	return (
 		<Form onSubmit={handleSubmit}>
@@ -19,19 +19,13 @@ let RowAuthorizations = (props) => {
 					<Field type="text" name="email" withoutLabel placeholder="Email" component={renderInput}>Email</Field>
 				}
 			</Col>
-			<Col xs={4} md={4} lg={4} >
-				<Field componentClass="select" options={responsibilities} withoutLabel name="function" component={Select}></Field>
-			</Col>
-			<Col xs={4} md={4} lg={4} >
-				<Field componentClass="select" options={scopes} withoutLabel name="scope" component={Select}></Field>
-			</Col>
 			<Col xs={1} md={1} lg={1} >
-				<Button type="submit" bsStyle="action-button font-icon"><Glyphicon glyph="ok" /></Button>
+				<Button type="submit" bsStyle="action-button font-icon" disabled={!role.values}><Glyphicon glyph="ok" /></Button>
 			</Col>
 		</Form>
 	)
 }
 
 export default RowAuthorizations = reduxForm({
-	destroyOnUnmount: true
+	destroyOnUnmount: true,
 })(RowAuthorizations);

@@ -84,13 +84,19 @@ export function getScopes() {
     }
 }
 
-export function postRowAuthorization(rowSelected) {
+export function postRowAuthorization(rowSelected, roleId) {
     return (dispatch) => {
-        axios.post(`/u2m-api/v1/role/${rowSelected.function}/person/${rowSelected.id}`).then((response) => {
+        axios.post(`/u2m-api/v1/role/${roleId}/person/${rowSelected.id}`).then((response) => {
             console.log('TEAM AUTHORISATION', response)
         }, (errorResponse) => {
             console.log('TEAM AUTHORISATION ERROR', errorResponse)
         })
+    }
+}
+
+export function resetAuthorizationsList(role) {
+    return (dispatch) => {
+        dispatch({type: types.RESET_AUHORIZATION_LIST})
     }
 }
 
@@ -105,7 +111,13 @@ export function loadRoles(roles) {
 export function getRoles() {
     return (dispatch) => {
         axios.get(`/u2m-api/v1/role/`).then((roles) => {
-            dispatch(loadRoles(roles));
+            const addOptionsSelectRoles = roles.map((role)=> {
+                return { ...role,
+                    value: role.id,
+                    name: role.label
+                }
+            });
+            dispatch(loadRoles(addOptionsSelectRoles));
         }, (errorResponse) => {
             console.log('ROLES', errorResponse)
         })

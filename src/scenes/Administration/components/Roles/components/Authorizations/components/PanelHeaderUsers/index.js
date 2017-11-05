@@ -6,14 +6,8 @@ import { isModalVisible } from '../../../../../../../../components/Modal/actions
 
 const PanelHeaderUsers = ({ isModalVisible, nameModal }) => (
 	<div>
-		<Col xs={4} md={4} lg={4} >
+		<Col xs={11} md={11} lg={11} >
 			<strong>Utilisateurs</strong>
-		</Col>
-		<Col xs={4} md={4} lg={4} >
-			<strong>Fonction</strong>
-		</Col>
-		<Col xs={3} md={3} lg={3} >
-			<strong>Niveau</strong>
 		</Col>
 		<Col xs={1} md={1} lg={1} >
 			<Button onClick={() => isModalVisible(true, nameModal)} bsStyle="action-button font-icon">

@@ -14,17 +14,18 @@ class ListAuthorizations extends Component {
 	}
 
 	submitRowAuthorization(rowSelected) {
-		const { postRowAuthorization } = this.props;
-		postRowAuthorization(rowSelected);
+		const { postRowAuthorization, role } = this.props;
+		const roleId = role.values.id;
+		postRowAuthorization(rowSelected, roleId);
 	}
 
 	render() {
-		const { list, formName, name, responsibilities, scopes, handleSubmit } = this.props;
+		const { list, formName, name,  handleSubmit, role } = this.props;
 
 		return (
 			<div>
 				{list.map((item, index) => {
-					return <RowAuthorizations form={`${formName}[${index}].${name}`} item={item} name={name} responsibilities={responsibilities} scopes={scopes} onSubmit={this.submitRowAuthorization} />
+					return <RowAuthorizations form={`${formName}[${index}].${name}`} item={item} name={name} role={role} onSubmit={this.submitRowAuthorization} />
 				})
 				}
 			</div>
@@ -36,9 +37,7 @@ class ListAuthorizations extends Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		responsibilities: state.form.Administration.authorization.responsibilities,
-		scopes: state.form.Administration.authorization.scopes,
-		formName: ownProps.form,
+		formName: ownProps.form
 	}
 }
 

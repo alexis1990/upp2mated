@@ -106,9 +106,10 @@ export function administationReducer(state = initialState, action = action) {
 				}
 			}
 		case types.LOAD_ROLE:
+		
 			return {
-				...state, authorization: {
-					...state.authorization, role: action.payload
+				...state, manageRoles: {
+					...state.authorization.manageRoles, values: action.payload
 				}
 			}
 		case types.ADD_TEAM_AUHORIZATION_LIST:
@@ -156,8 +157,19 @@ export function administationReducer(state = initialState, action = action) {
 					}
 				}
 			}
+		case types.RESET_AUHORIZATION_LIST:
+			return {
+				...state,
+				authorization: {
+					...state.authorization, tenant: {
+						...state.authorization.tenant,
+						role: {},
+						users: [],
+						teams: []
+					}
+				}
+			}
 		case types.LOAD_QUALITY_SURVEY_FORM:
-			console.log('IJJJJJJ', action.payload)
 			return {
 				...state,
 				qualitySurvey: { values: action.payload }
