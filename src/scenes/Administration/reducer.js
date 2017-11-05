@@ -87,23 +87,40 @@ export function administationReducer(state = initialState, action = action) {
 					}
 				}
 			}
+		case types.LOAD_RESPONSIBILITIES:
+			return {
+				...state, authorization: {
+					...state.authorization, responsibilities: action.payload
+				}
+			}
+		case types.LOAD_SCOPES:
+			return {
+				...state, authorization: {
+					...state.authorization, scopes: action.payload
+				}
+			}
 		case types.LOAD_ROLES:
 			return {
 				...state, authorization: {
 					...state.authorization, roles: action.payload
 				}
 			}
+		case types.LOAD_ROLE:
+		
+			return {
+				...state, manageRoles: {
+					...state.authorization.manageRoles, values: action.payload
+				}
+			}
 		case types.ADD_TEAM_AUHORIZATION_LIST:
 			type = action.payload.type;
+			console.log('ACTIPN', action.payload)
 			return {
 				...state,
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						values: {
-							...state.authorization[type].values,
-							teams: state.authorization[type].values.teams.concat(action.payload)
-						}
+						teams: state.authorization[type].teams.concat({ team: { values: action.payload } })
 					}
 				}
 			}
@@ -114,10 +131,7 @@ export function administationReducer(state = initialState, action = action) {
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						values: {
-							...state.authorization[type].values,
-							teams: state.authorization[type].values.teams.filter((x) => x.id !== action.payload.id)
-						}
+						teams: state.authorization[type].teams.filter((x) => x.team.values.id !== action.payload.id)
 					}
 				}
 			}
@@ -128,10 +142,7 @@ export function administationReducer(state = initialState, action = action) {
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						values: {
-							...state.authorization[type].values,
-							users: state.authorization[type].values.users.concat(action.payload)
-						}
+						users: state.authorization[type].users.concat({ user: { values: action.payload } })
 					}
 				}
 			}
@@ -142,15 +153,23 @@ export function administationReducer(state = initialState, action = action) {
 				authorization: {
 					...state.authorization, [type]: {
 						...state.authorization[type],
-						values: {
-							...state.authorization[type].values,
-							users: state.authorization[type].values.users.filter((x) => x.id !== action.payload.id)
-						}
+						users: state.authorization[type].users.filter((x) => x.user.values.id !== action.payload.id)
+					}
+				}
+			}
+		case types.RESET_AUHORIZATION_LIST:
+			return {
+				...state,
+				authorization: {
+					...state.authorization, tenant: {
+						...state.authorization.tenant,
+						role: {},
+						users: [],
+						teams: []
 					}
 				}
 			}
 		case types.LOAD_QUALITY_SURVEY_FORM:
-			console.log('IJJJJJJ', action.payload)
 			return {
 				...state,
 				qualitySurvey: { values: action.payload }

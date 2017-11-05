@@ -21,6 +21,8 @@ import CreateTeam from '../scenes/Administration/components/Teams/CreateTeam/'
 import TeamView from '../scenes/Administration/components/Teams/Team/'
 import User from '../scenes/Administration/components/Users/User/'
 import CreateUser from '../scenes/Administration/components/Users/CreateUser/'
+import ManageRoles from '../scenes/Administration/components/Roles/components/ManageRoles/index'
+import Authorizations from '../scenes/Administration/components/Roles/components/Authorizations/index'
 import QualitySurvey from '../scenes/Administration/components/QualitySurvey'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
@@ -78,6 +80,10 @@ const App = ({ isAuthenticated }) => (
         <Route exact path="/administration/teams/team/edit/:id" component={requireAuthentication(EditTeam)} />
         <Route exact path="/administration/users/:id" component={requireAuthentication(User)} />
         <Route exact path="/administration/users/user/new" component={requireAuthentication(CreateUser)} />
+        <Route exact path="/administration/roles/:id" component={requireAuthentication(ManageRoles)} />
+        <Route exact path="/administration/roles/role/new" component={requireAuthentication(ManageRoles)} />
+        <Route exact path="/administration/roles/role/edit/:id" component={requireAuthentication(ManageRoles)} />
+        <Route exact path="/administration/roles/manage/authorizations" component={requireAuthentication(Authorizations)} />
         <Route exact path="/administration/quality-survey" component={requireAuthentication(QualitySurvey)} />
         <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
         <Route exact path="/kitui" component={KitUi} />
@@ -85,82 +91,6 @@ const App = ({ isAuthenticated }) => (
     </main>
   </div>
 )
-
-
-// class App extends PureComponent {
-
-//   componentDidMount() {
-//       window.addEventListener('scroll', this.fixedSubHeader);
-//   }
-
-//   componentWillUnmount() {
-//       window.removeEventListener('scroll', this.fixedSubHeader);
-//   }
-
-//   fixedSubHeader(event) {
-//       const scroll = event.srcElement.body.scrollTop;
-//       var html = document.documentElement;
-//       if(html.offsetHeight > 800 && scroll > 50) {
-//         var subheader = document.querySelectorAll(".subheader");
-//         [].forEach.call(subheader, function(el) {
-//             if (!document.querySelector('.subheader.fixed')) {
-//                 subheader[0].className += " fixed";
-//             }
-//         });
-//       } else {
-//         var subheader = document.querySelectorAll(".subheader");
-//         [].forEach.call(subheader, function(el) {
-//             el.classList.remove("fixed");
-//         });
-//       }
-//   }
-
-//   render () {
-//     const steps = {
-//       wizard:{
-//           stepsRFI: [
-//           { id: 1, component: <Identification/>, title: "Identification" },
-//           { id: 2, component: <Team/> , title: "Equipe" },
-//           { id: 3, component: <CommercialFrame/> , title: "Trame commerciale" },
-//           { id: 4, component: <Providers/> , title: "Fournisseurs" },
-//           { id: 5, component: <Documentation/> , title: "Documentation" },
-//           { id: 6, component: <Summary/> , title: "Récapitulatif" },
-//           { id: 7, component: <Confirmation/>, title: 'Confirmation' },
-//         ]
-//       }
-//     }
-//     const { isAuthenticated } = this.props;
-//     return (
-//       <div>
-//           { isAuthenticated ?
-//             <div>
-//               <Header />
-//               <SubHeader />
-//             </div>
-//             :
-//             null
-//           }
-//           <main>
-//             <Switch>
-//                 <Route exact path="/" component={Authentication}/>
-//                 <Route path="/consultations" component={({ match }) => (
-//                   <div>
-//                     <Route path={`${match.url}/:stepId`} component={ requireAuthentication(({match}) =>(
-//                       <Consultations match={match} stepId={match.params.stepId} steps={steps.wizard.stepsRFI} />))
-//                     }/>
-//                     <Route exact path={match.url} render={() => (
-//                       <h3>Please select a topic.</h3>
-//                     )}/>
-//                   </div>
-//                 )}/>
-//                 <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
-//                 <Route exact path="/kitui" component={KitUi} />
-//             </Switch>
-//           </main>
-//       </div>
-//     )
-//   }
-// }
 
 function mapStateToProps(state, ownProps) {
   return {

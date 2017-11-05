@@ -9,6 +9,10 @@ import Spinner from '../../../../../../components/Spinner'
 import _ from 'lodash'
 import './styles/style.css'
 
+const isUserSelectedInModal = (users, userSelected) => users.some((user) => user.id === userSelected.id);
+const isUserExistInFormAuthorization = (user) => user.user && user.user.values;
+const isUserSelectedInAuthorizationModal = (user, userSelected) => isUserExistInFormAuthorization(user) && user.user.values.id === userSelected.id;
+
 class UsersList extends Component {
     constructor() {
         super();
@@ -31,9 +35,14 @@ class UsersList extends Component {
         fetchUsers(page);
     }
 
-    selectedMembers(user) {
+    selectedMembers(userSelected) {
         const { users } = this.props;
-        if (users.some((member) => member.id === user.id)) return true;
+        if (isUserSelectedInModal(users, userSelected)) return true;
+        return users.some((user) => {
+            if(isUserSelectedInAuthorizationModal(user, userSelected)) {
+                return true
+            }
+        })
     }
 
     render() {
@@ -94,6 +103,7 @@ class UsersList extends Component {
 }
 
 function mapStateToProps(state) {
+    // console.log('USERSSSS', state.form.Administration.users)
     return {
         usersList: state.form.Administration.users.data,
         isLoading: state.form.Administration.users.isLoading
