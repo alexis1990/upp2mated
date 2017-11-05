@@ -7,7 +7,7 @@
     margin-left: -1px; }
     .form-group .bootstrap-typeahead .bootstrap-typeahead-input .form-control {
       border-right: none !important;
-      height: 30px !important;
+      height: 41px !important;
       border-radius: 0;
       outline: none; }
       .form-group .bootstrap-typeahead .bootstrap-typeahead-input .form-control:focus {
@@ -23,5 +23,5 @@
 
 .form-group button {
   position: absolute;
-  top: 0;
+  top: 7px;
   right: 0; }

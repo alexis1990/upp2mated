@@ -75,6 +75,10 @@ button {
           line-height: 0;
         }
       }
+      &:hover {
+        color:white;
+        opacity: 0.8;
+      }
   }
   &.btn-action-button-transparent{
     background-color: white !important;

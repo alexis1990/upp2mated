@@ -8,7 +8,7 @@
 			margin-left:-1px;
 			.form-control {
 				border-right: none !important;
-				height:30px !important;
+				height: 41px !important;
 				border-radius: 0;
 				outline: none;
 				&:focus {
@@ -30,7 +30,7 @@
 	}
 	button{
 	    position: absolute;
-    	top: 0;
+		top: 7px;
     	right: 0;
 	}
 }

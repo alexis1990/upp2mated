@@ -1,0 +1,35 @@
+@import "./../../../variables.scss";
+.form-group {
+    // .glyphicon {
+    //     display: none;
+    // }
+}
+.form-control {
+    outline: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-width: 0 0 1px 0 !important;
+    border-color: grey;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    height: 40px !important;
+    &:focus{
+        border-color: $primary-color;
+    }
+}
+
+
+.form-controlntrol:focus {
+    outline: none;
+}
+
+.has-success .form-control:focus {
+    box-shadow: none;
+    border-color: green;
+}
+
+.has-error .form-control:focus {
+    box-shadow: none;
+    border-color: red;
+}

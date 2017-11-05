@@ -55,6 +55,9 @@ button {
       height: 25px; }
       button.btn-action-button.font-icon .glyphicon {
         line-height: 0; }
+    button.btn-action-button:hover {
+      color: white;
+      opacity: 0.8; }
   button.btn-action-button-transparent {
     background-color: white !important;
     color: #0189a9; }

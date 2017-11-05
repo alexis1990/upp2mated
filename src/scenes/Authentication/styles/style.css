@@ -12,16 +12,17 @@
     .img_background .login-block .login-box {
       padding: 20px;
       position: relative;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
+      top: 20%;
+      height: 80%;
       border: 5px solid;
       padding: 20px;
-      border-image: url("./imgs/trait.png") 27;
+      border-image: url("./imgs/trait.png") 120;
       border-right-width: 0; }
+      .img_background .login-block .login-box h1 {
+        color: #008aa6; }
       .img_background .login-block .login-box .connexion {
-        width: 100%; }
+        width: 100%;
+        margin: 50px 0; }
         .img_background .login-block .login-box .connexion span {
           display: inline-block; }
           .img_background .login-block .login-box .connexion span.button {
