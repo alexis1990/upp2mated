@@ -5,7 +5,7 @@ import './styles/select.css'
 
 const Select = ({placeholder, type, input, meta , withoutLabel, options }) => {console.log('OPTIONNN', input)
     return (
-    	<FormGroup bsSize="lg" controlId={input.name} validationState={ meta.touched ? (meta.error ? 'error' : 'success') : ''}>
+    	<FormGroup bsSize="small" controlId={input.name} validationState={ meta.touched ? (meta.error ? 'error' : 'success') : ''}>
 	        {/*{ !withoutLabel && <ControlLabel>Select</ControlLabel> }*/}
 	        <FormControl {...input} componentClass="select" placeholder="select" value={input.value} onChange={input.onChange} >
 				<option value="-1" disabled>{placeholder}</option>

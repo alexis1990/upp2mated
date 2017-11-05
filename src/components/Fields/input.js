@@ -5,7 +5,7 @@ import './styles/input.css'
 const renderInput = ({ label, withoutLabel, placeholder, type, input, meta}) => {
     console.log('METTTT', input)
     return (
-      <FormGroup bsSize="lg" controlId={input.name} validationState={meta.touched ? ( meta.error ? 'error' : 'success' ) : ''}>
+      <FormGroup bsSize="small" controlId={input.name} validationState={meta.touched ? ( meta.error ? 'error' : 'success' ) : ''}>
         {/* {
           !withoutLabel && <ControlLabel>{label}</ControlLabel>
         } */}
