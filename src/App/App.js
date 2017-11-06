@@ -16,11 +16,10 @@ import Suppliers from '../scenes/Suppliers/index'
 import Supplier from '../scenes/Suppliers/Supplier/index'
 import ManageSupplier from '../scenes/Suppliers/ManageSupplier/index'
 import Administration from '../scenes/Administration/index'
-import EditTeam from '../scenes/Administration/components/Teams/EditTeam/'
-import CreateTeam from '../scenes/Administration/components/Teams/CreateTeam/'
+import ManageTeam from '../scenes/Administration/components/Teams/ManageTeam/'
 import TeamView from '../scenes/Administration/components/Teams/Team/'
 import User from '../scenes/Administration/components/Users/User/'
-import CreateUser from '../scenes/Administration/components/Users/CreateUser/'
+import ManageUser from '../scenes/Administration/components/Users/ManageUser/'
 import ManageRoles from '../scenes/Administration/components/Roles/components/ManageRoles/index'
 import Authorizations from '../scenes/Administration/components/Roles/components/Authorizations/index'
 import QualitySurvey from '../scenes/Administration/components/QualitySurvey/'
@@ -77,10 +76,11 @@ const App = ({ isAuthenticated }) => (
         <Route exact path="/suppliers/supplier/edit/:id" component={requireAuthentication(ManageSupplier)} />
         <Route exact path="/administration" component={requireAuthentication(Administration)} />
         <Route exact path="/administration/teams/:id" component={requireAuthentication(TeamView)} />
-        <Route exact path="/administration/teams/team/new" component={requireAuthentication(CreateTeam)} />
-        <Route exact path="/administration/teams/team/edit/:id" component={requireAuthentication(EditTeam)} />
+        <Route exact path="/administration/teams/team/new" component={requireAuthentication(ManageTeam)} />
+        <Route exact path="/administration/teams/team/edit/:id" component={requireAuthentication(ManageTeam)} />
         <Route exact path="/administration/users/:id" component={requireAuthentication(User)} />
-        <Route exact path="/administration/users/user/new" component={requireAuthentication(CreateUser)} />
+        <Route exact path="/administration/users/user/new" component={requireAuthentication(ManageUser)} />
+        <Route exact path="/administration/users/user/edit/:id" component={requireAuthentication(ManageUser)} />
         <Route exact path="/administration/roles/:id" component={requireAuthentication(ManageRoles)} />
         <Route exact path="/administration/roles/role/new" component={requireAuthentication(ManageRoles)} />
         <Route exact path="/administration/roles/role/edit/:id" component={requireAuthentication(ManageRoles)} />

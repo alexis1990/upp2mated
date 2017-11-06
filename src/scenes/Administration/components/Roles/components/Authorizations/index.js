@@ -70,7 +70,7 @@ class Authorizations extends Component {
 					</Button>
 					<Collapse in={this.state.open && this.state.id == 1}>
 						<div>
-							<Modal activeNameModal='tenant.teams' isVisible={isVisible} component={<TeamsList teams={teamsList} type="tenant" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
+							<Modal activeNameModal='tenant.teams' isVisible={isVisible} component={<TeamsList teams={teamsList} teamsSelected={[]} type="tenant" checkboxOption manageTeams={(values, type) => this.manageTeams(values, type)} />} />
 							<Modal activeNameModal='tenant.users' isVisible={isVisible} component={<UsersList users={tenantUsers} type="tenant" checkboxOption manageMembers={(values, type) => this.manageUsers(values, type)} />} />
 							<Well>
 								<Row className="panel-header">
