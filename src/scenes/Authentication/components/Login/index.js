@@ -16,7 +16,7 @@ const LoginForm = () => (
 			    </Checkbox>
 		    </span>
 		    <span className="button">
-				<Button type="submit">Connexion</Button>
+				<Button bsStyle="btn btn-action-button" type="submit">Connexion</Button>
 			</span>
 		</div>
 	</div>

@@ -26,8 +26,8 @@ class Authentication extends Component {
 					<Col xs={12} md={6} lg={6} className="logo-box">
 						<Image src={logo} rounded />
 					</Col>
-					<Col xs={12} md={6} lg={6} className="login-box">
-						<h2>Connexion :</h2>
+					<Col xs={12} md={5} lg={5} className="login-box">
+						<h1>Connexion :</h1>
 						<form onSubmit={handleSubmit(this.submit.bind(this))}>
 							<LoginForm />
 		    		</form>
