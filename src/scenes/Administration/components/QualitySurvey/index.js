@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Row, Col, Button, Glyphicon } from 'react-bootstrap'
 import { Field, reduxForm, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
@@ -7,12 +8,13 @@ import { connect } from 'react-redux'
 import renderSections from '../../../../components/BasicSurvey'
 import renderInput from '../../../../components/Fields/input'
 import Select from '../../../../components/Fields/select'
-import { getQualitySurveyForm } from './actions'
+import { getQualitySurveys } from './actions'
 import './styles/style.css'
 
-class QualitySurvey extends Component {
+class QualitySurveys extends Component {
     componentWillMount(){
-        this.props.getQualitySurveyForm();
+        const { getQualitySurveys } = this.props;
+        getQualitySurveys();
     }
 
     render() {
@@ -20,15 +22,12 @@ class QualitySurvey extends Component {
         return (
             <div>
                 <Col lg={6}>
-                    <h3>Questionnaire Qualité :</h3>
-                    <Field name="nom" label="nom" component={renderInput} />
-                    <Field name="description" label="description" component={renderInput} />
-                    <div>Version : v1</div>
-                    <div>Statut : Publié</div>
-                    <Field name="description" options={[]} label="Durée de Validité" component={Select} />
-                </Col>
-                <Col lg={6} className="form-creation">
-                    <FieldArray name="sections" component={renderSections} />
+                    <h3>Questionnaires Qualitées :</h3>
+                    <Button className="action-button">
+                        <Link to={`/administration/quality-surveys/quality-survey/new`}>
+                            <Glyphicon glyph="eye-plus" /> Créer un questionnaire
+                        </Link>
+                    </Button>
                 </Col>
             </div>
         )
@@ -41,14 +40,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(state) {
-    return (dispatch) => bindActionCreators({ getQualitySurveyForm }, dispatch)
+    return (dispatch) => bindActionCreators({ getQualitySurveys }, dispatch)
 }
 
-QualitySurvey = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(QualitySurvey);
-
-export default reduxForm({
-    form: 'Administration.qualitySurvey'
-})(QualitySurvey)
+export default connect (mapStateToProps, mapDispatchToProps) (QualitySurveys)

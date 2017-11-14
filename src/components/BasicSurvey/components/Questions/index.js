@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { DragSource,DropTarget } from 'react-dnd';
+import { addChangeSetQuestion } from '../../actions'
 import renderInput from '../../../Fields/input'
 import { Row, Col, Button, Glyphicon } from 'react-bootstrap'
 import { Field, reduxForm, FieldArray } from 'redux-form'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 const Types = {
     QUESTION: 'question'
@@ -19,12 +22,20 @@ class Questions extends Component {
         fields.move(dragIndex, hoverIndex);
     }
 
+    addQuestion() {
+        const { addChangeSetQuestion, fields } = this.props;
+        fields.push({});
+        
+        const questionId = fields.length;
+        addChangeSetQuestion(questionId);
+    }
+
     render(){
         const { fields, meta: { error } } = this.props;        
         return(
             <ul>
             <li className="add-question-row">
-                <Button bsStyle="btn btn-action-button" type="button" onClick={() => fields.push()}>
+                <Button bsStyle="btn btn-action-button" type="button" onClick={this.addQuestion.bind(this)}>
                     Ajouter une question
                 </Button>
             </li>
@@ -105,5 +116,16 @@ const questionTarget = {
 
 Question = DragSource(Types.QUESTION, questionSource, collect) (DropTarget(Types.QUESTION, questionTarget, collectDrop) (Question));
 
+function mapStateToProps () {
+    return {
 
-export default Questions;
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+	return bindActionCreators({
+		addChangeSetQuestion
+	}, dispatch);
+}
+
+export default connect (mapStateToProps, mapDispatchToProps) (Questions);
