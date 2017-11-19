@@ -9,38 +9,67 @@ import UsersList from '../../Users/components/UsersList'
 import Modal from '../../../../../components/Modal/'
 import { isModalVisible } from '../../../../../components/Modal/actions'
 import { bindActionCreators } from 'redux'
-import { fetchTeam, selectedMemberEdition, editTeam } from '../../../actions'
+import { fetchTeamToManage, selectedMember, editTeam, postNewTeam } from '../../../actions'
 import Spinner from '../../../../../components/Spinner'
 import { connect } from 'react-redux'
 
-class EditTeam extends Component {
+const isTeamIdExist = (match) => !!match.params.id;
+
+class ManageTeam extends Component {
 	constructor() {
-		super();
-		this.editTeam = this.editTeam.bind(this);
-	}
+        super();
+        this.state = {
+            team : {
+                teamMembers: []
+            }
+        }
+		this.manageTeam = this.manageTeam.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({team: nextProps.team})
+    }
 
 	componentWillMount(){
-		const { fetchTeam, match } = this.props;
-		fetchTeam(match.params.id);
+        const { fetchTeamToManage, match } = this.props;
+        const teamId = match.params.id;
+        if(isTeamIdExist(match)){
+            fetchTeamToManage(teamId);
+        }
+    }
+    
+    postTeam() {
+        const { team, history, postNewTeam } = this.props;
+		postNewTeam(team, history);
 	}
 
-	editTeam(e) {
+	editTeam() {
 		const { team, history, editTeam } = this.props;
-		e.preventDefault();
 		editTeam(team, history)
-	}
+    }
+    
+    manageTeam(e, team) {
+        e.preventDefault();
+        const { match } = this.props;
+        if(isTeamIdExist(match)) {
+            this.editTeam();
+        } else {
+            this.postTeam();
+        }
+    }
 
 	manageMembers(member){
-		const { selectedMemberEdition } = this.props;
-		selectedMemberEdition(member);	
+		const { selectedMember } = this.props;
+		selectedMember(member);	
 	}
 
 	render(){
-		const { team, isLoading, isModalVisible, isVisible } =  this.props;
+        const { isLoading, isModalVisible, isVisible } =  this.props;
+        const { team } =  this.state;
+
 		return(
 			<div className="create-team">
 				<Modal isVisible={ isVisible } component={ <UsersList checkboxOption users={team.teamMembers} manageMembers={this.manageMembers.bind(this)} /> } />
-	        	<Form onSubmit={this.editTeam}>
+	        	<Form onSubmit={this.manageTeam}>
 					<Col xs={6} md={6} lg={6}>
 						<h3> Equipe { team.name } </h3>					
 						<TeamCreationForm />
@@ -75,30 +104,30 @@ class EditTeam extends Component {
 
 function mapStateToProps(state) {
 	return {
-		team: state.form.Administration.editTeam.values,
-		isLoading: state.form.Administration.editTeam.isLoading,
+		team: state.form.Administration.manageTeam.values,
+		isLoading: state.form.Administration.manageTeam.isLoading,
 		isVisible: state.modal.mode
 	}
 }
 
 function mapDispatchToProps() {
 	return (dispatch) => bindActionCreators({ 
-		fetchTeam, 
+		fetchTeamToManage, 
 		isModalVisible, 
-		selectedMemberEdition, 
-		editTeam 
+		selectedMember, 
+        editTeam, 
+        postNewTeam
 	}, dispatch);
 }
 
-EditTeam = connect(
+ManageTeam = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(EditTeam);
+)(ManageTeam);
 
-export default EditTeam = reduxForm({
-	form: 'Administration.editTeam',
+export default ManageTeam = reduxForm({
+	form: 'Administration.manageTeam',
 	initialValues: {
 		teamMembers: []
-	},
-	destroyOnUnmount: false
-})(withRouter((EditTeam)))
+    },
+})(withRouter((ManageTeam)))

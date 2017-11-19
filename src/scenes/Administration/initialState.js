@@ -10,14 +10,14 @@ const initialState = {
         },
         isLoading: true
     },
-    createTeam: {
-        values: {
-            teamList: []
-        }
-    },
-    editTeam: {
+    manageTeam: {
         values: {
             teamMembers: []
+        }
+    },
+    manageUser: {
+        values: {
+            teamList: []
         }
     },
     users: {

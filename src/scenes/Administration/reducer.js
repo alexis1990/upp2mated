@@ -7,14 +7,14 @@ export function administationReducer(state = initialState, action = action) {
 	switch (action.type) {
 		case types.LOAD_TEAMS:
 			return { ...state, teams: action.payload }
-		case types.LOAD_TEAM:
+		case types.LOAD_TEAM_TO_MANAGE:
+			console.log('TEEEEEEE', action.payload)
 			return {
 				...state,
-				team: action.payload,
-				editTeam: {
-					...state.editTeam,
+				manageTeam: {
+					...state.manageTeam,
 					values: {
-						...state.editTeam.values,
+						...state.manageTeam.values,
 						id: action.payload.data.id,
 						name: action.payload.data.name,
 						teamMembers: action.payload.data.teamMembers
@@ -22,68 +22,61 @@ export function administationReducer(state = initialState, action = action) {
 					isLoading: action.payload.isLoading
 				}
 			}
+		case types.LOAD_TEAM:
+			return {
+				...state,
+				team: action.payload
+			}
 		case types.LOAD_USERS:
 			return { ...state, users: action.payload }
 		case types.LOAD_USER:
 			return { ...state, user: action.payload }
-		case types.ADD_MEMBER_CREATION:
+		case types.LOAD_USER_TO_MANAGE:
 			return {
 				...state,
-				createTeam: {
-					...state.createTeam, values: {
-						...state.createTeam.values,
-						teamMembers: state.createTeam.values.teamMembers.concat(action.payload)
+				manageUser: {
+					...state.manageUser,
+					values: action.payload.data,
+					isLoading: action.payload.isLoading
+				}
+			}
+		case types.ADD_MEMBER:
+			return {
+				...state,
+				manageTeam: {
+					...state.manageTeam, values: {
+						...state.manageTeam.values,
+						teamMembers: state.manageTeam.values.teamMembers.concat(action.payload)
 					}
 				}
 			}
-		case types.REMOVE_MEMBER_CREATION:
+		case types.REMOVE_MEMBER:
 			return {
 				...state,
-				createTeam: {
-					...state.createTeam, values: {
-						...state.createTeam.values,
-						teamMembers: state.createTeam.values.teamMembers.filter((x) => x.id !== action.payload.id)
-					}
-				}
-			}
-		case types.ADD_MEMBER_EDITION:
-			return {
-				...state,
-				editTeam: {
-					...state.editTeam, values: {
-						...state.editTeam.values,
-						teamMembers: state.editTeam.values.teamMembers.concat(action.payload)
-					}
-				}
-			}
-		case types.REMOVE_MEMBER_EDITION:
-			return {
-				...state,
-				editTeam: {
-					...state.editTeam, values: {
-						...state.editTeam.values,
-						teamMembers: state.editTeam.values.teamMembers.filter((x) => x.id !== action.payload.id)
+				manageTeam: {
+					...state.manageTeam, values: {
+						...state.manageTeam.values,
+						teamMembers: state.manageTeam.values.teamMembers.filter((x) => x.id !== action.payload.id)
 					}
 				}
 			}
 		case types.ADD_TEAM_CREATION:
-			console.log('action.payload', action.payload)
 			return {
 				...state,
-				createUser: {
-					...state.createUser, values: {
-						...state.createUser.values,
-						teamList: state.createUser.values.teamList.concat(action.payload)
+				manageUser: {
+					...state.manageUser, values: {
+						...state.manageUser.values,
+						teamList: state.manageUser.values.teamList.concat(action.payload)
 					}
 				}
 			}
 		case types.REMOVE_TEAM_CREATION:
 			return {
 				...state,
-				createUser: {
-					...state.createUser, values: {
-						...state.createUser.values,
-						teamList: state.createUser.values.teamList.filter((x) => x.id !== action.payload.id)
+				manageUser: {
+					...state.manageUser, values: {
+						...state.manageUser.values,
+						teamList: state.manageUser.values.teamList.filter((x) => x.id !== action.payload.id)
 					}
 				}
 			}

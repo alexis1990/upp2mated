@@ -4,14 +4,37 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { fetchUser, fetchTeams, selectedTeamCreation, postNewUser } from '../../../actions'
+import { fetchUserToManage, fetchTeams, selectedTeamCreation, postNewUser, editUser } from '../../../actions'
 import Spinner from '../../../../../components/Spinner'
 import TeamsList from '../../Teams/components/TeamsList/'
 import UserCreationForm from '../components/UserCreationForm/'
 import Modal from '../../../../../components/Modal/'
 import { isModalVisible } from '../../../../../components/Modal/actions'
 
-class CreateUser extends Component {
+const isUserIdExist = (userId) => !!userId;
+
+class ManageUser extends Component {
+    constructor(){
+        super();
+        this.state = {
+            user: {
+                teamList: []
+            }
+        }
+        this.manageUser = this.manageUser.bind(this);
+    }
+
+    componentWillMount() {
+        const { match, fetchUserToManage } = this.props;
+        const userId = match.params.id;
+        if(isUserIdExist(userId)){
+            fetchUserToManage(userId)
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({user: nextProps.user})
+    }
 
     loadTeams() {
         const { isModalVisible, fetchTeams } = this.props;
@@ -24,19 +47,36 @@ class CreateUser extends Component {
         selectedTeamCreation(values);
     }
 
-    postNewUser(e) {
-        e.preventDefault();
+    postNewUser() {
         const { postNewUser, user, history } = this.props;
         postNewUser(user, history);
     }
 
+    editUser() {
+        const { editUser, user, history } = this.props;
+        editUser(user, history)
+    }
+    
+    manageUser(e) {
+        e.preventDefault();
+        const { match } = this.props;
+
+        if(isUserIdExist(match)){
+            this.editUser();
+        } else {
+            this.postNewUser();
+        }
+    }
+
 	render(){
 
-		const { memberOfTeams, teams, isVisible } = this.props;
+        const { teams, isVisible } = this.props;
+        const { user } = this.state;
+
 		return(
             <Col xs={12} md={12} lg={12} className="user">
-                <Modal isVisible={ isVisible } component={ <TeamsList checkboxOption isLoading={teams.isLoading}  teams={teams.data} manageTeams={this.manageTeams.bind(this)} /> } />
-                <Form onSubmit={this.postNewUser.bind(this)}>
+                <Modal isVisible={ isVisible } component={ <TeamsList checkboxOption isLoading={teams.isLoading}  teams={teams.data} manageTeams={this.manageTeams.bind(this)} teamsSelected={user.teamList} /> } />
+                <Form onSubmit={this.manageUser}>
                     <Col xs={6} md={6} lg={6}>
                         <UserCreationForm />
                     </Col>
@@ -51,7 +91,7 @@ class CreateUser extends Component {
                         </Row>
                         <Row>
                             <Col xs={12} md={12} lg={12}>
-                                <TeamsList teams={memberOfTeams} />
+                                <TeamsList teams={user.teamList} />
                             </Col>
                         </Row>
                     </Col>
@@ -68,8 +108,7 @@ class CreateUser extends Component {
 
 function mapStateToProps(state) {
 	return {
-        memberOfTeams: state.form.Administration.createUser.values.teamList,
-        user : state.form.Administration.createUser.values,
+        user : state.form.Administration.manageUser.values,
         teams: {
             data: state.form.Administration.teams.data,
             isLoading: state.form.Administration.teams.isLoading
@@ -79,16 +118,15 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(state) {
-	return (dispatch) => bindActionCreators({ isModalVisible, fetchTeams, selectedTeamCreation, postNewUser }, dispatch)
+	return (dispatch) => bindActionCreators({ isModalVisible, fetchTeams, fetchUserToManage, selectedTeamCreation, postNewUser, editUser }, dispatch)
 }
 
-export default CreateUser = reduxForm({
-    form: 'Administration.createUser',
+export default ManageUser = reduxForm({
+    form: 'Administration.manageUser',
     initialValues: {
         teamList: []
-    },
-    destroyOnUnmount: false
+    }
 })(withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateUser)))
+)(ManageUser)))
