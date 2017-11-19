@@ -1,5 +1,6 @@
 .img_background {
-  background: url("./imgs/background.png"); }
+  background: url("./imgs/background.png");
+  background-size: cover; }
   .img_background .login-block {
     height: 100%; }
     .img_background .login-block .logo-box {
@@ -14,10 +15,7 @@
       position: relative;
       top: 20%;
       height: 80%;
-      border: 5px solid;
-      padding: 20px;
-      border-image: url("./imgs/trait.png") 120;
-      border-right-width: 0; }
+      padding: 20px; }
       .img_background .login-block .login-box h1 {
         color: #008aa6; }
       .img_background .login-block .login-box .connexion {
@@ -27,3 +25,22 @@
           display: inline-block; }
           .img_background .login-block .login-box .connexion span.button {
             float: right; }
+      .img_background .login-block .login-box::after {
+        content: "";
+        position: absolute;
+        top: 14px;
+        display: block;
+        background-color: #0189a9;
+        left: -40px;
+        width: 10px;
+        height: 12px;
+        border-radius: 100%; }
+      .img_background .login-block .login-box::before {
+        content: "";
+        position: absolute;
+        top: 14px;
+        display: block;
+        background-color: #0189a9;
+        left: -35px;
+        width: 1px;
+        height: 97%; }
