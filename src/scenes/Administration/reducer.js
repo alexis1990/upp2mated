@@ -172,7 +172,9 @@ export function administationReducer(state = initialState, action = action) {
 		case types.LOAD_QUALITY_SURVEYS:
 			return {
 				...state,
-				qualitySurveys: { values: action.payload }
+				qualitySurveys: { 
+					...state.qualitySurveys, values : action.payload
+				}
 			}
 		case types.LOAD_QUALITY_SURVEY:
 			return {

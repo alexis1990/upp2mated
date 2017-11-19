@@ -16,9 +16,9 @@ export function loadQualitySurveys(quality_surveys) {
   }
 }
 
-export function getQualitySurveys(id) {
+export function getQualitySurveys(pageId) {
   return (dispatch) => {
-    axios.get('/u2m-api/v1/suppliers/template/qualityquestionnaire/').then((quality_surveys) => {
+    axios.get(`/u2m-api/v1/suppliers/template/qualityquestionnaire/?page=${pageId}&size=10`).then((quality_surveys) => {
 			dispatch(loadQualitySurveys(quality_surveys, false));
 		}, (errorResponse) => {
 			console.log('ERROR', errorResponse)
@@ -26,9 +26,9 @@ export function getQualitySurveys(id) {
   }
 }
 
-export function getQualitySurveyForm(id) {
+export function getQualitySurveyForm(surveyParams) {
   return (dispatch) => {
-    axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${id}/v/1`).then((quality_survey) => {
+    axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/v/${surveyParams.version}`).then((quality_survey) => {
 			dispatch(loadQualitySurvey(quality_survey, false));
 		}, (errorResponse) => {
 			console.log('ERROR', errorResponse)
@@ -41,11 +41,11 @@ export function sendQualitySurvey(qualitySurvey) {
   function createOrderFormula(qualitySurvey) {
     
       function createSectionNumberWord(index) {
-        return ('S' + (index + 1));
+        return ('S' + (index + 1) + ",");
       }
     
       function createQuestionNumberWord(index) {
-        return ('Q' + (index + 1));
+        return ('Q' + (index + 1) + ",");
       }
     
       let orderFormula = '';
@@ -73,7 +73,7 @@ export function sendQualitySurvey(qualitySurvey) {
       return arrayOne.concat(arrayTwo);
     }, [])
     .map((question, index)=> {
-      return {...question, questionId: index}
+      return {...question, questionId: index + 1}
     })
   }
 
@@ -85,7 +85,7 @@ export function sendQualitySurvey(qualitySurvey) {
     }).map((section, index) => {
       return {
         ...section,
-        sectionId : index
+        sectionId : index + 1
       } 
     });
   }
@@ -96,10 +96,31 @@ export function sendQualitySurvey(qualitySurvey) {
     questions: groupByQuestions(qualitySurvey),
     sections: groupBySections(qualitySurvey),
   }
-  console.log('AAAAAA', qualitySurveyFormatedForAPI)
+
   return (dispatch) => {
-    axios.post('/u2m-api/v1/suppliers/template/qualityquestionnaire/', qualitySurveyFormatedForAPI)
-    .then((result)=>console.log('RESULT', result))
+    const qualitySurveyGlobalInformations = {
+      name: qualitySurveyFormatedForAPI.name,
+      description: qualitySurveyFormatedForAPI.description,
+    }
+    axios.post('/u2m-api/v1/suppliers/template/qualityquestionnaire/', qualitySurveyGlobalInformations)
+    .then((result)=>{
+      const qualitySurveyId = result.id;
+      return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, {...qualitySurveyFormatedForAPI, version:1});      
+    })
+    .then((result)=>{
+      console.log('RESULT', result)
+    })
     .catch((error)=>console.log('ERROR', error))
+  }
+}
+
+export function publishQualitySurvey(surveyId) {
+  return (dispatch) => {
+    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyId}/publish`)
+    .then((response)=> 
+      console.log('RESPOSNEEE', response)
+    ).catch((reject) => 
+      console.log('ERRORR', reject)
+    )
   }
 }

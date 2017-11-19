@@ -10,12 +10,17 @@ import Select from '../../../../../../components/Fields/select'
 import { getQualitySurveyForm, sendQualitySurvey } from '../../actions'
 import '../../styles/style.css'
 
+const required = value => value ? undefined : ' '
+
 class ManageQualitySurvey extends Component {
     componentWillMount(){
         const { getQualitySurveyForm, match } = this.props;
-        const id = match.params.id;
-        if(!!id) {
-            getQualitySurveyForm(id);
+        const surveyParams = {
+            version: match.params.version,
+            id: match.params.id
+        }
+        if(!!surveyParams.id) {
+            getQualitySurveyForm(surveyParams);
         }
     }
 
@@ -31,11 +36,11 @@ class ManageQualitySurvey extends Component {
                 <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
                     <Col lg={4}>
                         <h3>Questionnaire Qualité :</h3>
-                        <Field name="name" label="nom" component={renderInput} />
-                        <Field name="description" label="description" component={renderInput} />
+                        <Field name="name" label="nom" component={renderInput} validate={[required]} />
+                        <Field name="description" label="description" component={renderInput} validate={[required]} />
                         <div>Version : v1</div>
                         <div>Statut : Publié</div>
-                        <Field name="description" options={[]} label="Durée de Validité" component={Select} />
+                        <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} />
                     </Col>
                     <Col lg={8} className="form-creation">
                         <FieldArray name="sections" component={renderSections} />
@@ -50,7 +55,6 @@ class ManageQualitySurvey extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('STATEEE', state)
     return {}
 }
 

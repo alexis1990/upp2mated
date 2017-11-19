@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Tab, Row, Col, Nav, NavItem, Button } from 'react-bootstrap'
 import Teams from './components/Teams/'
 import Users from './components/Users/'
+import QualitySurvey from './components/QualitySurvey/'
 import Authorizations from './components/Roles/components/Authorizations/'
 import Roles from './components/Roles/'
 import './styles/style.css'
@@ -26,6 +27,9 @@ class Administration extends Component {
 								<NavItem eventKey="third">
 									Droits et roles
 					          	</NavItem>
+								<NavItem eventKey="fourth">
+									Questionnaires Qualités
+					          	</NavItem>
 							</Nav>
 						</Col>
 						<Col sm={8}>
@@ -39,6 +43,10 @@ class Administration extends Component {
 								<Tab.Pane eventKey="third">
 									{/* <Authorizations /> */}
 									<Roles />
+								</Tab.Pane>
+								<Tab.Pane eventKey="fourth">
+									{/* <Authorizations /> */}
+									<QualitySurvey />
 								</Tab.Pane>
 							</Tab.Content>
 						</Col>

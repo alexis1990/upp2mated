@@ -88,6 +88,7 @@ const App = ({ isAuthenticated }) => (
         <Route exact path="/administration/quality-surveys" component={requireAuthentication(QualitySurvey)} />
         <Route exact path="/administration/quality-surveys/:id" component={requireAuthentication(ManageQualitySurvey)} />
         <Route exact path="/administration/quality-surveys/quality-survey/new" component={requireAuthentication(ManageQualitySurvey)} />
+        <Route exact path="/administration/quality-surveys/quality-survey/edit/:id/:version" component={requireAuthentication(ManageQualitySurvey)} />
         <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
         <Route exact path="/kitui" component={KitUi} />
       </Switch>

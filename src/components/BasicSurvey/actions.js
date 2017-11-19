@@ -7,7 +7,7 @@ export function addChangeSetSection(sectionId) {
       type: types.ADD_CHANGE_SET_SECTION,
       payload: {
           "about": "SECTION",
-          "aboutEntityId": sectionId,
+          "aboutEntityId": sectionId + 1,
           "action": "ADD"
       }
     }
@@ -18,7 +18,7 @@ export function addChangeSetQuestion(questionId) {
     type: types.ADD_CHANGE_SET_QUESTION,
     payload: {
         "about": "QUESTION",
-        "aboutEntityId": questionId,
+        "aboutEntityId": questionId + 1,
         "action": "ADD"
     }
   }

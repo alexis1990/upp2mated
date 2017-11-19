@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import FormSupplier from '../components/FormSupplier/index'
+import QualitySurveys from '../../Administration/components/QualitySurvey/'
 import { postSupplier, fetchSupplier } from '../actions'
 import '../styles/style.css'
 
@@ -61,6 +62,7 @@ class ManageSupplier extends Component {
 								<Tab.Pane eventKey="second">
 								</Tab.Pane>
 								<Tab.Pane eventKey="third">
+									<QualitySurveys />
 								</Tab.Pane>
 							</Tab.Content>
 						</Col>

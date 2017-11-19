@@ -54,6 +54,11 @@ const initialState = {
             changeList: [],
             sections:[],
         }
+    },
+    qualitySurveys: {
+        values: {
+            content: [],
+        }
     }
 }
 
