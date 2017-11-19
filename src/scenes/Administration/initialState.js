@@ -48,6 +48,17 @@ const initialState = {
             teams: [],
             users: []
         }
+    },
+    qualitySurvey: {
+        values: {
+            changeList: [],
+            sections:[],
+        }
+    },
+    qualitySurveys: {
+        values: {
+            content: [],
+        }
     }
 }
 

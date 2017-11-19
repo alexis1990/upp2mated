@@ -23,7 +23,8 @@ import User from '../scenes/Administration/components/Users/User/'
 import CreateUser from '../scenes/Administration/components/Users/CreateUser/'
 import ManageRoles from '../scenes/Administration/components/Roles/components/ManageRoles/index'
 import Authorizations from '../scenes/Administration/components/Roles/components/Authorizations/index'
-import QualitySurvey from '../scenes/Administration/components/QualitySurvey'
+import QualitySurvey from '../scenes/Administration/components/QualitySurvey/'
+import ManageQualitySurvey from '../scenes/Administration/components/QualitySurvey/components/ManageQualitySurvey'
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
@@ -84,7 +85,10 @@ const App = ({ isAuthenticated }) => (
         <Route exact path="/administration/roles/role/new" component={requireAuthentication(ManageRoles)} />
         <Route exact path="/administration/roles/role/edit/:id" component={requireAuthentication(ManageRoles)} />
         <Route exact path="/administration/roles/manage/authorizations" component={requireAuthentication(Authorizations)} />
-        <Route exact path="/administration/quality-survey" component={requireAuthentication(QualitySurvey)} />
+        <Route exact path="/administration/quality-surveys" component={requireAuthentication(QualitySurvey)} />
+        <Route exact path="/administration/quality-surveys/:id" component={requireAuthentication(ManageQualitySurvey)} />
+        <Route exact path="/administration/quality-surveys/quality-survey/new" component={requireAuthentication(ManageQualitySurvey)} />
+        <Route exact path="/administration/quality-surveys/quality-survey/edit/:id/:version" component={requireAuthentication(ManageQualitySurvey)} />
         <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
         <Route exact path="/kitui" component={KitUi} />
       </Switch>

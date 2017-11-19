@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import Questions from './components/Questions/'
 import { DragSource,DropTarget } from 'react-dnd';
 import renderInput from '../Fields/input'
+import { addChangeSetSection } from './actions'
 import { Row, Col, Button, Glyphicon } from 'react-bootstrap'
 import { Field, reduxForm, FieldArray } from 'redux-form'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import './styles/style.css'
 
 const Types = {
@@ -20,12 +23,21 @@ class renderSections extends Component {
         console.log('dragIndex, hoverIndex', dragIndex, hoverIndex)
         fields.move(dragIndex, hoverIndex);
     }
+
+    addSection() {
+        const { fields, addChangeSetSection } = this.props;
+        fields.push({})
+
+        const sectionId = fields.length;
+        addChangeSetSection(sectionId);
+    }
+    
     render() {
         const { fields, meta: { error, submitFailed }} = this.props;
         return (
             <ul>
                 <li className="add-section-row">
-                    <Button type="button" bsStyle="btn btn-action-button" onClick={() => fields.push({})}>
+                    <Button type="button" bsStyle="btn btn-action-button" onClick={this.addSection.bind(this)}>
                         Nouvelle Section
                     </Button>
                     {submitFailed && error && <span>{error}</span>}
@@ -114,4 +126,16 @@ const sectionTarget = {
 
 Section = DragSource(Types.SECTION, sectionSource, collect) (DropTarget(Types.SECTION, sectionTarget, collectDrop) (Section));
 
-export default renderSections;
+function mapStateToProps () {
+    return {
+
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+	return bindActionCreators({
+		addChangeSetSection
+	}, dispatch);
+}
+
+export default connect (mapStateToProps, mapDispatchToProps) (renderSections);

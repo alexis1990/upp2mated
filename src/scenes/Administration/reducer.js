@@ -169,10 +169,42 @@ export function administationReducer(state = initialState, action = action) {
 					}
 				}
 			}
-		case types.LOAD_QUALITY_SURVEY_FORM:
+		case types.LOAD_QUALITY_SURVEYS:
 			return {
 				...state,
-				qualitySurvey: { values: action.payload }
+				qualitySurveys: { 
+					...state.qualitySurveys, values : action.payload
+				}
+			}
+		case types.LOAD_QUALITY_SURVEY:
+			return {
+				...state,
+				qualitySurvey: {
+					...state.qualitySurvey, values: {
+						...state.qualitySurvey.values,
+						sections: action.payload 
+					}
+				}
+			}
+		case types.ADD_CHANGE_SET_SECTION:
+			return {
+				...state,
+				qualitySurvey: {
+					...state.qualitySurvey, values: {
+						...state.qualitySurvey.values, 
+						changeList: state.qualitySurvey.values.changeList.concat(action.payload)
+					}
+				}
+			}
+		case types.ADD_CHANGE_SET_QUESTION:
+			return {
+				...state,
+				qualitySurvey: {
+					...state.qualitySurvey, values: {
+						...state.qualitySurvey.values, 
+						changeList: state.qualitySurvey.values.changeList.concat(action.payload)
+					}
+				}
 			}
 		default:
 			return state;
