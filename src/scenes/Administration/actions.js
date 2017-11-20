@@ -110,6 +110,22 @@ export function selectedTeamCreation(selectedTeam) {
 	}
 }
 
+function deleteATeam(teamId) {
+	return {
+		type: types.REMOVE_TEAM_LIST,
+		payload: teamId
+	}
+}
+
+
+export function deleteTeam(teamId) {
+	return (dispatch) => {
+		axios.delete(`/u2m-api/v1/team/${teamId}`)
+		.then((resolve) => dispatch(deleteATeam(teamId)))
+		.catch((reject)=> console.log('REJJJJ'))
+	}
+}
+
 //////// USERS
 
 export function loadUsers(users, isLoading) {
@@ -207,5 +223,21 @@ export function selectedMember(selectedMember) {
 	return (dispatch, getState) => {
 		const teamMembersState = getState().form.Administration.manageTeam.values.teamMembers;
 		teamMembersState.some((member) => member.id === selectedMember.id) ? dispatch(removeMember(selectedMember)) : dispatch(addMember(selectedMember));
+	}
+}
+
+function deleteAMember(memberId) {
+	return {
+		type: types.REMOVE_MEMBER_LIST,
+		payload: memberId
+	}
+}
+
+
+export function deleteMember(memberId) {
+	return (dispatch) => {
+		axios.delete(`/u2m-api/v1/team/${memberId}`) //TODO CHANGE URL
+		.then((resolve) => dispatch(deleteAMember(memberId)))
+		.catch((reject)=> console.log('REJJJJ'))
 	}
 }
