@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Table, ButtonGroup, Button, Glyphicon } from 'react-bootstrap'
 import Spinner from '../../../../../../components/Spinner'
-import { fetchTeams } from '../../../../actions'
+import { fetchTeams, deleteTeam } from '../../../../actions'
 import { Link } from 'react-router-dom'
 import './styles/style.css'
 
@@ -14,6 +14,12 @@ class TeamsList extends Component {
         if(!!teamsSelected){
             if(teamsSelected.some((selectedTeam) => selectedTeam.id === team.id)) return true;
         }
+    }
+
+    removeTeam(team) {
+        const { deleteTeam } = this.props;
+        const teamId = team.id;
+        deleteTeam(teamId)
     }
 
     render() {
@@ -47,7 +53,7 @@ class TeamsList extends Component {
                                         <ButtonGroup justified>
                                             <Button className="action-button"><Link to={`/administration/teams/` + team.id}><Glyphicon glyph="eye-open" /></Link></Button>
                                             <Button className="action-button"><Link to={`/administration/teams/team/edit/` + team.id}><Glyphicon glyph="pencil" /></Link></Button>
-                                            <Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
+                                            <Button className="action-button" onClick={() => this.removeTeam(team)}><Glyphicon glyph="remove" /></Button>
                                         </ButtonGroup>
                                     </td>
                                     :
@@ -66,7 +72,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-    return (dispatch) => bindActionCreators({ fetchTeams }, dispatch);
+    return (dispatch) => bindActionCreators({ fetchTeams, deleteTeam }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeamsList);

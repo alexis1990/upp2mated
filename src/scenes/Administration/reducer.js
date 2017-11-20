@@ -60,6 +60,13 @@ export function administationReducer(state = initialState, action = action) {
 					}
 				}
 			}
+		case types.REMOVE_MEMBER_LIST:
+			return {
+				...state,
+				users: {
+					...state.users, data: state.users.data.filter((x) => x.id !== action.payload)
+				}
+			}
 		case types.ADD_TEAM_CREATION:
 			return {
 				...state,
@@ -78,6 +85,13 @@ export function administationReducer(state = initialState, action = action) {
 						...state.manageUser.values,
 						teamList: state.manageUser.values.teamList.filter((x) => x.id !== action.payload.id)
 					}
+				}
+			}
+		case types.REMOVE_TEAM_LIST:
+			return {
+				...state,
+				teams: {
+					...state.teams, data: state.teams.data.filter((x) => x.id !== action.payload)
 				}
 			}
 		case types.LOAD_RESPONSIBILITIES:

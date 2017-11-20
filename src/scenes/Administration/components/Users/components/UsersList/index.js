@@ -3,7 +3,7 @@ import { Grid, Tab, Row, Col, Nav, NavItem, ButtonGroup, Button, Glyphicon, Pagi
 import { withRouter, Link, Route } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../../../../actions'
+import { fetchUsers, deleteMember } from '../../../../actions'
 import { Field, reduxForm } from 'redux-form'
 import Spinner from '../../../../../../components/Spinner'
 import _ from 'lodash'
@@ -45,6 +45,11 @@ class UsersList extends Component {
         })
     }
 
+    removeUser(userId) {
+        const { deleteMember } = this.props;
+        deleteMember(userId)
+    }
+
     render() {
         const { isLoading, usersList, actions, manageMembers, checkboxOption, type } = this.props;
 
@@ -80,7 +85,7 @@ class UsersList extends Component {
                                                 <ButtonGroup justified>
                                                     <Button className="action-button"><Link to={`/administration/users/` + user.id}><Glyphicon glyph="eye-open" /></Link></Button>
                                                     <Button className="action-button"><Link to={`/administration/users/user/edit/` + user.id}><Glyphicon glyph="pencil" /></Link></Button>
-                                                    <Button className="action-button" onClick={() => { }}><Glyphicon glyph="remove" /></Button>
+                                                    <Button className="action-button" onClick={() => this.removeUser(user.id)}><Glyphicon glyph="remove" /></Button>
                                                 </ButtonGroup>
                                             </td>
                                             :
@@ -111,7 +116,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps() {
-    return (dispatch) => bindActionCreators({ fetchUsers }, dispatch);
+    return (dispatch) => bindActionCreators({ fetchUsers, deleteMember }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersList);
