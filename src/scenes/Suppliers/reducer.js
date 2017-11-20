@@ -20,6 +20,7 @@ export function suppliersReducer(state = initialState, action = action) {
 				},
 				isLoading: action.payload.isLoading
 			}
+
 		case types.LOAD_QUALITY_SURVEY_REPLY:
 			const sections = action.payload.content;
 			return {
@@ -38,6 +39,11 @@ export function suppliersReducer(state = initialState, action = action) {
 						}},
 					))}
 				}
+			}
+		case types.REMOVE_SUPPLIER_LIST:
+			return {
+				...state,
+				suppliers: state.suppliers.filter((supplier) => supplier.id !== action.payload)
 			}
 		default:
 			return state;
