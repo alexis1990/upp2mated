@@ -38,6 +38,10 @@ export function getQualitySurveyForm(surveyParams) {
 
 function formatQualitySurveyToChangeSet(qualitySurvey) {
   
+  function removeDuplicateChange(qualitySurvey) {
+    return _.uniqBy(qualitySurvey.changeList, 'aboutEntityId')
+  }
+
   function createOrderFormula(qualitySurvey) {
     
       function createSectionNumberWord(index) {
@@ -92,6 +96,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
 
   return { 
     ...qualitySurvey,
+    changeList: removeDuplicateChange(qualitySurvey),
     orderFormula: createOrderFormula(qualitySurvey),
     questions: groupByQuestions(qualitySurvey),
     sections: groupBySections(qualitySurvey),
@@ -118,8 +123,9 @@ export function sendQualitySurvey(qualitySurvey) {
 }
 
 export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId) {
+  console.log('qualitySurveyFormatedForAPIqualitySurveyFormatedForAPI', qualitySurvey, qualitySurveyId)
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
-  console.log('qualitySurveyFormatedForAPIqualitySurveyFormatedForAPI')
+  console.log('qualitySurveyFormatedForAPIqualitySurveyFormatedForAPI', qualitySurveyFormatedForAPI)
   axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, {...qualitySurveyFormatedForAPI, version:1})
   .then((result) => 
     console.log('RESULTTTTT', result) 

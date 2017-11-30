@@ -2,11 +2,11 @@ import React from 'react'
 import { Col, Button, Glyphicon } from 'react-bootstrap'
 import { FieldArray, Field } from 'redux-form'
 import renderInput from '../../../../../../../../components/Fields/input'
-import StaticBlockWrapperHOC from '../../../../../../../../components/BasicSurvey/'
-import DraggableContainerWrapperHOC from '../../../../../../../../components/BasicSurvey/components/DraggableElement'
+import StaticBlockWrapperHOC from '../../../../../../../../components/DraggableHOC/'
+import DraggableContainerWrapperHOC from '../../../../../../../../components/DraggableHOC/components/DraggableElement'
 import Question from '../QuestionQualitySurvey/'
 
-const Section = ({ fields, field, index, types }) => (
+const Section = ({ fields, field, index, addChangeSetModify, types }) => (
     <li key={index} className="sections" >
         <div className="trash-row">
             <Button
@@ -28,6 +28,7 @@ const Section = ({ fields, field, index, types }) => (
                     withoutLabel
                     component={renderInput}
                     placeholder="Nom"
+                    onChange={(input)=> addChangeSetModify(index, types)}
                 />
             </Col>
         </Col>

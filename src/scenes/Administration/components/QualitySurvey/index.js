@@ -5,7 +5,6 @@ import { Field, reduxForm, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import renderSections from '../../../../components/BasicSurvey'
 import renderInput from '../../../../components/Fields/input'
 import Select from '../../../../components/Fields/select'
 import { getQualitySurveys, publishQualitySurvey, editQualitySurvey } from './actions'

@@ -2,10 +2,10 @@ import React from 'react'
 import { Col, Button, Glyphicon } from 'react-bootstrap'
 import { FieldArray, Field } from 'redux-form'
 import renderInput from '../../../../../../../../components/Fields/input'
-import StaticBlockWrapperHOC from '../../../../../../../../components/BasicSurvey/'
-import DraggableContainerWrapperHOC from '../../../../../../../../components/BasicSurvey/components/DraggableElement'
+import StaticBlockWrapperHOC from '../../../../../../../../components/DraggableHOC/'
+import DraggableContainerWrapperHOC from '../../../../../../../../components/DraggableHOC/components/DraggableElement'
 
-const Question = ({ fields, field, index }) => (
+const Question = ({ fields, field, index, types, addChangeSetModify }) => (
     <li key={index} className="question-row" >
         <div className="question-field">
             <Field
@@ -13,6 +13,7 @@ const Question = ({ fields, field, index }) => (
                 type="text"
                 component={renderInput}
                 label={`Question #${index + 1}`}
+                onChange={(input)=> addChangeSetModify(index, types)}
             />
         </div>
         <div className="add-question-button">

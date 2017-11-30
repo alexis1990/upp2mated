@@ -4,7 +4,6 @@ import { Form, Field, reduxForm, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import renderDragFeatureBlock from '../../../../../../components/BasicSurvey'
 import Section from './components/SectionQualitySurvey/'
 import renderInput from '../../../../../../components/Fields/input'
 import Select from '../../../../../../components/Fields/select'
