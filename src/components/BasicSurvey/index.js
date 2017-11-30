@@ -1,141 +1,66 @@
 import React, { Component } from 'react'
-import Questions from './components/Questions/'
-import { DragSource,DropTarget } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 import renderInput from '../Fields/input'
-import { addChangeSetSection } from './actions'
+import { addChangeSet } from './actions'
 import { Row, Col, Button, Glyphicon } from 'react-bootstrap'
 import { Field, reduxForm, FieldArray } from 'redux-form'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import './styles/style.css'
 
-const Types = {
-    SECTION: ' section'
-};
 
-class renderSections extends Component {
-    constructor() {
-        super();
-        this.moveSection = this.moveSection.bind(this);
-    }
-    moveSection(dragIndex, hoverIndex) {
-        const {fields} = this.props;
-        console.log('dragIndex, hoverIndex', dragIndex, hoverIndex)
-        fields.move(dragIndex, hoverIndex);
-    }
-
-    addSection() {
-        const { fields, addChangeSetSection } = this.props;
-        fields.push({})
-
-        const sectionId = fields.length;
-        addChangeSetSection(sectionId);
-    }
-    
-    render() {
-        const { fields, meta: { error, submitFailed }} = this.props;
-        return (
-            <ul>
-                <li className="add-section-row">
-                    <Button type="button" bsStyle="btn btn-action-button" onClick={this.addSection.bind(this)}>
-                        Nouvelle Section
-                    </Button>
-                    {submitFailed && error && <span>{error}</span>}
-                </li >
-                {
-                    fields.map((section, index) => (
-                        <Section moveSection={this.moveSection} section={section} index={index} fields={fields} />
-                    ))
-                }
-            </ul >
-        )
-    }
-}
-
-class Section extends Component {
-    render() {
-        const { connectDragSource, connectDropTarget, section, index, fields } = this.props;
-        return  connectDragSource (connectDropTarget(
-            <li key={index} className="sections" >
-                <div className="trash-row">
-                    <Button
-                        type="button"
-                        bsStyle="btn btn-action-button font-icon"
-                        onClick={() => fields.remove(index)}
-                    >
-                        <Glyphicon glyph="remove" />
-                    </Button>
-                </div>
-                <Col lg={12}>
-                    <Col lg={3}>
-                        <h4>Section {index + 1}</h4>
-                    </Col>
-                    <Col lg={4}>
-                        <Field
-                            name={`${section}.content`}
-                            type="text"
-                            withoutLabel
-                            component={renderInput}
-                            placeholder="Nom"
-                        />
-                    </Col>
-                </Col>
-                <FieldArray name={`${section}.questions`} component={Questions} />
-            </li>
-        ))
-    }
-}
-    
-
-
-function collectDrop(connect, monitor) {
-    return {
-      connectDropTarget: connect.dropTarget(),
-    };
-  }
-
-function collect(connect, monitor) {
-    return {
-      connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging()
-    }
-  }
-
-const sectionSource = {
-    beginDrag(props) {
-        return {
-			index: props.index
-		}
-    },
-};
-
-const sectionTarget = {
-	hover(props, monitor, component) {
-		const dragIndex = monitor.getItem().index
-		const hoverIndex = props.index
-
-        if (dragIndex === hoverIndex) {
-			return
+const StaticBlockWrapperHOC = (ComponentToWrap) => {
+    class renderStaticBlock extends Component {
+        constructor() {
+            super();
+            this.moveContainer = this.moveContainer.bind(this);
         }
-        
-		props.moveSection(dragIndex, hoverIndex)
 
-        monitor.getItem().index = hoverIndex
+        moveContainer(dragIndex, hoverIndex) {
+            const { fields } = this.props;
+            fields.move(dragIndex, hoverIndex);
+        }
+
+        addContainer() {
+            const { fields, addChangeSet, types } = this.props;
+            fields.push({})
+
+            const containerId = fields.length;
+            addChangeSet(containerId, types);
+        }
+
+        render() {
+            const { fields, types, componentToDrag, meta: { error, submitFailed } } = this.props;
+            return (
+                <ul>
+                    <li className="add-section-row">
+                        <Button type="button" bsStyle="btn btn-action-button" onClick={this.addContainer.bind(this)}>
+                            Nouvelle {types}
+                        </Button>
+                        {submitFailed && error && <span>{error}</span>}
+                    </li >
+                    {
+                        fields.map((field, index) => (
+                            <ComponentToWrap types={types} moveContainer={this.moveContainer} field={field} index={index} fields={fields} />
+                        ))
+                    }
+                </ul >
+            )
+        }
     }
-};
 
-Section = DragSource(Types.SECTION, sectionSource, collect) (DropTarget(Types.SECTION, sectionTarget, collectDrop) (Section));
-
-function mapStateToProps () {
-    return {
-
+    function mapStateToProps() {
+        return {}
     }
+
+    function mapDispatchToProps(dispatch) {
+        return bindActionCreators({
+            addChangeSet
+        }, dispatch);
+    }
+
+    return connect(mapStateToProps, mapDispatchToProps)(renderStaticBlock);
 }
 
-function mapDispatchToProps (dispatch) {
-	return bindActionCreators({
-		addChangeSetSection
-	}, dispatch);
-}
 
-export default connect (mapStateToProps, mapDispatchToProps) (renderSections);
+export default StaticBlockWrapperHOC;

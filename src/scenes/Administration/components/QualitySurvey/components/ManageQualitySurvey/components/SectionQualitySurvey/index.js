@@ -1,0 +1,38 @@
+import React from 'react'
+import { Col, Button, Glyphicon } from 'react-bootstrap'
+import { FieldArray, Field } from 'redux-form'
+import renderInput from '../../../../../../../../components/Fields/input'
+import StaticBlockWrapperHOC from '../../../../../../../../components/BasicSurvey/'
+import DraggableContainerWrapperHOC from '../../../../../../../../components/BasicSurvey/components/DraggableElement'
+import Question from '../QuestionQualitySurvey/'
+
+const Section = ({ fields, field, index, types }) => (
+    <li key={index} className="sections" >
+        <div className="trash-row">
+            <Button
+                type="button"
+                bsStyle="btn btn-action-button font-icon"
+                onClick={() => fields.remove(index)}
+            >
+                <Glyphicon glyph="remove" />
+            </Button>
+        </div>
+        <Col lg={12}>
+            <Col lg={3}>
+                <h4>Section {index + 1}</h4>
+            </Col>
+            <Col lg={4}>
+                <Field
+                    name={`${field}.content`}
+                    type="text"
+                    withoutLabel
+                    component={renderInput}
+                    placeholder="Nom"
+                />
+            </Col>
+        </Col>
+        <FieldArray name={`${field}.questions`} types="QUESTION" component={Question} />
+    </li>
+)
+
+export default StaticBlockWrapperHOC(DraggableContainerWrapperHOC(Section));

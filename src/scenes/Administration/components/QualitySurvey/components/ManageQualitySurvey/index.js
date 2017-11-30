@@ -4,7 +4,8 @@ import { Form, Field, reduxForm, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import renderSections from '../../../../../../components/BasicSurvey'
+import renderDragFeatureBlock from '../../../../../../components/BasicSurvey'
+import Section from './components/SectionQualitySurvey/'
 import renderInput from '../../../../../../components/Fields/input'
 import Select from '../../../../../../components/Fields/select'
 import { getQualitySurveyForm, sendQualitySurvey, sendEditingQualitySurvey } from '../../actions'
@@ -13,13 +14,13 @@ import '../../styles/style.css'
 const required = value => value ? undefined : ' '
 
 class ManageQualitySurvey extends Component {
-    componentWillMount(){
+    componentWillMount() {
         const { getQualitySurveyForm, match } = this.props;
         const surveyParams = {
             version: match.params.version,
             id: match.params.id
         }
-        if(!!surveyParams.id) {
+        if (!!surveyParams.id) {
             getQualitySurveyForm(surveyParams);
         }
     }
@@ -49,7 +50,7 @@ class ManageQualitySurvey extends Component {
                         <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} />
                     </Col>
                     <Col lg={8} className="form-creation">
-                        <FieldArray name="sections" component={renderSections} />
+                        <FieldArray name="sections" component={Section} types="SECTION" />
                     </Col>
                     <Col lg={12} className="align-right">
                         <Button type="submit" bsStyle="btn btn-action-button">Envoyer</Button>

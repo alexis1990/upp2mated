@@ -2,24 +2,13 @@ import * as types from './actionTypes'
 import axios from 'axios'
 
 
-export function addChangeSetSection(sectionId) {
-    return {
-      type: types.ADD_CHANGE_SET_SECTION,
-      payload: {
-          "about": "SECTION",
-          "aboutEntityId": sectionId + 1,
-          "action": "ADD"
-      }
-    }
-  }
-
-export function addChangeSetQuestion(questionId) {
+export function addChangeSet(draggableElementId, draggableElementType) {
   return {
-    type: types.ADD_CHANGE_SET_QUESTION,
+    type: types.ADD_CHANGE_SET,
     payload: {
-        "about": "QUESTION",
-        "aboutEntityId": questionId + 1,
-        "action": "ADD"
+      "about": draggableElementType,
+      "aboutEntityId": draggableElementId + 1,
+      "action": "ADD"
     }
   }
 }

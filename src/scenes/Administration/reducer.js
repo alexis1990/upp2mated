@@ -113,7 +113,7 @@ export function administationReducer(state = initialState, action = action) {
 				}
 			}
 		case types.LOAD_ROLE:
-		
+
 			return {
 				...state, manageRoles: {
 					...state.authorization.manageRoles, values: action.payload
@@ -179,8 +179,8 @@ export function administationReducer(state = initialState, action = action) {
 		case types.LOAD_QUALITY_SURVEYS:
 			return {
 				...state,
-				qualitySurveys: { 
-					...state.qualitySurveys, values : action.payload
+				qualitySurveys: {
+					...state.qualitySurveys, values: action.payload
 				}
 			}
 		case types.LOAD_QUALITY_SURVEY:
@@ -189,26 +189,16 @@ export function administationReducer(state = initialState, action = action) {
 				qualitySurvey: {
 					...state.qualitySurvey, values: {
 						...state.qualitySurvey.values,
-						sections: action.payload 
+						sections: action.payload
 					}
 				}
 			}
-		case types.ADD_CHANGE_SET_SECTION:
+		case types.ADD_CHANGE_SET:
 			return {
 				...state,
 				qualitySurvey: {
 					...state.qualitySurvey, values: {
-						...state.qualitySurvey.values, 
-						changeList: state.qualitySurvey.values.changeList.concat(action.payload)
-					}
-				}
-			}
-		case types.ADD_CHANGE_SET_QUESTION:
-			return {
-				...state,
-				qualitySurvey: {
-					...state.qualitySurvey, values: {
-						...state.qualitySurvey.values, 
+						...state.qualitySurvey.values,
 						changeList: state.qualitySurvey.values.changeList.concat(action.payload)
 					}
 				}
