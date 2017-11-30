@@ -114,6 +114,20 @@ export function sendQualitySurvey(qualitySurvey) {
   }
 }
 
+export function editQualitySurvey(survey) {
+  axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${survey.id}/editing`).then((response) => 
+    console.log('RESULT', response)
+  ).catch((reject)=> 
+    console.log(reject)
+  )
+}
+
+export function sendEditingQualitySurvey(survey) {
+  return (dispatch) => {
+    dispatch(sendQualitySurvey())
+  }
+}
+
 export function publishQualitySurvey(surveyId) {
   return (dispatch) => {
     axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyId}/publish`)

@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import renderSections from '../../../../../../components/BasicSurvey'
 import renderInput from '../../../../../../components/Fields/input'
 import Select from '../../../../../../components/Fields/select'
-import { getQualitySurveyForm, sendQualitySurvey } from '../../actions'
+import { getQualitySurveyForm, sendQualitySurvey, sendEditingQualitySurvey } from '../../actions'
 import '../../styles/style.css'
 
 const required = value => value ? undefined : ' '
@@ -25,8 +25,14 @@ class ManageQualitySurvey extends Component {
     }
 
     sendQualitySurvey(survey) {
-        const { sendQualitySurvey } = this.props;
-        sendQualitySurvey(survey);
+        const { sendQualitySurvey, match } = this.props;
+        const surveyId = match.params.id;
+
+        if(!!surveyId) {
+            sendEditingQualitySurvey(survey);
+        } else {
+            sendQualitySurvey(survey);
+        }
     }
 
     render() {
@@ -61,7 +67,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(state) {
     return (dispatch) => bindActionCreators({ 
         getQualitySurveyForm, 
-        sendQualitySurvey 
+        sendQualitySurvey,
+        sendEditingQualitySurvey
     }, dispatch)
 }
 
