@@ -29,7 +29,7 @@ class ManageQualitySurvey extends Component {
         const surveyId = match.params.id;
 
         if(!!surveyId) {
-            sendEditingQualitySurvey(survey);
+            sendEditingQualitySurvey(survey, surveyId);
         } else {
             sendQualitySurvey(survey);
         }

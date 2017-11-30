@@ -36,7 +36,7 @@ export function getQualitySurveyForm(surveyParams) {
   }
 }
 
-export function sendQualitySurvey(qualitySurvey) {
+function formatQualitySurveyToChangeSet(qualitySurvey) {
   
   function createOrderFormula(qualitySurvey) {
     
@@ -90,13 +90,16 @@ export function sendQualitySurvey(qualitySurvey) {
     });
   }
 
-  const qualitySurveyFormatedForAPI = { 
+  return { 
     ...qualitySurvey,
     orderFormula: createOrderFormula(qualitySurvey),
     questions: groupByQuestions(qualitySurvey),
     sections: groupBySections(qualitySurvey),
   }
+}
 
+export function sendQualitySurvey(qualitySurvey) {
+  const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
   return (dispatch) => {
     const qualitySurveyGlobalInformations = {
       name: qualitySurveyFormatedForAPI.name,
@@ -114,18 +117,21 @@ export function sendQualitySurvey(qualitySurvey) {
   }
 }
 
-export function editQualitySurvey(survey) {
-  axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${survey.id}/editing`).then((response) => 
-    console.log('RESULT', response)
-  ).catch((reject)=> 
-    console.log(reject)
+export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId) {
+  const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
+  console.log('qualitySurveyFormatedForAPIqualitySurveyFormatedForAPI')
+  axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, {...qualitySurveyFormatedForAPI, version:1})
+  .then((result) => 
+    console.log('RESULTTTTT', result) 
   )
 }
 
-export function sendEditingQualitySurvey(survey) {
-  return (dispatch) => {
-    dispatch(sendQualitySurvey())
-  }
+export function editQualitySurvey(survey) {
+  axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${survey.id}/editing`).then((response) => 
+    console.log('RESPONSEEDIT', response)
+  ).catch((reject)=> 
+    console.log(reject)
+  )
 }
 
 export function publishQualitySurvey(surveyId) {
