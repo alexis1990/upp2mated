@@ -187,10 +187,7 @@ export function administationReducer(state = initialState, action = action) {
 			return {
 				...state,
 				qualitySurvey: {
-					...state.qualitySurvey, values: {
-						...state.qualitySurvey.values,
-						sections: action.payload
-					}
+					...state.qualitySurvey, values: { ...action.payload, changeList: [] }
 				}
 			}
 		case types.ADD_CHANGE_SET:

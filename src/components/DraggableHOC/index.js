@@ -24,8 +24,8 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
         addContainer() {
             const { fields, addChangeSet, types } = this.props;
             const containerId = fields.length;
-            
-            fields.push({})
+
+            fields.push({});
             addChangeSet(containerId, types, "ADD");
         }
 

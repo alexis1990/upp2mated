@@ -28,7 +28,7 @@ class ManageQualitySurvey extends Component {
         const { sendQualitySurvey, match } = this.props;
         const surveyId = match.params.id;
 
-        if(!!surveyId) {
+        if (!!surveyId) {
             sendEditingQualitySurvey(survey, surveyId);
         } else {
             sendQualitySurvey(survey);
@@ -36,7 +36,7 @@ class ManageQualitySurvey extends Component {
     }
 
     render() {
-        const { handleSubmit, pristine, reset, submitting } = this.props;
+        const { version, publishedVersion, handleSubmit, pristine, reset, submitting } = this.props;
         return (
             <div>
                 <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
@@ -44,9 +44,9 @@ class ManageQualitySurvey extends Component {
                         <h3>Questionnaire Qualité :</h3>
                         <Field name="name" label="nom" component={renderInput} validate={[required]} />
                         <Field name="description" label="description" component={renderInput} validate={[required]} />
-                        <div>Version : v1</div>
-                        <div>Statut : Publié</div>
-                        <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} />
+                        <div>Version : {version}</div>
+                        <div>Statut : {publishedVersion ? "Publié" : "Non Publié"}</div>
+                        {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}
                     </Col>
                     <Col lg={8} className="form-creation">
                         <FieldArray name="sections" component={Section} types="SECTION" />
@@ -61,12 +61,15 @@ class ManageQualitySurvey extends Component {
 }
 
 function mapStateToProps(state) {
-    return {}
+    return {
+        version: state.form.Administration.qualitySurvey.values.version,
+        publishedVersion: state.form.Administration.qualitySurvey.values.publishedVersion
+    }
 }
 
 function mapDispatchToProps(state) {
-    return (dispatch) => bindActionCreators({ 
-        getQualitySurveyForm, 
+    return (dispatch) => bindActionCreators({
+        getQualitySurveyForm,
         sendQualitySurvey,
         sendEditingQualitySurvey
     }, dispatch)
