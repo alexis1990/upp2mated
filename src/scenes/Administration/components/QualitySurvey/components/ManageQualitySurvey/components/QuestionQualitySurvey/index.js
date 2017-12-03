@@ -6,7 +6,7 @@ import StaticBlockWrapperHOC from '../../../../../../../../components/DraggableH
 import DraggableContainerWrapperHOC from '../../../../../../../../components/DraggableHOC/components/DraggableElement'
 
 const Question = ({ fields, field, index, types, addChangeSetModify }) => (
-    <li key={index} className="question-row" >
+    <li key={index} className="question-row">
         <div className="question-field">
             <Field
                 name={`${field}.content`}

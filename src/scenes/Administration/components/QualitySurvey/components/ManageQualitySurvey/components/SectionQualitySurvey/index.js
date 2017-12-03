@@ -7,7 +7,7 @@ import DraggableContainerWrapperHOC from '../../../../../../../../components/Dra
 import Question from '../QuestionQualitySurvey/'
 
 const Section = ({ fields, field, index, addChangeSetModify, types }) => (
-    <li key={index} className="sections" >
+    <li key={index} className="sections">
         <div className="trash-row">
             <Button
                 type="button"
@@ -32,7 +32,7 @@ const Section = ({ fields, field, index, addChangeSetModify, types }) => (
                 />
             </Col>
         </Col>
-        <FieldArray name={`${field}.questions`} types="QUESTION" component={Question} />
+        <FieldArray name={`${field}.questions`} parentId={index} dragSource="QUESTION" dropTarget="QUESTION" component={Question} />
     </li>
 )
 

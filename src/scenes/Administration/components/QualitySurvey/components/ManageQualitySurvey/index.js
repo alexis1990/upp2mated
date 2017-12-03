@@ -49,7 +49,7 @@ class ManageQualitySurvey extends Component {
                         {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}
                     </Col>
                     <Col lg={8} className="form-creation">
-                        <FieldArray name="sections" component={Section} types="SECTION" />
+                        <FieldArray name="sections" component={Section} dragSource="SECTION" dropTarget="SECTION" />
                     </Col>
                     <Col lg={12} className="align-right">
                         <Button type="submit" bsStyle="btn btn-action-button">Envoyer</Button>
@@ -86,5 +86,5 @@ export default reduxForm({
         changeList: [],
         sections: [],
         questions: []
-    }
+    },
 })(ManageQualitySurvey)
