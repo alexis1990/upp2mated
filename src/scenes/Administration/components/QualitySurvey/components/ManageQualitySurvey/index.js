@@ -4,33 +4,39 @@ import { Form, Field, reduxForm, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import renderSections from '../../../../../../components/BasicSurvey'
+import Section from './components/SectionQualitySurvey/'
 import renderInput from '../../../../../../components/Fields/input'
 import Select from '../../../../../../components/Fields/select'
-import { getQualitySurveyForm, sendQualitySurvey } from '../../actions'
+import { getQualitySurveyForm, sendQualitySurvey, sendEditingQualitySurvey } from '../../actions'
 import '../../styles/style.css'
 
 const required = value => value ? undefined : ' '
 
 class ManageQualitySurvey extends Component {
-    componentWillMount(){
+    componentWillMount() {
         const { getQualitySurveyForm, match } = this.props;
         const surveyParams = {
             version: match.params.version,
             id: match.params.id
         }
-        if(!!surveyParams.id) {
+        if (!!surveyParams.id) {
             getQualitySurveyForm(surveyParams);
         }
     }
 
     sendQualitySurvey(survey) {
-        const { sendQualitySurvey } = this.props;
-        sendQualitySurvey(survey);
+        const { sendQualitySurvey, match } = this.props;
+        const surveyId = match.params.id;
+
+        if (!!surveyId) {
+            sendEditingQualitySurvey(survey, surveyId);
+        } else {
+            sendQualitySurvey(survey);
+        }
     }
 
     render() {
-        const { handleSubmit, pristine, reset, submitting } = this.props;
+        const { version, publishedVersion, handleSubmit, pristine, reset, submitting } = this.props;
         return (
             <div>
                 <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
@@ -38,12 +44,12 @@ class ManageQualitySurvey extends Component {
                         <h3>Questionnaire Qualité :</h3>
                         <Field name="name" label="nom" component={renderInput} validate={[required]} />
                         <Field name="description" label="description" component={renderInput} validate={[required]} />
-                        <div>Version : v1</div>
-                        <div>Statut : Publié</div>
-                        <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} />
+                        <div>Version : {version}</div>
+                        <div>Statut : {publishedVersion ? "Publié" : "Non Publié"}</div>
+                        {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}
                     </Col>
                     <Col lg={8} className="form-creation">
-                        <FieldArray name="sections" component={renderSections} />
+                        <FieldArray name="sections" component={Section} dragSource="SECTION" dropTarget="SECTION" />
                     </Col>
                     <Col lg={12} className="align-right">
                         <Button type="submit" bsStyle="btn btn-action-button">Envoyer</Button>
@@ -55,13 +61,17 @@ class ManageQualitySurvey extends Component {
 }
 
 function mapStateToProps(state) {
-    return {}
+    return {
+        version: state.form.Administration.qualitySurvey.values.version,
+        publishedVersion: state.form.Administration.qualitySurvey.values.publishedVersion
+    }
 }
 
 function mapDispatchToProps(state) {
-    return (dispatch) => bindActionCreators({ 
-        getQualitySurveyForm, 
-        sendQualitySurvey 
+    return (dispatch) => bindActionCreators({
+        getQualitySurveyForm,
+        sendQualitySurvey,
+        sendEditingQualitySurvey
     }, dispatch)
 }
 
@@ -76,5 +86,5 @@ export default reduxForm({
         changeList: [],
         sections: [],
         questions: []
-    }
+    },
 })(ManageQualitySurvey)
