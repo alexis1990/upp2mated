@@ -47,6 +47,13 @@ button {
     background-color: #0189a9 !important;
     outline: none !important;
     padding: 8px; }
+    button.btn-action-button.danger {
+      background-color: red !important;
+      opacity: 0.9; }
+      button.btn-action-button.danger:hover {
+        color: red;
+        color: white;
+        opacity: 0.7; }
     button.btn-action-button.font-icon {
       color: white;
       font-size: 10px;
