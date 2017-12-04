@@ -118,23 +118,31 @@ export function sendQualitySurvey(qualitySurvey) {
     axios.post('/u2m-api/v1/suppliers/template/qualityquestionnaire/', qualitySurveyGlobalInformations)
       .then((result) => {
         const qualitySurveyId = result.id;
+        axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/editing`);
+        return qualitySurveyId;
+      })
+      .then(id => new Promise(resolve => setTimeout(() => resolve(id), 500)))
+      .then((id) => {
+        const qualitySurveyId = id;
         return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 });
       })
       .then((result) => {
-        console.log('RESULT', result)
+        console.log('RESULTTTTTTTT', result)
       })
       .catch((error) => console.log('ERROR', error))
   }
 }
 
 export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId) {
-  console.log('qualitySurveyFormatedForAPIqualitySurveyFormatedForAPI', qualitySurvey, qualitySurveyId)
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
-  console.log('qualitySurveyFormatedForAPIqualitySurveyFormatedForAPI', qualitySurveyFormatedForAPI)
-  axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 })
-    .then((result) =>
-      console.log('RESULTTTTT', result)
-    )
+
+  axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/editing`)
+  .then((result) => {
+    return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 })
+  })
+  .then((result) =>
+    console.log('RESULTTTTTEDITTTT', result)
+  )
 }
 
 export function editQualitySurvey(survey) {

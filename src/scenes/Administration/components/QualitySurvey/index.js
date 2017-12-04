@@ -35,7 +35,7 @@ class QualitySurveys extends Component {
 	}
 
 	editQualitySurvey(survey) {
-		editQualitySurvey(survey);
+		// editQualitySurvey(survey);
 	}
 
     render() {
@@ -75,7 +75,7 @@ class QualitySurveys extends Component {
 										<td className="actions" width="30%">
 											<ButtonGroup justified>
 												<Button onClick={this.editQualitySurvey.bind(this, survey)} className="action-button"><Link to={`/administration/quality-surveys/quality-survey/edit/${survey.id}/1`}><Glyphicon glyph="pencil" /></Link></Button>
-												<Button className="action-button" title="Publier" onClick={this.publishQualitySurvey.bind(this, survey)}><Glyphicon glyph="screenshot" /></Button>
+												{/* <Button className="action-button" title="Publier" onClick={this.publishQualitySurvey.bind(this, survey)}><Glyphicon glyph="screenshot" /></Button> */}
 												<Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
 											</ButtonGroup>
 										</td>
