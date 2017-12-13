@@ -20,6 +20,29 @@ export function suppliersReducer(state = initialState, action = action) {
 				},
 				isLoading: action.payload.isLoading
 			}
+		case types.LOAD_QUALITY_SURVEY_REPLY:
+			const sections = action.payload.content;
+			const templatePublishedVersion = action.payload.templatePublishedVersion;
+			const lastEditingVersionBySupplier = action.payload.lastEditingVersionBySupplier;
+			
+			return {
+				...state,
+				qualitySurvey: {
+					...state.qualitySurvey,
+					values: {
+						...state.qualitySurvey.values,
+						templatePublishedVersion,
+						lastEditingVersionBySupplier,
+						content: [].concat.apply([], sections.map((section) => {{
+							return { 
+								questions: section.questions.map((question)=> {
+									return { ...question, answers:[{}] }
+								})
+							}
+						}},
+					))}
+				}
+			}
 		default:
 			return state;
 	}

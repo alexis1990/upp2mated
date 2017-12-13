@@ -6,6 +6,11 @@ const initialState = {
     name: '',
     contactPersonList: []
   },
+  qualitySurvey: {
+    values :{
+      content: []
+    }
+  },
   isLoading: false
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link, withRouter } from 'react-router-dom'
 import requireAuthentication from '../routes/restrictedRoutes/index'
+import restrictedNoRegisterSupplierRoutes from '../routes/restrictedSupplierRoutes/'
 import { connect } from 'react-redux'
 import Identification from '../scenes/Consultations/identification/index'
 import Authentication from '../scenes/Authentication/index'
@@ -15,6 +16,7 @@ import Sign from '../scenes/Sign/index'
 import Suppliers from '../scenes/Suppliers/index'
 import Supplier from '../scenes/Suppliers/Supplier/index'
 import ManageSupplier from '../scenes/Suppliers/ManageSupplier/index'
+import QualitySurveyReply from '../scenes/Suppliers/QualitySurveyReply/index'
 import Administration from '../scenes/Administration/index'
 import ManageTeam from '../scenes/Administration/components/Teams/ManageTeam/'
 import TeamView from '../scenes/Administration/components/Teams/Team/'
@@ -32,6 +34,7 @@ import 'react-datasheet/lib/react-datasheet.css';
 
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import withScrolling from 'react-dnd-scrollzone';
 
 const steps = {
   wizard: {
@@ -47,6 +50,7 @@ const steps = {
   }
 }
 
+const ScrollingComponent = withScrolling('div');
 const App = ({ isAuthenticated }) => (
   <div>
     {isAuthenticated ?
@@ -59,6 +63,7 @@ const App = ({ isAuthenticated }) => (
     }
     <main>
       <Switch>
+      <ScrollingComponent className="App">
         <Route exact path="/" component={Authentication} />
         <Route path="/consultations" component={({ match }) => (
           <div>
@@ -74,6 +79,7 @@ const App = ({ isAuthenticated }) => (
         <Route exact path="/suppliers/:id" component={requireAuthentication(Supplier)} />
         <Route exact path="/suppliers/supplier/new" component={requireAuthentication(ManageSupplier)} />
         <Route exact path="/suppliers/supplier/edit/:id" component={requireAuthentication(ManageSupplier)} />
+        <Route exact path="/suppliers/supplier/:supplier/quality-survey/:id" component={restrictedNoRegisterSupplierRoutes(QualitySurveyReply)} />
         <Route exact path="/administration" component={requireAuthentication(Administration)} />
         <Route exact path="/administration/teams/:id" component={requireAuthentication(TeamView)} />
         <Route exact path="/administration/teams/team/new" component={requireAuthentication(ManageTeam)} />
@@ -91,6 +97,7 @@ const App = ({ isAuthenticated }) => (
         <Route exact path="/administration/quality-surveys/quality-survey/edit/:id/:version" component={requireAuthentication(ManageQualitySurvey)} />
         <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
         <Route exact path="/kitui" component={KitUi} />
+        </ScrollingComponent>
       </Switch>
     </main>
   </div>
