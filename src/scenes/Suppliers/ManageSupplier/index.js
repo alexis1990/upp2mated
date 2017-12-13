@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import FormSupplier from '../components/FormSupplier/index'
+import QualitySurveyReply from '../QualitySurveyReply/'
 import { postSupplier, fetchSupplier } from '../actions'
+import { Link } from 'react-router-dom'
 import '../styles/style.css'
 
 class ManageSupplier extends Component {
@@ -41,14 +43,11 @@ class ManageSupplier extends Component {
 							<h3> {supplierId ? `Fournisseur ${supplier.name}` : 'Nouveau Fournisseur'}</h3>
 							<Nav bsStyle="pills" stacked>
 								<NavItem eventKey="first">
-									Fiche du fournisseur
-							  </NavItem>
+										Fiche du fournisseur
+								</NavItem>
 								<NavItem eventKey="second">
 									Santé financiére
-							  </NavItem>
-								<NavItem eventKey="third">
-									Questionnaire Qualité
-							  </NavItem>
+								</NavItem>
 							</Nav>
 						</Col>
 						<Col sm={8}>
@@ -59,8 +58,6 @@ class ManageSupplier extends Component {
 									</form>
 								</Tab.Pane>
 								<Tab.Pane eventKey="second">
-								</Tab.Pane>
-								<Tab.Pane eventKey="third">
 								</Tab.Pane>
 							</Tab.Content>
 						</Col>

@@ -53,3 +53,38 @@ export function postSupplier(supplier) {
 			});
 	}
 }
+
+export function loadQualitySurvey(qq){
+	return {
+		type: types.LOAD_QUALITY_SURVEY_REPLY,
+		payload: qq
+	}
+}
+
+export function getQualitySurvey(supplierId, templateId) {
+	return (dispatch) => {
+		axios.get(`/u2m-api/v1/suppliers/qualityquestionnaire/${templateId}/supplierid/${supplierId}`)
+			.then(function (qq) {
+				dispatch(loadQualitySurvey(qq))
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	}
+}
+
+export function getQualitySurveyHash(supplierId, contactId, qqId) {
+	return (dispatch) => {
+		axios.post(`/u2m-api/v1/supplier-action/qq?supplierId=${supplierId}&contactId=${contactId}&qqId=${qqId}`)
+		.then(({id}) => {
+			return axios.get(`/u2m-api/v1/supplier/token/${id}`);
+		})
+		.then(({hash}) => {
+			return axios.get(`/auth/supplier/${hash}`);
+		})
+		.then(({token}) => {
+			localStorage.setItem('token', token);
+		})
+		.catch((rej) => console.log('ACTIONSSS', rej) )
+	}
+}

@@ -1,0 +1,40 @@
+ul {
+  list-style: none;
+  padding: 0; }
+  ul .add-section-row {
+    text-align: right;
+    padding: 0px 0; }
+  ul .trash-row {
+    text-align: right; }
+  ul .sections {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid grey;
+    background: #ececec;
+    cursor: move; }
+    ul .sections .add-question-row {
+      text-align: left; }
+    ul .sections .trash-row {
+      text-align: right; }
+    ul .sections .question-row {
+      padding: 10px 0;
+      cursor: move; }
+      ul .sections .question-row .question-field {
+        width: 80%;
+        text-align: center;
+        display: inline-block; }
+      ul .sections .question-row .add-question-button {
+        width: 20%;
+        text-align: center;
+        display: inline-block; }
+    ul .sections .answer-row {
+      padding: 10px 0;
+      cursor: move; }
+      ul .sections .answer-row .answer-field {
+        width: 80%;
+        text-align: center;
+        display: inline-block; }
+      ul .sections .answer-row .add-answer-button {
+        width: 20%;
+        text-align: center;
+        display: inline-block; }

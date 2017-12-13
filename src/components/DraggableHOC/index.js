@@ -42,15 +42,20 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
         }
 
         render() {
-            const { fields, dragSource, dropTarget, componentToDrag, parentId, meta: { error, submitFailed } } = this.props;
+            const { fields, dragSource, dropTarget, componentToDrag, parentId, noneButton, meta: { error, submitFailed } } = this.props;
             return (
-                <ul>
-                    <li className="add-section-row">
-                        <Button type="button" bsStyle="btn btn-action-button" onClick={this.addContainer.bind(this)}>
-                            Nouvelle {dragSource}
-                        </Button>
-                        {submitFailed && error && <span>{error}</span>}
-                    </li >
+                <ul> {
+                        noneButton ? 
+                        <li className="add-section-row">
+                        </li >
+                        : 
+                        <li className="add-section-row">
+                            <Button type="button" bsStyle="btn btn-action-button" onClick={this.addContainer.bind(this)}>
+                                Nouvelle {dragSource}
+                            </Button>
+                            {submitFailed && error && <span>{error}</span>}
+                        </li >
+                    }
                     {
                         fields.map((field, index) => (
                             <ComponentToWrap 
