@@ -163,3 +163,28 @@ export function publishQualitySurvey(surveyId) {
       )
   }
 }
+
+export function sendQualitySurveyToSupplier(templateId) {
+  return (dispatch) => {
+    // axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyId}/publish`)
+    //   .then((response) =>
+    //     console.log('RESPOSNEEE', response)
+    //   ).catch((reject) =>
+    //     console.log('ERRORR', reject)
+    //   )
+  }
+}
+
+export function manageSuppliersChoosedToFillQS(supplier) {
+  console.log('SUPPPPP', supplier)
+  // const suppliersSelected = [];
+  // suppliersSelected.concat(supplier)
+  return (dispatch) => {
+    // axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyId}/publish`)
+    //   .then((response) =>
+    //     console.log('RESPOSNEEE', response)
+    //   ).catch((reject) =>
+    //     console.log('ERRORR', reject)
+    //   )
+  }
+}

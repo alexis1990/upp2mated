@@ -71,6 +71,15 @@ button {
           opacity: 0.7;
         }
       }
+      &.success{
+        background-color: green !important;
+        opacity: 0.9;
+        &:hover {
+          color:green;
+          color: white;
+          opacity: 0.7;
+        }
+      }
       background-color: $blue !important;
       outline: none !important;
       padding: 8px;
