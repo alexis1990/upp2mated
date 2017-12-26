@@ -175,16 +175,17 @@ export function sendQualitySurveyToSupplier(templateId) {
   }
 }
 
-export function manageSuppliersChoosedToFillQS(supplier) {
-  console.log('SUPPPPP', supplier)
-  // const suppliersSelected = [];
-  // suppliersSelected.concat(supplier)
+export function sendQualitySurveyToSuppliers(selectedContacts, qualitySurveyId) {
+  const reorganizeQSSelectedContacts = {
+      supplierContactPersonList:selectedContacts,
+      qqIdList:[parseInt(qualitySurveyId)]
+  }
   return (dispatch) => {
-    // axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyId}/publish`)
-    //   .then((response) =>
-    //     console.log('RESPOSNEEE', response)
-    //   ).catch((reject) =>
-    //     console.log('ERRORR', reject)
-    //   )
+    axios.post(`/u2m-api/v1/supplier-action/qq/update`, reorganizeQSSelectedContacts)
+      .then((response) =>
+        console.log('REPONSEEE', response)
+      ).catch((reject) =>
+        console.log('ERRORR', reject)
+      )
   }
 }

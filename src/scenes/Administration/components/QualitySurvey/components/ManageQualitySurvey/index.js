@@ -27,7 +27,7 @@ class ManageQualitySurvey extends Component {
     constructor() {
         super();
 
-        this.sendQSToSupplier = this.sendQSToSupplier.bind(this);
+        this.openModalToSendQSToSupplier = this.openModalToSendQSToSupplier.bind(this);
     }
     componentWillMount() {
         const { getQualitySurveyForm, match } = this.props;
@@ -57,7 +57,7 @@ class ManageQualitySurvey extends Component {
         publishQualitySurvey(templateId);
     }
 
-    sendQSToSupplier(templateId) {
+    openModalToSendQSToSupplier(templateId) {
         const { sendQualitySurveyToSupplier, isModalVisible } = this.props;
         isModalVisible(true)
         // sendQualitySurveyToSupplier(templateId);
@@ -65,7 +65,7 @@ class ManageQualitySurvey extends Component {
 
     render() {
         const { version, editedVersion, publishedVersion, templateId, handleSubmit, isVisible, pristine, reset, submitting } = this.props;
-        console.log('ISVISIBLE', isVisible)
+
         return (
             <div>
                 <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
@@ -84,7 +84,7 @@ class ManageQualitySurvey extends Component {
                                 <Button type="submit" bsStyle="btn btn-action-button">Envoyer</Button>
                             </Col>
                             <Col lg={12}>
-                                <Button type="button" bsStyle="btn btn-action-button success" onClick={() => this.sendQSToSupplier(templateId) }>Envoyer à un fournisseur</Button>
+                                <Button type="button" bsStyle="btn btn-action-button success" onClick={() => this.openModalToSendQSToSupplier(templateId) }>Envoyer à un fournisseur</Button>
                             </Col>
                         </Row>
                         {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}

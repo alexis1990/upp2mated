@@ -1,32 +1,29 @@
 import React, { Component } from 'react'
 import { Grid, Tab, Row, Col, Nav, NavItem, ButtonGroup, Button, Glyphicon, Pagination, Table } from 'react-bootstrap'
-import { withRouter, Link, Route } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchSuppliers } from '../../../../../../../Suppliers/actions'
+import { sendQualitySurveyToSuppliers } from '../../../../actions'
 // import TableComponent from '../../../../../../../../components/Table/index'
 import ContactsSuppliers from './components/ContactsSuppliers'
 import { BootstrapTable, TableHeaderColumn, SizePerPageDropDown } from 'react-bootstrap-table';
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, Form } from 'redux-form'
 // import Spinner from '../../../../../../components/Spinner'
 import _ from 'lodash'
 import './styles/style.css'
 
-
-const selectRow = {
-    mode: 'checkbox',
-    clickToSelect: true,
-    clickToExpand: true
-};
-
+const isContactAlreadyExist = (selectedContact, selectedContactsList) => {
+    return selectedContactsList.findIndex((contact) => contact.contactId === selectedContact.contactId) >= 0
+}
 
 class SelectSuppliersModal extends Component {
     constructor() {
         super();
         this.state = {
-            activePage: 1
+            activePage: 1,
+            selectedContacts : []
         }
-        this.handleSelect = this.handleSelect.bind(this);
     }
 
     componentWillMount() {
@@ -44,10 +41,25 @@ class SelectSuppliersModal extends Component {
     isExpandableRow(row) {
         return true;
     }
+
+    updateSelectedContactListState(supplier, contact) {
+        const selectedContactList =  this.state.selectedContacts;
+        const selectedContact = {
+            contactId: contact.id,
+            supplierId: supplier.id
+        };
+
+        if(isContactAlreadyExist(selectedContact, selectedContactList)) {
+            const finalContactList = selectedContactList.filter((contact) => contact.contactId !== selectedContact.contactId)
+            this.setState({ selectedContacts: finalContactList})
+        } else {
+            this.setState({ selectedContacts: this.state.selectedContacts.concat(selectedContact) })
+        }
+    }
     
     expandComponent(row) {
         return (
-            <ContactsSuppliers data={ row.contactPersonList } />
+            <ContactsSuppliers row={row} handleRowSelect={this.updateSelectedContactListState.bind(this, row)}  />
         );
     }
 
@@ -59,13 +71,24 @@ class SelectSuppliersModal extends Component {
                         { props.components.pageList }
                     </Col>
                     <Col xs={6} md={6} lg={6} className="align-right">
-                        <Button type="button" bsStyle="btn btn-action-button">Envoyer</Button>
                     </Col>
                 </Row>
             </Col>
         );
       }
 
+    sendSupplierContactPersonList() {
+        const { match, sendQualitySurveyToSuppliers } = this.props;
+        const qualitySurveyId = match.params.id;
+        const selectedContacts = this.state.selectedContacts;
+
+        const reorganizeQSSelectedContacts = {
+            supplierContactPersonList:selectedContacts,
+            qqIdList:qualitySurveyId
+        }
+
+        sendQualitySurveyToSuppliers(selectedContacts, qualitySurveyId)
+    }
 
     render() {
         const { isLoading, suppliersList, actions, manageMembers, type } = this.props;
@@ -73,6 +96,12 @@ class SelectSuppliersModal extends Component {
             hideSizePerPage: true,
             paginationPosition: 'bottom',
             paginationPanel: this.renderPaginationPanel
+        };
+
+        const selectRowProp = {
+            mode: 'checkbox',
+            clickToSelect: true,
+            clickToExpand: true,
         };
         return (
             <Row className="select-supplier-modal">
@@ -83,10 +112,11 @@ class SelectSuppliersModal extends Component {
                         <Table responsive className="select-supplier-table">
                             <tbody>
                                 <BootstrapTable data={ suppliersList }
+                                ref='suppliersTable'
                                 expandableRow={ this.isExpandableRow }
-                                expandComponent={ this.expandComponent }
+                                expandComponent={ this.expandComponent.bind(this) }
                                 keyField='id'
-                                selectRow={ selectRow }
+                                selectRow={ selectRowProp }
                                 pagination = { true }
                                 options= {tableOptions}
                                 >
@@ -95,7 +125,7 @@ class SelectSuppliersModal extends Component {
                                 </BootstrapTable>
                             </tbody>
                         </Table>
-                        
+                        <Button type="button" onClick={this.sendSupplierContactPersonList.bind(this)} bsStyle="btn btn-action-button">Envoyer</Button>
                     </Col>
                 {/* } */}
             </Row>
@@ -112,8 +142,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps() {
     return (dispatch) => bindActionCreators({ 
-        fetchSuppliers
+        fetchSuppliers,
+        sendQualitySurveyToSuppliers
     }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectSuppliersModal);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SelectSuppliersModal));
