@@ -1,4 +1,13 @@
-.select-supplier-modal .select-supplier-table .row {
-  margin-top: 0px !important; }
-  .select-supplier-modal .select-supplier-table .row div .page-list-buttons ul {
-    margin: 0; }
+.select-supplier-modal .select-supplier-table {
+  margin-bottom: 0; }
+  .select-supplier-modal .select-supplier-table .react-bs-container-body tr td {
+    outline: none; }
+    .select-supplier-modal .select-supplier-table .react-bs-container-body tr td .contacts-table .table {
+      margin-bottom: 0; }
+      .select-supplier-modal .select-supplier-table .react-bs-container-body tr td .contacts-table .table h5 {
+        margin-left: 10px;
+        font-weight: bold; }
+  .select-supplier-modal .select-supplier-table .table-header-wrapper .table {
+    margin-bottom: 0; }
+  .select-supplier-modal .select-supplier-table .send-button {
+    margin-top: 20px; }

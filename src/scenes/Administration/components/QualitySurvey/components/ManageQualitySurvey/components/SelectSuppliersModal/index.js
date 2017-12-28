@@ -9,7 +9,7 @@ import { sendQualitySurveyToSuppliers } from '../../../../actions'
 import ContactsSuppliers from './components/ContactsSuppliers'
 import { BootstrapTable, TableHeaderColumn, SizePerPageDropDown } from 'react-bootstrap-table';
 import { Field, reduxForm, Form } from 'redux-form'
-// import Spinner from '../../../../../../components/Spinner'
+import Spinner from '../../../../../../../../components/Spinner'
 import _ from 'lodash'
 import './styles/style.css'
 
@@ -56,10 +56,23 @@ class SelectSuppliersModal extends Component {
             this.setState({ selectedContacts: this.state.selectedContacts.concat(selectedContact) })
         }
     }
+
+    onSelectAllSuppliers(supplier, isSelected, contacts) {
+        if(isSelected) {
+            const selectedContacts =  contacts.map((contact) =>({
+                contactId: contact.id,
+                supplierId: supplier.id
+            }))
+            this.setState({ selectedContacts: selectedContacts})
+            return true;
+        } else {
+            this.setState({selectedContacts: []})
+        }
+    }
     
     expandComponent(row) {
         return (
-            <ContactsSuppliers row={row} handleRowSelect={this.updateSelectedContactListState.bind(this, row)}  />
+            <ContactsSuppliers supplier={row} handleRowSelect={this.updateSelectedContactListState.bind(this, row)} onSelectAll={this.onSelectAllSuppliers.bind(this, row)}  />
         );
     }
 
@@ -70,7 +83,8 @@ class SelectSuppliersModal extends Component {
                     <Col xs={6} md={6} lg={6} className="page-list-buttons">
                         { props.components.pageList }
                     </Col>
-                    <Col xs={6} md={6} lg={6} className="align-right">
+                    <Col xs={6} md={6} lg={6} className="align-right send-button">
+                        <Button type="button" onClick={this.sendSupplierContactPersonList.bind(this)} bsStyle="btn btn-action-button">Envoyer</Button>
                     </Col>
                 </Row>
             </Col>
@@ -81,11 +95,6 @@ class SelectSuppliersModal extends Component {
         const { match, sendQualitySurveyToSuppliers } = this.props;
         const qualitySurveyId = match.params.id;
         const selectedContacts = this.state.selectedContacts;
-
-        const reorganizeQSSelectedContacts = {
-            supplierContactPersonList:selectedContacts,
-            qqIdList:qualitySurveyId
-        }
 
         sendQualitySurveyToSuppliers(selectedContacts, qualitySurveyId)
     }
@@ -99,15 +108,14 @@ class SelectSuppliersModal extends Component {
         };
 
         const selectRowProp = {
-            mode: 'checkbox',
             clickToSelect: true,
             clickToExpand: true,
         };
         return (
             <Row className="select-supplier-modal">
-                {/* {isLoading ?
+                {isLoading ?
                     <Spinner />
-                    : */}
+                    :
                     <Col xs={12} md={12} lg={12} className="list users-list">
                         <Table responsive className="select-supplier-table">
                             <tbody>
@@ -125,9 +133,8 @@ class SelectSuppliersModal extends Component {
                                 </BootstrapTable>
                             </tbody>
                         </Table>
-                        <Button type="button" onClick={this.sendSupplierContactPersonList.bind(this)} bsStyle="btn btn-action-button">Envoyer</Button>
                     </Col>
-                {/* } */}
+                }
             </Row>
         )
     }
@@ -136,7 +143,7 @@ class SelectSuppliersModal extends Component {
 function mapStateToProps(state) {
     return {
         suppliersList: state.form.Suppliers.suppliers.content,
-        isLoading: state.form.Administration.users.isLoading
+        isLoading: state.form.Suppliers.isLoading
     }
 }
 

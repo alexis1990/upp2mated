@@ -3,21 +3,22 @@ import { Button } from 'react-bootstrap'
 import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table'
 import { manageSuppliersChoosedToFillQS } from '../../../../../actions'
 import { connect } from 'react-redux' 
-import { bindActionCreators } from 'redux' 
+import { bindActionCreators } from 'redux'
+import _ from 'lodash'
 
-
-const ContactsSuppliers = ({ supplierId, handleRowSelect, row}) => {
+const ContactsSuppliers = ({ handleRowSelect, supplier, onSelectAll}) => {
     const selectRowProps = {
         mode: 'checkbox',
         clickToSelect: true,
         onSelect: handleRowSelect,
         clickToExpand: true,
+        onSelectAll: onSelectAll
     };
     return (
         <div>
             <BootstrapTable 
-                data={row.contactPersonList}
-                className="unfolded-table"
+                data={supplier.contactPersonList}
+                className="contacts-table"
                 selectRow = {selectRowProps}
                 >
                 <h5>Contacts</h5>

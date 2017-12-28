@@ -2,7 +2,6 @@ import * as types from './actionTypes'
 import axios from '../../axios.config'
 
 function loadSuppliers(isLoading, contact) {
-	console.log('ACCC', contact)
 	return {
 		type: types.LOAD_SUPPLIERS,
 		payload: { suppliers: contact, isLoading: isLoading }
@@ -10,7 +9,6 @@ function loadSuppliers(isLoading, contact) {
 }
 
 function loadSupplier(isLoading, contact) {
-	console.log('ACCC', contact)
 	return {
 		type: types.LOAD_SUPPLIER,
 		payload: { supplier: contact, isLoading: isLoading }
@@ -18,7 +16,9 @@ function loadSupplier(isLoading, contact) {
 }
 
 export function fetchSuppliers(pageId) {
+	
 	return (dispatch) => {
+		dispatch(loadSuppliers(true, []))
 		axios.get(`/u2m-api/v1/suppliers/?page=${pageId}`)
 			.then(function (response) {
 				dispatch(loadSuppliers(false, response))
