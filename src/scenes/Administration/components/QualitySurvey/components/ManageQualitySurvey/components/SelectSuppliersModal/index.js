@@ -127,6 +127,7 @@ class SelectSuppliersModal extends Component {
                                 selectRow={ selectRowProp }
                                 pagination = { true }
                                 options= {tableOptions}
+                                search
                                 >
                                     <TableHeaderColumn dataField='name'>Fournisseurs</TableHeaderColumn>
                                     <TableHeaderColumn dataField='subsidiary'>Filliale</TableHeaderColumn>
