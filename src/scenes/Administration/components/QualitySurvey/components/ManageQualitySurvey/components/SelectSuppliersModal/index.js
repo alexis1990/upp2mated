@@ -42,12 +42,16 @@ class SelectSuppliersModal extends Component {
         return true;
     }
 
-    updateSelectedContactListState(supplier, contact) {
-        const selectedContactList =  this.state.selectedContacts;
-        const selectedContact = {
+    formatSelectedContact(supplier, contact) {
+        return {
             contactId: contact.id,
             supplierId: supplier.id
         };
+    }
+
+    updateSelectedContactListState(supplier, contact) {
+        const selectedContactList =  this.state.selectedContacts;
+        const selectedContact = this.formatSelectedContact(supplier, contact)
 
         if(isContactAlreadyExist(selectedContact, selectedContactList)) {
             const finalContactList = selectedContactList.filter((contact) => contact.contactId !== selectedContact.contactId)
@@ -59,10 +63,7 @@ class SelectSuppliersModal extends Component {
 
     onSelectAllSuppliers(supplier, isSelected, contacts) {
         if(isSelected) {
-            const selectedContacts =  contacts.map((contact) =>({
-                contactId: contact.id,
-                supplierId: supplier.id
-            }))
+            const selectedContacts =  contacts.map((contact) => this.formatSelectedContact(supplier, contact))
             this.setState({ selectedContacts: selectedContacts})
             return true;
         } else {
