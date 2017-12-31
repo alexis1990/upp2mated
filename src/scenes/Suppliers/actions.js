@@ -18,7 +18,7 @@ function loadSupplier(isLoading, contact) {
 export function fetchSuppliers(pageId) {
 	
 	return (dispatch) => {
-		dispatch(loadSuppliers(true, []))
+		dispatch(loadSuppliers(true, {content: []}))
 		axios.get(`/u2m-api/v1/suppliers/?page=${pageId}`)
 			.then(function (response) {
 				dispatch(loadSuppliers(false, response))

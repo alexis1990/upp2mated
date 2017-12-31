@@ -44,8 +44,8 @@ class SelectSuppliersModal extends Component {
 
     formatSelectedContact(supplier, contact) {
         return {
-            contactId: contact.id,
-            supplierId: supplier.id
+            "contactId": contact.id,
+            "supplierId": supplier.id
         };
     }
 

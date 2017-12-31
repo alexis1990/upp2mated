@@ -176,12 +176,9 @@ export function sendQualitySurveyToSupplier(templateId) {
 }
 
 export function sendQualitySurveyToSuppliers(selectedContacts, qualitySurveyId) {
-  const reorganizeQSSelectedContacts = {
-      supplierContactPersonList:selectedContacts,
-      qqIdList:[parseInt(qualitySurveyId)]
-  }
+  const reorganizeQSSelectedContacts = selectedContacts;
   return (dispatch) => {
-    axios.post(`/u2m-api/v1/supplier-action/qq/update`, reorganizeQSSelectedContacts)
+    axios.post(`/u2m-api/v1/supplier-action/qq/update?qqIdList=${qualitySurveyId}`, reorganizeQSSelectedContacts)
       .then((response) =>
         console.log('REPONSEEE', response)
       ).catch((reject) =>
