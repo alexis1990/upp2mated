@@ -54,6 +54,13 @@ button {
         color: red;
         color: white;
         opacity: 0.7; }
+    button.btn-action-button.success {
+      background-color: green !important;
+      opacity: 0.9; }
+      button.btn-action-button.success:hover {
+        color: green;
+        color: white;
+        opacity: 0.7; }
     button.btn-action-button.font-icon {
       color: white;
       font-size: 10px;

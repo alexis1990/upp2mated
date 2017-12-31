@@ -1,0 +1,29 @@
+.select-supplier-modal {
+    .select-supplier-table {
+        margin-bottom: 0;
+        .react-bs-container-body{
+            tr {
+                td{
+                    outline: none;
+                    .contacts-table{
+                        .table { //sub header supplier (contacts)
+                            margin-bottom: 0;
+                            h5{
+                                margin-left: 10px;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .table-header-wrapper{
+            .table{
+                margin-bottom: 0;
+            }
+        }
+        .send-button {
+            margin-top:20px;
+        }
+    }
+}
