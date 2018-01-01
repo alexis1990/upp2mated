@@ -64,7 +64,10 @@ export function administationReducer(state = initialState, action = action) {
 			return {
 				...state,
 				users: {
-					...state.users, data: state.users.data.filter((x) => x.id !== action.payload)
+					...state.users, data: {
+						...state.users.data, 
+						content: state.users.data.content.filter((x) => x.id !== action.payload)
+					}
 				}
 			}
 		case types.ADD_TEAM_CREATION:
