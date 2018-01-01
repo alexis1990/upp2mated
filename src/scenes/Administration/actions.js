@@ -236,7 +236,7 @@ function deleteAMember(memberId) {
 
 export function deleteMember(memberId) {
 	return (dispatch) => {
-		axios.delete(`/u2m-api/v1/team/${memberId}`) //TODO CHANGE URL
+		axios.delete(`/u2m-api/v1/person/${memberId}`)
 		.then((resolve) => dispatch(deleteAMember(memberId)))
 		.catch((reject)=> console.log('REJJJJ'))
 	}
