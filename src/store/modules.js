@@ -4,6 +4,7 @@ import { wizardReducer } from '../components/Wizard/reducer'
 import { identificationReducer } from '../scenes/Consultations/identification/reducer'
 import { teamReducer } from '../scenes/Consultations/team/reducer'
 import { providersReducer } from '../scenes/Consultations/providers/reducer'
+import { notifications } from '../components/Header/reducer'
 import { auth } from '../scenes/Authentication/reducer'
 import { suppliersReducer } from '../scenes/Suppliers/reducer'
 import { administationReducer } from '../scenes/Administration/reducer'
@@ -17,6 +18,7 @@ export default combineReducers({
 	wizard: wizardReducer,
 	modal: modalReducer,
 	auth: auth,
+	notifications: notifications,
 	// team: teamReducer,
 	routing: routerReducer,
 	form: formReducer.plugin({

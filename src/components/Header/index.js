@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Navbar, NavItem, NavDropdown, MenuItem, Nav, Image, Col, FormGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
+import Notifications from './components/Notifications/'
 import logo from "./imgs/logo.png";
 import { withRouter } from 'react-router-dom'
 import { logout } from './actions'
@@ -18,6 +19,10 @@ class Header extends PureComponent {
 	}
 
 	render(){
+		const person = JSON.parse(sessionStorage.getItem('person'))
+		// const firstName = person.firstname
+		// const name = person.name
+
 		return(
 			<Navbar className="header" inverse collapseOnSelect fluid={true}>
 				<Navbar.Header>
@@ -38,14 +43,14 @@ class Header extends PureComponent {
 					        </Button>
 				      	</Navbar.Form>
 				      	<NavItem eventKey={2}>
-				      		<Glyphicon glyph="envelope" />
+						  	<Notifications />
 				      	</NavItem>
-				      	<NavItem>
+				      	{/* <NavItem>
 				      		<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="user"/><span className="user">Bonjour PRENOM NOM</span></span>} id="basic-nav-dropdown">
+							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="user"/><span className="user">Bonjour {firstName} {name}</span></span>} id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1}>Editer mon profil</MenuItem>
 							</NavDropdown>
-						</NavItem>
+						</NavItem> */}
 						<NavItem>
 							<NavDropdown eventKey={3} title="Français" id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1}>Anglais</MenuItem>
@@ -60,7 +65,6 @@ class Header extends PureComponent {
 }
 
 function mapStateToProps(state, props){
-	console.log('PROPS', props)
 	return{
 
 	}
