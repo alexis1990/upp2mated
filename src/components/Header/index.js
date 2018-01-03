@@ -20,8 +20,8 @@ class Header extends PureComponent {
 
 	render(){
 		const person = JSON.parse(sessionStorage.getItem('person'))
-		// const firstName = person.firstname
-		// const name = person.name
+		const firstName = person.firstname
+		const name = person.name
 
 		return(
 			<Navbar className="header" inverse collapseOnSelect fluid={true}>
@@ -45,12 +45,12 @@ class Header extends PureComponent {
 				      	<NavItem eventKey={2}>
 						  	<Notifications />
 				      	</NavItem>
-				      	{/* <NavItem>
+				      	<NavItem>
 				      		<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 							<NavDropdown eventKey={3} title={<span><Glyphicon glyph="user"/><span className="user">Bonjour {firstName} {name}</span></span>} id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1}>Editer mon profil</MenuItem>
 							</NavDropdown>
-						</NavItem> */}
+						</NavItem>
 						<NavItem>
 							<NavDropdown eventKey={3} title="Français" id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1}>Anglais</MenuItem>
