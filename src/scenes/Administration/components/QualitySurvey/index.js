@@ -14,9 +14,9 @@ class QualitySurveys extends Component {
     componentWillMount(){
 		const { getQualitySurveys } = this.props;
 		this.state = {
-			activePage: 1
+			activePage: 0
 		}
-		getQualitySurveys(1);
+		getQualitySurveys(0);
 		this.handleSelect = this.handleSelect.bind(this);
 	}
 	
