@@ -14,10 +14,12 @@ export function authenticate(identifiers, history) {
 		const token = response.data.token;
 		const decodedToken = jwtDecode(token);
 		const person = JSON.stringify(decodedToken.person);
+		const teamId = JSON.stringify(decodedToken.teamId);
 		const roles = JSON.stringify(decodedToken.roles);
 
 		sessionStorage.setItem('token', token);
 		sessionStorage.setItem('person', person);
+		sessionStorage.setItem('teamId', teamId);
 		sessionStorage.setItem('roles', roles);
 	}
 

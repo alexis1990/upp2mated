@@ -12,11 +12,18 @@ export function logout(history, sessionStorage) {
   }
 }
 
-export function loadNotifications(teamId, userId) {
+export function loadNotifications(notifications) {
+  return {
+    type: types.LOAD_NOTIFICATIONS,
+    payload: notifications
+  }
+}
+
+export function fetchNotifications(teamId, userId) {
   return (dispatch) => {
-    axios.post(`/u2m-api/v1/notification/team/${teamId}/user/${userId}`)
-    .then((response) =>
-      console.log('RESPOSNEEE', response)
+    axios.get(`/u2m-api/v1/notification/team/${teamId}/user/${userId}`)
+    .then((notifications) =>
+      dispatch(loadNotifications(notifications))
     ).catch((reject) =>
       console.log('ERRORR', reject)
     )
