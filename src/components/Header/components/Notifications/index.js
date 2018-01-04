@@ -11,9 +11,14 @@ class Notifications extends Component{
         const userId = decodedPerson.id;
         const teamId = JSON.parse(sessionStorage.getItem('teamId'));
         
-        setInterval(function(){ 
+        this.myInterval = setInterval(function(){ 
             fetchNotifications(teamId, userId); 
-        }, 3000);
+        }, 10000);        
+        
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.myInterval);
     }
 
     render() {
