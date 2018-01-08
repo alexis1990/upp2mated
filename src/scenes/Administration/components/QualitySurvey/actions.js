@@ -108,7 +108,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
   }
 }
 
-export function sendQualitySurvey(qualitySurvey) {
+export function sendQualitySurvey(qualitySurvey, history) {
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
   return (dispatch) => {
     const qualitySurveyGlobalInformations = {
@@ -117,23 +117,12 @@ export function sendQualitySurvey(qualitySurvey) {
     }
     axios.post('/u2m-api/v1/suppliers/template/qualityquestionnaire/', qualitySurveyGlobalInformations)
       .then((result) => {
-        const qualitySurveyId = result.id;
-        axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/editing`);
-        return qualitySurveyId;
-      })
-      .then(id => new Promise(resolve => setTimeout(() => resolve(id), 500)))
-      .then((id) => {
-        const qualitySurveyId = id;
-        return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 });
-      })
-      .then((result) => {
-        console.log('RESULTTTTTTTT', result)
-      })
-      .catch((error) => console.log('ERROR', error))
+        history.push('/administration')
+      }).catch((error) => console.log('ERROR', error))
   }
 }
 
-export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId) {
+export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history) {
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
 
   axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/editing`)
@@ -141,7 +130,7 @@ export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId) {
     return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 })
   })
   .then((result) =>
-    console.log('RESULTTTTTEDITTTT', result)
+    history.push('/administration')
   )
 }
 
@@ -153,12 +142,25 @@ export function editQualitySurvey(survey) {
     )
 }
 
-export function publishQualitySurvey(surveyId) {
+export function publishQualitySurvey(surveyId, history) {
   return (dispatch) => {
     axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyId}/publish`)
-      .then((response) =>
-        console.log('RESPOSNEEE', response)
-      ).catch((reject) =>
+      .then((response) =>{
+        // const qualitySurveyId = result.id;
+        //   axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/editing`);
+        //   return qualitySurveyId;
+        // })
+        // .then(id => new Promise(resolve => setTimeout(() => resolve(id), 500)))
+        // .then((id) => {
+        //   const qualitySurveyId = id;
+        //   return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 });
+        // })
+        // .then((result) => {
+        //   console.log('RESULTTTTTTTT', result)
+        // })
+        // .catch((error) => console.log('ERROR', error))
+        history.push('/administration')
+      }).catch((reject) =>
         console.log('ERRORR', reject)
       )
   }

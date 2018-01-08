@@ -7,14 +7,14 @@ import { connect } from 'react-redux'
 
 import renderInput from '../../../../components/Fields/input'
 import Select from '../../../../components/Fields/select'
-import { getQualitySurveys, publishQualitySurvey, editQualitySurvey } from './actions'
+import { getQualitySurveys, editQualitySurvey } from './actions'
 import './styles/style.css'
 
 class QualitySurveys extends Component {
     componentWillMount(){
 		const { getQualitySurveys } = this.props;
 		this.state = {
-			activePage: 0
+			activePage: 0 
 		}
 		getQualitySurveys(0);
 		this.handleSelect = this.handleSelect.bind(this);
@@ -22,16 +22,10 @@ class QualitySurveys extends Component {
 	
 	handleSelect(eventKey) {
 		const { getQualitySurveys } = this.props;
-		getQualitySurveys(eventKey);
+		getQualitySurveys(eventKey - 1);
 		this.setState({
 			activePage: eventKey
 		});
-	}
-
-	publishQualitySurvey(survey) {
-		const { publishQualitySurvey } = this.props;
-		const surveyID = survey.id;
-		publishQualitySurvey(surveyID)
 	}
 
 	editQualitySurvey(survey) {
@@ -75,7 +69,6 @@ class QualitySurveys extends Component {
 										<td className="actions" width="30%">
 											<ButtonGroup justified>
 												<Button onClick={this.editQualitySurvey.bind(this, survey)} className="action-button"><Link to={`/administration/quality-surveys/quality-survey/edit/${survey.id}/1`}><Glyphicon glyph="pencil" /></Link></Button>
-												{/* <Button className="action-button" title="Publier" onClick={this.publishQualitySurvey.bind(this, survey)}><Glyphicon glyph="screenshot" /></Button> */}
 												<Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
 											</ButtonGroup>
 										</td>
@@ -101,7 +94,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(state) {
-    return (dispatch) => bindActionCreators({ getQualitySurveys, publishQualitySurvey, editQualitySurvey }, dispatch)
+    return (dispatch) => bindActionCreators({ getQualitySurveys, editQualitySurvey }, dispatch)
 }
 
 export default connect (mapStateToProps, mapDispatchToProps) (QualitySurveys)

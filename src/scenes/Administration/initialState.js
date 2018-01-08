@@ -51,7 +51,7 @@ const initialState = {
     },
     qualitySurvey: {
         values: {
-            changeList: [],
+            changeSetList: [],
             sections:[],
         }
     },

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Button, Glyphicon } from 'react-bootstrap'
 import { Form, Field, reduxForm, FieldArray } from 'redux-form'
+import { withRouter } from 'react-router-dom'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -42,30 +43,29 @@ class ManageQualitySurvey extends Component {
     }
 
     sendQualitySurvey(survey) {
-        const { sendQualitySurvey, match } = this.props;
+        const { sendQualitySurvey, match, history } = this.props;
         const surveyId = match.params.id;
 
         if (!!surveyId) {
-            sendEditingQualitySurvey(survey, surveyId);
+            sendEditingQualitySurvey(survey, surveyId, history);
         } else {
-            sendQualitySurvey(survey);
+            sendQualitySurvey(survey, history);
         }
     }
 
     publishTemplate(templateId) {
-        const { publishQualitySurvey } = this.props;
-        publishQualitySurvey(templateId);
+        const { publishQualitySurvey, history } = this.props;
+        publishQualitySurvey(templateId, history);
     }
 
     openModalToSendQSToSupplier(templateId) {
         const { sendQualitySurveyToSupplier, isModalVisible } = this.props;
         isModalVisible(true)
-        // sendQualitySurveyToSupplier(templateId);
     }
 
     render() {
-        const { version, editedVersion, publishedVersion, templateId, handleSubmit, isVisible, pristine, reset, submitting } = this.props;
-
+        const { version, editedVersion, publishedVersion, templateId, handleSubmit, isVisible, pristine, reset, submitting, match } = this.props;
+        const surveyId = match.params.id;
         return (
             <div>
                 <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
@@ -78,19 +78,19 @@ class ManageQualitySurvey extends Component {
                         <div>Statut : {publishedVersion ? "Publié" : "Non Publié"}</div>
                         <Row className="buttons-actions">
                             <Col lg={6}>
-                                <Button type="button" disabled={publishedVersion === editedVersion} bsStyle="btn btn-action-button danger"onClick={() => this.publishTemplate(templateId)}>Publier</Button>
+                                <Button type="button" disabled={publishedVersion === editedVersion || publishedVersion === editedVersion + 2  } bsStyle="btn btn-action-button"onClick={() => this.publishTemplate(templateId)}>Publier</Button>
                             </Col>
                             <Col lg={6}>
-                                <Button type="submit" bsStyle="btn btn-action-button">Envoyer</Button>
+                                <Button type="submit" disabled={editedVersion > publishedVersion} bsStyle="btn btn-action-button">Envoyer</Button>
                             </Col>
                             <Col lg={12}>
-                                <Button type="button" bsStyle="btn btn-action-button success" onClick={() => this.openModalToSendQSToSupplier(templateId) }>Envoyer à un fournisseur</Button>
+                                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.openModalToSendQSToSupplier(templateId) }>Envoyer à un fournisseur</Button>
                             </Col>
                         </Row>
                         {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}
                     </Col>
                     <Col lg={8} className="form-creation">
-                        <FieldArray name="sections" component={Section} dragSource="SECTION" dropTarget="SECTION" />
+                        <FieldArray name="sections" isCreationMode={!surveyId} component={Section} dragSource="SECTION" dropTarget="SECTION" />
                     </Col>
                 </Form>
             </div>
@@ -99,6 +99,7 @@ class ManageQualitySurvey extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log('DISPLAYQS', state.form.Administration.qualitySurvey)
     return {
         isVisible: state.modal.mode,
         templateId: state.form.Administration.qualitySurvey.values.id,
@@ -131,4 +132,4 @@ export default reduxForm({
         sections: [],
         questions: []
     },
-})(ManageQualitySurvey)
+})(withRouter(ManageQualitySurvey))
