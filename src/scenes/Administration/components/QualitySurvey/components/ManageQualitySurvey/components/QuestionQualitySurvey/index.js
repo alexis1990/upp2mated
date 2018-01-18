@@ -5,7 +5,7 @@ import renderInput from '../../../../../../../../components/Fields/input'
 import StaticBlockWrapperHOC from '../../../../../../../../components/DraggableHOC/'
 import DraggableContainerWrapperHOC from '../../../../../../../../components/DraggableHOC/components/DraggableElement'
 
-const Question = ({ fields, field, index, types, addChangeSetModify }) => (
+const Question = ({ fields, field, index, dragSource, addChangeSetModify, addChangeSetRemove }) => (
     <li key={index} className="question-row">
         <div className="question-field">
             <Field
@@ -13,14 +13,18 @@ const Question = ({ fields, field, index, types, addChangeSetModify }) => (
                 type="text"
                 component={renderInput}
                 label={`Question #${index + 1}`}
-                onChange={(input)=> addChangeSetModify(index, types)}
+                onChange={(input)=> addChangeSetModify(index, dragSource)}
             />
         </div>
         <div className="add-question-button">
             <Button
                 type="button"
                 bsStyle="btn btn-action-button font-icon"
-                onClick={() => fields.remove(index)}
+                onClick={() => {
+                        fields.remove(index)
+                        addChangeSetRemove(index, dragSource)
+                    }
+                }
             >
                 <Glyphicon glyph="remove" />
             </Button>

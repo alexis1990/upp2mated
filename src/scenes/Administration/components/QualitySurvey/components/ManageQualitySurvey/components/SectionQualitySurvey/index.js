@@ -6,13 +6,17 @@ import StaticBlockWrapperHOC from '../../../../../../../../components/DraggableH
 import DraggableContainerWrapperHOC from '../../../../../../../../components/DraggableHOC/components/DraggableElement'
 import Question from '../QuestionQualitySurvey/'
 
-const Section = ({ fields, field, index, addChangeSetModify, types }) => (
+const Section = ({ fields, field, index, addChangeSetModify, addChangeSetRemove, types }) => (
     <li key={index} className="sections">
         <div className="trash-row">
             <Button
                 type="button"
                 bsStyle="btn btn-action-button font-icon"
-                onClick={() => fields.remove(index)}
+                onClick={() => { 
+                        fields.remove(index)
+                        addChangeSetRemove(index, types)
+                    }
+                }
             >
                 <Glyphicon glyph="remove" />
             </Button>

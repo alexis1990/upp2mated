@@ -65,7 +65,7 @@ class ManageQualitySurvey extends Component {
 
     render() {
         const { version, editedVersion, publishedVersion, templateId, handleSubmit, isVisible, pristine, reset, submitting, match } = this.props;
-        const surveyId = match.params.id;
+
         return (
             <div>
                 <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
@@ -74,14 +74,15 @@ class ManageQualitySurvey extends Component {
                         <h3>Questionnaire Qualité :</h3>
                         <Field name="name" label="nom" component={renderInput} validate={[required]} />
                         <Field name="description" label="description" component={renderInput} validate={[required]} />
-                        <div>Version : {version}</div>
+                        <div>Version modifiée : {editedVersion}</div>
+                        <div>Version publiée : {publishedVersion}</div>
                         <div>Statut : {publishedVersion ? "Publié" : "Non Publié"}</div>
                         <Row className="buttons-actions">
                             <Col lg={6}>
-                                <Button type="button" disabled={publishedVersion === editedVersion || publishedVersion === editedVersion + 2  } bsStyle="btn btn-action-button"onClick={() => this.publishTemplate(templateId)}>Publier</Button>
+                                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.publishTemplate(templateId)}>Publier</Button>
                             </Col>
                             <Col lg={6}>
-                                <Button type="submit" disabled={editedVersion > publishedVersion} bsStyle="btn btn-action-button">Envoyer</Button>
+                                <Button type="submit" bsStyle="btn btn-action-button">Envoyer</Button>
                             </Col>
                             <Col lg={12}>
                                 <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.openModalToSendQSToSupplier(templateId) }>Envoyer à un fournisseur</Button>
@@ -90,7 +91,7 @@ class ManageQualitySurvey extends Component {
                         {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}
                     </Col>
                     <Col lg={8} className="form-creation">
-                        <FieldArray name="sections" isCreationMode={!surveyId} component={Section} dragSource="SECTION" dropTarget="SECTION" />
+                        <FieldArray name="sections" component={Section} dragSource="SECTION" dropTarget="SECTION" />
                     </Col>
                 </Form>
             </div>
@@ -99,7 +100,6 @@ class ManageQualitySurvey extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('DISPLAYQS', state.form.Administration.qualitySurvey)
     return {
         isVisible: state.modal.mode,
         templateId: state.form.Administration.qualitySurvey.values.id,

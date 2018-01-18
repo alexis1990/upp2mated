@@ -38,11 +38,16 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
 
         addChangeSetModify(fieldId, types) {
             const { addChangeSet } = this.props;
-            // addChangeSet(fieldId, types, "MODIFY");
+            addChangeSet(types, fieldId, "MODIFY");
+        }
+
+        addChangeSetRemove(fieldId, types) {
+            const { addChangeSet } = this.props;
+            addChangeSet(types, fieldId, "REMOVE");
         }
 
         render() {
-            const { fields, dragSource, dropTarget, componentToDrag, parentId, noneButton, isCreationMode, meta: { error, submitFailed } } = this.props;
+            const { fields, dragSource, dropTarget, componentToDrag, parentId, noneButton, meta: { error, submitFailed } } = this.props;
             return (
                 <ul> {
                         noneButton ? 
@@ -50,7 +55,7 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
                         </li >
                         : 
                         <li className="add-section-row">
-                            <Button type="button" bsStyle="btn btn-action-button" onClick={this.addContainer.bind(this)} disabled={isCreationMode}>
+                            <Button type="button" bsStyle="btn btn-action-button" onClick={this.addContainer.bind(this)}>
                                 Nouvelle {dragSource}
                             </Button>
                             {submitFailed && error && <span>{error}</span>}
@@ -64,7 +69,8 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
                                 moveContainer={this.moveContainer} 
                                 parentId={parentId} 
                                 insertContainer={this.insertContainer} 
-                                addChangeSetModify={this.addChangeSetModify.bind(this)} 
+                                addChangeSetModify={this.addChangeSetModify.bind(this, dragSource)}
+                                addChangeSetRemove={this.addChangeSetRemove.bind(this, dragSource)} 
                                 field={field} 
                                 index={index} 
                                 fields={fields} 
@@ -77,7 +83,6 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
     }
 
     function mapStateToProps(state) {
-        console.log('STATEEEE', state)
         return {}
     }
 
