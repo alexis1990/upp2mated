@@ -38,7 +38,12 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
 
         addChangeSetModify(fieldId, types) {
             const { addChangeSet } = this.props;
-            // addChangeSet(fieldId, types, "MODIFY");
+            addChangeSet(types, fieldId, "MODIFY");
+        }
+
+        addChangeSetRemove(fieldId, types) {
+            const { addChangeSet } = this.props;
+            addChangeSet(types, fieldId, "REMOVE");
         }
 
         render() {
@@ -64,7 +69,8 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
                                 moveContainer={this.moveContainer} 
                                 parentId={parentId} 
                                 insertContainer={this.insertContainer} 
-                                addChangeSetModify={this.addChangeSetModify.bind(this)} 
+                                addChangeSetModify={this.addChangeSetModify.bind(this, dragSource)}
+                                addChangeSetRemove={this.addChangeSetRemove.bind(this, dragSource)} 
                                 field={field} 
                                 index={index} 
                                 fields={fields} 
@@ -77,7 +83,6 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
     }
 
     function mapStateToProps(state) {
-        console.log('STATEEEE', state)
         return {}
     }
 

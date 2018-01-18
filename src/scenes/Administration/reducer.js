@@ -1,5 +1,6 @@
 import initialState from './initialState'
 import * as types from './actionTypes'
+import _ from 'lodash'
 
 export function administationReducer(state = initialState, action = action) {
 	let type = '';
@@ -194,12 +195,13 @@ export function administationReducer(state = initialState, action = action) {
 				}
 			}
 		case types.ADD_CHANGE_SET:
+			const { changeList } = state.qualitySurvey.values;
 			return {
 				...state,
 				qualitySurvey: {
 					...state.qualitySurvey, values: {
 						...state.qualitySurvey.values,
-						changeList: state.qualitySurvey.values.changeList.concat(action.payload)
+						changeList: _.uniqBy(changeList.concat(action.payload), (change) => [change.about, change.aboutEntityId, change.action].join())
 					}
 				}
 			}

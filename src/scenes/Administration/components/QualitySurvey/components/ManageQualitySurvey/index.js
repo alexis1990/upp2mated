@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Button, Glyphicon } from 'react-bootstrap'
 import { Form, Field, reduxForm, FieldArray } from 'redux-form'
+import { withRouter } from 'react-router-dom'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -42,29 +43,28 @@ class ManageQualitySurvey extends Component {
     }
 
     sendQualitySurvey(survey) {
-        const { sendQualitySurvey, match } = this.props;
+        const { sendQualitySurvey, match, history } = this.props;
         const surveyId = match.params.id;
 
         if (!!surveyId) {
-            sendEditingQualitySurvey(survey, surveyId);
+            sendEditingQualitySurvey(survey, surveyId, history);
         } else {
-            sendQualitySurvey(survey);
+            sendQualitySurvey(survey, history);
         }
     }
 
     publishTemplate(templateId) {
-        const { publishQualitySurvey } = this.props;
-        publishQualitySurvey(templateId);
+        const { publishQualitySurvey, history } = this.props;
+        publishQualitySurvey(templateId, history);
     }
 
     openModalToSendQSToSupplier(templateId) {
         const { sendQualitySurveyToSupplier, isModalVisible } = this.props;
         isModalVisible(true)
-        // sendQualitySurveyToSupplier(templateId);
     }
 
     render() {
-        const { version, editedVersion, publishedVersion, templateId, handleSubmit, isVisible, pristine, reset, submitting } = this.props;
+        const { version, editedVersion, publishedVersion, templateId, handleSubmit, isVisible, pristine, reset, submitting, match } = this.props;
 
         return (
             <div>
@@ -74,17 +74,18 @@ class ManageQualitySurvey extends Component {
                         <h3>Questionnaire Qualité :</h3>
                         <Field name="name" label="nom" component={renderInput} validate={[required]} />
                         <Field name="description" label="description" component={renderInput} validate={[required]} />
-                        <div>Version : {version}</div>
+                        <div>Version modifiée : {editedVersion}</div>
+                        <div>Version publiée : {publishedVersion}</div>
                         <div>Statut : {publishedVersion ? "Publié" : "Non Publié"}</div>
                         <Row className="buttons-actions">
                             <Col lg={6}>
-                                <Button type="button" disabled={publishedVersion === editedVersion} bsStyle="btn btn-action-button danger"onClick={() => this.publishTemplate(templateId)}>Publier</Button>
+                                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.publishTemplate(templateId)}>Publier</Button>
                             </Col>
                             <Col lg={6}>
                                 <Button type="submit" bsStyle="btn btn-action-button">Envoyer</Button>
                             </Col>
                             <Col lg={12}>
-                                <Button type="button" bsStyle="btn btn-action-button success" onClick={() => this.openModalToSendQSToSupplier(templateId) }>Envoyer à un fournisseur</Button>
+                                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.openModalToSendQSToSupplier(templateId) }>Envoyer à un fournisseur</Button>
                             </Col>
                         </Row>
                         {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}
@@ -131,4 +132,4 @@ export default reduxForm({
         sections: [],
         questions: []
     },
-})(ManageQualitySurvey)
+})(withRouter(ManageQualitySurvey))
