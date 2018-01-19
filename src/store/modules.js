@@ -10,6 +10,7 @@ import { suppliersReducer } from '../scenes/Suppliers/reducer'
 import { administationReducer } from '../scenes/Administration/reducer'
 // import { newProvider } from '../scenes/Consultations/providers/components/Modal/reducer'
 import { modalReducer } from '../components/Modal/reducer'
+import { ToastrReducer } from '../components/Toastr/reducer'
 import { reducer as formReducer } from 'redux-form'
 
 // const allReducers = Object.assign({}, reducers1, reducers2);
@@ -17,6 +18,7 @@ import { reducer as formReducer } from 'redux-form'
 export default combineReducers({
 	wizard: wizardReducer,
 	modal: modalReducer,
+	toastr: ToastrReducer,
 	auth: auth,
 	notifications: notifications,
 	// team: teamReducer,
