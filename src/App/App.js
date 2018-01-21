@@ -30,6 +30,7 @@ import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
 import Modal from '../components/Modal/index'
+import Toastr from '../components/Toastr/'
 import 'react-datasheet/lib/react-datasheet.css';
 
 import { DragDropContext } from 'react-dnd';
@@ -53,6 +54,7 @@ const steps = {
 const ScrollingComponent = withScrolling('div');
 const App = ({ isAuthenticated }) => (
   <div>
+    <Toastr />
     {isAuthenticated ?
       <div>
         <Header />
