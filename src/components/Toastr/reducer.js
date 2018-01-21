@@ -6,7 +6,8 @@ export function ToastrReducer(state=intialstate, action) {
         case types.DISPLAY_TOASTR:
             return {
                 display: action.payload.display, 
-                message: action.payload.message
+                message: action.payload.message,
+                status: action.payload.status
             }
             
         default:

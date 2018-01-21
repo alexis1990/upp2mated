@@ -1,4 +1,5 @@
 import * as types from '../../actionTypes'
+import { displayToastr } from '../../../../components/Toastr/actions'
 import _ from 'lodash'
 import axios from 'axios'
 
@@ -97,13 +98,13 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
     const sections = qualitySurvey.sections;
     return _.compact(sections
       .map((section, index) => {
-        if(!section.id) {
+        // if(console.log('SECTONNNN', section)) { //CHECK MODIFY SECTION CONTENT
           return {
             ...section,
             sectionId: index + 1,
           }
-        }
-        return null;
+        // }
+        // return null;
       })
     )
   }
@@ -146,12 +147,15 @@ export function sendQualitySurvey(qualitySurvey, history) {
 
 export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history) {
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
-  axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 })
-  .then((result) =>
-    history.push('/administration')
-  ).catch((err) => {
-    console.log('ERRR', err)
-  })
+  return (dispatch) => {
+    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 })
+    .then((result) =>{
+      dispatch(displayToastr(true, "Modification enregistrée !", 'success'))
+      history.push('/administration')
+    }).catch((err) => {
+      dispatch(displayToastr(true, "Impossible de modifier", 'error'))
+    })
+  }
 }
 
 export function editQualitySurvey(survey) {
@@ -166,10 +170,11 @@ export function publishQualitySurvey(surveyId, history) {
   return (dispatch) => {
     axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyId}/publish`)
       .then((response) =>{
+        dispatch(displayToastr(true, "Publication enregistrée !", 'success'))
         history.push('/administration')
-      }).catch((reject) =>
-        console.log('ERRORR', reject)
-      )
+      }).catch((reject) => {
+        dispatch(displayToastr(true, "Impossible de publier", 'error'))
+      })
   }
 }
 

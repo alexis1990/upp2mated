@@ -43,7 +43,7 @@ class ManageQualitySurvey extends Component {
     }
 
     sendQualitySurvey(survey) {
-        const { sendQualitySurvey, match, history } = this.props;
+        const { sendQualitySurvey, sendEditingQualitySurvey, match, history } = this.props;
         const surveyId = match.params.id;
 
         if (!!surveyId) {
