@@ -5,7 +5,7 @@ import renderInput from '../../../../../../components/Fields/input'
 import StaticBlockWrapperHOC from '../../../../../../components/DraggableHOC/'
 import DraggableContainerWrapperHOC from '../../../../../../components/DraggableHOC/components/DraggableElement'
 
-const Answer = ({ fields, field, index, types, addChangeSetModify }) => (
+const Answer = ({ fields, field, index, types }) => (
     <li key={index} className="answer-row">
         <h5>Réponse {index + 1}</h5>
         <div className="answer-field">
@@ -14,7 +14,6 @@ const Answer = ({ fields, field, index, types, addChangeSetModify }) => (
                 type="text"
                 component={renderInput}
                 label={`Answer #${index + 1}`}
-                onChange={(input)=> addChangeSetModify(index, types)}
             />
         </div>
         <div className="add-answer-button">
