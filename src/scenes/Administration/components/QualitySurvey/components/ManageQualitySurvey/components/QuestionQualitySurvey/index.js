@@ -4,6 +4,7 @@ import { FieldArray, Field } from 'redux-form'
 import renderInput from '../../../../../../../../components/Fields/input'
 import StaticBlockWrapperHOC from '../../../../../../../../components/DraggableHOC/'
 import DraggableContainerWrapperHOC from '../../../../../../../../components/DraggableHOC/components/DraggableElement'
+import { required } from '../../../../../../../../utils/inputRules'
 
 const Question = ({ fields, field, index, dragSource, addChangeSetModify, addChangeSetRemove }) => (
     <li key={index} className="question-row">
@@ -14,6 +15,7 @@ const Question = ({ fields, field, index, dragSource, addChangeSetModify, addCha
                 component={renderInput}
                 label={`Question #${index + 1}`}
                 onChange={(input)=> addChangeSetModify(index, dragSource)}
+                validate={[ required ]}
             />
         </div>
         <div className="add-question-button">
