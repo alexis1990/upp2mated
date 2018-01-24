@@ -17,7 +17,7 @@ const Question = ({ fields, field, index, types }) => (
                 label={`Question #${index + 1}`}
             />
         </div>
-        <div className="add-question-button">
+        {/* <div className="add-question-button">
             <Button
                 type="button"
                 bsStyle="btn btn-action-button font-icon"
@@ -25,7 +25,7 @@ const Question = ({ fields, field, index, types }) => (
             >
                 <Glyphicon glyph="remove" />
             </Button>
-        </div>
+        </div> */}
         <FieldArray name={`${field}.answers`} noneButton parentId={index} dragSource="ANSWER" dropTarget="ANSWER" component={Answer} />
     </li>
 )

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-export function getQualitySurveyHash(supplierId, contactId, qqId) {
+export function getQualitySurveyHash(supplierId, contactId, templateId) {
 	return (dispatch) => {
-		axios.post(`/u2m-api/v1/supplier-action/qq?supplierId=${supplierId}&contactId=50&qqId=${qqId}`)
+		axios.post(`/u2m-api/v1/supplier-action/qq?supplierId=${supplierId}&contactId=${contactId}&qqId=${templateId}`)
 		.then(({id}) => {
 			return axios.get(`/u2m-api/v1/supplier/token/${id}`);
 		})

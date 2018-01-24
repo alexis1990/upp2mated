@@ -21,8 +21,8 @@ class ManageQualitySurvey extends Component {
     sendQualitySurveyReply(survey) {
         const { sendReply, match } = this.props;
 
-        const templateId = match.params.id;
-        const supplierId = match.params.supplier;
+        const templateId = match.params.templateId;
+        const supplierId = match.params.supplierId;
         sendReply(survey, templateId, supplierId);
     }
 
