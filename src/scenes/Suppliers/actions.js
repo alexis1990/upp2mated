@@ -88,17 +88,17 @@ export function sendReply(qualitySurvey, templateId, supplierId) {
 		.map('questions')
 		.flatten()
 		.reduce((arr, question) => { 
-			return question.answers.map((answer) =>  { 
+			return arr.concat(question.answers.map((answer) =>  { 
 				return {
 					answer: answer.content,
 					questionId: question.questionId
 				}
-			})
+			}))
 		}, [])
 		.value(),
 		supplierId: parseInt(supplierId),
 		templateId: parseInt(templateId),
-		templateIdVersion: 0,
+		templateIdVersion: 1,
 	}
 
 	return (dispatch) => {
