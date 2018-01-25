@@ -1,5 +1,6 @@
 import * as types from './actionTypes'
 import axios from '../../axios.config'
+import _ from 'lodash'
 
 function loadSuppliers(isLoading, contact) {
 	return {
@@ -54,18 +55,25 @@ export function postSupplier(supplier) {
 	}
 }
 
-export function loadQualitySurvey(qq){
+export function loadQualitySurvey(qualitySurvey){
 	return {
 		type: types.LOAD_QUALITY_SURVEY_REPLY,
-		payload: qq
+		payload: qualitySurvey
 	}
 }
 
 export function getQualitySurvey(supplierId, templateId) {
+	console.log('supplierId, templateId', supplierId, templateId)
 	return (dispatch) => {
 		axios.get(`/u2m-api/v1/suppliers/qualityquestionnaire/${templateId}/supplierid/${supplierId}`)
-			.then(function (qq) {
-				dispatch(loadQualitySurvey(qq))
+			.then((qq) => {
+				const qualitySurvey = qq;
+				return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${templateId}`)
+				.then((template) => {
+					return _.merge(qualitySurvey, template)
+				})
+			}).then((qualitySurvey) => {
+				dispatch(loadQualitySurvey(qualitySurvey))
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -73,18 +81,29 @@ export function getQualitySurvey(supplierId, templateId) {
 	}
 }
 
-export function getQualitySurveyHash(supplierId, contactId, qqId) {
+export function sendReply(qualitySurvey, templateId, supplierId) {
+
+	const answersList = {
+		answers :  _.chain(qualitySurvey.content)
+		.map('questions')
+		.flatten()
+		.reduce((arr, question) => { 
+			return arr.concat(question.answers.map((answer) =>  { 
+				return {
+					answer: answer.content,
+					questionId: question.questionId
+				}
+			}))
+		}, [])
+		.value(),
+		supplierId: parseInt(supplierId),
+		templateId: parseInt(templateId),
+		templateIdVersion: 1,
+	}
+
 	return (dispatch) => {
-		axios.post(`/u2m-api/v1/supplier-action/qq?supplierId=${supplierId}&contactId=${contactId}&qqId=${qqId}`)
-		.then(({id}) => {
-			return axios.get(`/u2m-api/v1/supplier/token/${id}`);
-		})
-		.then(({hash}) => {
-			return axios.get(`/auth/supplier/${hash}`);
-		})
-		.then(({token}) => {
-			localStorage.setItem('token', token);
-		})
-		.catch((rej) => console.log('ACTIONSSS', rej) )
+		axios.post('/u2m-api/v1/suppliers/qualityquestionnaire/', answersList)
+		.then((response) => console.log('REPLYYYYYYYYYYY'))
+		.catch((error)=> console.log('ERRRRRRRRRRRRRRR'))
 	}
 }

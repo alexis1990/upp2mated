@@ -4,6 +4,7 @@ import { FieldArray, Field } from 'redux-form'
 import renderInput from '../../../../../../../../components/Fields/input'
 import StaticBlockWrapperHOC from '../../../../../../../../components/DraggableHOC/'
 import DraggableContainerWrapperHOC from '../../../../../../../../components/DraggableHOC/components/DraggableElement'
+import { required } from '../../../../../../../../utils/inputRules'
 import Question from '../QuestionQualitySurvey/'
 
 const Section = ({ fields, field, index, addChangeSetModify, addChangeSetRemove, types }) => (
@@ -33,6 +34,7 @@ const Section = ({ fields, field, index, addChangeSetModify, addChangeSetRemove,
                     component={renderInput}
                     placeholder="Nom"
                     onChange={(input)=> addChangeSetModify(index, types)}
+                    validate={[required]}
                 />
             </Col>
         </Col>

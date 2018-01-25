@@ -3,10 +3,12 @@ import { Row, Col, Button, Glyphicon } from 'react-bootstrap'
 import { Form, Field, reduxForm, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import Section from './components/SectionQualitySurvey/'
 import renderInput from '../../../../components/Fields/input'
 import Select from '../../../../components/Fields/select'
+import { sendReply } from '../../actions'
 import './styles/style.css'
 
 const required = value => value ? undefined : ' '
@@ -16,13 +18,12 @@ class ManageQualitySurvey extends Component {
         const { match } = this.props;
     }
 
-    sendQualitySurvey(survey) {
-        const {  match } = this.props;
-        const surveyId = match.params.id;
+    sendQualitySurveyReply(survey) {
+        const { sendReply, match } = this.props;
 
-        if (!!surveyId) {
-        } else {
-        }
+        const templateId = match.params.templateId;
+        const supplierId = match.params.supplierId;
+        sendReply(survey, templateId, supplierId);
     }
 
     render() {
@@ -30,7 +31,7 @@ class ManageQualitySurvey extends Component {
 
         return (
             <div>
-                <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
+                <Form onSubmit={handleSubmit(this.sendQualitySurveyReply.bind(this))}>
                     <Col lg={4}>
                         <h3>Questionnaire Qualité :</h3>
                         <Field name="name" label="nom" component={renderInput} validate={[required]} />
@@ -41,6 +42,9 @@ class ManageQualitySurvey extends Component {
                     </Col>
                     <Col lg={8} className="form-creation">
                         <FieldArray name="content" noneButton component={Section} dragSource="SECTION" dropTarget="SECTION" />
+                    </Col>
+                    <Col lg={12} className="align-right">
+                        <Button bsStyle="btn btn-action-button" type="submit">Envoyer</Button>
                     </Col>
                 </Form>
             </div>
@@ -57,6 +61,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(state) {
     return (dispatch) => bindActionCreators({
+        sendReply
     }, dispatch)
 }
 
@@ -67,4 +72,4 @@ ManageQualitySurvey = connect(
 
 export default reduxForm({
     form: 'Suppliers.qualitySurvey'
-})(ManageQualitySurvey)
+})(withRouter(ManageQualitySurvey))
