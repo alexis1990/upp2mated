@@ -40,10 +40,13 @@ export function suppliersReducer(state = initialState, action = action) {
 					))}
 				}
 			}
-		case types.REMOVE_SUPPLIER_LIST:
+		case types.REMOVE_SUPPLIER:
 			return {
 				...state,
-				suppliers: state.suppliers.filter((supplier) => supplier.id !== action.payload)
+				suppliers: {
+					...state.suppliers,
+					content: state.suppliers.content.filter((supplier) => supplier.id !== action.payload)
+				}
 			}
 		default:
 			return state;

@@ -108,17 +108,15 @@ export function sendReply(qualitySurvey, templateId, supplierId) {
 	}
 }
 
-function deleteASupplier(supplierId) {
-	return {
-		type: types.REMOVE_SUPPLIER_LIST,
-		payload: supplierId
-	}
-}
-
 export function deleteSupplier(supplierId) {
 	return (dispatch) => {
-		axios.delete(``)
-		.then((resolve) => dispatch(deleteASupplier(supplierId)))
+		axios.delete(`/u2m-api/v1/suppliers/${supplierId}?supplierId=${supplierId}`)
+		.then((resolve) => {
+			dispatch({
+				type: types.REMOVE_SUPPLIER,
+				payload: supplierId
+			})
+		})
 		.catch((reject)=> console.log('REJJ'))
 	}
 }
