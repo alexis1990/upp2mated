@@ -13,7 +13,7 @@ class Notifications extends Component{
         
         this.myInterval = setInterval(function(){ 
             fetchNotifications(teamId, userId); 
-        }, 10000);        
+        }, 5000);        
         
     }
 

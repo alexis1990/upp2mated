@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import SelectSuppliersModal from './components/QualitySurvey/components/SelectSuppliersModal/'
 import { isModalVisible } from '../../components/Modal/actions'
+import { keepInMemoryActiveTab } from './actions'
 import Modal from '../../components/Modal/'
 import Teams from './components/Teams/'
 import Users from './components/Users/'
@@ -13,28 +14,33 @@ import Roles from './components/Roles/'
 import './styles/style.css'
 
 class Administration extends Component {
+	registerActiveTab(tabIndex) {
+		
+		const { keepInMemoryActiveTab } = this.props;
+		keepInMemoryActiveTab(tabIndex);
+	}
 	render() {
-		const { isVisible, modalData } = this.props;		
+		const { isVisible, modalData, activeTab } = this.props;		
 		return (
 			<Grid className="administration" fluid>
 				<Modal isVisible={isVisible} component={<SelectSuppliersModal templateId={modalData} />} />
-				<Tab.Container id="left-tabs-example" defaultActiveKey="first">
+				<Tab.Container id="left-tabs-example" defaultActiveKey={activeTab || "first"}>
 					<Row className="clearfix">
 						<Col sm={4}>
 							<h3>
 								Administration
 					        </h3>
-							<Nav bsStyle="pills" stacked>
-								<NavItem eventKey="first">
+							<Nav bsStyle="pills" activeKey={activeTab} stacked>
+								<NavItem eventKey="first" onClick={this.registerActiveTab.bind(this, "first")}>
 									Equipes
 					          	</NavItem>
-								<NavItem eventKey="second">
+								<NavItem eventKey="second" onClick={this.registerActiveTab.bind(this, "second")}>
 									Utilisateurs
 					          	</NavItem>
-								<NavItem eventKey="third">
+								<NavItem eventKey="third" onClick={this.registerActiveTab.bind(this, "third")}>
 									Droits et roles
 					          	</NavItem>
-								<NavItem eventKey="fourth">
+								<NavItem eventKey="fourth" onClick={this.registerActiveTab.bind(this, "fourth")}>
 									Questionnaires Qualités
 					          	</NavItem>
 							</Nav>
@@ -65,14 +71,16 @@ class Administration extends Component {
 }
 
 function mapStateToProps(state) {
+	console.log('state.form.Administration.activeTab', state.form.Administration.activeTab)
     return {
+		activeTab: state.form.Administration.activeTab,
 		isVisible: state.modal.mode,
 		modalData: state.modal.data
     }
 }
 
 function mapDispatchToProps(state) {
-    return (dispatch) => bindActionCreators({ isModalVisible }, dispatch)
+    return (dispatch) => bindActionCreators({ isModalVisible, keepInMemoryActiveTab }, dispatch)
 }
 
 export default connect (mapStateToProps, mapDispatchToProps) (Administration)
