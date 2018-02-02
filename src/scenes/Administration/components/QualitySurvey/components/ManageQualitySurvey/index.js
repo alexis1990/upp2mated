@@ -9,16 +9,12 @@ import { connect } from 'react-redux'
 import Section from './components/SectionQualitySurvey/'
 import renderInput from '../../../../../../components/Fields/input'
 import Select from '../../../../../../components/Fields/select'
-import SelectSuppliersModal from './components/SelectSuppliersModal/'
-import Modal from '../../../../../../components/Modal/'
 
-import { isModalVisible } from '../../../../../../components/Modal/actions'
 import { 
     getQualitySurveyForm, 
     sendQualitySurvey, 
     sendEditingQualitySurvey, 
-    publishQualitySurvey, 
-    sendQualitySurveyToSupplier 
+    publishQualitySurvey
 } from '../../actions'
 import './styles/style.css'
 
@@ -27,8 +23,6 @@ const required = value => value ? undefined : ' '
 class ManageQualitySurvey extends Component {
     constructor() {
         super();
-
-        this.openModalToSendQSToSupplier = this.openModalToSendQSToSupplier.bind(this);
     }
     componentWillMount() {
         const { getQualitySurveyForm, match } = this.props;
@@ -58,18 +52,12 @@ class ManageQualitySurvey extends Component {
         publishQualitySurvey(templateId, history);
     }
 
-    openModalToSendQSToSupplier(templateId) {
-        const { sendQualitySurveyToSupplier, isModalVisible } = this.props;
-        isModalVisible(true)
-    }
-
     render() {
-        const { version, editedVersion, publishedVersion, templateId, handleSubmit, isVisible, pristine, reset, submitting, match } = this.props;
+        const { version, editedVersion, publishedVersion, templateId, handleSubmit, pristine, reset, submitting, match } = this.props;
 
         return (
             <div>
                 <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
-                <Modal isVisible={isVisible} component={<SelectSuppliersModal />} />
                     <Col lg={4}>
                         <h3>Questionnaire Qualité :</h3>
                         <Field name="name" label="nom" component={renderInput} validate={[required]} />
@@ -83,9 +71,6 @@ class ManageQualitySurvey extends Component {
                             </Col>
                             <Col lg={6}>
                                 <Button type="submit" bsStyle="btn btn-action-button">Envoyer</Button>
-                            </Col>
-                            <Col lg={12}>
-                                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.openModalToSendQSToSupplier(templateId) }>Envoyer à un fournisseur</Button>
                             </Col>
                         </Row>
                         {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}
@@ -101,7 +86,6 @@ class ManageQualitySurvey extends Component {
 
 function mapStateToProps(state) {
     return {
-        isVisible: state.modal.mode,
         templateId: state.form.Administration.qualitySurvey.values.id,
         editedVersion: state.form.Administration.qualitySurvey.values.editedVersion,
         version: state.form.Administration.qualitySurvey.values.version,
@@ -114,9 +98,7 @@ function mapDispatchToProps(state) {
         getQualitySurveyForm,
         sendQualitySurvey,
         sendEditingQualitySurvey,
-        publishQualitySurvey,
-        sendQualitySurveyToSupplier,
-        isModalVisible, 
+        publishQualitySurvey
     }, dispatch)
 }
 

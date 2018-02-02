@@ -3,13 +3,13 @@ import { Grid, Tab, Row, Col, Nav, NavItem, ButtonGroup, Button, Glyphicon, Pagi
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { fetchSuppliers } from '../../../../../../../Suppliers/actions'
-import { sendQualitySurveyToSuppliers } from '../../../../actions'
+import { fetchSuppliers } from '../../../../../Suppliers/actions'
+import { sendQualitySurveyToSuppliers } from '../../actions'
 // import TableComponent from '../../../../../../../../components/Table/index'
 import ContactsSuppliers from './components/ContactsSuppliers'
 import { BootstrapTable, TableHeaderColumn, SizePerPageDropDown } from 'react-bootstrap-table';
 import { Field, reduxForm, Form } from 'redux-form'
-import Spinner from '../../../../../../../../components/Spinner'
+import Spinner from '../../../../../../components/Spinner'
 import _ from 'lodash'
 import './styles/style.css'
 
@@ -84,24 +84,24 @@ class SelectSuppliersModal extends Component {
                     <Col xs={6} md={6} lg={6} className="page-list-buttons">
                         { props.components.pageList }
                     </Col>
-                    <Col xs={6} md={6} lg={6} className="align-right send-button">
+                    {/* <Col xs={6} md={6} lg={6} className="align-right send-button">
                         <Button type="button" onClick={this.sendSupplierContactPersonList.bind(this)} bsStyle="btn btn-action-button">Envoyer</Button>
-                    </Col>
+                    </Col> */}
                 </Row>
             </Col>
         );
       }
 
-    sendSupplierContactPersonList() {
+    sendSupplierContactPersonList(qualitySurveyId) {
         const { match, sendQualitySurveyToSuppliers } = this.props;
-        const qualitySurveyId = match.params.id;
         const selectedContacts = this.state.selectedContacts;
 
         sendQualitySurveyToSuppliers(selectedContacts, qualitySurveyId)
     }
 
     render() {
-        const { isLoading, suppliersList, actions, manageMembers, type } = this.props;
+        const { isLoading, suppliersList, actions, manageMembers, type, templateId } = this.props;
+        const { selectedContacts } = this.state;
         const tableOptions = {
             hideSizePerPage: true,
             paginationPosition: 'bottom',
@@ -135,6 +135,9 @@ class SelectSuppliersModal extends Component {
                                 </BootstrapTable>
                             </tbody>
                         </Table>
+                        <Col xs={12} md={12} lg={12} className="align-right send-button">
+                            <Button type="button" disabled={selectedContacts.length === 0} onClick={this.sendSupplierContactPersonList.bind(this, templateId)} bsStyle="btn btn-action-button">Envoyer</Button>
+                        </Col>
                     </Col>
                 }
             </Row>

@@ -15,10 +15,11 @@ export default function restrictedNoRegisterSupplierRoutes(Component) {
 
         componentWillMount() {
             const { history, getQualitySurveyHash, match} = this.props;
-            const qqId = match.params.id;
-            const contactId = 51;
-            const supplierId = match.params.supplier;
-            getQualitySurveyHash(supplierId, contactId, qqId);
+ 
+            const templateId = match.params.templateId;
+            const contactId = match.params.contactId;
+            const supplierId = match.params.supplierId;
+            getQualitySurveyHash(supplierId, contactId, templateId);
             this.isAuth(isTokenExist(), history);
         }
 

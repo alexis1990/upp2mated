@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 
 import renderInput from '../../../../components/Fields/input'
 import Select from '../../../../components/Fields/select'
+import { isModalVisible } from '../../../../components/Modal/actions'
 import { getQualitySurveys, editQualitySurvey } from './actions'
 import './styles/style.css'
 
@@ -18,6 +19,7 @@ class QualitySurveys extends Component {
 		}
 		getQualitySurveys(0);
 		this.handleSelect = this.handleSelect.bind(this);
+        this.openModalToSendQSToSupplier = this.openModalToSendQSToSupplier.bind(this);
 	}
 	
 	handleSelect(eventKey) {
@@ -31,6 +33,13 @@ class QualitySurveys extends Component {
 	editQualitySurvey(survey) {
 		editQualitySurvey(survey);
 	}
+
+	openModalToSendQSToSupplier(survey) {
+		const { sendQualitySurveyToSupplier, isModalVisible } = this.props;
+		const templateId = survey.id;
+		
+        isModalVisible(true, null, templateId)
+    }
 
     render() {
         const { handleSubmit, pristine, reset, submitting, qualitySurveys } = this.props;
@@ -68,6 +77,7 @@ class QualitySurveys extends Component {
 										<td width="20%" className="align-center"> {survey.publishedVersion}</td>
 										<td className="actions" width="30%">
 											<ButtonGroup justified>
+                                				<Button type="button" className="action-button" onClick={() => this.openModalToSendQSToSupplier(survey) }><Glyphicon glyph="send" /></Button>
 												<Button onClick={this.editQualitySurvey.bind(this, survey)} className="action-button"><Link to={`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion}`}><Glyphicon glyph="pencil" /></Link></Button>
 												<Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
 											</ButtonGroup>
@@ -89,12 +99,13 @@ class QualitySurveys extends Component {
 
 function mapStateToProps(state) {
     return {
-        qualitySurveys : state.form.Administration.qualitySurveys.values
+		isVisible: state.modal.mode,
+		qualitySurveys : state.form.Administration.qualitySurveys.values
     }
 }
 
 function mapDispatchToProps(state) {
-    return (dispatch) => bindActionCreators({ getQualitySurveys, editQualitySurvey }, dispatch)
+    return (dispatch) => bindActionCreators({ getQualitySurveys, editQualitySurvey, isModalVisible }, dispatch)
 }
 
 export default connect (mapStateToProps, mapDispatchToProps) (QualitySurveys)

@@ -10,8 +10,8 @@ import { withRouter } from 'react-router-dom'
 class QualitySurveyReply extends Component {
     componentWillMount() {
         const { getQualitySurvey, match } = this.props;
-        const supplierId = match.params.supplier;
-        const templateId = match.params.id;
+        const supplierId = match.params.supplierId;
+        const templateId = match.params.templateId;
         getQualitySurvey(supplierId, templateId);
     }
     render () {

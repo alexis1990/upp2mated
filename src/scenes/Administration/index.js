@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import { Grid, Tab, Row, Col, Nav, NavItem, Button } from 'react-bootstrap'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import SelectSuppliersModal from './components/QualitySurvey/components/SelectSuppliersModal/'
+import { isModalVisible } from '../../components/Modal/actions'
+import Modal from '../../components/Modal/'
 import Teams from './components/Teams/'
 import Users from './components/Users/'
 import QualitySurvey from './components/QualitySurvey/'
@@ -9,8 +14,10 @@ import './styles/style.css'
 
 class Administration extends Component {
 	render() {
+		const { isVisible, modalData } = this.props;		
 		return (
 			<Grid className="administration" fluid>
+				<Modal isVisible={isVisible} component={<SelectSuppliersModal templateId={modalData} />} />
 				<Tab.Container id="left-tabs-example" defaultActiveKey="first">
 					<Row className="clearfix">
 						<Col sm={4}>
@@ -57,4 +64,15 @@ class Administration extends Component {
 	}
 }
 
-export default Administration;
+function mapStateToProps(state) {
+    return {
+		isVisible: state.modal.mode,
+		modalData: state.modal.data
+    }
+}
+
+function mapDispatchToProps(state) {
+    return (dispatch) => bindActionCreators({ isModalVisible }, dispatch)
+}
+
+export default connect (mapStateToProps, mapDispatchToProps) (Administration)

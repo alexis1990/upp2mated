@@ -6,7 +6,7 @@ import StaticBlockWrapperHOC from '../../../../../../components/DraggableHOC/'
 import DraggableContainerWrapperHOC from '../../../../../../components/DraggableHOC/components/DraggableElement'
 import Question from '../QuestionQualitySurvey/'
 
-const Section = ({ fields, field, index, addChangeSetModify, types }) => (
+const Section = ({ fields, field, index, types }) => (
     <li key={index} className="sections">
         <Col lg={12}>
             <Col lg={3}>
@@ -19,7 +19,6 @@ const Section = ({ fields, field, index, addChangeSetModify, types }) => (
                     withoutLabel
                     component={renderInput}
                     placeholder="Nom"
-                    onChange={(input)=> addChangeSetModify(index, types)}
                 />
             </Col>
         </Col>
