@@ -7,14 +7,39 @@ import {connect} from 'react-redux'
 import renderInput from "../../../../../../../../components/Fields/input";
 import {bindActionCreators} from "redux";
 import {isModalVisible} from "../../../../../../../../components/Modal/actions";
+import {getQualitySurveys} from "../../../../actions";
+import axios from "axios/index";
 
 const required = value => value ? undefined : ' ';
 
-class CreateQualitySurvey extends Component {
+export const QUALITY_SURVEY_MODAL = "qualitysurvey.create";
 
+class CreateQualitySurveyModal extends Component {
+
+  escFunction = event => {
+    if (event.keyCode === 27) {
+      const {isModalVisible} = this.props;
+      isModalVisible(false, QUALITY_SURVEY_MODAL);
+    }
+  };
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+  }
 
   saveQualitySurveyTemplate = () => {
-    console.log(this);
+    const {isModalVisible, getQualitySurveys, form} = this.props;
+
+    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/`, form)
+      .then(response => {
+        isModalVisible(false, QUALITY_SURVEY_MODAL);
+        getQualitySurveys(0);
+      })
+      .catch(error => console.error('ERROR', error))
   };
 
   render() {
@@ -31,7 +56,7 @@ class CreateQualitySurvey extends Component {
                 <Field name="description" label="description" component={renderInput} validate={[required]}/>
                 <Row className="buttons-actions">
                   <Col lg={6}>
-                    <Button type="button" bsStyle="btn btn-action-button" onClick={() => isModalVisible(false, 'qualitysurvey.create')}>Annuler</Button>
+                    <Button type="button" bsStyle="btn btn-action-button" onClick={() => isModalVisible(false, QUALITY_SURVEY_MODAL)}>Annuler</Button>
                   </Col>
                   <Col lg={6}>
                     <Button type="submit" bsStyle="btn btn-action-button">Sauvegarder</Button>
@@ -48,12 +73,12 @@ class CreateQualitySurvey extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    isAuthenticated: state.auth.isLogged
+    form: state.form.Administration.qualitySurvey.create.values
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ isModalVisible }, dispatch);
+  return bindActionCreators({isModalVisible, getQualitySurveys}, dispatch);
 }
 
 export default reduxForm({
@@ -62,4 +87,4 @@ export default reduxForm({
     name: "",
     description: ""
   },
-})(withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateQualitySurvey)))
+})(withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateQualitySurveyModal)))

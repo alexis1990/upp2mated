@@ -8,7 +8,7 @@ import Modal from '../../components/Modal/'
 import Teams from './components/Teams/'
 import Users from './components/Users/'
 import QualitySurvey from './components/QualitySurvey/'
-import CreateQualitySurvey from './components/QualitySurvey/components/ManageQualitySurvey/components/CreateQualitySurvey';
+import CreateQualitySurvey, {QUALITY_SURVEY_MODAL} from './components/QualitySurvey/components/ManageQualitySurvey/components/CreateQualitySurvey';
 import Roles from './components/Roles/'
 import './styles/style.css'
 
@@ -18,7 +18,7 @@ class Administration extends Component {
     return (
       <Grid className="administration" fluid>
         <Modal isVisible={isVisible} component={<SelectSuppliersModal templateId={modalData}/>}/>
-        <Modal isVisible={isVisible} activeNameModal='qualitysurvey.create' component={<CreateQualitySurvey/>}/>
+        <Modal isVisible={isVisible} activeNameModal={QUALITY_SURVEY_MODAL} component={<CreateQualitySurvey/>}/>
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Row className="clearfix">
             <Col sm={4}>
