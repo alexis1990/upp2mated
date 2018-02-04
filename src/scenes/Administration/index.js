@@ -8,7 +8,7 @@ import Modal from '../../components/Modal/'
 import Teams from './components/Teams/'
 import Users from './components/Users/'
 import QualitySurvey from './components/QualitySurvey/'
-import CreateQualitySurvey, {QUALITY_SURVEY_MODAL} from './components/QualitySurvey/components/ManageQualitySurvey/components/CreateQualitySurvey';
+import CreateQualitySurvey, {QUALITY_SURVEY_MODAL} from './components/QualitySurvey/components/ManageQualitySurvey/components/CreateQualitySurveyModal';
 import Roles from './components/Roles/'
 import './styles/style.css'
 

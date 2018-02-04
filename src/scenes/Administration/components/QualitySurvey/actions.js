@@ -120,6 +120,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
 
 export function sendQualitySurvey(qualitySurvey, history) {
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
+
   return (dispatch) => {
     const qualitySurveyGlobalInformations = {
       name: qualitySurveyFormatedForAPI.name,
@@ -137,7 +138,7 @@ export function sendQualitySurvey(qualitySurvey, history) {
           resolve(qualitySurveyId);
         }, 500);
       })).then((qualitySurveyId) => {
-        return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 })
+        return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI })
       })
       .then((result) =>
         history.push('/administration')
@@ -147,8 +148,21 @@ export function sendQualitySurvey(qualitySurvey, history) {
 
 export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history) {
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
+  const {changeSetList} = qualitySurveyFormatedForAPI;
+  let action;
+  let changeSet;
+  if (changeSetList.length !== 0 && changeSetList[changeSetList.length - 1].id ) {
+    action = "update-changeset";
+    changeSet = changeSetList[changeSetList.length - 1];
+    changeSet.orderFormula = qualitySurveyFormatedForAPI.orderFormula;
+
+  } else {
+    action = "addchangeset";
+    changeSet = qualitySurveyFormatedForAPI;
+  }
+
   return (dispatch) => {
-    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI, version: 1 })
+    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, { ...changeSet})
     .then((result) =>{
       dispatch(displayToastr(true, "Modification enregistrée !", 'success'))
       history.push('/administration')
