@@ -30,17 +30,17 @@ export function getQualitySurveys(pageId) {
 
 export function getQualitySurveyForm(surveyParams) {
   return (dispatch) => {
-    let quality_survey = {
+    const quality_survey = {
       qualitySurveyForm:{},
       lastChangeSet: {}
-    }
+    };
     axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/v/${surveyParams.version}`)
       .then(qualitySurveyForm => {
-        quality_survey = {...quality_survey, qualitySurveyForm};
+        quality_survey.qualitySurveyForm = qualitySurveyForm;
         return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/last-changeset`);
       })
       .then(lastChangeSet => {
-        quality_survey = {...quality_survey, lastChangeSet};
+        quality_survey.lastChangeSet =  lastChangeSet;
         dispatch(loadQualitySurvey(quality_survey, false));
       })
   }

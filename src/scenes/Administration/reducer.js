@@ -203,6 +203,7 @@ export function administationReducer(state = initialState, action = action) {
 				qualitySurvey: {
 					...state.qualitySurvey, values: {
 						...state.qualitySurvey.values,
+            // TODO WIP
 						changeList: _.uniqBy(changeList.concat(action.payload), (change) => [change.about, change.aboutEntityId, change.action].join())
 					}
 				}
