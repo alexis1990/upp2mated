@@ -6,6 +6,8 @@ export function administationReducer(state = initialState, action = action) {
 	let type = '';
 
 	switch (action.type) {
+		case types.ACTIVE_TAB:
+		return { ...state, activeTab: action.payload }
 		case types.LOAD_TEAMS:
 			return { ...state, teams: action.payload }
 		case types.LOAD_TEAM_TO_MANAGE:

@@ -3,7 +3,7 @@ import { Grid, Row, Col, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { fetchSuppliers } from './actions'
+import { fetchSuppliers, deleteSupplier } from './actions'
 import { bindActionCreators } from 'redux'
 import { Table, ButtonGroup, Button, Glyphicon, Pagination } from 'react-bootstrap'
 import Spinner from '../../components/Spinner'
@@ -29,6 +29,11 @@ class Suppliers extends Component {
 		this.setState({
 			activePage: eventKey
 		});
+	}
+
+	removeSupplier(supplierId){
+		const { deleteSupplier } = this.props;
+		deleteSupplier(supplierId)
 	}
 
 	render() {
@@ -68,7 +73,7 @@ class Suppliers extends Component {
 											<ButtonGroup justified>
 												<Button className="action-button"><Link to={`/suppliers/${supplier.id}`}><Glyphicon glyph="eye-open" /></Link></Button>
 												<Button className="action-button"><Link to={`/suppliers/supplier/edit/${supplier.id}`}><Glyphicon glyph="pencil" /></Link></Button>
-												<Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
+												<Button className="action-button" onClick={() => this.removeSupplier(supplier.id)}><Glyphicon glyph="remove" /></Button>
 											</ButtonGroup>
 										</td>
 									</tr>
@@ -95,7 +100,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		fetchSuppliers
+		fetchSuppliers,
+		deleteSupplier
 	}, dispatch);
 }
 

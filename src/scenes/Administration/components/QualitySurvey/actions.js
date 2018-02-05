@@ -1,5 +1,6 @@
 import * as types from '../../actionTypes'
 import { displayToastr } from '../../../../components/Toastr/actions'
+import { isModalVisible } from '../../../../components/Modal/actions'
 import _ from 'lodash'
 import axios from 'axios'
 
@@ -207,10 +208,11 @@ export function sendQualitySurveyToSuppliers(selectedContacts, qualitySurveyId) 
   const reorganizeQSSelectedContacts = selectedContacts;
   return (dispatch) => {
     axios.post(`/u2m-api/v1/supplier-action/qq/update?qqIdList=${qualitySurveyId}`, reorganizeQSSelectedContacts)
-      .then((response) =>
-        console.log('REPONSEEE', response)
-      ).catch((reject) =>
-        console.log('ERRORR', reject)
+      .then((response) => {
+        dispatch(displayToastr(true, "Questionnaire Envoyé !", 'success'))
+        dispatch(isModalVisible(false))
+      }).catch((reject) =>
+        dispatch(displayToastr(true, "Impossible d'envoyer", 'error'))
       )
   }
 }

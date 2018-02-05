@@ -107,3 +107,16 @@ export function sendReply(qualitySurvey, templateId, supplierId) {
 		.catch((error)=> console.log('ERRRRRRRRRRRRRRR'))
 	}
 }
+
+export function deleteSupplier(supplierId) {
+	return (dispatch) => {
+		axios.delete(`/u2m-api/v1/suppliers/${supplierId}?supplierId=${supplierId}`)
+		.then((resolve) => {
+			dispatch({
+				type: types.REMOVE_SUPPLIER,
+				payload: supplierId
+			})
+		})
+		.catch((reject)=> console.log('REJJ'))
+	}
+}
