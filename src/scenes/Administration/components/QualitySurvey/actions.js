@@ -1,6 +1,6 @@
 import * as types from '../../actionTypes'
-import { displayToastr } from '../../../../components/Toastr/actions'
-import { isModalVisible } from '../../../../components/Modal/actions'
+import {displayToastr} from '../../../../components/Toastr/actions'
+import {isModalVisible} from '../../../../components/Modal/actions'
 import _ from 'lodash'
 import axios from 'axios'
 
@@ -30,14 +30,17 @@ export function getQualitySurveys(pageId) {
 
 export function getQualitySurveyForm(surveyParams) {
   return (dispatch) => {
-    let qqContent = [];
+    let quality_survey = {
+      qualitySurveyForm:{},
+      lastChangeSet: {}
+    }
     axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/v/${surveyParams.version}`)
-      .then((quality_survey) => {
-        qqContent = quality_survey;
-        return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}`);
+      .then(qualitySurveyForm => {
+        quality_survey = {...quality_survey, qualitySurveyForm};
+        return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/last-changeset`);
       })
-      .then((quality_survey) => {
-        quality_survey.sections = qqContent;
+      .then(lastChangeSet => {
+        quality_survey = {...quality_survey, lastChangeSet};
         dispatch(loadQualitySurvey(quality_survey, false));
       })
   }
@@ -88,8 +91,8 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
         return _.compact(arrayOne.concat(arrayTwo));
       }, [])
       .map((question, index) => {
-        if(!question.id) {
-          return { ...question, questionId: index + 1 }
+        if (!question.id) {
+          return {...question, questionId: index + 1}
         }
         return null;
       }))
@@ -100,10 +103,10 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
     return _.compact(sections
       .map((section, index) => {
         // if(console.log('SECTONNNN', section)) { //CHECK MODIFY SECTION CONTENT
-          return {
-            ...section,
-            sectionId: index + 1,
-          }
+        return {
+          ...section,
+          sectionId: index + 1,
+        }
         // }
         // return null;
       })
@@ -135,12 +138,12 @@ export function sendQualitySurvey(qualitySurvey, history) {
         return qualitySurveyId;
       })
       .then(qualitySurveyId => new Promise(resolve => {
-        setTimeout(function() {
+        setTimeout(function () {
           resolve(qualitySurveyId);
         }, 500);
       })).then((qualitySurveyId) => {
-        return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI })
-      })
+      return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, {...qualitySurveyFormatedForAPI})
+    })
       .then((result) =>
         history.push('/administration')
       ).catch((error) => console.log('ERROR', error))
@@ -152,7 +155,7 @@ export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history
   const {changeSetList} = qualitySurveyFormatedForAPI;
   let action;
   let changeSet;
-  if (changeSetList.length !== 0 && changeSetList[changeSetList.length - 1].id ) {
+  if (changeSetList.length !== 0 && changeSetList[changeSetList.length - 1].id) {
     action = "update-changeset";
     changeSet = changeSetList[changeSetList.length - 1];
     changeSet.orderFormula = qualitySurveyFormatedForAPI.orderFormula;
@@ -163,11 +166,11 @@ export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history
   }
 
   return (dispatch) => {
-    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, { ...changeSet})
-    .then((result) =>{
-      dispatch(displayToastr(true, "Modification enregistrée !", 'success'))
-      history.push('/administration')
-    }).catch((err) => {
+    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, {...changeSet})
+      .then((result) => {
+        dispatch(displayToastr(true, "Modification enregistrée !", 'success'))
+        history.push('/administration')
+      }).catch((err) => {
       dispatch(displayToastr(true, "Impossible de modifier", 'error'))
     })
   }
@@ -175,8 +178,8 @@ export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history
 
 export function editQualitySurvey(survey) {
   axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${survey.id}/editing`)
-  .then((response) => {
-  }).catch((reject) => {
+    .then((response) => {
+    }).catch((reject) => {
     console.log(reject)
   })
 }
@@ -184,12 +187,12 @@ export function editQualitySurvey(survey) {
 export function publishQualitySurvey(surveyId, history) {
   return (dispatch) => {
     axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyId}/publish`)
-      .then((response) =>{
+      .then((response) => {
         dispatch(displayToastr(true, "Publication enregistrée !", 'success'))
         history.push('/administration')
       }).catch((reject) => {
-        dispatch(displayToastr(true, "Impossible de publier", 'error'))
-      })
+      dispatch(displayToastr(true, "Impossible de publier", 'error'))
+    })
   }
 }
 
@@ -212,7 +215,7 @@ export function sendQualitySurveyToSuppliers(selectedContacts, qualitySurveyId) 
         dispatch(displayToastr(true, "Questionnaire Envoyé !", 'success'))
         dispatch(isModalVisible(false))
       }).catch((reject) =>
-        dispatch(displayToastr(true, "Impossible d'envoyer", 'error'))
-      )
+      dispatch(displayToastr(true, "Impossible d'envoyer", 'error'))
+    )
   }
 }
