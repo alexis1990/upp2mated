@@ -241,3 +241,10 @@ export function deleteMember(memberId) {
 		.catch((reject)=> console.log('REJJJJ'))
 	}
 }
+
+export function keepInMemoryActiveTab(tabIndex) {
+	return {
+		type: types.ACTIVE_TAB,
+		payload: tabIndex
+	}
+}
