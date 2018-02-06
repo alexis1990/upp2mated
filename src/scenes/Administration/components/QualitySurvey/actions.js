@@ -68,7 +68,8 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
 
     let orderFormula = '';
 
-    const sections = qualitySurvey.sections;
+    console.log("QUALITY SURVEY YEAHHHHH : ", qualitySurvey);
+    const sections = qualitySurvey.qualitySurveyForm;
     if (qualitySurvey.hasOwnProperty('sections')) {
       sections.forEach((section, index) => {
         orderFormula += createSectionNumberWord(index);
@@ -83,7 +84,8 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
   }
 
   function groupByQuestions(qualitySurvey) {
-    return _.compact(qualitySurvey.sections
+    console.log("qualitySurvey:", qualitySurvey)
+    return _.compact(qualitySurvey.qualitySurveyForm
       .map((survey) => {
         return survey.questions
       })
@@ -99,7 +101,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
   }
 
   function groupBySections(qualitySurvey) {
-    const sections = qualitySurvey.sections;
+    const sections = qualitySurvey.qualitySurveyForm;
     return _.compact(sections
       .map((section, index) => {
         // if(console.log('SECTONNNN', section)) { //CHECK MODIFY SECTION CONTENT
@@ -151,22 +153,22 @@ export function sendQualitySurvey(qualitySurvey, history) {
 }
 
 export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history) {
+  console.log("QUALITYSURVEYYEAHHHHH:", qualitySurvey);
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
-  const {changeSetList} = qualitySurveyFormatedForAPI;
+  const {lastChangeSet} = qualitySurveyFormatedForAPI;
   let action;
-  let changeSet;
-  if (changeSetList.length !== 0 && changeSetList[changeSetList.length - 1].id) {
+  console.log("qualitySurveyFormatedForAPI: ", qualitySurveyFormatedForAPI);
+  if (lastChangeSet.id) {
     action = "update-changeset";
-    changeSet = changeSetList[changeSetList.length - 1];
-    changeSet.orderFormula = qualitySurveyFormatedForAPI.orderFormula;
-
+    lastChangeSet.orderFormula = qualitySurveyFormatedForAPI.orderFormula;
   } else {
     action = "addchangeset";
-    changeSet = qualitySurveyFormatedForAPI;
   }
 
+  console.log("LASTCHANGE:", lastChangeSet);
+
   return (dispatch) => {
-    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, {...changeSet})
+    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, {...lastChangeSet})
       .then((result) => {
         dispatch(displayToastr(true, "Modification enregistrée !", 'success'))
         history.push('/administration')

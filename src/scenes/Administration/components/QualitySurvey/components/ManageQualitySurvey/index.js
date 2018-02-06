@@ -69,7 +69,7 @@ class ManageQualitySurvey extends Component {
             </Row>
           </Col>
           <Col lg={8} className="form-creation">
-            <FieldArray name="sections" component={Section} dragSource="SECTION" dropTarget="SECTION"/>
+            <FieldArray name="qualitySurveyForm" component={Section} dragSource="SECTION" dropTarget="SECTION"/>
           </Col>
         </Form>
       </div>
