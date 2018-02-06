@@ -104,7 +104,9 @@ ManageQualitySurvey = connect(
 export default reduxForm({
   form: 'Administration.qualitySurvey',
   initialValues: {
-    changeList: [],
+    lastChangeSet: {
+      changeList: []
+    },
     sections: [],
     questions: []
   },
