@@ -1,6 +1,5 @@
 import React from 'react'
-import { Col, Button, Glyphicon } from 'react-bootstrap'
-import { FieldArray, Field } from 'redux-form'
+import {Field, FieldArray} from 'redux-form'
 import renderInput from '../../../../../../components/Fields/input'
 import StaticBlockWrapperHOC from '../../../../../../components/DraggableHOC/'
 import DraggableContainerWrapperHOC from '../../../../../../components/DraggableHOC/components/DraggableElement'

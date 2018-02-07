@@ -38,7 +38,7 @@ class TeamsList extends Component {
                     </thead>
                     <tbody>
                         {teams.map((team) => (
-                            <tr>
+                            <tr key={team.id}>
                                 {checkboxOption ?
                                     <td width='10%' className="select-user">
                                         <input type="checkbox" name="selected" onChange={() => manageTeams({ ...team, type: type })} checked={this.selectedMembers(team)} />

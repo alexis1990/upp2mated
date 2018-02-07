@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { Row, Col, Table, ButtonGroup, Button, ButtonToolbar, Pagination, Glyphicon } from 'react-bootstrap'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { withRouter, Link, Route } from 'react-router-dom'
+import React, {Component} from 'react'
+import {Button, Col, Glyphicon, Row} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {Link} from 'react-router-dom'
 import Spinner from '../../../../components/Spinner'
 import TeamsList from './components/TeamsList/'
-import { fetchTeams } from '../../actions'
+import {fetchTeams} from '../../actions'
 
 class Teams extends Component {
 	componentWillMount() {

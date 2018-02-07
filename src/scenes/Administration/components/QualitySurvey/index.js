@@ -71,7 +71,7 @@ class QualitySurveys extends Component {
             </thead>
             <tbody>
             {qualitySurveys.content.map((survey) => (
-              <tr>
+              <tr key={survey.id}>
                 <td width="20%">{survey.name}</td>
                 <td width="20%">{survey.description}</td>
                 <td width="10%" className="align-center"> {survey.editedVersion}</td>

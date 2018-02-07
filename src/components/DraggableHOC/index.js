@@ -1,11 +1,8 @@
-import React, { Component } from 'react'
-import { DragSource, DropTarget } from 'react-dnd';
-import renderInput from '../Fields/input'
-import { addChangeSet } from './actions'
-import { Row, Col, Button, Glyphicon } from 'react-bootstrap'
-import { Field, reduxForm, FieldArray,  arrayPush, arrayMove, arrayRemove, arraySplice } from 'redux-form'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, {Component} from 'react'
+import {addChangeSet} from './actions'
+import {Button} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import './styles/style.css'
 
 

@@ -26,7 +26,6 @@ export default function requireAuthentication(Component) {
             if (isRefreshingPage(isAuthenticated)) {
                 if(token){
                     authentication(true);
-                    console.log('REDIRECTT',redirectAfterLogin(location) )
                     history.push(`${redirectAfterLogin(location)}`);
                 }
                 if(!token) {

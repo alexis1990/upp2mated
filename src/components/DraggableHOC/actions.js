@@ -1,5 +1,4 @@
 import * as types from './actionTypes'
-import axios from 'axios'
 
 
 export function addChangeSet(draggableElementId, draggableElementType, draggableElementAction) {

@@ -26,7 +26,7 @@ class Roles extends Component {
                     </thead>
                     <tbody>
                         {roles.map((role) => (
-                            <tr>
+                            <tr key={role.id}>
                                 <td width="40%">{role.label}</td>
                                 <td width="30%">{role.description}</td>
                                 <td className="actions" width="30%">
@@ -47,7 +47,6 @@ class Roles extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('ROLLLLLLLL', state)
     return {
         roles: state.form.Administration.authorization.roles
     }

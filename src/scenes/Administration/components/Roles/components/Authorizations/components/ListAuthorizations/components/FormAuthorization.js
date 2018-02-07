@@ -1,11 +1,8 @@
-import React, { Component } from 'react'
-import { Col, Button, Form, Glyphicon } from 'react-bootstrap'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import Select from '../../../../../../../../../components/Fields/select'
+import React from 'react'
+import {Button, Col, Form, Glyphicon} from 'react-bootstrap'
 import renderInput from '../../../../../../../../../components/Fields/input'
-import { Field, reduxForm } from 'redux-form'
-import { postRowAuthorization } from '../../../../../../../actions'
+import {Field, reduxForm} from 'redux-form'
+import {postRowAuthorization} from '../../../../../../../actions'
 
 let RowAuthorizations = (props) => {
 	const { handleSubmit, name, role } = props;

@@ -3,7 +3,6 @@ import * as types from './actionTypes'
 const newField = {};
 
 export function providersReducer(state = initialState, action = action) {
-	console.log('ACTTTTION',  state.values.consultationSupplierList)
 	switch(action.type) {
 		case types.ADD_PROVIDERS_FIELD:
 		return {
@@ -23,7 +22,7 @@ export function providersReducer(state = initialState, action = action) {
 					supplierPresence: false,
 				}]
 			}
-		}
+		};
 		case types.REMOVE_PROVIDERS_FIELD:
 		return {
 			...state,
@@ -31,7 +30,7 @@ export function providersReducer(state = initialState, action = action) {
 				...state.values,
 				consultationSupplierList: state.values.consultationSupplierList.filter((item, key )=> key !== action.payload)
 			}
-		}
+		};
 		case types.ADD_NEW_PROVIDER:
 		return {
 			...state,
@@ -39,7 +38,7 @@ export function providersReducer(state = initialState, action = action) {
 				...state.values,
 				listProviders: state.values.listProviders.concat(action.payload)
 			}
-		}
+		};
 		default:
 		return state;
 	}

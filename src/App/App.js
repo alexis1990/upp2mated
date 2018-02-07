@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link, withRouter } from 'react-router-dom'
+import {Route, Switch, withRouter} from 'react-router-dom'
 import requireAuthentication from '../routes/restrictedRoutes/index'
 import restrictedNoRegisterSupplierRoutes from '../routes/restrictedSupplierRoutes/'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import Identification from '../scenes/Consultations/identification/index'
 import Authentication from '../scenes/Authentication/index'
 import Consultations from '../scenes/Consultations/'
@@ -29,11 +29,10 @@ import ManageQualitySurvey from '../scenes/Administration/components/QualitySurv
 import KitUi from '../scenes/KitUi/index'
 import Header from '../components/Header/index'
 import SubHeader from '../components/SubHeader/index'
-import Modal from '../components/Modal/index'
 import Toastr from '../components/Toastr/'
 import 'react-datasheet/lib/react-datasheet.css';
 
-import { DragDropContext } from 'react-dnd';
+import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import withScrolling from 'react-dnd-scrollzone';
 
@@ -49,7 +48,7 @@ const steps = {
       { id: 7, component: <Confirmation />, title: 'Confirmation' },
     ]
   }
-}
+};
 
 const ScrollingComponent = withScrolling('div');
 const App = ({ isAuthenticated }) => (
