@@ -84,7 +84,9 @@ function mapDispatchToProps(dispatch) {
 export default reduxForm({
   form: 'Administration.qualitySurvey.create',
   initialValues: {
-    name: "",
-    description: ""
+    values: {
+      name: "",
+      description: ""
+    }
   },
 })(withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateQualitySurveyModal)))
