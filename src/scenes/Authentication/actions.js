@@ -32,7 +32,7 @@ export function authenticate(identifiers, history) {
 		.then(function (response) {
 			saveInfosInSessionStorage(response)
 			dispatch(authenticationSuccess(response))
-			history.push('/consultations/1')
+			history.push('/dashboard')
 		})
 		.catch(function (error) {
 			console.log('ERRORRR', error)

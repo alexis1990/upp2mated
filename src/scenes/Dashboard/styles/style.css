@@ -1,0 +1,46 @@
+.dashboard .date {
+  text-transform: capitalize; }
+
+.dashboard .box {
+  padding: 10px; }
+  .dashboard .box .buttons-row {
+    margin-bottom: 11px; }
+    .dashboard .box .buttons-row button {
+      width: auto;
+      height: 25px;
+      background: inherit;
+      background-color: #0189a9;
+      border: none;
+      border-radius: 5px;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      font-family: 'Khand-Regular', 'Khand';
+      font-weight: 400;
+      font-style: normal;
+      font-size: 14px;
+      padding-top: 3px; }
+      .dashboard .box .buttons-row button a {
+        color: white; }
+
+.dashboard .react-bs-container-header .table {
+  margin-bottom: 0; }
+  .dashboard .react-bs-container-header .table tr th {
+    border-style: hidden !important;
+    border-bottom: dotted 1px black !important; }
+
+.dashboard .react-bs-container-body .table {
+  border-style: hidden !important; }
+  .dashboard .react-bs-container-body .table tbody {
+    border-style: hidden !important; }
+    .dashboard .react-bs-container-body .table tbody tr {
+      border-style: hidden !important;
+      border-left-width: 0; }
+      .dashboard .react-bs-container-body .table tbody tr td {
+        border-style: hidden !important;
+        border-left-width: 0; }
+        .dashboard .react-bs-container-body .table tbody tr td .consultations-progress-bar {
+          -webkit-transition: all 0.2s ease-in;
+          -moz-transition: all 0.2s ease-in;
+          -o-transition: all 0.2s ease-in;
+          transition: all 0.2s ease-in; }
