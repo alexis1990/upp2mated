@@ -59,7 +59,7 @@ class ManageQualitySurvey extends Component {
             <h3>{name}</h3>
             <p>{description}</p>
             <div>Version modifiée : {editedVersion}</div>
-            <div>Dernière version publiée : {publishedVersion ? "Aucune" : publishedVersion}</div>
+            <div>Dernière version publiée : {publishedVersion ? publishedVersion : "Aucune"}</div>
             <Row className="buttons-actions">
               <Col lg={6}>
                 <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.publishTemplate(id)}>Publier</Button>
