@@ -9,7 +9,9 @@ class SubHeader extends PureComponent {
 			<Navbar className="subheader" inverse collapseOnSelect fluid={true}>
 				<Navbar.Collapse>
 					<Nav pullLeft>
-				      	<NavItem eventKey={1}><Glyphicon glyph="dashboard" />dashboard</NavItem>
+				      	<NavItem eventKey={1}><Glyphicon glyph="dashboard" />
+						  <Link to="/dashboard">Dashboard</Link>
+						</NavItem>
 				      	<NavItem eventKey={1}>
 					      	<Glyphicon glyph="dashboard" />
 					      	<Link to="/suppliers">Fournisseurs</Link>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link, withRouter } from 'react-
 import requireAuthentication from '../routes/restrictedRoutes/index'
 import restrictedNoRegisterSupplierRoutes from '../routes/restrictedSupplierRoutes/'
 import { connect } from 'react-redux'
+import Dashboard from '../scenes/Dashboard/index'
 import Identification from '../scenes/Consultations/identification/index'
 import Authentication from '../scenes/Authentication/index'
 import Consultations from '../scenes/Consultations/'
@@ -67,6 +68,7 @@ const App = ({ isAuthenticated }) => (
       <Switch>
       <ScrollingComponent className="App">
         <Route exact path="/" component={Authentication} />
+        <Route exact path="/dashboard" component={requireAuthentication(Dashboard)} />
         <Route path="/consultations" component={({ match }) => (
           <div>
             <Route path={`${match.url}/:stepId`} component={requireAuthentication(({ match }) => (
