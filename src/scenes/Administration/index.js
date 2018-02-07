@@ -46,7 +46,7 @@ class Administration extends Component {
 							</Nav>
 						</Col>
 						<Col sm={8}>
-							<Tab.Content animation>
+							<Tab.Content animation unmountOnExit>
 								<Tab.Pane eventKey="first">
 									<Teams />
 								</Tab.Pane>
