@@ -24,7 +24,7 @@ class ManageQualitySurvey extends Component {
     const surveyParams = {
       version: match.params.version,
       id: match.params.id
-    }
+    };
     if (!!surveyParams.id) {
       getQualitySurveyForm(surveyParams);
     }
