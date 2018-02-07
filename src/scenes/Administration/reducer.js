@@ -7,11 +7,10 @@ export function administationReducer(state = initialState, action = action) {
 
   switch (action.type) {
     case types.ACTIVE_TAB:
-      return {...state, activeTab: action.payload}
+      return {...state, activeTab: action.payload};
     case types.LOAD_TEAMS:
-      return {...state, teams: action.payload}
+      return {...state, teams: action.payload};
     case types.LOAD_TEAM_TO_MANAGE:
-      console.log('TEEEEEEE', action.payload)
       return {
         ...state,
         manageTeam: {
@@ -24,16 +23,16 @@ export function administationReducer(state = initialState, action = action) {
           },
           isLoading: action.payload.isLoading
         }
-      }
+      };
     case types.LOAD_TEAM:
       return {
         ...state,
         team: action.payload
-      }
+      };
     case types.LOAD_USERS:
-      return {...state, users: action.payload}
+      return {...state, users: action.payload};
     case types.LOAD_USER:
-      return {...state, user: action.payload}
+      return {...state, user: action.payload};
     case types.LOAD_USER_TO_MANAGE:
       return {
         ...state,
@@ -42,7 +41,7 @@ export function administationReducer(state = initialState, action = action) {
           values: action.payload.data,
           isLoading: action.payload.isLoading
         }
-      }
+      };
     case types.ADD_MEMBER:
       return {
         ...state,
@@ -52,7 +51,7 @@ export function administationReducer(state = initialState, action = action) {
             teamMembers: state.manageTeam.values.teamMembers.concat(action.payload)
           }
         }
-      }
+      };
     case types.REMOVE_MEMBER:
       return {
         ...state,
@@ -62,7 +61,7 @@ export function administationReducer(state = initialState, action = action) {
             teamMembers: state.manageTeam.values.teamMembers.filter((x) => x.id !== action.payload.id)
           }
         }
-      }
+      };
     case types.REMOVE_MEMBER_LIST:
       return {
         ...state,
@@ -72,7 +71,7 @@ export function administationReducer(state = initialState, action = action) {
             content: state.users.data.content.filter((x) => x.id !== action.payload)
           }
         }
-      }
+      };
     case types.ADD_TEAM_CREATION:
       return {
         ...state,
@@ -82,7 +81,7 @@ export function administationReducer(state = initialState, action = action) {
             teamList: state.manageUser.values.teamList.concat(action.payload)
           }
         }
-      }
+      };
     case types.REMOVE_TEAM_CREATION:
       return {
         ...state,
@@ -92,39 +91,39 @@ export function administationReducer(state = initialState, action = action) {
             teamList: state.manageUser.values.teamList.filter((x) => x.id !== action.payload.id)
           }
         }
-      }
+      };
     case types.REMOVE_TEAM_LIST:
       return {
         ...state,
         teams: {
           ...state.teams, data: state.teams.data.filter((x) => x.id !== action.payload)
         }
-      }
+      };
     case types.LOAD_RESPONSIBILITIES:
       return {
         ...state, authorization: {
           ...state.authorization, responsibilities: action.payload
         }
-      }
+      };
     case types.LOAD_SCOPES:
       return {
         ...state, authorization: {
           ...state.authorization, scopes: action.payload
         }
-      }
+      };
     case types.LOAD_ROLES:
       return {
         ...state, authorization: {
           ...state.authorization, roles: action.payload
         }
-      }
+      };
     case types.LOAD_ROLE:
 
       return {
         ...state, manageRoles: {
           ...state.authorization.manageRoles, values: action.payload
         }
-      }
+      };
     case types.ADD_TEAM_AUHORIZATION_LIST:
       type = action.payload.type;
       console.log('ACTIPN', action.payload)
@@ -136,7 +135,7 @@ export function administationReducer(state = initialState, action = action) {
             teams: state.authorization[type].teams.concat({team: {values: action.payload}})
           }
         }
-      }
+      };
     case types.REMOVE_TEAM_AUHORIZATION_LIST:
       type = action.payload.type;
       return {
@@ -147,7 +146,7 @@ export function administationReducer(state = initialState, action = action) {
             teams: state.authorization[type].teams.filter((x) => x.team.values.id !== action.payload.id)
           }
         }
-      }
+      };
     case types.ADD_USER_AUHORIZATION_LIST:
       type = action.payload.type;
       return {
@@ -158,7 +157,7 @@ export function administationReducer(state = initialState, action = action) {
             users: state.authorization[type].users.concat({user: {values: action.payload}})
           }
         }
-      }
+      };
     case types.REMOVE_USER_AUHORIZATION_LIST:
       type = action.payload.type;
       return {
@@ -169,7 +168,7 @@ export function administationReducer(state = initialState, action = action) {
             users: state.authorization[type].users.filter((x) => x.user.values.id !== action.payload.id)
           }
         }
-      }
+      };
     case types.RESET_AUHORIZATION_LIST:
       return {
         ...state,
@@ -181,25 +180,24 @@ export function administationReducer(state = initialState, action = action) {
             teams: []
           }
         }
-      }
+      };
     case types.LOAD_QUALITY_SURVEYS:
       return {
         ...state,
         qualitySurveys: {
           ...state.qualitySurveys, values: action.payload
         }
-      }
+      };
     case types.LOAD_QUALITY_SURVEY:
       return {
         ...state,
         qualitySurvey: {
-          ...state.qualitySurvey, values: {...action.payload}
+          ...state.qualitySurvey,
+          values: {...action.payload}
         }
-      }
+      };
     case types.ADD_CHANGE_SET:
       const {changeList} = state.qualitySurvey.values.lastChangeSet;
-      console.log("CHANGELIST: ", changeList)
-      console.log("ACTION.PAYLOAD: ", action.payload)
       return {
         ...state,
         qualitySurvey: {
@@ -211,7 +209,7 @@ export function administationReducer(state = initialState, action = action) {
             }
           }
         }
-      }
+      };
     default:
       return state;
   }

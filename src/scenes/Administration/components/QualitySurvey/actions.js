@@ -31,7 +31,7 @@ export function getQualitySurveys(pageId) {
 export function getQualitySurveyForm(surveyParams) {
   return (dispatch) => {
     const quality_survey = {
-      qualitySurveyForm:{},
+      qualitySurveyForm: {},
       lastChangeSet: {}
     };
     axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/v/${surveyParams.version}`)
@@ -40,7 +40,7 @@ export function getQualitySurveyForm(surveyParams) {
         return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/last-changeset`);
       })
       .then(lastChangeSet => {
-        quality_survey.lastChangeSet =  lastChangeSet;
+        quality_survey.lastChangeSet = lastChangeSet;
         dispatch(loadQualitySurvey(quality_survey, false));
       })
   }
@@ -53,7 +53,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
   }
 
   function removeDuplicateChange(qualitySurvey) {
-    return _.uniqWith(qualitySurvey.changeList, _.isEqual)
+    return _.uniqWith(qualitySurvey.lastChangeSet.changeList, _.isEqual)
   }
 
   function createOrderFormula(qualitySurvey) {
@@ -70,21 +70,20 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
 
     console.log("QUALITY SURVEY YEAHHHHH : ", qualitySurvey);
     const sections = qualitySurvey.qualitySurveyForm;
-    if (qualitySurvey.hasOwnProperty('sections')) {
-      sections.forEach((section, index) => {
-        orderFormula += createSectionNumberWord(index);
-        if (section.questions) {
-          section.questions.forEach((question, index) => {
-            orderFormula += createQuestionNumberWord(index);
-          })
-        }
-      })
-    }
+
+    sections.forEach((section, index) => {
+      orderFormula += createSectionNumberWord(index);
+      if (section.questions) {
+        section.questions.forEach((question, index) => {
+          orderFormula += createQuestionNumberWord(index);
+        })
+      }
+    });
+
     return orderFormula;
   }
 
   function groupByQuestions(qualitySurvey) {
-    console.log("qualitySurvey:", qualitySurvey)
     return _.compact(qualitySurvey.qualitySurveyForm
       .map((survey) => {
         return survey.questions
@@ -94,9 +93,12 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
       }, [])
       .map((question, index) => {
         if (!question.id) {
-          return {...question, questionId: index + 1}
+          return {
+            ...question,
+            questionId: index + 1
+          }
         }
-        return null;
+        return question;
       }))
   }
 
@@ -107,7 +109,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
         // if(console.log('SECTONNNN', section)) { //CHECK MODIFY SECTION CONTENT
         return {
           ...section,
-          sectionId: index + 1,
+          sectionId: index + 1
         }
         // }
         // return null;
@@ -116,8 +118,8 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
   }
 
   return {
-    ...omitQQId(qualitySurvey),
-    changeList: removeDuplicateChange(qualitySurvey),
+    ...qualitySurvey.lastChangeSet,
+    changeList: _.orderBy(removeDuplicateChange(qualitySurvey), 'id'),
     orderFormula: createOrderFormula(qualitySurvey),
     questions: groupByQuestions(qualitySurvey),
     sections: groupBySections(qualitySurvey),
@@ -127,11 +129,11 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
 export function sendQualitySurvey(qualitySurvey, history) {
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
 
-  return (dispatch) => {
+  return dispatch => {
     const qualitySurveyGlobalInformations = {
       name: qualitySurveyFormatedForAPI.name,
       description: qualitySurveyFormatedForAPI.description,
-    }
+    };
     axios.post('/u2m-api/v1/suppliers/template/qualityquestionnaire/', qualitySurveyGlobalInformations)
       .then((qualitySurvey) => {
         const qualitySurveyId = qualitySurvey.id;
@@ -154,21 +156,19 @@ export function sendQualitySurvey(qualitySurvey, history) {
 
 export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history) {
   console.log("QUALITYSURVEYYEAHHHHH:", qualitySurvey);
-  const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
-  const {lastChangeSet} = qualitySurveyFormatedForAPI;
+  const changeSetFormatedForApi = formatQualitySurveyToChangeSet(qualitySurvey);
   let action;
-  console.log("qualitySurveyFormatedForAPI: ", qualitySurveyFormatedForAPI);
-  if (lastChangeSet.id) {
+  console.log("changeSetFormatedForApi: ", changeSetFormatedForApi);
+  if (changeSetFormatedForApi.id) {
     action = "update-changeset";
-    lastChangeSet.orderFormula = qualitySurveyFormatedForAPI.orderFormula;
   } else {
     action = "addchangeset";
   }
 
-  console.log("LASTCHANGE:", lastChangeSet);
+  console.log("LASTCHANGE:", changeSetFormatedForApi);
 
   return (dispatch) => {
-    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, {...lastChangeSet})
+    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, {...changeSetFormatedForApi})
       .then((result) => {
         dispatch(displayToastr(true, "Modification enregistrée !", 'success'))
         history.push('/administration')
