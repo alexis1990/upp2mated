@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import {Button, Col, Row} from 'react-bootstrap'
-import {Field, FieldArray, Form, reduxForm} from 'redux-form'
+import {FieldArray, Form, reduxForm} from 'redux-form'
 import {withRouter} from 'react-router-dom'
 
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
 import Section from './components/SectionQualitySurvey/'
-import renderInput from '../../../../../../components/Fields/input'
 
 import {getQualitySurveyForm, publishQualitySurvey, sendEditingQualitySurvey, sendQualitySurvey} from '../../actions'
 import './styles/style.css'
@@ -25,6 +24,7 @@ class ManageQualitySurvey extends Component {
       version: match.params.version,
       id: match.params.id
     };
+
     if (!!surveyParams.id) {
       getQualitySurveyForm(surveyParams);
     }
@@ -33,10 +33,10 @@ class ManageQualitySurvey extends Component {
 
   sendQualitySurvey(survey) {
     const {sendQualitySurvey, sendEditingQualitySurvey, match, history} = this.props;
-    const surveyId = match.params.id;
+    const surveyTemplateId = match.params.id;
 
-    if (!!surveyId) {
-      sendEditingQualitySurvey(survey, surveyId, history);
+    if (!!surveyTemplateId) {
+      sendEditingQualitySurvey(survey, surveyTemplateId, history);
     } else {
       sendQualitySurvey(survey, history);
     }
@@ -48,7 +48,8 @@ class ManageQualitySurvey extends Component {
   }
 
   render() {
-    const {name, description, editedVersion, publishedVersion, templateId, handleSubmit, pristine, reset, submitting, match} = this.props;
+    const {id, name, description, editedVersion, publishedVersion} = this.props.surveyTemplateDetails;
+    const {handleSubmit} = this.props;
 
     return (
       <div>
@@ -61,7 +62,7 @@ class ManageQualitySurvey extends Component {
             <div>Dernière version publiée : {publishedVersion ? "Aucune" : publishedVersion}</div>
             <Row className="buttons-actions">
               <Col lg={6}>
-                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.publishTemplate(templateId)}>Publier</Button>
+                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.publishTemplate(id)}>Publier</Button>
               </Col>
               <Col lg={6}>
                 <Button type="submit" bsStyle="btn btn-action-button">Sauvegarder cette version</Button>
@@ -79,11 +80,7 @@ class ManageQualitySurvey extends Component {
 
 function mapStateToProps(state) {
   return {
-    templateId: state.form.Administration.qualitySurvey.values.id,
-    editedVersion: state.form.Administration.qualitySurvey.values.editedVersion,
-    publishedVersion: state.form.Administration.qualitySurvey.values.publishedVersion,
-    name: state.form.Administration.qualitySurvey.values.name,
-    description: state.form.Administration.qualitySurvey.values.description
+    surveyTemplateDetails: state.form.Administration.qualitySurvey.values.details
   }
 }
 
@@ -107,7 +104,6 @@ export default reduxForm({
     lastChangeSet: {
       changeList: []
     },
-    sections: [],
-    questions: []
+    details: {}
   },
 })(withRouter(ManageQualitySurvey))

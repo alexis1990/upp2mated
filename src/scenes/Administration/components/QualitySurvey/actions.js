@@ -32,9 +32,15 @@ export function getQualitySurveyForm(surveyParams) {
   return (dispatch) => {
     const quality_survey = {
       qualitySurveyForm: {},
-      lastChangeSet: {}
+      lastChangeSet: {},
+      details: {}
     };
-    axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/v/${surveyParams.version}`)
+
+    axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}`)
+      .then(qualitySurveyDetails => {
+        quality_survey.details = qualitySurveyDetails;
+        return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/v/${surveyParams.version}`);
+      })
       .then(qualitySurveyForm => {
         quality_survey.qualitySurveyForm = qualitySurveyForm;
         return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${surveyParams.id}/last-changeset`);
@@ -42,7 +48,7 @@ export function getQualitySurveyForm(surveyParams) {
       .then(lastChangeSet => {
         quality_survey.lastChangeSet = lastChangeSet;
         dispatch(loadQualitySurvey(quality_survey, false));
-      })
+      });
   }
 }
 
@@ -68,7 +74,6 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
 
     let orderFormula = '';
 
-    console.log("QUALITY SURVEY YEAHHHHH : ", qualitySurvey);
     const sections = qualitySurvey.qualitySurveyForm;
 
     sections.forEach((section, index) => {
