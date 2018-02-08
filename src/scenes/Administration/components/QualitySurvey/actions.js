@@ -166,17 +166,13 @@ export function sendQualitySurvey(qualitySurvey, history) {
 }
 
 export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history) {
-  console.log("QUALITYSURVEYYEAHHHHH:", qualitySurvey);
   const changeSetFormatedForApi = formatQualitySurveyToChangeSet(qualitySurvey);
   let action;
-  console.log("changeSetFormatedForApi: ", changeSetFormatedForApi);
   if (changeSetFormatedForApi.id) {
     action = "update-changeset";
   } else {
     action = "addchangeset";
   }
-
-  console.log("LASTCHANGE:", changeSetFormatedForApi);
 
   return (dispatch) => {
     axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, {...changeSetFormatedForApi})

@@ -1,38 +1,33 @@
-import React, {Component} from 'react'
-import {Button, Col, Row} from 'react-bootstrap'
-import {FieldArray, Form, reduxForm} from 'redux-form'
-import {withRouter} from 'react-router-dom'
+import React, { Component } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { FieldArray, Form, reduxForm } from 'redux-form';
+import { withRouter } from 'react-router-dom';
 
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import Section from './components/SectionQualitySurvey/'
+import Section from './components/SectionQualitySurvey/';
 
-import {getQualitySurveyForm, publishQualitySurvey, sendEditingQualitySurvey, sendQualitySurvey} from '../../actions'
-import './styles/style.css'
+import { getQualitySurveyForm, publishQualitySurvey, sendEditingQualitySurvey, sendQualitySurvey } from '../../actions';
+import './styles/style.css';
 
-const required = value => value ? undefined : ' '
+const required = value => value ? undefined : ' ';
 
 class ManageQualitySurvey extends Component {
-  constructor() {
-    super();
-  }
-
   componentWillMount() {
-    const {getQualitySurveyForm, match} = this.props;
+    const { getQualitySurveyForm, match } = this.props;
     const surveyParams = {
       version: match.params.version,
-      id: match.params.id
+      id: match.params.id,
     };
 
-    if (!!surveyParams.id) {
+    if (surveyParams.id) {
       getQualitySurveyForm(surveyParams);
     }
-
   }
 
   sendQualitySurvey(survey) {
-    const {sendQualitySurvey, sendEditingQualitySurvey, match, history} = this.props;
+    const { sendQualitySurvey, sendEditingQualitySurvey, match, history } = this.props;
     const surveyTemplateId = match.params.id;
 
     if (!!surveyTemplateId) {
@@ -43,13 +38,13 @@ class ManageQualitySurvey extends Component {
   }
 
   publishTemplate(templateId) {
-    const {publishQualitySurvey, history} = this.props;
+    const { publishQualitySurvey, history } = this.props;
     publishQualitySurvey(templateId, history);
   }
 
   render() {
-    const {id, name, description, editedVersion, publishedVersion} = this.props.surveyTemplateDetails;
-    const {handleSubmit} = this.props;
+    const { id, name, description, editedVersion, publishedVersion } = this.props.surveyTemplateDetails;
+    const { handleSubmit } = this.props;
 
     return (
       <div>
@@ -59,7 +54,7 @@ class ManageQualitySurvey extends Component {
             <h3>{name}</h3>
             <p>{description}</p>
             <div>Version modifiée : {editedVersion}</div>
-            <div>Dernière version publiée : {publishedVersion ? publishedVersion : "Aucune"}</div>
+            <div>Dernière version publiée : {publishedVersion || 'Aucune'}</div>
             <Row className="buttons-actions">
               <Col lg={6}>
                 <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.publishTemplate(id)}>Publier</Button>
@@ -74,23 +69,23 @@ class ManageQualitySurvey extends Component {
           </Col>
         </Form>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     surveyTemplateDetails: state.form.Administration.qualitySurvey.values.details
-  }
+  };
 }
 
 function mapDispatchToProps(state) {
-  return (dispatch) => bindActionCreators({
+  return dispatch => bindActionCreators({
     getQualitySurveyForm,
     sendQualitySurvey,
     sendEditingQualitySurvey,
-    publishQualitySurvey
-  }, dispatch)
+    publishQualitySurvey,
+  }, dispatch);
 }
 
 ManageQualitySurvey = connect(
@@ -102,8 +97,8 @@ export default reduxForm({
   form: 'Administration.qualitySurvey',
   initialValues: {
     lastChangeSet: {
-      changeList: []
+      changeList: [],
     },
-    details: {}
+    details: {},
   },
-})(withRouter(ManageQualitySurvey))
+})(withRouter(ManageQualitySurvey));

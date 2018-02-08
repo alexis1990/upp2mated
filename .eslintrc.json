@@ -2,18 +2,22 @@
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "experimentalObjectRestSpread": true
     }
   },
   "plugins": [
     "react"
   ],
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
+    "airbnb"
   ],
   "rules": {
-    "no-set-state": "off"
+    "no-set-state": "off",
+    // todo rules to enable later
+    "react/jsx-filename-extension": "off",
+    "no-shadow": "off",
+    "react/prop-types": "off",
+    "object-curly-newline": "off"
   }
-
 }
