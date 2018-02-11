@@ -18,6 +18,7 @@
     "react/jsx-filename-extension": "off",
     "no-shadow": "off",
     "react/prop-types": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "max-len": "off"
   }
 }
