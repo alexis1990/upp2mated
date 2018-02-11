@@ -11,7 +11,7 @@ import Section from './components/SectionQualitySurvey/';
 import { getQualitySurveyForm, publishQualitySurvey, sendEditingQualitySurvey, sendQualitySurvey } from '../../actions';
 import './styles/style.css';
 
-const required = value => value ? undefined : ' ';
+const required = value => (value ? undefined : ' ');
 
 class ManageQualitySurvey extends Component {
   componentWillMount() {
@@ -30,7 +30,7 @@ class ManageQualitySurvey extends Component {
     const { sendQualitySurvey, sendEditingQualitySurvey, match, history } = this.props;
     const surveyTemplateId = match.params.id;
 
-    if (!!surveyTemplateId) {
+    if (surveyTemplateId) {
       sendEditingQualitySurvey(survey, surveyTemplateId, history);
     } else {
       sendQualitySurvey(survey, history);
@@ -65,7 +65,7 @@ class ManageQualitySurvey extends Component {
             </Row>
           </Col>
           <Col lg={8} className="form-creation">
-            <FieldArray name="qualitySurveyForm" component={Section} dragSource="SECTION" dropTarget="SECTION"/>
+            <FieldArray name="qualitySurveyForm" component={Section} dragSource="SECTION" dropTarget="SECTION" />
           </Col>
         </Form>
       </div>
@@ -75,7 +75,7 @@ class ManageQualitySurvey extends Component {
 
 function mapStateToProps(state) {
   return {
-    surveyTemplateDetails: state.form.Administration.qualitySurvey.values.details
+    surveyTemplateDetails: state.form.Administration.qualitySurvey.values.details,
   };
 }
 
@@ -90,7 +90,7 @@ function mapDispatchToProps(state) {
 
 ManageQualitySurvey = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ManageQualitySurvey);
 
 export default reduxForm({
