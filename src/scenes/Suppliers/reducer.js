@@ -14,8 +14,8 @@ export function suppliersReducer(state = initialState, action = action) {
 			return {
 				...state,
 				supplier: action.payload.supplier,
-				ManageSupplier: {
-					...state.ManageSupplier,
+				manageSupplier: {
+					...state.manageSupplier,
 					values: action.payload.supplier
 				},
 				isLoading: action.payload.isLoading
