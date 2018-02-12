@@ -218,13 +218,21 @@ export function administationReducer(state = initialState, action = action) {
       };
       const mergeChangeList = (changeList, newChange) => {
         let objectIsUpdated = false;
-        const changeListToReturn = changeList.filter(change => {
+
+        const changeListWithoutRemoveAction = changeList.filter((change) => {
           if (change.about === newChange.about && change.aboutEntityId === newChange.aboutEntityId) {
-            return newChange.action !== ABOUT.REMOVE;
+            if (newChange.action === ABOUT.REMOVE) {
+              objectIsUpdated = true;
+              return false;
+            }
+            return true;
           }
           return true;
-        }).map((change) => {
+        });
+
+        const changeListToReturn = changeListWithoutRemoveAction.map((change) => {
           if (change.about === newChange.about && change.aboutEntityId === newChange.aboutEntityId) {
+
             let action = '';
             switch (newChange.action) {
               case ABOUT.ADD:
@@ -234,8 +242,7 @@ export function administationReducer(state = initialState, action = action) {
                 action = change.action === ABOUT.ADD ? ABOUT.ADD : ABOUT.MODIFY;
                 break;
               case ABOUT.REMOVE:
-                // action = change.action === ABOUT.ADD ? ABOUT.MODIFY : ABOUT.REMOVE;
-                action = ABOUT.UNKNOWN;
+                action = change.action === ABOUT.ADD ? ABOUT.MODIFY : ABOUT.REMOVE;
                 break;
               default:
                 action = ABOUT.UNKNOWN;
@@ -244,13 +251,11 @@ export function administationReducer(state = initialState, action = action) {
 
             objectIsUpdated = true;
 
-
             return {
               ...change,
               action,
             };
           }
-
           return change;
         });
 
