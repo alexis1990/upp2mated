@@ -3,11 +3,11 @@ import { Grid, Row, Col, Tab, Nav, NavItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux'
-import FormSupplier from '../components/FormSupplier/index'
-import QualitySurveyReply from '../QualitySurveyReply/'
-import { postSupplier, fetchSupplier } from '../actions'
+import FormSupplier from './components/FormSupplier/index'
+import FinancialHealth from './components/FinancialHealth'
+import { fetchSupplier } from '../actions'
 import { Link } from 'react-router-dom'
-import '../styles/style.css'
+import './styles/style.css'
 
 class ManageSupplier extends Component {
 	constructor() {
@@ -25,11 +25,6 @@ class ManageSupplier extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({ contactPersonList: nextProps.supplier.contactPersonList });
-	}
-
-	submit(values) {
-		const { history, postSupplier } = this.props;
-		postSupplier(values)
 	}
 
 	render() {
@@ -53,11 +48,10 @@ class ManageSupplier extends Component {
 						<Col sm={8}>
 							<Tab.Content animation>
 								<Tab.Pane eventKey="first">
-									<form onSubmit={handleSubmit(this.submit.bind(this))}>
-										<FormSupplier contactPersonList={this.state.contactPersonList} />
-									</form>
+									<FormSupplier contactPersonList={this.state.contactPersonList} />
 								</Tab.Pane>
 								<Tab.Pane eventKey="second">
+									<FinancialHealth supplierId={ supplierId } contactPersonList={this.state.contactPersonList} />
 								</Tab.Pane>
 							</Tab.Content>
 						</Col>
@@ -77,12 +71,9 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		postSupplier,
 		fetchSupplier
 	}, dispatch);
 }
 
 
-export default reduxForm({
-	form: 'Suppliers.ManageSupplier'
-})(connect(mapStateToProps, mapDispatchToProps)(ManageSupplier))
+export default connect(mapStateToProps, mapDispatchToProps)(ManageSupplier)
