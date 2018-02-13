@@ -31,8 +31,8 @@ class CreateQualitySurveyModal extends Component {
     document.removeEventListener("keydown", this.escFunction, false);
   }
 
-  saveQualitySurveyTemplate = () => {
-    const {isModalVisible, getQualitySurveys, form} = this.props;
+  saveQualitySurveyTemplate = form => {
+    const {isModalVisible, getQualitySurveys} = this.props;
 
     axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/`, form)
       .then(response => {
@@ -49,7 +49,7 @@ class CreateQualitySurveyModal extends Component {
       <Row className="select-supplier-modal">
         <Col xs={12} md={12} lg={12} className="list users-list">
           <Col xs={12} md={12} lg={12} className="align-right send-button">
-            <Form onSubmit={handleSubmit(this.saveQualitySurveyTemplate)}>
+            <Form onSubmit={handleSubmit(this.saveQualitySurveyTemplate.bind(this))}>
               <Col lg={12}>
                 <h3>Questionnaire Qualité :</h3>
                 <Field name="name" label="nom" component={renderInput} validate={[required]}/>
@@ -73,7 +73,6 @@ class CreateQualitySurveyModal extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    form: state.form.Administration.qualitySurvey.create.values
   };
 }
 
