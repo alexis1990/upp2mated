@@ -34,6 +34,10 @@ export function getQualitySurveyForm(surveyParams) {
       qualitySurveyForm: {},
       lastChangeSet: {},
       details: {},
+      maxAboutEntityId: {
+        section: 0,
+        question: 0,
+      },
     };
     const { id, version } = surveyParams;
 
@@ -49,6 +53,18 @@ export function getQualitySurveyForm(surveyParams) {
       })
       .then((qualitySurveyForm) => {
         qualitySurvey.qualitySurveyForm = qualitySurveyForm;
+        qualitySurvey.maxAboutEntityId.section = qualitySurveyForm.length === 0 ? 0 :
+          qualitySurveyForm.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
+
+        let maxAboutEntityIdQuestion = 0;
+        qualitySurveyForm.forEach(section => section.questions.forEach((question) => {
+          if (question.questionId > maxAboutEntityIdQuestion) {
+            maxAboutEntityIdQuestion = question.questionId;
+          }
+        }));
+
+        qualitySurvey.maxAboutEntityId.question = maxAboutEntityIdQuestion;
+
         return axios.get(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${id}/last-changeset`);
       })
       .then((lastChangeSet) => {
@@ -59,7 +75,6 @@ export function getQualitySurveyForm(surveyParams) {
 }
 
 function formatQualitySurveyToChangeSet(qualitySurvey) {
-
   function omitQQId(qualitySurvey) {
     return _.omit(qualitySurvey, 'id');
   }
@@ -69,13 +84,12 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
   }
 
   function createOrderFormula(qualitySurvey) {
-
     function createSectionNumberWord(index) {
-      return ('S' + (index + 1) + ',');
+      return (`S${index + 1},`);
     }
 
     function createQuestionNumberWord(index) {
-      return ('Q' + (index + 1) + ',');
+      return (`Q${index + 1},`);
     }
 
     let orderFormula = '';
@@ -96,12 +110,8 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
 
   function groupByQuestions(qualitySurvey) {
     return _.compact(qualitySurvey.qualitySurveyForm
-      .map((survey) => {
-        return survey.questions;
-      })
-      .reduce((arrayOne, arrayTwo) => {
-        return _.compact(arrayOne.concat(arrayTwo));
-      }, [])
+      .map(survey => survey.questions)
+      .reduce((arrayOne, arrayTwo) => _.compact(arrayOne.concat(arrayTwo)), [])
       .map((question, index) => ({
         ...question,
         id: qualitySurvey.lastChangeSet.id ? question.id : null,
@@ -131,7 +141,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
 export function sendQualitySurvey(qualitySurvey, history) {
   const qualitySurveyFormatedForAPI = formatQualitySurveyToChangeSet(qualitySurvey);
 
-  return dispatch => {
+  return (dispatch) => {
     const qualitySurveyGlobalInformations = {
       name: qualitySurveyFormatedForAPI.name,
       description: qualitySurveyFormatedForAPI.description,
@@ -143,16 +153,14 @@ export function sendQualitySurvey(qualitySurvey, history) {
         // history.push('/administration')
         return qualitySurveyId;
       })
-      .then(qualitySurveyId => new Promise(resolve => {
-        setTimeout(function () {
+      .then(qualitySurveyId => new Promise((resolve) => {
+        setTimeout(() => {
           resolve(qualitySurveyId);
         }, 500);
-      })).then((qualitySurveyId) => {
-      return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI });
-    })
-      .then((result) =>
-        history.push('/administration'),
-      ).catch((error) => console.log('ERROR', error));
+      })).then(qualitySurveyId => axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/addchangeset`, { ...qualitySurveyFormatedForAPI }))
+      .then(result =>
+        history.push('/administration'))
+      .catch(error => console.log('ERROR', error));
   };
 }
 
@@ -214,8 +222,7 @@ export function sendQualitySurveyToSuppliers(selectedContacts, qualitySurveyId) 
       .then((response) => {
         dispatch(displayToastr(true, 'Questionnaire Envoyé !', 'success'));
         dispatch(isModalVisible(false));
-      }).catch((reject) =>
-      dispatch(displayToastr(true, 'Impossible d\'envoyer', 'error')),
-    );
+      }).catch(reject =>
+      dispatch(displayToastr(true, 'Impossible d\'envoyer', 'error')));
   };
 }
