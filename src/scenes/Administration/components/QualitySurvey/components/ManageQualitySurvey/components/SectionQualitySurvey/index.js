@@ -9,19 +9,27 @@ import { required } from '../../../../../../../../utils/inputRules';
 import Question from '../QuestionQualitySurvey/';
 
 class Section extends React.Component {
+
+  getMaxAboutEntityIdSection = () => {
+    return this.props.qualitySurveyForm.length === 0 ? 0 :
+      this.props.qualitySurveyForm.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
+  };
+
   render() {
     const { fields, field, index, addChangeSetModify, addChangeSetRemove, types, maxAboutEntityId } = this.props;
-    const status = fields.getAll()[index].status || 'add';
-    const apiIndex = maxAboutEntityId.section + index;
+    const fieldObject = fields.getAll()[index];
+    const status = fieldObject.status || 'add';
+    const changeIndex = fieldObject.aboutEntityId || this.getMaxAboutEntityIdSection() + 1;
+
     return (
-      <li key={apiIndex} className={`sections section-status-${status.toLowerCase()}`}>
+      <li key={changeIndex} className={`sections section-status-${status.toLowerCase()}`}>
         <div className="trash-row">
           <Button
             type="button"
             bsStyle="btn btn-action-button font-icon"
             onClick={() => {
-              fields.remove(apiIndex);
-              addChangeSetRemove(apiIndex, types);
+              fields.remove(changeIndex);
+              addChangeSetRemove(changeIndex, types);
             }}
           >
             <Glyphicon glyph="remove" />
@@ -29,7 +37,7 @@ class Section extends React.Component {
         </div>
         <Col lg={12} className={`section-status-${field.status}`}>
           <Col lg={3}>
-            <h4>Section {apiIndex + 1}</h4>
+            <h4>Section {index + 1}</h4>
           </Col>
           <Col lg={4}>
             <Field
@@ -38,12 +46,12 @@ class Section extends React.Component {
               withoutLabel
               component={renderInput}
               placeholder="Nom"
-              onChange={(input) => addChangeSetModify(apiIndex, types)}
+              onChange={(input) => addChangeSetModify(changeIndex, types)}
               validate={[required]}
             />
           </Col>
         </Col>
-        <FieldArray name={`${field}.questions`} parentId={apiIndex} dragSource="QUESTION" dropTarget="QUESTION" component={Question} />
+        <FieldArray name={`${field}.questions`} parentId={changeIndex} dragSource="QUESTION" dropTarget="QUESTION" component={Question} />
       </li>
     );
   }
@@ -51,6 +59,7 @@ class Section extends React.Component {
 
 function mapstateToProps(state) {
   return {
+    qualitySurveyForm: state.form.Administration.qualitySurvey.values.qualitySurveyForm,
     maxAboutEntityId: state.form.Administration.qualitySurvey.values.maxAboutEntityId,
   };
 }

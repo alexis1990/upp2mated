@@ -34,10 +34,6 @@ export function getQualitySurveyForm(surveyParams) {
       qualitySurveyForm: {},
       lastChangeSet: {},
       details: {},
-      maxAboutEntityId: {
-        section: 0,
-        question: 0,
-      },
     };
     const { id, version } = surveyParams;
 
@@ -53,17 +49,6 @@ export function getQualitySurveyForm(surveyParams) {
       })
       .then((qualitySurveyForm) => {
         qualitySurvey.qualitySurveyForm = qualitySurveyForm;
-        qualitySurvey.maxAboutEntityId.section = qualitySurveyForm.length === 0 ? 0 :
-          qualitySurveyForm.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
-
-        let maxAboutEntityIdQuestion = 0;
-        qualitySurveyForm.forEach(section => section.questions.forEach((question) => {
-          if (question.questionId > maxAboutEntityIdQuestion) {
-            maxAboutEntityIdQuestion = question.questionId;
-          }
-        }));
-
-        qualitySurvey.maxAboutEntityId.question = maxAboutEntityIdQuestion;
 
         return axios.get(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${id}/last-changeset`);
       })

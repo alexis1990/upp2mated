@@ -8,20 +8,35 @@ import DraggableContainerWrapperHOC from '../../../../../../../../components/Dra
 import { required } from '../../../../../../../../utils/inputRules';
 
 class Question extends React.Component {
+
+  getMaxAboutEntityIdQuestion = () => {
+    let maxAboutEntityIdQuestion = 0;
+    this.props.qualitySurveyForm.forEach(section => section.questions.forEach((question) => {
+      if (question.questionId > maxAboutEntityIdQuestion) {
+        maxAboutEntityIdQuestion = question.questionId;
+      }
+    }));
+
+    return maxAboutEntityIdQuestion;
+  };
+
   render() {
     const { fields, field, index, dragSource, addChangeSetModify, addChangeSetRemove, maxAboutEntityId } = this.props;
-    const status = fields.getAll()[index].status || 'add';
-    const apiIndex = maxAboutEntityId.question + index;
+    const fieldObject = fields.getAll()[index];
+    const status = fieldObject.status || 'add';
+
+    console.log(fieldObject)
+    const changeIndex = fieldObject.aboutEntityId || this.getMaxAboutEntityIdQuestion() + 1;
 
     return (
-      <li key={apiIndex} className={`question-row question-status-${status.toLowerCase()}`}>
+      <li key={changeIndex} className={`question-row question-status-${status.toLowerCase()}`}>
         <div className="question-field">
           <Field
             name={`${field}.content`}
             type="text"
             component={renderInput}
             label={`Question #${index + 1}`}
-            onChange={(input) => addChangeSetModify(apiIndex, dragSource)}
+            onChange={(input) => addChangeSetModify(changeIndex, dragSource)}
             validate={[required]}
           />
         </div>
@@ -30,8 +45,8 @@ class Question extends React.Component {
             type="button"
             bsStyle="btn btn-action-button font-icon"
             onClick={() => {
-              fields.remove(apiIndex);
-              addChangeSetRemove(apiIndex, dragSource);
+              fields.remove(changeIndex);
+              addChangeSetRemove(changeIndex, dragSource);
             }}
           >
             <Glyphicon glyph="remove" />
@@ -43,14 +58,15 @@ class Question extends React.Component {
 }
 
 
-function mapstateToProps(state) {
+function mapStateToProps(state) {
   return {
+    qualitySurveyForm: state.form.Administration.qualitySurvey.values.qualitySurveyForm,
     maxAboutEntityId: state.form.Administration.qualitySurvey.values.maxAboutEntityId,
   };
 }
 
 Question = connect(
-  mapstateToProps,
+  mapStateToProps,
   null,
 )(Question);
 

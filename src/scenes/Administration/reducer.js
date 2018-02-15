@@ -219,9 +219,13 @@ export function administationReducer(state = initialState, action = action) {
       const mergeChangeList = (changeList, newChange) => {
         let objectIsUpdated = false;
 
+        console.log(newChange)
         const changeListWithoutRemoveAction = changeList.filter((change) => {
           if (change.about === newChange.about && change.aboutEntityId === newChange.aboutEntityId) {
+            console.log(change)
             if (newChange.action === ABOUT.REMOVE) {
+
+
               objectIsUpdated = true;
               return false;
             }
@@ -231,7 +235,9 @@ export function administationReducer(state = initialState, action = action) {
         });
 
         const changeListToReturn = changeListWithoutRemoveAction.map((change) => {
+          console.log(change);
           if (change.about === newChange.about && change.aboutEntityId === newChange.aboutEntityId) {
+
 
             let action = '';
             switch (newChange.action) {
