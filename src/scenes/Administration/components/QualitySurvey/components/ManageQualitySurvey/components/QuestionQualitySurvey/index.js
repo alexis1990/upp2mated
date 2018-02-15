@@ -9,6 +9,7 @@ import { required } from '../../../../../../../../utils/inputRules';
 
 class Question extends React.Component {
 
+  //fixme duplicate code
   getMaxAboutEntityIdQuestion = () => {
     let maxAboutEntityIdQuestion = 0;
     this.props.qualitySurveyForm.forEach(section => section.questions.forEach((question) => {

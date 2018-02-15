@@ -10,9 +10,16 @@ import Question from '../QuestionQualitySurvey/';
 
 class Section extends React.Component {
 
+  //fixme duplicate code !
   getMaxAboutEntityIdSection = () => {
-    return this.props.qualitySurveyForm.length === 0 ? 0 :
-      this.props.qualitySurveyForm.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
+    if (this.props.qualitySurveyForm.length === 0) {
+      return 0;
+    }
+
+    const maxAboutEntityIdSection = this.props.qualitySurveyForm.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
+
+    return maxAboutEntityIdSection || 0;
+
   };
 
   render() {
@@ -22,13 +29,13 @@ class Section extends React.Component {
     const changeIndex = fieldObject.aboutEntityId || this.getMaxAboutEntityIdSection() + 1;
 
     return (
-      <li key={changeIndex} className={`sections section-status-${status.toLowerCase()}`}>
+      <li key={index} className={`sections section-status-${status.toLowerCase()}`}>
         <div className="trash-row">
           <Button
             type="button"
             bsStyle="btn btn-action-button font-icon"
             onClick={() => {
-              fields.remove(changeIndex);
+              fields.remove(index);
               addChangeSetRemove(changeIndex, types);
             }}
           >
@@ -51,7 +58,7 @@ class Section extends React.Component {
             />
           </Col>
         </Col>
-        <FieldArray name={`${field}.questions`} parentId={changeIndex} dragSource="QUESTION" dropTarget="QUESTION" component={Question} />
+        <FieldArray name={`${field}.questions`} parentId={index} dragSource="QUESTION" dropTarget="QUESTION" component={Question} />
       </li>
     );
   }
