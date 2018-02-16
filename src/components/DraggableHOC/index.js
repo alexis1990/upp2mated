@@ -33,24 +33,17 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
 
       const maxAboutEntityIdSection = this.props.qualitySurveyForm.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
 
-      return maxAboutEntityIdSection || 0;
+      return maxAboutEntityIdSection || this.props.qualitySurveyForm.length;
     };
-
 
     //fixme duplicate code !
     getMaxAboutEntityIdQuestion = () => {
       let maxAboutEntityIdQuestion = 0;
+      let nbQuestion = 0;
       this.props.qualitySurveyForm.forEach(section => {
         if (section.questions) {
           section.questions.forEach((question) => {
-            //FIXME
-            // lors de l'ajout d'une nouvelle question (OU SECTION /!\ à corriger aussi
-            // le questionId / sectionId n'est pas encore crée. On reste donc bloqué à 1.
-            // A l'ajout d'une nouvelle question ou section, il faut créer le sectionId et le questionId automatiquement.
-            // Donc dans le qualitySurveyForm ? Actuellement il n'y a que le content.
-            // Car il peut il y a voir déjà des section / questions provenant de la base, avec déjà des questionId / sectionId de set.
-            // On doit donc déterminé ça dès l'ajout dans la liste.
-            // donc c'est dans le redux form, on met à jour que le content, mais un champ doit aussi être mis pour l'id.
+            nbQuestion += 1;
             if (question.questionId > maxAboutEntityIdQuestion) {
               maxAboutEntityIdQuestion = question.questionId;
             }
@@ -58,13 +51,14 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
         }
       });
 
-      return maxAboutEntityIdQuestion;
+      return maxAboutEntityIdQuestion === 0 ? nbQuestion : maxAboutEntityIdQuestion;
     };
 
     addContainer() {
       const { fields, addChangeSet, dragSource } = this.props;
-      const containerId = dragSource.toLowerCase() === 'SECTION' ? this.getMaxAboutEntityIdSection() + 1 : this.getMaxAboutEntityIdQuestion() + 1;
+      const containerId = dragSource.toLowerCase() === 'section' ? this.getMaxAboutEntityIdSection() + 1 : this.getMaxAboutEntityIdQuestion() + 1;
 
+      console.log(fields.getAll());
       console.log('DRAGSOURCE: ', dragSource);
       console.log('cONTAINERID : ', containerId);
 

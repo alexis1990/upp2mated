@@ -25,12 +25,12 @@ class Question extends React.Component {
     const { fields, field, index, dragSource, addChangeSetModify, addChangeSetRemove, maxAboutEntityId } = this.props;
     const fieldObject = fields.getAll()[index];
     const status = fieldObject.status || 'add';
-
+    console.log(dragSource);
     console.log(fieldObject)
     const changeIndex = fieldObject.aboutEntityId || this.getMaxAboutEntityIdQuestion() + 1;
 
     return (
-      <li key={changeIndex} className={`question-row question-status-${status.toLowerCase()}`}>
+      <li key={index} className={`question-row question-status-${status.toLowerCase()}`}>
         <div className="question-field">
           <Field
             name={`${field}.content`}
@@ -46,7 +46,7 @@ class Question extends React.Component {
             type="button"
             bsStyle="btn btn-action-button font-icon"
             onClick={() => {
-              fields.remove(changeIndex);
+              fields.remove(index);
               addChangeSetRemove(changeIndex, dragSource);
             }}
           >
