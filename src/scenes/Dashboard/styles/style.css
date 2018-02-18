@@ -39,8 +39,3 @@
       .dashboard .react-bs-container-body .table tbody tr td {
         border-style: hidden !important;
         border-left-width: 0; }
-        .dashboard .react-bs-container-body .table tbody tr td .consultations-progress-bar {
-          -webkit-transition: all 0.2s ease-in;
-          -moz-transition: all 0.2s ease-in;
-          -o-transition: all 0.2s ease-in;
-          transition: all 0.2s ease-in; }

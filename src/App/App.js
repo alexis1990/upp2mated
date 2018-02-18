@@ -11,6 +11,7 @@ import Team from '../scenes/Consultations/team/index'
 import Providers from '../scenes/Consultations/providers/index'
 import Documentation from '../scenes/Consultations/documentation/index'
 import Confirmation from '../scenes/Consultations/confirmation/index'
+import ConsultationsDashboard from '../scenes/Consultations/dashboard'
 import Summary from '../scenes/Consultations/summary/index'
 import CommercialFrame from '../scenes/Consultations/commercialFrame/index'
 import Sign from '../scenes/Sign/index'
@@ -69,6 +70,7 @@ const App = ({ isAuthenticated }) => (
       <ScrollingComponent className="App">
         <Route exact path="/" component={Authentication} />
         <Route exact path="/dashboard" component={requireAuthentication(Dashboard)} />
+        <Route exact path="/dashboard/consultations" component={requireAuthentication(ConsultationsDashboard)} />
         <Route path="/consultations" component={({ match }) => (
           <div>
             <Route path={`${match.url}/:stepId`} component={requireAuthentication(({ match }) => (
