@@ -62,7 +62,12 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
       console.log('DRAGSOURCE: ', dragSource);
       console.log('cONTAINERID : ', containerId);
 
-      fields.push({});
+      //fixme todo refactor ?
+      let key = dragSource.toLowerCase() === 'section' ? 'sectionId' : 'questionId';
+
+      const newSource = {};
+      newSource[key] = containerId;
+      fields.push(newSource);
       addChangeSet(containerId, dragSource, 'ADD');
     }
 

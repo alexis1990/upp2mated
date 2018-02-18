@@ -26,7 +26,7 @@ class Section extends React.Component {
     const { fields, field, index, addChangeSetModify, addChangeSetRemove, types, maxAboutEntityId } = this.props;
     const fieldObject = fields.getAll()[index];
     const status = fieldObject.status || 'add';
-    const changeIndex = fieldObject.aboutEntityId || this.getMaxAboutEntityIdSection() + 1;
+    const changeIndex = fieldObject.sectionId;
 
     return (
       <li key={index} className={`sections section-status-${status.toLowerCase()}`}>

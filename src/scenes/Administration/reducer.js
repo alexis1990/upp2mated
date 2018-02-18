@@ -219,13 +219,11 @@ export function administationReducer(state = initialState, action = action) {
       const mergeChangeList = (changeList, newChange) => {
         let objectIsUpdated = false;
 
-        console.log(newChange)
         const changeListWithoutRemoveAction = changeList.filter((change) => {
           if (change.about === newChange.about && change.aboutEntityId === newChange.aboutEntityId) {
-            console.log(change)
+            console.log('un change, dans le changeset, correspond à celui qu\'on actualise : ', change);
             if (newChange.action === ABOUT.REMOVE) {
-
-
+              console.log('l\'action est de le remove, donc on le retire de la liste de change dans la changeset: ', newChange);
               objectIsUpdated = true;
               return false;
             }
@@ -235,10 +233,8 @@ export function administationReducer(state = initialState, action = action) {
         });
 
         const changeListToReturn = changeListWithoutRemoveAction.map((change) => {
-          console.log(change);
           if (change.about === newChange.about && change.aboutEntityId === newChange.aboutEntityId) {
-
-
+            console.log('le change qu\'on actualise est déjà présent dans le changeset: ', change, newChange);
             let action = '';
             switch (newChange.action) {
               case ABOUT.ADD:
@@ -257,6 +253,8 @@ export function administationReducer(state = initialState, action = action) {
 
             objectIsUpdated = true;
 
+            console.log('nouveau format du change: ', { ...change, action });
+
             return {
               ...change,
               action,
@@ -266,6 +264,7 @@ export function administationReducer(state = initialState, action = action) {
         });
 
         if (!objectIsUpdated) {
+          console.log("le change n'existait pas donc on l'ajoute: ", newChange);
           changeListToReturn.push(newChange);
         }
 
