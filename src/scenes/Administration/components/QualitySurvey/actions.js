@@ -92,6 +92,8 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
       }
     });
 
+    orderFormula = orderFormula.slice(0, -1);
+
     return orderFormula;
   }
 
@@ -101,7 +103,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
       .reduce((arrayOne, arrayTwo) => _.compact(arrayOne.concat(arrayTwo)), [])
       .map(question => ({
         ...question,
-        id: qualitySurvey.lastChangeSet.id ? question.id : null,
+        id: qualitySurvey.lastChangeSet.id ? (question.version === qualitySurvey.details.editedVersion ? question.id : null) : null,
       })));
   }
 
@@ -110,7 +112,7 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
     return _.compact(sections
       .map(section => ({
         ...section,
-        id: qualitySurvey.lastChangeSet.id ? section.id : null,
+        id: qualitySurvey.lastChangeSet.id ? (section.version === qualitySurvey.details.editedVersion ? section.id : null) : null,
       })));
   }
 
