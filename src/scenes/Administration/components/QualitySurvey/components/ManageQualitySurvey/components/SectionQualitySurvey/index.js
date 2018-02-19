@@ -9,21 +9,8 @@ import { required } from '../../../../../../../../utils/inputRules';
 import Question from '../QuestionQualitySurvey/';
 
 class Section extends React.Component {
-
-  //fixme duplicate code !
-  getMaxAboutEntityIdSection = () => {
-    if (this.props.qualitySurveyForm.length === 0) {
-      return 0;
-    }
-
-    const maxAboutEntityIdSection = this.props.qualitySurveyForm.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
-
-    return maxAboutEntityIdSection || 0;
-
-  };
-
   render() {
-    const { fields, field, index, addChangeSetModify, addChangeSetRemove, types, maxAboutEntityId } = this.props;
+    const { fields, field, index, addChangeSetModify, addChangeSetRemove, types } = this.props;
     const fieldObject = fields.getAll()[index];
     const status = fieldObject.status || 'add';
     const changeIndex = fieldObject.sectionId;
@@ -67,7 +54,6 @@ class Section extends React.Component {
 function mapstateToProps(state) {
   return {
     qualitySurveyForm: state.form.Administration.qualitySurvey.values.qualitySurveyForm,
-    maxAboutEntityId: state.form.Administration.qualitySurvey.values.maxAboutEntityId,
   };
 }
 

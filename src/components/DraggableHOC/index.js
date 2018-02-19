@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { addChangeSet } from './actions';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -25,33 +26,30 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
       fields.move(dragIndex, hoverIndex);
     }
 
-    //fixme duplicate code !
     getMaxAboutEntityIdSection = () => {
-      if (this.props.qualitySurveyForm.length === 0) {
-        return 0;
-      }
+      const { qualitySurveyForm, lastChangeSet } = this.props;
 
-      const maxAboutEntityIdSection = this.props.qualitySurveyForm.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
+      const computedSections = qualitySurveyForm.concat(lastChangeSet.sections);
 
-      return maxAboutEntityIdSection || this.props.qualitySurveyForm.length;
+      const maxAboutEntityIdSection = computedSections.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
+
+      return maxAboutEntityIdSection;
     };
 
-    //fixme duplicate code !
     getMaxAboutEntityIdQuestion = () => {
+      const { qualitySurveyForm, lastChangeSet } = this.props;
+
+      let computedQuestions = qualitySurveyForm.map(survey => survey.questions).reduce((arrayOne, arrayTwo) => _.compact(arrayOne.concat(arrayTwo)), []);
+      computedQuestions = computedQuestions.concat(lastChangeSet.questions);
+
       let maxAboutEntityIdQuestion = 0;
-      let nbQuestion = 0;
-      this.props.qualitySurveyForm.forEach(section => {
-        if (section.questions) {
-          section.questions.forEach((question) => {
-            nbQuestion += 1;
-            if (question.questionId > maxAboutEntityIdQuestion) {
-              maxAboutEntityIdQuestion = question.questionId;
-            }
-          });
+      computedQuestions.forEach(question => {
+        if (question.questionId > maxAboutEntityIdQuestion) {
+          maxAboutEntityIdQuestion = question.questionId;
         }
       });
 
-      return maxAboutEntityIdQuestion === 0 ? nbQuestion : maxAboutEntityIdQuestion;
+      return maxAboutEntityIdQuestion;
     };
 
     addContainer() {
@@ -121,6 +119,7 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
   function mapStateToProps(state) {
     return {
       qualitySurveyForm: state.form.Administration.qualitySurvey.values.qualitySurveyForm,
+      lastChangeSet: state.form.Administration.qualitySurvey.values.lastChangeSet,
     };
   }
 

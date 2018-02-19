@@ -8,29 +8,10 @@ import DraggableContainerWrapperHOC from '../../../../../../../../components/Dra
 import { required } from '../../../../../../../../utils/inputRules';
 
 class Question extends React.Component {
-
-  //fixme duplicate code
-  getMaxAboutEntityIdQuestion = () => {
-    let maxAboutEntityIdQuestion = 0;
-    this.props.qualitySurveyForm.forEach(section => section.questions.forEach((question) => {
-      if (question.questionId > maxAboutEntityIdQuestion) {
-        maxAboutEntityIdQuestion = question.questionId;
-      }
-    }));
-
-    return maxAboutEntityIdQuestion;
-  };
-
   render() {
-    const { fields, field, index, dragSource, addChangeSetModify, addChangeSetRemove, maxAboutEntityId } = this.props;
+    const { fields, field, index, dragSource, addChangeSetModify, addChangeSetRemove } = this.props;
     const fieldObject = fields.getAll()[index];
     const status = fieldObject.status || 'add';
-
-    //todo fixme update order formula à la suppression d'une question / section d'une même version. REMOVE OK mais le orderFormula n'est pas udpate.
-    // ça provient surement du fait qu'on le supprime de la liste avant ? vérifier dans la console.
-    // vérifier après la publication qu'on peut bien toujours supprimer, la cohérence des id's.
-    console.log(dragSource);
-    console.log(fieldObject)
     const changeIndex = fieldObject.questionId;
 
     return (
@@ -66,7 +47,6 @@ class Question extends React.Component {
 function mapStateToProps(state) {
   return {
     qualitySurveyForm: state.form.Administration.qualitySurvey.values.qualitySurveyForm,
-    maxAboutEntityId: state.form.Administration.qualitySurvey.values.maxAboutEntityId,
   };
 }
 
