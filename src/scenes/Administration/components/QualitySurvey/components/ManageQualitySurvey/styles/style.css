@@ -8,6 +8,9 @@
     width: 100%;
     margin-right: 20px; }
 
+.section-status-unchange input:first-of-type {
+  border-left: none !important; }
+
 .section-status-add input:first-of-type {
   border-left: 4px solid green !important; }
 
@@ -16,6 +19,9 @@
 
 .section-status-remove input:first-of-type {
   border-left: 4px solid red !important; }
+
+.question-status-unchange input:first-of-type {
+  border-left: none !important; }
 
 .question-status-add input:first-of-type {
   border-left: 4px solid green !important; }

@@ -12,7 +12,7 @@ class Section extends React.Component {
   render() {
     const { fields, field, index, addChangeSetModify, addChangeSetRemove, types } = this.props;
     const fieldObject = fields.getAll()[index];
-    const status = fieldObject.status || 'add';
+    const status = fieldObject.status || 'unchange';
     const changeIndex = fieldObject.sectionId;
 
     return (

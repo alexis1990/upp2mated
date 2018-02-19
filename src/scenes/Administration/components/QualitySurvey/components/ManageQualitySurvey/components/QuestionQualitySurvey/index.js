@@ -11,7 +11,7 @@ class Question extends React.Component {
   render() {
     const { fields, field, index, dragSource, addChangeSetModify, addChangeSetRemove } = this.props;
     const fieldObject = fields.getAll()[index];
-    const status = fieldObject.status || 'add';
+    const status = fieldObject.status || 'unchange';
     const changeIndex = fieldObject.questionId;
 
     return (
