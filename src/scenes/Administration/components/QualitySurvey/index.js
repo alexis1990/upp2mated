@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { Button, ButtonGroup, Col, Glyphicon, Pagination, Table } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isModalVisible } from '../../../../components/Modal/actions';
 import { editQualitySurvey, getQualitySurveys } from './actions';
 import './styles/style.css';
+import { withRouter } from 'react-router-dom';
 
 class QualitySurveys extends Component {
   componentWillMount() {
@@ -28,10 +28,13 @@ class QualitySurveys extends Component {
     });
   }
 
-  editQualitySurvey(survey) {
+  editQualitySurvey(survey, history) {
     if (survey.editedVersion === survey.publishedVersion) {
-      editQualitySurvey(survey);
+      editQualitySurvey(survey).then(() => {
+        history.push(`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion + 1}`);
+      });
     }
+    history.push(`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion}`);
   }
 
   openModalToSendQSToSupplier(survey) {
@@ -42,7 +45,7 @@ class QualitySurveys extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, qualitySurveys, isVisible } = this.props;
+    const { handleSubmit, pristine, reset, submitting, qualitySurveys, isVisible, history } = this.props;
     return (
       <div>
         <Col lg={12}>
@@ -76,8 +79,9 @@ class QualitySurveys extends Component {
                 <td className="actions" width="30%">
                   <ButtonGroup justified>
                     <Button type="button" className="action-button" onClick={() => this.openModalToSendQSToSupplier(survey)}><Glyphicon glyph="send" /></Button>
-                    <Button onClick={this.editQualitySurvey.bind(this, survey)} className="action-button"><Link
-                      to={`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion}`}><Glyphicon glyph="pencil" /></Link></Button>
+                    <Button onClick={this.editQualitySurvey.bind(this, survey, history)} className="action-button">
+                      <Glyphicon glyph="pencil" />
+                    </Button>
                     <Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
                   </ButtonGroup>
                 </td>
@@ -96,16 +100,18 @@ class QualitySurveys extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     isVisible: state.modal.mode,
     qualitySurveys: state.form.Administration.qualitySurveys.values,
   };
-}
+};
 
-function mapDispatchToProps(state) {
-  return (dispatch) => bindActionCreators({ getQualitySurveys, editQualitySurvey, isModalVisible }, dispatch);
-}
+const mapDispatchToProps = state => dispatch => bindActionCreators({
+  getQualitySurveys,
+  editQualitySurvey,
+  isModalVisible,
+}, dispatch);
 
 QualitySurveys.propTypes = {
   survey: PropTypes.shape({
@@ -114,4 +120,4 @@ QualitySurveys.propTypes = {
   }),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QualitySurveys);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(QualitySurveys));
