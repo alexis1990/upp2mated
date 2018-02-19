@@ -5,9 +5,9 @@ export function addChangeSet(draggableElementId, draggableElementType, draggable
   return {
     type: types.ADD_CHANGE_SET,
     payload: {
-      "about": draggableElementType,
-      "aboutEntityId": draggableElementId,
-      "action": draggableElementAction
+      about: draggableElementType,
+      aboutEntityId: draggableElementId,
+      action: draggableElementAction
     }
   }
 }
