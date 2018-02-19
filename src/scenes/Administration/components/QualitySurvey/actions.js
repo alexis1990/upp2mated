@@ -69,12 +69,12 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
   }
 
   function createOrderFormula(qualitySurvey) {
-    function createSectionNumberWord(index) {
-      return (`S${index + 1},`);
+    function createSectionNumberWord(section) {
+      return (`S${section.sectionId},`);
     }
 
-    function createQuestionNumberWord(index) {
-      return (`Q${index + 1},`);
+    function createQuestionNumberWord(question) {
+      return (`Q${question.questionId},`);
     }
 
     let orderFormula = '';
@@ -82,10 +82,12 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
     const sections = qualitySurvey.qualitySurveyForm;
 
     sections.forEach((section, index) => {
-      orderFormula += createSectionNumberWord(index);
+      console.log('section: ', section);
+      orderFormula += createSectionNumberWord(section);
       if (section.questions) {
         section.questions.forEach((question, index) => {
-          orderFormula += createQuestionNumberWord(index);
+          console.log('question: ', question);
+          orderFormula += createQuestionNumberWord(question);
         });
       }
     });
@@ -97,20 +99,18 @@ function formatQualitySurveyToChangeSet(qualitySurvey) {
     return _.compact(qualitySurvey.qualitySurveyForm
       .map(survey => survey.questions)
       .reduce((arrayOne, arrayTwo) => _.compact(arrayOne.concat(arrayTwo)), [])
-      .map((question, index) => ({
+      .map(question => ({
         ...question,
         id: qualitySurvey.lastChangeSet.id ? question.id : null,
-        questionId: index + 1,
       })));
   }
 
   function groupBySections(qualitySurvey) {
     const sections = qualitySurvey.qualitySurveyForm;
     return _.compact(sections
-      .map((section, index) => ({
+      .map(section => ({
         ...section,
         id: qualitySurvey.lastChangeSet.id ? section.id : null,
-        sectionId: index + 1,
       })));
   }
 
