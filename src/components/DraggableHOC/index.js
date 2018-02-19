@@ -30,6 +30,9 @@ const StaticBlockWrapperHOC = (ComponentToWrap) => {
       const { qualitySurveyForm, lastChangeSet } = this.props;
 
       const computedSections = qualitySurveyForm.concat(lastChangeSet.sections);
+      if (computedSections.length === 0) {
+        return 0;
+      }
 
       const maxAboutEntityIdSection = computedSections.reduce((prev, current) => ((prev.sectionId > current.sectionId) ? prev : current)).sectionId;
 
