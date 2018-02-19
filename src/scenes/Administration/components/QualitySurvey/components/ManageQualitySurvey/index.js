@@ -33,6 +33,7 @@ class ManageQualitySurvey extends Component {
     if (surveyTemplateId) {
       sendEditingQualitySurvey(survey, surveyTemplateId, history);
     } else {
+      console.log('[DEBUG] - Cette méthode doit être supprimé !');
       sendQualitySurvey(survey, history);
     }
   }

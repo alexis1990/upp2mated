@@ -1,51 +1,48 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
-import {Row, Col, Button, Glyphicon, Table, ButtonGroup, Pagination} from 'react-bootstrap'
-import {Field, reduxForm, FieldArray} from 'redux-form'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
-
-import renderInput from '../../../../components/Fields/input'
-import Select from '../../../../components/Fields/select'
-import {isModalVisible} from '../../../../components/Modal/actions'
-import {getQualitySurveys, editQualitySurvey} from './actions'
-import './styles/style.css'
-
-import Modal from '../../../../components/Modal';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Button, ButtonGroup, Col, Glyphicon, Pagination, Table } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { isModalVisible } from '../../../../components/Modal/actions';
+import { editQualitySurvey, getQualitySurveys } from './actions';
+import './styles/style.css';
 
 class QualitySurveys extends Component {
   componentWillMount() {
-    const {getQualitySurveys} = this.props;
+    const { getQualitySurveys } = this.props;
     this.state = {
       activePage: 0,
-      createQualitySurveyModal: false
-    }
+      createQualitySurveyModal: false,
+    };
     getQualitySurveys(0);
     this.handleSelect = this.handleSelect.bind(this);
     this.openModalToSendQSToSupplier = this.openModalToSendQSToSupplier.bind(this);
   }
 
   handleSelect(eventKey) {
-    const {getQualitySurveys} = this.props;
+    const { getQualitySurveys } = this.props;
     getQualitySurveys(eventKey - 1);
     this.setState({
-      activePage: eventKey
+      activePage: eventKey,
     });
   }
 
   editQualitySurvey(survey) {
-    editQualitySurvey(survey);
+    if (survey.editedVersion === survey.publishedVersion) {
+      editQualitySurvey(survey);
+    }
   }
 
   openModalToSendQSToSupplier(survey) {
-    const {sendQualitySurveyToSupplier, isModalVisible} = this.props;
+    const { sendQualitySurveyToSupplier, isModalVisible } = this.props;
     const templateId = survey.id;
 
-    isModalVisible(true, null, templateId)
+    isModalVisible(true, null, templateId);
   }
 
   render() {
-    const {handleSubmit, pristine, reset, submitting, qualitySurveys, isVisible} = this.props;
+    const { handleSubmit, pristine, reset, submitting, qualitySurveys, isVisible } = this.props;
     return (
       <div>
         <Col lg={12}>
@@ -54,7 +51,7 @@ class QualitySurveys extends Component {
           </Col>
           <Col lg={12} className="new-survey-action align-right">
             <Button type="button" className="action-button" bsStyle="btn btn-action-button" onClick={() => this.props.isModalVisible(true, 'qualitysurvey.create', null)}>
-              <Glyphicon glyph="eye-plus"/> Créer un questionnaire
+              <Glyphicon glyph="eye-plus" /> Créer un questionnaire
             </Button>
           </Col>
         </Col>
@@ -78,10 +75,10 @@ class QualitySurveys extends Component {
                 <td width="20%" className="align-center"> {survey.publishedVersion}</td>
                 <td className="actions" width="30%">
                   <ButtonGroup justified>
-                    <Button type="button" className="action-button" onClick={() => this.openModalToSendQSToSupplier(survey)}><Glyphicon glyph="send"/></Button>
+                    <Button type="button" className="action-button" onClick={() => this.openModalToSendQSToSupplier(survey)}><Glyphicon glyph="send" /></Button>
                     <Button onClick={this.editQualitySurvey.bind(this, survey)} className="action-button"><Link
-                      to={`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion}`}><Glyphicon glyph="pencil"/></Link></Button>
-                    <Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove"/></Button>
+                      to={`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion}`}><Glyphicon glyph="pencil" /></Link></Button>
+                    <Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
                   </ButtonGroup>
                 </td>
               </tr>
@@ -92,22 +89,29 @@ class QualitySurveys extends Component {
             bsSize="medium"
             items={qualitySurveys.totalPages}
             activePage={this.state.activePage}
-            onSelect={this.handleSelect}/>
+            onSelect={this.handleSelect} />
         </Col>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     isVisible: state.modal.mode,
-    qualitySurveys: state.form.Administration.qualitySurveys.values
-  }
+    qualitySurveys: state.form.Administration.qualitySurveys.values,
+  };
 }
 
 function mapDispatchToProps(state) {
-  return (dispatch) => bindActionCreators({getQualitySurveys, editQualitySurvey, isModalVisible}, dispatch)
+  return (dispatch) => bindActionCreators({ getQualitySurveys, editQualitySurvey, isModalVisible }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(QualitySurveys)
+QualitySurveys.propTypes = {
+  survey: PropTypes.shape({
+    editedVersion: PropTypes.string.isRequired,
+    publishedVersion: PropTypes.string.isRequired,
+  }),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(QualitySurveys);

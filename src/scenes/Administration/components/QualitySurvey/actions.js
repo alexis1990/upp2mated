@@ -161,11 +161,12 @@ export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history
   }
 
   return (dispatch) => {
-    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, { ...changeSetFormatedForApi })
+    return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, { ...changeSetFormatedForApi })
       .then((result) => {
         dispatch(displayToastr(true, 'Modification enregistrée !', 'success'));
         history.push('/administration');
       }).catch((err) => {
+
       dispatch(displayToastr(true, 'Impossible de modifier', 'error'));
     });
   };
