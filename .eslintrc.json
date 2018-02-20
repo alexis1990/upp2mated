@@ -1,17 +1,17 @@
 {
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true,
+      "modules": true,
       "experimentalObjectRestSpread": true
     }
   },
   "plugins": [
     "react"
   ],
-  "extends": [
-    "airbnb"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
   "rules": {
     "no-set-state": "off",
     // todo rules to enable later
@@ -20,5 +20,11 @@
     "react/prop-types": "off",
     "object-curly-newline": "off",
     "max-len": "off"
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "15.6.1"
+    }
   }
 }
