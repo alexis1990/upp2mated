@@ -1,49 +1,48 @@
-import React, {Component} from 'react'
-import {Button, Col, Row} from 'react-bootstrap'
-import {Field, Form, reduxForm} from 'redux-form'
-
-import {withRouter} from "react-router-dom"
-import {connect} from 'react-redux'
-import renderInput from "../../../../../../../../components/Fields/input";
-import {bindActionCreators} from "redux";
-import {isModalVisible} from "../../../../../../../../components/Modal/actions";
-import {getQualitySurveys} from "../../../../actions";
-import axios from "axios/index";
+import React, { Component } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { Field, Form, reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios/index';
+import renderInput from '../../../../../../../../components/Fields/input';
+import { isModalVisible } from '../../../../../../../../components/Modal/actions';
+import { getQualitySurveys } from '../../../../actions';
 
 const required = value => value ? undefined : ' ';
 
-export const QUALITY_SURVEY_MODAL = "qualitysurvey.create";
+export const QUALITY_SURVEY_MODAL = 'qualitysurvey.create';
 
 class CreateQualitySurveyModal extends Component {
 
-  escFunction = event => {
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false);
+  }
+
+  escFunction = (event) => {
     if (event.keyCode === 27) {
-      const {isModalVisible} = this.props;
+      const { isModalVisible } = this.props;
       isModalVisible(false, QUALITY_SURVEY_MODAL);
     }
   };
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.escFunction, false);
-  }
+  saveQualitySurveyTemplate = (form) => {
+    const { isModalVisible, getQualitySurveys } = this.props;
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.escFunction, false);
-  }
-
-  saveQualitySurveyTemplate = form => {
-    const {isModalVisible, getQualitySurveys} = this.props;
-
-    axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/`, form)
+    axios.post('/u2m-api/v1/suppliers/template/qualityquestionnaire/', form)
       .then(response => {
         isModalVisible(false, QUALITY_SURVEY_MODAL);
         getQualitySurveys(0);
       })
-      .catch(error => console.error('ERROR', error))
+      .catch(error => console.error('ERROR', error));
   };
 
   render() {
-    const {handleSubmit, isModalVisible} = this.props;
+    const { handleSubmit, isModalVisible } = this.props;
 
     return (
       <Row className="select-supplier-modal">
@@ -52,8 +51,8 @@ class CreateQualitySurveyModal extends Component {
             <Form onSubmit={handleSubmit(this.saveQualitySurveyTemplate.bind(this))}>
               <Col lg={12}>
                 <h3>Questionnaire Qualité :</h3>
-                <Field name="name" label="nom" component={renderInput} validate={[required]}/>
-                <Field name="description" label="description" component={renderInput} validate={[required]}/>
+                <Field name="name" label="nom" component={renderInput} validate={[required]} />
+                <Field name="description" label="description" component={renderInput} validate={[required]} />
                 <Row className="buttons-actions">
                   <Col lg={6}>
                     <Button type="button" bsStyle="btn btn-action-button" onClick={() => isModalVisible(false, QUALITY_SURVEY_MODAL)}>Annuler</Button>
@@ -67,25 +66,24 @@ class CreateQualitySurveyModal extends Component {
           </Col>
         </Col>
       </Row>
-    )
+    );
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  return {
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({isModalVisible, getQualitySurveys}, dispatch);
+  return bindActionCreators({ isModalVisible, getQualitySurveys }, dispatch);
 }
 
 export default reduxForm({
   form: 'Administration.qualitySurvey.create',
   initialValues: {
     values: {
-      name: "",
-      description: ""
-    }
+      name: '',
+      description: '',
+    },
   },
-})(withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateQualitySurveyModal)))
+})(withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateQualitySurveyModal)));

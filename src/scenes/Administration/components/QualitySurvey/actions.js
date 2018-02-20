@@ -173,7 +173,7 @@ export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history
 }
 
 export function editQualitySurvey(survey) {
-  axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${survey.id}/editing`)
+  return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${survey.id}/editing`)
     .then((response) => {
     }).catch((reject) => {
     console.log(reject);

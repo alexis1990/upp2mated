@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { Button, ButtonGroup, Col, Glyphicon, Pagination, Table } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isModalVisible } from '../../../../components/Modal/actions';
 import { editQualitySurvey, getQualitySurveys } from './actions';
 import './styles/style.css';
-import { withRouter } from 'react-router-dom';
+
+import { QUALITY_SURVEY_MODAL } from './components/ManageQualitySurvey/components/CreateQualitySurveyModal/';
 
 class QualitySurveys extends Component {
   componentWillMount() {
@@ -33,12 +35,13 @@ class QualitySurveys extends Component {
       editQualitySurvey(survey).then(() => {
         history.push(`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion + 1}`);
       });
+    } else {
+      history.push(`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion}`);
     }
-    history.push(`/administration/quality-surveys/quality-survey/edit/${survey.id}/${survey.editedVersion}`);
   }
 
   openModalToSendQSToSupplier(survey) {
-    const { sendQualitySurveyToSupplier, isModalVisible } = this.props;
+    const { isModalVisible } = this.props;
     const templateId = survey.id;
 
     isModalVisible(true, null, templateId);
@@ -53,7 +56,7 @@ class QualitySurveys extends Component {
             <h3>Questionnaires Qualitées :</h3>
           </Col>
           <Col lg={12} className="new-survey-action align-right">
-            <Button type="button" className="action-button" bsStyle="btn btn-action-button" onClick={() => this.props.isModalVisible(true, 'qualitysurvey.create', null)}>
+            <Button type="button" className="action-button" bsStyle="btn btn-action-button" onClick={() => this.props.isModalVisible(true, QUALITY_SURVEY_MODAL, null)}>
               <Glyphicon glyph="eye-plus" /> Créer un questionnaire
             </Button>
           </Col>
@@ -100,12 +103,11 @@ class QualitySurveys extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isVisible: state.modal.mode,
-    qualitySurveys: state.form.Administration.qualitySurveys.values,
-  };
-};
+const mapStateToProps = state => ({
+  isVisible: state.modal.mode,
+  qualitySurveys: state.form.Administration.qualitySurveys.values,
+});
+
 
 const mapDispatchToProps = state => dispatch => bindActionCreators({
   getQualitySurveys,
