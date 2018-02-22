@@ -151,6 +151,12 @@ export function sendQualitySurvey(qualitySurvey, history) {
   };
 }
 
+export function dispatchNoChangeWarning() {
+  return (dispatch) => {
+    return dispatch(displayToastr(true, 'Aucun changement a sauvegardé !', 'warning'));
+  };
+}
+
 export function saveQualitySurveyChangeSet(qualitySurvey, qualitySurveyId, history, location) {
   const changeSetFormatedForApi = formatQualitySurveyToChangeSet(qualitySurvey);
   let action;

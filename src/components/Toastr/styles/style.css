@@ -1,7 +1,6 @@
 .toast {
   align-items: flex-start;
   border-radius: 4px;
-  color: #ffffff;
   display: flex;
   padding: 16px;
   width: auto;
@@ -11,11 +10,18 @@
   top: 1%;
   right: 1%; }
   .toast.success {
+    color: #ffffff;
     background-color: #51A351;
     opacity: 0.9; }
   .toast.error {
+    color: #ffffff;
     background-color: #BD362F;
     opacity: 0.9; }
+  .toast.warning {
+    background-color: #fff3cd !important;
+    border-color: #ffeeba !important;
+    opacity: 0.9;
+    color: #856404 !important; }
   .toast.show {
     display: flex; }
   .toast.hide {
