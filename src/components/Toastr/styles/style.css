@@ -8,20 +8,18 @@
   position: fixed;
   z-index: 1;
   top: 1%;
-  right: 1%; }
+  right: 1%;
+  opacity: 0.9; }
   .toast.success {
     color: #ffffff;
-    background-color: #51A351;
-    opacity: 0.9; }
+    background-color: #51A351; }
   .toast.error {
     color: #ffffff;
-    background-color: #BD362F;
-    opacity: 0.9; }
+    background-color: #BD362F; }
   .toast.warning {
-    background-color: #fff3cd !important;
-    border-color: #ffeeba !important;
-    opacity: 0.9;
-    color: #856404 !important; }
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404; }
   .toast.show {
     display: flex; }
   .toast.hide {
