@@ -151,9 +151,9 @@ export function sendQualitySurvey(qualitySurvey, history) {
   };
 }
 
-export function dispatchNoChangeWarning() {
+export function dispatchToaster(message, priority) {
   return (dispatch) => {
-    return dispatch(displayToastr(true, 'Aucun changement a sauvegardé !', 'warning'));
+    return dispatch(displayToastr(true, message, priority));
   };
 }
 

@@ -3,16 +3,15 @@ import _ from 'lodash';
 import { Button, Col, Row } from 'react-bootstrap';
 import { FieldArray, Form, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import Section from './components/SectionQualitySurvey/';
-import { getQualitySurveyForm, publishQualitySurvey, saveQualitySurveyChangeSet, sendQualitySurvey, dispatchNoChangeWarning } from '../../actions';
+import { getQualitySurveyForm, publishQualitySurvey, saveQualitySurveyChangeSet, sendQualitySurvey, dispatchToaster } from '../../actions';
 import './styles/style.css';
 import { isModalVisible } from '../../../../../../components/Modal/actions';
 import ConfirmDiscardQualitySurveyModal, { CONFIRM_DISCARD_QUALITY_SURVEY_MODAL } from './components/ConfirmDiscardQualitySurveyModal/';
 import Modal from '../../../../../../components/Modal';
 
-const required = value => (value ? undefined : ' ');
 
 class ManageQualitySurvey extends Component {
   state = {
@@ -50,11 +49,11 @@ class ManageQualitySurvey extends Component {
   };
 
   saveQualitySurvey(survey) {
-    const { sendQualitySurvey, saveQualitySurveyChangeSet, dispatchNoChangeWarning, match, history, location } = this.props;
+    const { sendQualitySurvey, saveQualitySurveyChangeSet, dispatchToaster, match, history, location } = this.props;
     const surveyTemplateId = match.params.id;
 
     if (!this.hasChangeSetBeenModified()) {
-      dispatchNoChangeWarning();
+      dispatchToaster('Aucun changement a sauvegardé !', 'warning');
     } else {
       if (surveyTemplateId) {
         saveQualitySurveyChangeSet(survey, surveyTemplateId, history, location);
@@ -66,8 +65,13 @@ class ManageQualitySurvey extends Component {
   }
 
   publishTemplate(templateId) {
-    const { publishQualitySurvey, history } = this.props;
-    publishQualitySurvey(templateId, history);
+    const { publishQualitySurvey, history, dispatchToaster } = this.props;
+
+    if (this.hasChangeSetBeenModified()) {
+      dispatchToaster('Sauvegarder ou annuler vos modifications avant de publier une nouvelle version !', 'error');
+    } else {
+      publishQualitySurvey(templateId, history);
+    }
   }
 
   render() {
@@ -125,19 +129,18 @@ function mapDispatchToProps(state) {
     saveQualitySurveyChangeSet,
     publishQualitySurvey,
     isModalVisible,
-    dispatchNoChangeWarning,
+    dispatchToaster,
   }, dispatch);
 }
 
-ManageQualitySurvey = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+export default compose(
+  reduxForm({
+    form: 'Administration.qualitySurvey',
+    initialValues: {
+      lastChangeSet: {},
+      details: {},
+    },
+  }),
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
 )(ManageQualitySurvey);
-
-export default reduxForm({
-  form: 'Administration.qualitySurvey',
-  initialValues: {
-    lastChangeSet: {},
-    details: {},
-  },
-})(withRouter(ManageQualitySurvey));
