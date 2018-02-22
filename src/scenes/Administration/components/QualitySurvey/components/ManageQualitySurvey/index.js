@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Section from './components/SectionQualitySurvey/';
-import { getQualitySurveyForm, publishQualitySurvey, sendEditingQualitySurvey, sendQualitySurvey } from '../../actions';
+import { getQualitySurveyForm, publishQualitySurvey, saveQualitySurveyChangeSet, sendQualitySurvey } from '../../actions';
 import './styles/style.css';
 import { isModalVisible } from '../../../../../../components/Modal/actions';
 import ConfirmDiscardQualitySurveyModal, { CONFIRM_DISCARD_QUALITY_SURVEY_MODAL } from './components/ConfirmDiscardQualitySurveyModal/';
@@ -49,12 +49,12 @@ class ManageQualitySurvey extends Component {
     }
   };
 
-  sendQualitySurvey(survey) {
-    const { sendQualitySurvey, sendEditingQualitySurvey, match, history } = this.props;
+  saveQualitySurvey(survey) {
+    const { sendQualitySurvey, saveQualitySurveyChangeSet, match, history, location } = this.props;
     const surveyTemplateId = match.params.id;
 
     if (surveyTemplateId) {
-      sendEditingQualitySurvey(survey, surveyTemplateId, history);
+      saveQualitySurveyChangeSet(survey, surveyTemplateId, history, location);
     } else {
       console.log('[DEBUG] - Cette méthode doit être supprimé !');
       sendQualitySurvey(survey, history);
@@ -80,7 +80,7 @@ class ManageQualitySurvey extends Component {
             </Button>
           </Col>
         </Col>
-        <Form onSubmit={handleSubmit(this.sendQualitySurvey.bind(this))}>
+        <Form onSubmit={handleSubmit(this.saveQualitySurvey.bind(this))}>
           <Col lg={4}>
             <h2>Questionnaire Qualité :</h2>
             <h3>{name}</h3>
@@ -117,7 +117,7 @@ function mapDispatchToProps(state) {
   return dispatch => bindActionCreators({
     getQualitySurveyForm,
     sendQualitySurvey,
-    sendEditingQualitySurvey,
+    saveQualitySurveyChangeSet,
     publishQualitySurvey,
     isModalVisible,
   }, dispatch);

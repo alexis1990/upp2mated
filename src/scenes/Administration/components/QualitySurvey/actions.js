@@ -151,7 +151,7 @@ export function sendQualitySurvey(qualitySurvey, history) {
   };
 }
 
-export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history) {
+export function saveQualitySurveyChangeSet(qualitySurvey, qualitySurveyId, history, location) {
   const changeSetFormatedForApi = formatQualitySurveyToChangeSet(qualitySurvey);
   let action;
   if (changeSetFormatedForApi.id) {
@@ -164,11 +164,10 @@ export function sendEditingQualitySurvey(qualitySurvey, qualitySurveyId, history
     return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${qualitySurveyId}/${action}`, { ...changeSetFormatedForApi })
       .then((result) => {
         dispatch(displayToastr(true, 'Modification enregistrée !', 'success'));
-        history.push('/administration');
+        history.push(location);
       }).catch((err) => {
-
-      dispatch(displayToastr(true, 'Impossible de modifier', 'error'));
-    });
+        dispatch(displayToastr(true, 'Impossible de modifier', 'error'));
+      });
   };
 }
 
@@ -176,8 +175,8 @@ export function editQualitySurvey(survey) {
   return axios.post(`/u2m-api/v1/suppliers/template/qualityquestionnaire/${survey.id}/editing`)
     .then((response) => {
     }).catch((reject) => {
-    console.log(reject);
-  });
+      console.log(reject);
+    });
 }
 
 export function publishQualitySurvey(surveyId, history) {
