@@ -1,35 +1,32 @@
-import React, { Component } from 'react'
-import { Button } from 'react-bootstrap'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { getQualitySurvey } from '../actions'
-import { RestrictedRouteHeader } from '../../../components/RestrictedRouteHeader/'
-import ManageQualitySurvey from '../components/ManageQualitySurvey'
-import { withRouter } from 'react-router-dom'
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { getQualitySurvey } from '../actions';
+import { RestrictedRouteHeader } from '../../../components/RestrictedRouteHeader/';
+import ManageQualitySurvey from '../components/ManageQualitySurvey';
 
 class QualitySurveyReply extends Component {
-    componentWillMount() {
-        const { getQualitySurvey, match } = this.props;
-        const supplierId = match.params.supplierId;
-        const templateId = match.params.templateId;
-        getQualitySurvey(supplierId, templateId);
-    }
-    render () {
-        return (
-            <div>
-                <RestrictedRouteHeader />
-                <ManageQualitySurvey />
-            </div>
-        )
-    }
+  componentWillMount() {
+    const { getQualitySurvey, match } = this.props;
+    const { supplierId, templateId } = match.params;
+    getQualitySurvey(supplierId, templateId);
+  }
+
+  render() {
+    return (
+      <div>
+        <RestrictedRouteHeader />
+        <ManageQualitySurvey />
+      </div>
+    );
+  }
 }
 
-function mapStateToProps(state) {
-    return {};
-}
+const mapStateToProps = (state) => ({});
 
-function mapDispatchToProps() {
-    return (dispatch) => bindActionCreators({getQualitySurvey}, dispatch);
-}
+const mapDispatchToProps = () => dispatch => bindActionCreators({
+  getQualitySurvey,
+}, dispatch);
 
-export default withRouter(connect (mapStateToProps, mapDispatchToProps) (QualitySurveyReply));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(QualitySurveyReply));
