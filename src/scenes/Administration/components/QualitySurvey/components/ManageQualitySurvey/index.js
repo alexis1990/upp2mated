@@ -53,15 +53,15 @@ class ManageQualitySurvey extends Component {
     const surveyTemplateId = match.params.id;
 
     if (!this.hasChangeSetBeenModified()) {
-      dispatchToaster('Aucun changement a sauvegardé !', 'warning');
-    } else {
-      if (surveyTemplateId) {
-        saveQualitySurveyChangeSet(survey, surveyTemplateId, history, location);
-      } else {
-        console.log('[DEBUG] - Cette méthode doit être supprimé !');
-        sendQualitySurvey(survey, history);
-      }
+      return dispatchToaster('Aucun changement a sauvegardé !', 'warning');
     }
+
+    if (!surveyTemplateId) {
+      console.log('[DEBUG] - Cette méthode doit être supprimé !');
+      return sendQualitySurvey(survey, history);
+    }
+
+    return saveQualitySurveyChangeSet(survey, surveyTemplateId, history, location);
   }
 
   publishTemplate(templateId) {
@@ -113,25 +113,21 @@ class ManageQualitySurvey extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isVisible: state.modal.mode,
-    qualitySurveyForm: state.form.Administration.qualitySurvey.values.qualitySurveyForm,
-    lastChangeSet: state.form.Administration.qualitySurvey.values.lastChangeSet,
-    surveyTemplateDetails: state.form.Administration.qualitySurvey.values.details,
-  };
-}
+const mapStateToProps = state => ({
+  isVisible: state.modal.mode,
+  qualitySurveyForm: state.form.Administration.qualitySurvey.values.qualitySurveyForm,
+  lastChangeSet: state.form.Administration.qualitySurvey.values.lastChangeSet,
+  surveyTemplateDetails: state.form.Administration.qualitySurvey.values.details,
+});
 
-function mapDispatchToProps(state) {
-  return dispatch => bindActionCreators({
-    getQualitySurveyForm,
-    sendQualitySurvey,
-    saveQualitySurveyChangeSet,
-    publishQualitySurvey,
-    isModalVisible,
-    dispatchToaster,
-  }, dispatch);
-}
+const mapDispatchToProps = () => dispatch => bindActionCreators({
+  getQualitySurveyForm,
+  sendQualitySurvey,
+  saveQualitySurveyChangeSet,
+  publishQualitySurvey,
+  isModalVisible,
+  dispatchToaster,
+}, dispatch);
 
 export default compose(
   reduxForm({
