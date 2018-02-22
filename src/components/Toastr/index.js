@@ -40,7 +40,6 @@ class Toastr extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('displaydisplaydisplay', state)
     return {
         display: state.toastr.display,
         message: state.toastr.message,

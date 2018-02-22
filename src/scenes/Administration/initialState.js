@@ -1,67 +1,70 @@
 const initialState = {
-    teams: {
-        data: [],
-        isLoading: true
+  teams: {
+    data: [],
+    isLoading: true,
+  },
+  team: {
+    data: {
+      teamMembers: [],
+      teamManagers: [],
     },
-    team: {
-        data: {
-            teamMembers: [],
-            teamManagers: []
-        },
-        isLoading: true
+    isLoading: true,
+  },
+  manageTeam: {
+    values: {
+      teamMembers: [],
     },
-    manageTeam: {
-        values: {
-            teamMembers: []
-        }
+  },
+  manageUser: {
+    values: {
+      teamList: [],
     },
-    manageUser: {
-        values: {
-            teamList: []
-        }
+  },
+  users: {
+    data: {
+      teamMembers: [],
+      teamManagers: [],
     },
-    users: {
-        data: {
-            teamMembers: [],
-            teamManagers: []
-        },
-        isLoading: true
+    isLoading: true,
+  },
+  user: {
+    data: {
+      teamMembers: [],
     },
-    user: {
-        data: {
-            teamMembers: [],
-        },
-        isLoading: true
+    isLoading: true,
+  },
+  authorization: {
+    responsibilities: [],
+    roles: [],
+    tenant: {
+      teams: [],
+      users: [],
     },
-    authorization: {
-        responsibilities: [],
-        roles: [],
-        tenant: {
-            teams: [],
-            users: []
-        },
-        director: {
-            teams: [],
-            users: []
-        },
-        buyer: {
-            teams: [],
-            users: []
-        }
+    director: {
+      teams: [],
+      users: [],
     },
-    qualitySurvey: {
-        values: {
-            id: 0,
-            changeSetList: [],
-            sections:[],
-            templateId: 0
-        }
+    buyer: {
+      teams: [],
+      users: [],
     },
-    qualitySurveys: {
-        values: {
-            content: [],
-        }
-    }
-}
+  },
+  qualitySurvey: {
+    values: {
+      id: 0,
+      changeSetList: [],
+      sections: [],
+      templateId: 0,
+    },
+    create: {
+      values: {},
+    },
+  },
+  qualitySurveys: {
+    values: {
+      content: [],
+    },
+  },
+};
 
 export default initialState;

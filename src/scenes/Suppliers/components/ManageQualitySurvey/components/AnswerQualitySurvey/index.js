@@ -1,10 +1,9 @@
 import React from 'react'
-import { Col, Button, Glyphicon } from 'react-bootstrap'
-import { FieldArray, Field } from 'redux-form'
+import {Field} from 'redux-form'
 import renderInput from '../../../../../../components/Fields/input'
 import StaticBlockWrapperHOC from '../../../../../../components/DraggableHOC/'
 import DraggableContainerWrapperHOC from '../../../../../../components/DraggableHOC/components/DraggableElement'
-import { required } from '../../../../../../utils/inputRules.js'
+import {required} from '../../../../../../utils/inputRules.js'
 
 const Answer = ({ fields, field, index, types }) => (
     <li key={index} className="answer-row">

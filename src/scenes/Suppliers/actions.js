@@ -99,12 +99,12 @@ export function sendReply(qualitySurvey, templateId, supplierId) {
 		supplierId: parseInt(supplierId),
 		templateId: parseInt(templateId),
 		templateIdVersion: 1,
-	}
+	};
 
-	return (dispatch) => {
+	return dispatch => {
 		axios.post('/u2m-api/v1/suppliers/qualityquestionnaire/', answersList)
-		.then((response) => console.log('REPLYYYYYYYYYYY'))
-		.catch((error)=> console.log('ERRRRRRRRRRRRRRR'))
+		.then(response => console.log('REPLYYYYYYYYYYY'))
+		.catch(error=> console.log('ERRRRRRRRRRRRRRR'))
 	}
 }
 

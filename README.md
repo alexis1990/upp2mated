@@ -9,6 +9,12 @@ Technos :
 - React / Redux
 - Webpack / Babel / ES6
 
+To Run:
+
+- cd project
+- npm install
+- npm start
+
 To deploy (!important static.json for fix react-router v4) :
 - git checkout -b "(feature or fix)/branch_name"
 - git add <files>
