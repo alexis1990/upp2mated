@@ -14,7 +14,6 @@ const required = value => value ? undefined : ' ';
 export const QUALITY_SURVEY_MODAL = 'qualitysurvey.create';
 
 class CreateQualitySurveyModal extends Component {
-
   componentDidMount() {
     document.addEventListener('keydown', this.escFunction, false);
   }

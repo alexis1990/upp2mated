@@ -12,14 +12,6 @@ const required = value => value ? undefined : ' ';
 export const CONFIRM_DISCARD_QUALITY_SURVEY_MODAL = 'qualitysurvey.discard';
 
 class ConfirmDiscardQualitySurveyModal extends Component {
-
-  escFunction = event => {
-    if (event.keyCode === 27) {
-      const { isModalVisible } = this.props;
-      isModalVisible(false, CONFIRM_DISCARD_QUALITY_SURVEY_MODAL);
-    }
-  };
-
   componentDidMount() {
     document.addEventListener('keydown', this.escFunction, false);
   }
@@ -28,9 +20,23 @@ class ConfirmDiscardQualitySurveyModal extends Component {
     document.removeEventListener('keydown', this.escFunction, false);
   }
 
-  render() {
+  escFunction = (event) => {
+    if (event.keyCode === 27) {
+      const { isModalVisible } = this.props;
+      isModalVisible(false, CONFIRM_DISCARD_QUALITY_SURVEY_MODAL);
+    }
+  };
+
+  discardChanges = (hasDiscarded) => {
     const { isModalVisible } = this.props;
 
+    isModalVisible(false, CONFIRM_DISCARD_QUALITY_SURVEY_MODAL);
+    if (hasDiscarded) {
+      this.props.history.push('/administration/');
+    }
+  };
+
+  render() {
     return (
       <Row className="select-supplier-modal">
         <Col xs={12} md={12} lg={12} className="list users-list">
@@ -41,8 +47,8 @@ class ConfirmDiscardQualitySurveyModal extends Component {
               </Modal.Header>
               <Modal.Body>Vous êtes sur le point de quitter cette page, vous perdrez alors toutes les modifications en cours.</Modal.Body>
               <Modal.Footer>
-                <Button type="button" bsStyle="btn btn-action-button btn-primary" onClick={() => isModalVisible(false, CONFIRM_DISCARD_QUALITY_SURVEY_MODAL)}>Annuler</Button>
-                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.props.history.push('/administration/')}>Confirmer</Button>
+                <Button type="button" bsStyle="btn btn-action-button btn-primary" onClick={() => this.discardChanges(false)}>Annuler</Button>
+                <Button type="button" bsStyle="btn btn-action-button" onClick={() => this.discardChanges(true)}>Confirmer</Button>
               </Modal.Footer>
             </Col>
           </Col>
