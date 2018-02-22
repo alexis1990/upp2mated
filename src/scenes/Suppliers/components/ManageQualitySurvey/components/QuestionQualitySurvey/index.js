@@ -10,6 +10,7 @@ const Question = ({ fields, field, index, types }) => (
     <h5>Question {index + 1}</h5>
     <div className="question-field">
       <Field
+        disabled
         name={`${field}.content`}
         type="text"
         component={renderInput}

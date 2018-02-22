@@ -14,6 +14,7 @@ const Section = ({ fields, field, index, types }) => (
       </Col>
       <Col lg={4}>
         <Field
+          disabled
           name={`${field}.content`}
           type="text"
           withoutLabel
