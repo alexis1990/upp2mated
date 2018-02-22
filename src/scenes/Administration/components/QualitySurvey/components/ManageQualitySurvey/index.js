@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Section from './components/SectionQualitySurvey/';
-import { getQualitySurveyForm, publishQualitySurvey, saveQualitySurveyChangeSet, sendQualitySurvey } from '../../actions';
+import { getQualitySurveyForm, publishQualitySurvey, saveQualitySurveyChangeSet, sendQualitySurvey, dispatchNoChangeWarning } from '../../actions';
 import './styles/style.css';
 import { isModalVisible } from '../../../../../../components/Modal/actions';
 import ConfirmDiscardQualitySurveyModal, { CONFIRM_DISCARD_QUALITY_SURVEY_MODAL } from './components/ConfirmDiscardQualitySurveyModal/';
@@ -16,7 +16,7 @@ const required = value => (value ? undefined : ' ');
 
 class ManageQualitySurvey extends Component {
   state = {
-    lastChangeSet: {},
+    qualitySurveyForm: null,
   };
 
   componentWillMount() {
@@ -32,17 +32,17 @@ class ManageQualitySurvey extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.lastChangeSet.changeList && Object.keys(this.state.lastChangeSet).length === 0) {
-      this.state.lastChangeSet = {
-        ...nextProps.lastChangeSet,
-      };
+    if (nextProps.qualitySurveyForm && !this.state.qualitySurveyForm) {
+      this.state.qualitySurveyForm = nextProps.qualitySurveyForm;
     }
   }
+
+  hasChangeSetBeenModified = () => !_.isEqual(this.state.qualitySurveyForm, this.props.qualitySurveyForm);
 
   goBack = () => {
     const { isModalVisible, history } = this.props;
 
-    if (!_.isEqual(this.state.lastChangeSet, this.props.lastChangeSet)) {
+    if (this.hasChangeSetBeenModified()) {
       isModalVisible(true, CONFIRM_DISCARD_QUALITY_SURVEY_MODAL, null);
     } else {
       history.push('/administration/');
@@ -50,14 +50,18 @@ class ManageQualitySurvey extends Component {
   };
 
   saveQualitySurvey(survey) {
-    const { sendQualitySurvey, saveQualitySurveyChangeSet, match, history, location } = this.props;
+    const { sendQualitySurvey, saveQualitySurveyChangeSet, dispatchNoChangeWarning, match, history, location } = this.props;
     const surveyTemplateId = match.params.id;
 
-    if (surveyTemplateId) {
-      saveQualitySurveyChangeSet(survey, surveyTemplateId, history, location);
+    if (!this.hasChangeSetBeenModified()) {
+      dispatchNoChangeWarning();
     } else {
-      console.log('[DEBUG] - Cette méthode doit être supprimé !');
-      sendQualitySurvey(survey, history);
+      if (surveyTemplateId) {
+        saveQualitySurveyChangeSet(survey, surveyTemplateId, history, location);
+      } else {
+        console.log('[DEBUG] - Cette méthode doit être supprimé !');
+        sendQualitySurvey(survey, history);
+      }
     }
   }
 
@@ -108,6 +112,7 @@ class ManageQualitySurvey extends Component {
 function mapStateToProps(state) {
   return {
     isVisible: state.modal.mode,
+    qualitySurveyForm: state.form.Administration.qualitySurvey.values.qualitySurveyForm,
     lastChangeSet: state.form.Administration.qualitySurvey.values.lastChangeSet,
     surveyTemplateDetails: state.form.Administration.qualitySurvey.values.details,
   };
@@ -120,6 +125,7 @@ function mapDispatchToProps(state) {
     saveQualitySurveyChangeSet,
     publishQualitySurvey,
     isModalVisible,
+    dispatchNoChangeWarning,
   }, dispatch);
 }
 
