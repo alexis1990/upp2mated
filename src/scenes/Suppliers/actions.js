@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as types from './actionTypes';
 import axios from '../../axios.config';
+import { displayToastr } from '../../components/Toastr/actions';
 
 function loadSuppliers(isLoading, contact) {
   return {
@@ -62,18 +63,16 @@ export function loadQualitySurvey(qualitySurvey) {
 }
 
 export function getQualitySurvey(supplierId, templateId) {
-  console.log('supplierId, templateId', supplierId, templateId);
   return (dispatch) => {
     axios.get(`/u2m-api/v1/suppliers/qualityquestionnaire/${templateId}/supplierid/${supplierId}`)
-      .then((qq) => {
-        const qualitySurvey = qq;
+      .then((qualitySurveyForm) => {
         return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${templateId}`)
-          .then((template) => {
-            return _.merge(qualitySurvey, template);
+          .then((details) => {
+            dispatch(loadQualitySurvey({
+              qualitySurveyForm: qualitySurveyForm.content || [],
+              details,
+            }));
           });
-      })
-      .then((qualitySurvey) => {
-        dispatch(loadQualitySurvey(qualitySurvey));
       })
       .catch((error) => {
         console.log(error);
@@ -89,7 +88,7 @@ export function sendReply(qualitySurvey, templateId, supplierId) {
       .reduce((arr, question) => {
         return arr.concat(question.answers.map((answer) => {
           return {
-            answer: answer.content,
+            answer: answer.answer,
             questionId: question.questionId,
           };
         }));
@@ -102,7 +101,10 @@ export function sendReply(qualitySurvey, templateId, supplierId) {
 
   return (dispatch) => {
     axios.post('/u2m-api/v1/suppliers/qualityquestionnaire/', answersList)
-      .then(response => console.log('REPLYYYYYYYYYYY'))
+      .then(response => {
+        displayToastr(true, 'Réponse envoyée', 'success');
+
+      })
       .catch(error => console.log('ERRRRRRRRRRRRRRR'));
   };
 }

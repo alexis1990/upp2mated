@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Glyphicon } from 'react-bootstrap';
-import { Form, Field, reduxForm, FieldArray } from 'redux-form';
+import { Button, Col } from 'react-bootstrap';
+import { Field, FieldArray, Form, reduxForm } from 'redux-form';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Section from './components/SectionQualitySurvey/';
 import renderInput from '../../../../components/Fields/input';
-import Select from '../../../../components/Fields/select';
 import { sendReply } from '../../actions';
 import './styles/style.css';
 
-const required = value => value ? undefined : ' ';
+const required = value => (value ? undefined : ' ');
 
 class ManageQualitySurvey extends Component {
   componentWillMount() {
@@ -27,7 +26,6 @@ class ManageQualitySurvey extends Component {
 
   render() {
     const { handleSubmit, lastEditingVersionBySupplier, templatePublishedVersion, pristine, reset, submitting } = this.props;
-
     return (
       <div>
         <Form onSubmit={handleSubmit(this.sendQualitySurveyReply.bind(this))}>
@@ -37,10 +35,9 @@ class ManageQualitySurvey extends Component {
             <Field name="description" label="description" component={renderInput} disabled validate={[required]} />
             <div>Version d'édition : {lastEditingVersionBySupplier}</div>
             <div>Version de Publication : {templatePublishedVersion}</div>
-            {/* <Field name="validTime" options={[]} label="Durée de Validité" component={Select} validate={[required]} /> */}
           </Col>
           <Col lg={8} className="form-creation">
-            <FieldArray name="content" noneButton component={Section} dragSource="SECTION" dropTarget="SECTION" />
+            <FieldArray name="qualitySurveyForm" noneButton component={Section} />
           </Col>
           <Col lg={12} className="align-right">
             <Button bsStyle="btn btn-action-button" type="submit">Envoyer</Button>
