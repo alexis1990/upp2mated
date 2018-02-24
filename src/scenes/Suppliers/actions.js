@@ -69,6 +69,7 @@ export function getQualitySurvey(supplierId, templateId) {
         return axios.get(`u2m-api/v1/suppliers/template/qualityquestionnaire/${templateId}`)
           .then((details) => {
             dispatch(loadQualitySurvey({
+              ...qualitySurveyForm,
               qualitySurveyForm: qualitySurveyForm.content || [],
               details,
             }));

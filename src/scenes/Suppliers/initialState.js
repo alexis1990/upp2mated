@@ -1,17 +1,23 @@
 const initialState = {
   suppliers: {
-    content:[]
+    content: [],
   },
   supplier: {
     name: '',
-    contactPersonList: []
+    contactPersonList: [],
   },
   qualitySurvey: {
-    values :{
-      content: []
-    }
+    values: {
+      content: [],
+      lastEditingVersionBySupplier: 0,
+      templatePublishedVersion: 0,
+      details: {
+        name: '',
+        description: '',
+      },
+    },
   },
-  isLoading: false
+  isLoading: false,
 };
 
 export default initialState;
