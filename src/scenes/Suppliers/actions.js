@@ -62,6 +62,26 @@ export function loadQualitySurvey(qualitySurvey) {
   };
 }
 
+function mergeContentAndAnswers(content, responses) {
+  if (responses.length === 0) {
+    return content;
+  }
+
+  return content.map(section => ({
+    ...section,
+    questions: section.questions.map((question) => {
+      const answer = responses.filter(response => response.questionId === question.questionId);
+      return ({
+        ...question,
+        answer: answer.length !== 0 ? _.head(answer) : {
+          answer: '',
+          questionId: question.questionId,
+        },
+      });
+    }),
+  }));
+}
+
 export function getQualitySurvey(supplierId, templateId) {
   return (dispatch) => {
     axios.get(`/u2m-api/v1/suppliers/qualityquestionnaire/${templateId}/supplierid/${supplierId}`)
@@ -70,7 +90,7 @@ export function getQualitySurvey(supplierId, templateId) {
           .then((details) => {
             dispatch(loadQualitySurvey({
               ...qualitySurveyForm,
-              qualitySurveyForm: qualitySurveyForm.content || [],
+              content: mergeContentAndAnswers(qualitySurveyForm.content, qualitySurveyForm.qualityQuestionnaireResponse.answers),
               details,
             }));
           });
@@ -81,32 +101,38 @@ export function getQualitySurvey(supplierId, templateId) {
   };
 }
 
-export function sendReply(qualitySurvey, templateId, supplierId) {
+export function sendReply(qualitySurvey, templateId, supplierId, history, location) {
+  const isNewReply = qualitySurvey.lastEditingVersionBySupplier !== qualitySurvey.templatePublishedVersion;
   const answersList = {
+    id: isNewReply ? null : qualitySurvey.qualityQuestionnaireResponse.id,
     answers: _.chain(qualitySurvey.content)
       .map('questions')
       .flatten()
-      .reduce((arr, question) => {
-        return arr.concat(question.answers.map((answer) => {
-          return {
-            answer: answer.answer,
-            questionId: question.questionId,
-          };
-        }));
-      }, [])
+      .reduce((arr, question) => arr.concat({
+        id: isNewReply ? null : question.answer.id,
+        answer: question.answer.answer,
+        questionId: question.questionId,
+      }), [])
       .value(),
-    supplierId: parseInt(supplierId),
-    templateId: parseInt(templateId),
-    templateIdVersion: 1,
+    supplierId: parseInt(supplierId, 10),
+    templateId: parseInt(templateId, 10),
+    templateIdVersion: qualitySurvey.templatePublishedVersion,
+    version: qualitySurvey.qualityQuestionnaireResponse.version || 0,
   };
 
-  return (dispatch) => {
-    axios.post('/u2m-api/v1/suppliers/qualityquestionnaire/', answersList)
-      .then(response => {
-        displayToastr(true, 'Réponse envoyée', 'success');
+  console.log(answersList);
 
+  return (dispatch) => {
+    return axios.post('/u2m-api/v1/suppliers/qualityquestionnaire/', answersList)
+      .then(response => {
+        dispatch(displayToastr(true, 'Réponse envoyée', 'success'));
+        history.push(location.pathname);
       })
-      .catch(error => console.log('ERRRRRRRRRRRRRRR'));
+      .catch(error => {
+        console.log('ça passe pas ');
+        console.log(error);
+        dispatch(displayToastr(true, 'Impossible d\'envoyer le questionnaire qualité', 'error'));
+      });
   };
 }
 

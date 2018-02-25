@@ -1,7 +1,7 @@
 import initialState from './initialState';
 import * as types from './actionTypes';
 
-export function suppliersReducer(state = initialState, action = action) {
+export default function suppliersReducer(state = initialState, action = action) {
   switch (action.type) {
     case types.LOAD_SUPPLIERS:
       return {
@@ -27,16 +27,6 @@ export function suppliersReducer(state = initialState, action = action) {
           ...state.qualitySurvey,
           values: {
             ...action.payload,
-            qualitySurveyForm: action.payload.qualitySurveyForm.map(section => ({
-              ...section,
-              questions: section.questions.map(question => ({
-                ...question,
-                answer: {
-                  answer: '',
-                  questionId: question.questionId,
-                },
-              })),
-            })),
           },
         },
       };
@@ -45,7 +35,7 @@ export function suppliersReducer(state = initialState, action = action) {
         ...state,
         suppliers: {
           ...state.suppliers,
-          content: state.suppliers.content.filter((supplier) => supplier.id !== action.payload),
+          content: state.suppliers.content.filter(supplier => supplier.id !== action.payload),
         },
       };
     default:
