@@ -1,0 +1,23 @@
+.is-flex {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  border: 1px solid black; }
+  .is-flex .frame {
+    padding: 0; }
+    .is-flex .frame .categories {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid black; }
+    .is-flex .frame .sub-category-block {
+      padding: 0;
+      height: 100%; }
+      .is-flex .frame .sub-category-block .sub-category {
+        height: 100%; }
+      .is-flex .frame .sub-category-block .column {
+        padding: 0;
+        width: 22%;
+        border-left: 1px solid black; }
+        .is-flex .frame .sub-category-block .column div {
+          padding: 0; }
