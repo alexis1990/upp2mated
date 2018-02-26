@@ -83,7 +83,7 @@ const App = ({ isAuthenticated }) => (
         <Route exact path="/suppliers/:id" component={requireAuthentication(Supplier)} />
         <Route exact path="/suppliers/supplier/new" component={requireAuthentication(ManageSupplier)} />
         <Route exact path="/suppliers/supplier/edit/:id" component={requireAuthentication(ManageSupplier)} />
-        <Route exact path="/suppliers/supplier/:supplierId/quality-survey/:templateId/contact/:contactId/hash/:hash" component={restrictedNoRegisterSupplierRoutes(QualitySurveyReply)} />
+        <Route exact path="/suppliers/supplier/:supplierId/quality-survey/:templateId/contact/:contactId" component={restrictedNoRegisterSupplierRoutes(QualitySurveyReply)} />
         <Route exact path="/administration" component={requireAuthentication(Administration)} />
         <Route exact path="/administration/teams/:id" component={requireAuthentication(TeamView)} />
         <Route exact path="/administration/teams/team/new" component={requireAuthentication(ManageTeam)} />
