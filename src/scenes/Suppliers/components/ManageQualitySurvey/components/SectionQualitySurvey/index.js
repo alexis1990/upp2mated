@@ -4,12 +4,16 @@ import Question from '../QuestionQualitySurvey/';
 
 const Section = ({ fields }) => (
   <ul>
-    {fields.map((section, index) => (
-      <li key={index} className="sections">
-        <h3>{fields.get(index).content}</h3>
-        <FieldArray name={`${section}.questions`} noneButton component={Question} />
-      </li>
-    ))}
+    {fields.map((section, index) => {
+      const fieldObject = fields.getAll()[index];
+      const status = fieldObject.status || 'unchange';
+      return (
+        <li key={index} className={`sections section-status-${status.toLowerCase()}`}>
+          <h3>{fields.get(index).content}</h3>
+          <FieldArray name={`${section}.questions`} noneButton component={Question} />
+        </li>
+      )
+    })}
   </ul>
 );
 

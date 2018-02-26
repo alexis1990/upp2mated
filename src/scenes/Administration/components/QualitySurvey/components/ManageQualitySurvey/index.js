@@ -88,7 +88,7 @@ class ManageQualitySurvey extends Component {
             </Button>
           </Col>
         </Col>
-        <Form onSubmit={handleSubmit(this.saveQualitySurvey.bind(this))}>
+        <Form onSubmit={handleSubmit(this.saveQualitySurvey.bind(this))} className="quality-survey">
           <Col lg={4}>
             <h2>Questionnaire Qualité :</h2>
             <h3>{name}</h3>
