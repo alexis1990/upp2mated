@@ -55,12 +55,12 @@ class DesignationModal extends Component {
 
         return (
             <Col xs={5} md={9} style={{ padding: 0 }}>
-            <BootstrapTable data={ designations } selectRow={ selectRowProp }>
-                <TableHeaderColumn dataField='id' isKey>Numéro de catégorie</TableHeaderColumn>
-                <TableHeaderColumn dataField='name'>Designation</TableHeaderColumn>
-                {/* <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn> */}
-            </BootstrapTable>
-        </Col>
+                <BootstrapTable data={ designations } selectRow={ selectRowProp }>
+                    <TableHeaderColumn dataField='id' isKey>Numéro de catégorie</TableHeaderColumn>
+                    <TableHeaderColumn dataField='name'>Designation</TableHeaderColumn>
+                    {/* <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn> */}
+                </BootstrapTable>
+            </Col>
         )
     }
 }
