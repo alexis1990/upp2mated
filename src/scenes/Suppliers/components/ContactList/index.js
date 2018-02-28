@@ -1,19 +1,14 @@
-import React from 'react'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import React from 'react';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 const ContactList = ({ suppliers }) => (
-	<div>
-		<h4>Contacts :</h4>
-		<div style={{ height: 200 + 'px', overflow: 'scroll' }}>
-			<ListGroup>
-				{
-					suppliers.map((contact, index) => (
-						<ListGroupItem key={index}>{contact.name} ({contact.email})</ListGroupItem>
-					))
-				}
-			</ListGroup>
-		</div>
-	</div>
-)
+  <BootstrapTable
+    className="supplier-contact-table"
+    data={suppliers}
+  >
+    <TableHeaderColumn width="10%" dataField="name" dataSort>Numéro</TableHeaderColumn>
+    <TableHeaderColumn width="10%" dataField="email" isKey dataSort>Type</TableHeaderColumn>
+  </BootstrapTable>
+);
 
 export default ContactList;
