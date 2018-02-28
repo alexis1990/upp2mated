@@ -70,7 +70,7 @@ class UsersList extends Component {
                             </thead>
                             <tbody>
                                 {usersList.content.map((user, index) => (
-                                    <tr>
+                                    <tr key={index}>
                                         {checkboxOption ?
                                             <td width='10%' className="select-user">
                                                 <input type="checkbox" name="selected" onChange={() => manageMembers({ ...user, type: type })} checked={this.selectedMembers(user)} />

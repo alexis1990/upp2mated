@@ -7,3 +7,27 @@
     margin: 10px 0;
     width: 100%;
     margin-right: 20px; }
+
+.quality-survey .section-status-unchange input:first-of-type {
+  border-left: none !important; }
+
+.quality-survey .section-status-add input:first-of-type {
+  border-left: 4px solid green !important; }
+
+.quality-survey .section-status-modify input:first-of-type {
+  border-left: 4px solid blue !important; }
+
+.quality-survey .section-status-remove input:first-of-type {
+  border-left: 4px solid red !important; }
+
+.quality-survey .question-status-unchange input:first-of-type {
+  border-left: none !important; }
+
+.quality-survey .question-status-add input:first-of-type {
+  border-left: 4px solid green !important; }
+
+.quality-survey .question-status-modify input:first-of-type {
+  border-left: 4px solid blue !important; }
+
+.quality-survey .question-status-remove input:first-of-type {
+  border-left: 4px solid red !important; }

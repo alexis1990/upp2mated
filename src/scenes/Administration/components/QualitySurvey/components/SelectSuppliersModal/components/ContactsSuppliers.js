@@ -1,10 +1,6 @@
-import React, { Component } from 'react'
-import { Button } from 'react-bootstrap'
-import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table'
-import { manageSuppliersChoosedToFillQS } from '../../../../../actions'
-import { connect } from 'react-redux' 
-import { bindActionCreators } from 'redux'
-import _ from 'lodash'
+import React from 'react'
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
+import {connect} from 'react-redux'
 
 const ContactsSuppliers = ({ handleRowSelect, supplier, onSelectAll}) => {
     const selectRowProps = {
@@ -28,7 +24,7 @@ const ContactsSuppliers = ({ handleRowSelect, supplier, onSelectAll}) => {
             </BootstrapTable>
         </div>
     )
-}
+};
 
 function mapStateToProps() {
     return {}

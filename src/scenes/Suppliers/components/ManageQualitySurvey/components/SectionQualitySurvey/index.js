@@ -1,29 +1,20 @@
-import React from 'react'
-import { Col, Button, Glyphicon } from 'react-bootstrap'
-import { FieldArray, Field } from 'redux-form'
-import renderInput from '../../../../../../components/Fields/input'
-import StaticBlockWrapperHOC from '../../../../../../components/DraggableHOC/'
-import DraggableContainerWrapperHOC from '../../../../../../components/DraggableHOC/components/DraggableElement'
-import Question from '../QuestionQualitySurvey/'
+import React from 'react';
+import { FieldArray } from 'redux-form';
+import Question from '../QuestionQualitySurvey/';
 
-const Section = ({ fields, field, index, types }) => (
-    <li key={index} className="sections">
-        <Col lg={12}>
-            <Col lg={3}>
-                <h4>Section {index + 1}</h4>
-            </Col>
-            <Col lg={4}>
-                <Field
-                    name={`${field}.content`}
-                    type="text"
-                    withoutLabel
-                    component={renderInput}
-                    placeholder="Nom"
-                />
-            </Col>
-        </Col>
-        <FieldArray name={`${field}.questions`} noneButton parentId={index} dragSource="QUESTION" dropTarget="QUESTION" component={Question} />
-    </li>
-)
+const Section = ({ fields }) => (
+  <ul>
+    {fields.map((section, index) => {
+      const fieldObject = fields.getAll()[index];
+      const status = fieldObject.status || 'unchange';
+      return (
+        <li key={index} className={`sections section-status-${status.toLowerCase()}`}>
+          <h3>{fields.get(index).content}</h3>
+          <FieldArray name={`${section}.questions`} noneButton component={Question} />
+        </li>
+      )
+    })}
+  </ul>
+);
 
-export default StaticBlockWrapperHOC(DraggableContainerWrapperHOC(Section));
+export default Section;

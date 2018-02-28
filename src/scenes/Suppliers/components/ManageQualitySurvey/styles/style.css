@@ -1,3 +1,30 @@
+.quality-survey-reply .section-status-unchange h3, .quality-survey-reply .section-status-unchange h4 {
+  color: inherit; }
+
+.quality-survey-reply .section-status-add h3, .quality-survey-reply .section-status-add h4 {
+  color: green !important; }
+
+.quality-survey-reply .section-status-modify h3, .quality-survey-reply .section-status-modify h4 {
+  color: blue !important; }
+
+.quality-survey-reply .section-status-remove h3, .quality-survey-reply .section-status-remove h4 {
+  color: red !important; }
+
+.quality-survey-reply .question-status-unchange h3, .quality-survey-reply .question-status-unchange h4 {
+  color: inherit !important; }
+
+.quality-survey-reply .question-status-add h3, .quality-survey-reply .question-status-add h4 {
+  color: green !important; }
+
+.quality-survey-reply .question-status-modify h3, .quality-survey-reply .question-status-modify h4 {
+  color: blue !important; }
+
+.quality-survey-reply .question-status-remove h3, .quality-survey-reply .question-status-remove h4 {
+  color: red !important; }
+
+.quality-survey-reply ul .sections .question-row .question-field {
+  text-align: left; }
+
 ul {
   list-style: none;
   padding: 0; }

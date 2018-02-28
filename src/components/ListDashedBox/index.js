@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { FormGroup, FormControl, Grid, Row, Glyphicon, Col, Button } from 'react-bootstrap'
+import React from 'react'
+import {Col, Row} from 'react-bootstrap'
 import './styles/style.css'
 
 const ListDashedBox = ({array, title}) => {

@@ -1,12 +1,62 @@
 .form-creation {
-    margin-top: 20px;
-}
-.buttons-actions {
-    text-align:center;
-    .btn{
-        margin: 10px 0;
-        width: 100%;
-        margin-right: 20px;
-    }
+  margin-top: 20px;
 }
 
+.buttons-actions {
+  text-align: center;
+  .btn {
+    margin: 10px 0;
+    width: 100%;
+    margin-right: 20px;
+  }
+}
+
+.quality-survey {
+  .section-status-unchange {
+    input:first-of-type {
+      border-left: none !important;
+    }
+  }
+
+  .section-status-add {
+    input:first-of-type {
+      border-left: 4px solid green !important;
+    }
+  }
+
+  .section-status-modify {
+    input:first-of-type {
+      border-left: 4px solid blue !important;
+    }
+  }
+
+  .section-status-remove {
+    input:first-of-type {
+      border-left: 4px solid red !important;
+    }
+  }
+
+  .question-status-unchange {
+    input:first-of-type {
+      border-left: none !important;
+    }
+  }
+
+  .question-status-add {
+    input:first-of-type {
+      border-left: 4px solid green !important;
+    }
+  }
+
+  .question-status-modify {
+    input:first-of-type {
+      border-left: 4px solid blue !important;
+    }
+  }
+
+  .question-status-remove {
+    input:first-of-type {
+      border-left: 4px solid red !important;
+    }
+  }
+}

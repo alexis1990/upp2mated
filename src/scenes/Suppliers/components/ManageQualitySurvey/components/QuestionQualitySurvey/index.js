@@ -1,33 +1,36 @@
-import React from 'react'
-import { Col, Button, Glyphicon } from 'react-bootstrap'
-import { FieldArray, Field } from 'redux-form'
-import renderInput from '../../../../../../components/Fields/input'
-import StaticBlockWrapperHOC from '../../../../../../components/DraggableHOC/'
-import DraggableContainerWrapperHOC from '../../../../../../components/DraggableHOC/components/DraggableElement'
-import Answer from '../AnswerQualitySurvey/'
+import React from 'react';
+import { Field } from 'redux-form';
+import renderInput from '../../../../../../components/Fields/input';
+import { required } from '../../../../../../utils/inputRules';
 
-const Question = ({ fields, field, index, types }) => (
-    <li key={index} className="question-row">
-        <h5>Question {index + 1}</h5>
-        <div className="question-field">
-            <Field
-                name={`${field}.content`}
-                type="text"
-                component={renderInput}
-                label={`Question #${index + 1}`}
-            />
-        </div>
-        {/* <div className="add-question-button">
-            <Button
-                type="button"
-                bsStyle="btn btn-action-button font-icon"
-                onClick={() => fields.remove(index)}
-            >
-                <Glyphicon glyph="remove" />
-            </Button>
-        </div> */}
-        <FieldArray name={`${field}.answers`} noneButton parentId={index} dragSource="ANSWER" dropTarget="ANSWER" component={Answer} />
-    </li>
-)
+const Question = ({ fields }) => (
+  <ul>
+    {fields.map((question, index) => {
+      const fieldObject = fields.getAll()[index];
+      const status = fieldObject.status || 'unchange';
 
-export default StaticBlockWrapperHOC(DraggableContainerWrapperHOC(Question));
+      return (
+        <li key={index} className={`question-row question-status-${status.toLowerCase()}`}>
+          <div className="question-field">
+            <h4>{fields.get(index).content}</h4>
+          </div>
+          <ul>
+            <li key={index} className="answer-row">
+              <div className="answer-field">
+                <Field
+                  name={`${question}.answer.answer`}
+                  type="text"
+                  component={renderInput}
+                  label="Réponse"
+                  validate={[required]}
+                />
+              </div>
+            </li>
+          </ul>
+        </li>
+      );
+    })}
+  </ul>
+);
+
+export default (Question);

@@ -1,13 +1,9 @@
-import React, { Component } from 'react'
-import { FormGroup, FormControl, InputGroup, Button, HelpBlock, ControlLabel, Glyphicon } from 'react-bootstrap'
-import { Typeahead } from 'react-bootstrap-typeahead'
-import _ from 'lodash'
+import React, {Component} from 'react'
+import {Button, ControlLabel, FormControl, FormGroup, Glyphicon} from 'react-bootstrap'
+import {Typeahead} from 'react-bootstrap-typeahead'
 import './styles/selectTypeahead.css'
 
 class selectTypeahead extends Component {
-	onSearch(){
-		console.log('okokokok')
-	}
 	render() {
 		const { options, placeholder, type, input, meta , withoutLabel, withButton, withGlyph, onClick, onSearch, selected } = this.props;
 		return (

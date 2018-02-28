@@ -1,13 +1,10 @@
-import React, { PureComponent } from 'react';
-import { bindActionCreators } from 'redux'
-import { withRouter, Link, Route } from 'react-router-dom'
-import validate from './components/Form/validate'
-import { connect } from 'react-redux'
-import { submitFormToAPI } from './actions'
+import React, {PureComponent} from 'react';
+import {bindActionCreators} from 'redux'
+import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {submitFormToAPI} from './actions'
 import FormContainer from './components/Form/Form.container';
-import WizardFooter from '../../../components/Wizard/components/WizardFooter/index'
-import { nextPage } from '../../../components/Wizard/actions'
-import { reduxForm, Form } from 'redux-form'
+import {nextPage} from '../../../components/Wizard/actions'
 import './styles/identification.css';
 
 // const navigateToNextStep = (nextPage, history, match) => nextPage(history, '/consultations/', match.params.stepId);

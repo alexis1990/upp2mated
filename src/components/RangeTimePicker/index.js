@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DateRangePicker } from 'react-dates';
 import {} from 'react-dates/css/styles.scss';
 import { Field } from 'redux-form';
