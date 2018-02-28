@@ -43,6 +43,19 @@ export function fetchSupplier(id) {
   };
 }
 
+export function updateSupplierCard(supplierId, supplierCard, history) {
+  return (dispatch) => {
+    axios.post(`/u2m-api/v1/suppliers/${supplierId}/update/b`, supplierCard)
+      .then((response) => {
+        dispatch(displayToastr(true, 'Fiche fournisseur mise à jour', 'success'));
+        history.push(`/suppliers/${supplierId}`);
+      })
+      .catch((error) => {
+        dispatch(displayToastr(true, 'Impossible de mettre à jour la fiche fournisseur', 'error'));
+      });
+  };
+}
+
 export function postSupplier(supplier) {
   return (dispatch) => {
     axios.post('/u2m-api/v1/suppliers/', supplier)
@@ -147,4 +160,11 @@ export function deleteSupplier(supplierId) {
       })
       .catch((reject) => console.log('REJJ'));
   };
+}
+
+export function keepInMemoryActiveTab(tabIndex) {
+  return {
+    type: types.SUPPLIER_VIEW_ACTIVE_TAB,
+    payload: tabIndex
+  }
 }

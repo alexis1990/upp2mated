@@ -3,6 +3,8 @@ import * as types from './actionTypes';
 
 export default function suppliersReducer(state = initialState, action = action) {
   switch (action.type) {
+    case types.SUPPLIER_VIEW_ACTIVE_TAB:
+      return { ...state, activeTab: action.payload };
     case types.LOAD_SUPPLIERS:
       return {
         ...state,
