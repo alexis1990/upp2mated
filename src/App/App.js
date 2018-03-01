@@ -70,15 +70,12 @@ const App = ({ isAuthenticated }) => (
       <ScrollingComponent className="App">
         <Route exact path="/" component={Authentication} />
         <Route exact path="/dashboard" component={requireAuthentication(Dashboard)} />
-        <Route exact path="/dashboard/consultations" component={requireAuthentication(ConsultationsDashboard)} />
         <Route path="/consultations" component={({ match }) => (
           <div>
             <Route path={`${match.url}/:stepId`} component={requireAuthentication(({ match }) => (
               <Consultations match={match} stepId={match.params.stepId} steps={steps.wizard.stepsRFI} />))
             } />
-            <Route exact path={match.url} render={() => (
-              <h3>Please select a topic.</h3>
-            )} />
+            <Route exact path={match.url} component={requireAuthentication(ConsultationsDashboard)} />
           </div>
         )} />
         <Route exact path="/suppliers" component={requireAuthentication(Suppliers)} />
