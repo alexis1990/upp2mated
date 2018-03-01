@@ -21,7 +21,6 @@ export default function suppliersReducer(state = initialState, action = action) 
         },
         isLoading: action.payload.isLoading,
       };
-
     case types.LOAD_QUALITY_SURVEY_REPLY:
       return {
         ...state,
