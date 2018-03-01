@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import { reducer as formReducer } from 'redux-form';
 import { wizardReducer } from '../components/Wizard/reducer'
 import { identificationReducer } from '../scenes/Consultations/identification/reducer'
 import { teamReducer } from '../scenes/Consultations/team/reducer'

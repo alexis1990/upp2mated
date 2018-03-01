@@ -1,7 +1,7 @@
 import initialState from './initialState';
 import * as types from './actionTypes';
 
-export default function suppliersReducer(state = initialState, action = action) {
+export function suppliersReducer(state = initialState, action = action) {
   switch (action.type) {
     case types.LOAD_SUPPLIERS:
       return {
