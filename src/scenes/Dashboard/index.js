@@ -19,7 +19,7 @@ class Dashboard extends Component {
             }}
           >
             <div
-              className='consultations-progress-bar'
+              className='progress-bar-table'
               style={{
                 width: `${cell}%`,
                 textAlign:'center',
