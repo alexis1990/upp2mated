@@ -1,0 +1,18 @@
+.dashboard-table .react-bs-container-header .table {
+  margin-bottom: 0; }
+  .dashboard-table .react-bs-container-header .table tr th {
+    border-style: hidden !important;
+    border-bottom: dotted 1px black !important; }
+
+.dashboard-table .react-bs-container-body .table {
+  border-style: hidden !important; }
+  .dashboard-table .react-bs-container-body .table tbody {
+    border-style: hidden !important; }
+    .dashboard-table .react-bs-container-body .table tbody tr {
+      border-style: hidden !important;
+      border-left-width: 0; }
+      .dashboard-table .react-bs-container-body .table tbody tr td {
+        border-style: hidden !important;
+        border-left-width: 0; }
+        .dashboard-table .react-bs-container-body .table tbody tr td .informations span {
+          padding: 5px; }

@@ -11,6 +11,7 @@ import Team from '../scenes/Consultations/team/index'
 import Providers from '../scenes/Consultations/providers/index'
 import Documentation from '../scenes/Consultations/documentation/index'
 import Confirmation from '../scenes/Consultations/confirmation/index'
+import ConsultationsDashboard from '../scenes/Consultations/dashboard'
 import Summary from '../scenes/Consultations/summary/index'
 import CommercialFrame from '../scenes/Consultations/commercialFrame/index'
 import Sign from '../scenes/Sign/index'
@@ -74,9 +75,7 @@ const App = ({ isAuthenticated }) => (
             <Route path={`${match.url}/:stepId`} component={requireAuthentication(({ match }) => (
               <Consultations match={match} stepId={match.params.stepId} steps={steps.wizard.stepsRFI} />))
             } />
-            <Route exact path={match.url} render={() => (
-              <h3>Please select a topic.</h3>
-            )} />
+            <Route exact path={match.url} component={requireAuthentication(ConsultationsDashboard)} />
           </div>
         )} />
         <Route exact path="/suppliers" component={requireAuthentication(Suppliers)} />

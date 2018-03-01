@@ -1,0 +1,31 @@
+.consultations-dashboard .title {
+  display: inline-block;
+  margin-top: 25px;
+  margin-bottom: 10px; }
+  .consultations-dashboard .title .glyphicon {
+    display: inline; }
+  .consultations-dashboard .title h4 {
+    display: inline;
+    margin-left: 10px; }
+
+.consultations-dashboard .block {
+  line-height: 4px;
+  color: white;
+  height: 100px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 23%;
+  height: 100px;
+  background: #62b997;
+  margin: 10px;
+  padding-left: 25px;
+  padding-top: 8px; }
+  .consultations-dashboard .block .block-icon {
+    position: absolute;
+    right: 5px;
+    top: 60px;
+    font-size: 33px; }
+
+.consultations-dashboard hr {
+  margin-bottom: 0; }
