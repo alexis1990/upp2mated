@@ -29,20 +29,3 @@
 
 .consultations-dashboard hr {
   margin-bottom: 0; }
-
-.consultations-dashboard .react-bs-container-header .table {
-  margin-bottom: 0; }
-  .consultations-dashboard .react-bs-container-header .table tr th {
-    border-style: hidden !important;
-    border-bottom: dotted 1px black !important; }
-
-.consultations-dashboard .react-bs-container-body .table {
-  border-style: hidden !important; }
-  .consultations-dashboard .react-bs-container-body .table tbody {
-    border-style: hidden !important; }
-    .consultations-dashboard .react-bs-container-body .table tbody tr {
-      border-style: hidden !important;
-      border-left-width: 0; }
-      .consultations-dashboard .react-bs-container-body .table tbody tr td {
-        border-style: hidden !important;
-        border-left-width: 0; }

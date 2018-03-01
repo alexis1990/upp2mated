@@ -1,0 +1,35 @@
+.dashboard-table {
+    .react-bs-container-header {
+        .table{
+            margin-bottom: 0;
+            tr {
+                th {
+                    border-style: hidden !important;
+                    border-bottom: dotted 1px black !important;
+                }
+            }
+        }
+    }
+    
+    .react-bs-container-body {
+        .table{
+            border-style: hidden !important;
+            tbody{
+                border-style: hidden !important;
+                tr {
+                    border-style: hidden !important;
+                    border-left-width: 0;
+                    td {
+                        border-style: hidden !important;
+                        border-left-width: 0;
+                        .informations {
+                            span {
+                                padding: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
