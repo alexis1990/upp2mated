@@ -40,7 +40,7 @@ export default function suppliersReducer(state = initialState, action = action) 
     default:
       return state;
   }
-
+}
 // export function suppliersReducer(state = initialState, action = action) {
 // 	console.log('SUPPLIERREDUCE', state)
 // 	switch (action.type) {
