@@ -1,3 +1,6 @@
+.form-group label {
+  display: inline; }
+
 .form-control {
   outline: 0;
   border-left: 0;
