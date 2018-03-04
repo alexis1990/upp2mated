@@ -163,13 +163,15 @@ export function deleteSupplier(supplierId) {
 }
 
 export function getFinancialHealth(supplierId) {
-	return(dispatch) => {
-		axios.get(`/u2m-api/v1/suppliers/${supplierId}/financial-health/`)
-		.then((resolve) => {
-			console.log('RESOLVEEE', resolve)
-		})
-		.catch((reject)=> console.log('REJJ'))
-	}
+  return (dispatch) => {
+    axios.get(`/u2m-api/v1/suppliers/${supplierId}/financial-health/`)
+      .then((resolve) => {
+        console.log('RESOLVEEE', resolve);
+      })
+      .catch((reject) => console.log('REJJ'));
+  };
+}
+
 export function keepInMemoryActiveTab(tabIndex) {
   return {
     type: types.SUPPLIER_VIEW_ACTIVE_TAB,
