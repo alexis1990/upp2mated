@@ -14,7 +14,7 @@ import Confirmation from '../scenes/Consultations/confirmation/index'
 import ConsultationsDashboard from '../scenes/Consultations/dashboard'
 import Summary from '../scenes/Consultations/summary/index'
 import CommercialFrame from '../scenes/Consultations/commercialFrame/index'
-import Sign from '../scenes/Sign/index'
+import CF from '../scenes/Sign/index'
 import Suppliers from '../scenes/Suppliers/index'
 import Supplier from '../scenes/Suppliers/Supplier/index'
 import ManageSupplier from '../scenes/Suppliers/ManageSupplier/index'
@@ -38,6 +38,9 @@ import 'react-datasheet/lib/react-datasheet.css';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import withScrolling from 'react-dnd-scrollzone';
+
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css'
+import 'react-bootstrap-table/css/react-bootstrap-table.css'
 
 const steps = {
   wizard: {
@@ -98,7 +101,7 @@ const App = ({ isAuthenticated }) => (
         <Route exact path="/administration/quality-surveys/:id" component={requireAuthentication(ManageQualitySurvey)} />
         <Route exact path="/administration/quality-surveys/quality-survey/new" component={requireAuthentication(ManageQualitySurvey)} />
         <Route exact path="/administration/quality-surveys/quality-survey/edit/:id/:version" component={requireAuthentication(ManageQualitySurvey)} />
-        <Route exact path="/sign-in" component={requireAuthentication(Sign)} />
+        <Route exact path="/sign-in" component={requireAuthentication(CF)} />
         <Route exact path="/kitui" component={KitUi} />
         </ScrollingComponent>
       </Switch>

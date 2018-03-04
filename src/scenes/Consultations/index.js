@@ -5,6 +5,9 @@ import Title from '../../components/Title/'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 import ProvidersModal from './providers/components/Modal/index'
+import CategoriesModal from './commercialFrame/components/CategoriesModal'
+import SubCategoriesModal from './commercialFrame/components/SubCategoriesModal'
+import DesignationModal from './commercialFrame/components/DesignationModal'
 import Modal from '../../components/Modal/index'
 import Spinner from '../../components/Spinner'
 
@@ -23,7 +26,10 @@ class Consultations extends Component {
 		const { steps, isVisible, isAuthenticated } = this.props;
 		return (
 			<Grid className="form" fluid>
-				<Modal isVisible={isVisible} component={<ProvidersModal />} />
+				<Modal isVisible={isVisible} activeNameModal='providers'  component={<ProvidersModal />} />
+				<Modal isVisible={isVisible} activeNameModal='categories' component={<CategoriesModal/>} />
+				<Modal isVisible={isVisible} activeNameModal='sub-categories'  component={<SubCategoriesModal />} />
+				<Modal isVisible={isVisible} activeNameModal='designations' component={<DesignationModal/>} />
 				{
 					isAuthenticated
 					?
