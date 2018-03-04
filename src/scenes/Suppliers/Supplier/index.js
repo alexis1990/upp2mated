@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Grid, Nav, NavItem, Row, Tab, Button } from 'react-bootstrap';
+import { Button, Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -8,6 +8,9 @@ import ContactList from '../components/ContactList/index';
 import Spinner from '../../../components/Spinner';
 import '../styles/style.css';
 import SupplierCard from '../components/SupplierCard/index';
+import ContactFormModal, { CONTACT_FORM_MODAL } from '../components/ContactFormModal';
+import Modal from '../../../components/Modal/';
+import { isModalVisible } from '../../../components/Modal/actions';
 
 class Supplier extends Component {
   componentDidMount() {
@@ -20,11 +23,18 @@ class Supplier extends Component {
     keepInMemoryActiveTab(tabIndex);
   };
 
+  openContactFormModal = () => {
+    const { isModalVisible } = this.props;
+
+    isModalVisible(true, CONTACT_FORM_MODAL, null);
+  };
+
   render() {
-    const { supplier, isLoading, activeTab } = this.props;
+    const { supplier, isLoading, activeTab, isVisible } = this.props;
 
     return (
       <Grid className="supplier" fluid>
+        <Modal isVisible={isVisible} activeNameModal={CONTACT_FORM_MODAL} component={<ContactFormModal supplierId={this.props.match.params.id} />} />
         {
           isLoading || typeof supplier === 'undefined' ?
             <Spinner />
@@ -66,7 +76,10 @@ class Supplier extends Component {
                         <SupplierCard supplier={supplier} />
                       </Col>
                       <Col xs={12} md={12} lg={12}>
-                        <h3>Contacts</h3>
+                        <Row>
+                          <Col xs={11} md={11} lg={11}><h3>Contacts</h3></Col>
+                          <Col xs={1} md={1} lg={1}><Button bsStyle="btn btn-action-button" onClick={() => this.openContactFormModal()}>Ajouter un contact</Button></Col>
+                        </Row>
                         <ContactList suppliers={supplier.contactPersonList} />
                       </Col>
                     </Tab.Pane>
@@ -88,6 +101,7 @@ function mapStateToProps(state, ownProps) {
     activeTab: state.form.Suppliers.activeTab,
     supplier: state.form.Suppliers.supplier,
     isLoading: state.form.Suppliers.isLoading,
+    isVisible: state.modal.mode,
   };
 }
 
@@ -95,6 +109,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchSupplier,
     keepInMemoryActiveTab,
+    isModalVisible,
   }, dispatch);
 }
 
