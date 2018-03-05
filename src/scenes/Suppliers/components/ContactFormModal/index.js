@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { Button, Col, Row } from 'react-bootstrap';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field, FieldArray, Form, reduxForm } from 'redux-form';
 import renderInput from '../../../../components/Fields/input';
+import { addContact, fetchSupplier } from '../../actions';
 import { isModalVisible } from '../../../../components/Modal/actions';
 import ContactListForm from './ContactListForm';
 
@@ -32,13 +34,16 @@ class ContactFormModal extends React.Component {
   };
 
   saveOrUpdateContact = (form) => {
-    const { addContact, supplierId, } = this.props;
+    const { addContact, supplierId, history, location, isModalVisible } = this.props;
 
     console.log(form);
     if (form.id) {
       //update
     } else {
-      addContact(supplierId, form);
+      addContact(supplierId, form, history, location)
+        .then(() => {
+          isModalVisible(false, CONTACT_FORM_MODAL);
+        });
     }
   };
 
@@ -84,6 +89,8 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   isModalVisible,
+  addContact,
+  fetchSupplier,
 }, dispatch);
 
 export default compose(
@@ -93,5 +100,6 @@ export default compose(
       contactList: [],
     },
   }),
+  withRouter,
   connect(mapStateToProps, mapDispatchToProps),
 )(ContactFormModal);
