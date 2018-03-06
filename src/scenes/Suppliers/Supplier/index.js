@@ -3,7 +3,7 @@ import { Button, Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { fetchSupplier, keepInMemoryActiveTab } from '../actions';
+import { fetchSupplier, keepInMemoryActiveTab, preloadContact } from '../actions';
 import ContactList from '../components/ContactList/index';
 import Spinner from '../../../components/Spinner';
 import '../styles/style.css';
@@ -23,10 +23,11 @@ class Supplier extends Component {
     keepInMemoryActiveTab(tabIndex);
   };
 
-  openContactFormModal = () => {
-    const { isModalVisible } = this.props;
+  openContactFormModal = (contact) => {
+    const { isModalVisible, preloadContact } = this.props;
 
-    isModalVisible(true, CONTACT_FORM_MODAL, null);
+    preloadContact(contact);
+    isModalVisible(true, CONTACT_FORM_MODAL);
   };
 
   render() {
@@ -80,7 +81,7 @@ class Supplier extends Component {
                           <Col xs={11} md={11} lg={11}><h3>Contacts</h3></Col>
                           <Col xs={1} md={1} lg={1}><Button bsStyle="btn btn-action-button" onClick={() => this.openContactFormModal()}>Ajouter un contact</Button></Col>
                         </Row>
-                        <ContactList suppliers={supplier.contactPersonList} />
+                        <ContactList suppliers={supplier.contactPersonList} openModal={this.openContactFormModal} />
                       </Col>
                     </Tab.Pane>
                     <Tab.Pane eventKey="second"></Tab.Pane>
@@ -110,6 +111,7 @@ function mapDispatchToProps(dispatch) {
     fetchSupplier,
     keepInMemoryActiveTab,
     isModalVisible,
+    preloadContact,
   }, dispatch);
 }
 

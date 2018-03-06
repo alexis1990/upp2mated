@@ -34,21 +34,22 @@ class ContactFormModal extends React.Component {
   };
 
   saveOrUpdateContact = (form) => {
-    const { addContact, supplierId, history, location, isModalVisible } = this.props;
+    const { contact, addContact, supplierId, history, location, isModalVisible } = this.props;
 
     console.log(form);
     if (form.id) {
-      //update
+      console.log('update d\'un contact existant.');
     } else {
-      addContact(supplierId, form, history, location)
-        .then(() => {
-          isModalVisible(false, CONTACT_FORM_MODAL);
-        });
+      addContact(supplierId, form, history, location).then(() => {
+        isModalVisible(false, CONTACT_FORM_MODAL);
+        history.push(location);
+      });
     }
   };
 
   render() {
-    const { handleSubmit, isModalVisible } = this.props;
+    const { contact, handleSubmit, isModalVisible } = this.props;
+    const isNewContact = !contact.id;
 
     return (
       <Row className="contact-form-modal">
@@ -57,7 +58,7 @@ class ContactFormModal extends React.Component {
             <Form onSubmit={handleSubmit(this.saveOrUpdateContact.bind(this))}>
               <Row>
                 <Col xs={12} md={12} lg={12}>
-                  <h3>Nouveau contact</h3>
+                  <h3>{isNewContact ? 'Nouveau contact' : `Modification du contact #${contact.id} - ${contact.name}`}</h3>
                 </Col>
                 <Col xs={6} md={6} lg={6}>
                   <Field name="name" label="nom" component={renderInput} validate={[required]} />
@@ -74,7 +75,7 @@ class ContactFormModal extends React.Component {
                   <Button type="button" bsStyle="btn btn-action-button" onClick={() => isModalVisible(false, CONTACT_FORM_MODAL)}>Annuler</Button>
                 </Col>
                 <Col lg={6}>
-                  <Button type="submit" bsStyle="btn btn-action-button">Sauvegarder</Button>
+                  <Button type="submit" bsStyle="btn btn-action-button">{isNewContact ? 'Sauvegarder' : 'Mettre à jour'}</Button>
                 </Col>
               </Row>
             </Form>
@@ -85,7 +86,9 @@ class ContactFormModal extends React.Component {
   }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  contact: state.form.Suppliers.contact.values,
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   isModalVisible,
@@ -95,7 +98,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 export default compose(
   reduxForm({
-    form: 'Suppliers.Contact',
+    form: 'Suppliers.contact',
     initialValues: {
       contactList: [],
     },

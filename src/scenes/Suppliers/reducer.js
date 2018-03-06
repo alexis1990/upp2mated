@@ -39,6 +39,15 @@ export default function suppliersReducer(state = initialState, action = action) 
           content: state.suppliers.content.filter(supplier => supplier.id !== action.payload),
         },
       };
+    case types.PRELOAD_SUPPLIER_CONTACT:
+      return {
+        ...state,
+        contact: {
+          values: {
+            ...action.payload,
+          },
+        },
+      };
     default:
       return state;
   }

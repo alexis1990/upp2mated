@@ -179,16 +179,21 @@ export function keepInMemoryActiveTab(tabIndex) {
   };
 }
 
-export function addContact(supplierId, contact, history, location) {
-  return dispatch => {
-    return axios.post(`/u2m-api/v1/suppliers/${supplierId}/contact`, contact)
+export function addContact(supplierId, contact) {
+  return dispatch =>
+    axios.post(`/u2m-api/v1/suppliers/${supplierId}/contact`, contact)
       .then((response) => {
         dispatch(displayToastr(true, 'Contact ajouté', 'success'));
-        history.push(location);
       })
       .catch((error) => {
         console.log(error);
         dispatch(displayToastr(true, 'Impossible d\'ajouter le contact', 'error'));
       });
+}
+
+export function preloadContact(contact) {
+  return {
+    type: types.PRELOAD_SUPPLIER_CONTACT,
+    payload: contact,
   };
 }
