@@ -7,9 +7,9 @@ import './styles/style.css'
 
 const Modal = ({ component, isVisible, isModalVisible, nameModal, activeNameModal }) => (
 	<div>
-		<Grid onClick={() => isModalVisible(false)} className={`modal_background ${isVisible && nameModal == activeNameModal ? 'visible' : 'hidden'}`}>	</Grid>
+		<Grid onClick={() => isModalVisible(false, "", {})} className={`modal_background ${isVisible && nameModal == activeNameModal ? 'visible' : 'hidden'}`}>	</Grid>
 		<Row className={`modal_container ${isVisible && nameModal == activeNameModal ? 'visible' : 'hidden'}`}>
-			<Button className="pull-right" onClick={() => isModalVisible(false)} bsStyle="action-button-transparent small-text" type="button">
+			<Button className="pull-right" onClick={() => isModalVisible(false, "", {})} bsStyle="action-button-transparent small-text" type="button">
 				<Glyphicon glyph="remove" />
 			</Button>
 			{component}
