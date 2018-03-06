@@ -49,7 +49,6 @@ class Sign extends Component {
 
 
 function mapStateToProps(state) {
-    // console.log('INDEXXXXXX', state)
     return {
         stateModal: state.modal
     }

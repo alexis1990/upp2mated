@@ -17,7 +17,7 @@ function validate() {
 class CF extends Component {
   addCategory() {
     const { isModalVisible } = this.props;
-    isModalVisible(true, 'categories')
+    isModalVisible(true, 'categories', {})
   }
 
   addSubCategory(category, categoryId) {
