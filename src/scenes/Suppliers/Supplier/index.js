@@ -61,7 +61,7 @@ class Supplier extends Component {
                 </Col>
                 <Col sm={8}>
                   <Tab.Content animation unmountOnExit>
-                    <Tab.Pane eventKey="first">
+                    <Tab.Pane eventKey="first" className="supplier-card">
                       <Row>
                         <Col sm={2} smPush={6}>
                           <Link to={`/suppliers/supplier/edit/${supplier.id}`}>
