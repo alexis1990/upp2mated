@@ -201,6 +201,21 @@ export function updateContact(supplierId, contact) {
       });
 }
 
+export function removeContact(supplierId, contact) {
+  return dispatch =>
+    axios.delete(`/u2m-api/v1/suppliers/${supplierId}/contact/${contact.id}`)
+      .then((response) => {
+        dispatch(displayToastr(true, 'Contact supprimé', 'success'));
+        dispatch({
+          type: types.REMOVE_SUPPLIER_CONTACT,
+          payload: contact.id,
+        });
+      })
+      .catch((error) => {
+        dispatch(displayToastr(true, 'Impossible de supprimer le contact', 'error'));
+      });
+}
+
 export function preloadContact(contact) {
   return {
     type: types.PRELOAD_SUPPLIER_CONTACT,

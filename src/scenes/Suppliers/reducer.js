@@ -48,6 +48,15 @@ export default function suppliersReducer(state = initialState, action = action) 
           },
         },
       };
+    case types.REMOVE_SUPPLIER_CONTACT:
+      return {
+        ...state,
+        supplier: {
+          ...state.supplier,
+          contactPersonList: state.supplier.contactPersonList.filter(contact => contact.id !== action.payload),
+        },
+
+      };
     default:
       return state;
   }

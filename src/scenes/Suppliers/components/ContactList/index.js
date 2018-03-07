@@ -1,50 +1,81 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Table, Glyphicon, Button, ButtonGroup, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Button, ButtonGroup, Glyphicon, Table } from 'react-bootstrap';
+import { isModalVisible } from '../../../../components/Modal/actions';
+import { CONTACT_FORM_MODAL } from '../ContactFormModal';
+import { preloadContact, removeContact } from '../../actions';
 
-const ContactList = ({ suppliers, openModal }) => (
-  <Table responsive>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Email</th>
-        <th>Poste</th>
-        <th className="align-center">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {suppliers.map(contact => (
-        <tr key={contact.id}>
-          <td>{contact.name}</td>
-          <td>{contact.email}</td>
-          <td>{contact.jobPosition}</td>
-          <td className="actions">
-            <ButtonGroup>
-              <Button className="action-button"><Link to={`/administration/roles/${contact.id}`}><Glyphicon glyph="eye-open" /></Link></Button>
-              <Button className="action-button" onClick={() => openModal(contact)}><Glyphicon glyph="pencil" /></Button>
-              <Button className="action-button"><Link to="/administration/roles/manage/authorizations"><Glyphicon glyph="cog" /></Link></Button>
-              <Button className="action-button" onClick={() => console.log('<<<<<<<<<<3')}><Glyphicon glyph="remove" /></Button>
-            </ButtonGroup>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </Table>
-);
+class ContactList extends React.Component {
+  static propTypes = {
+    supplierId: PropTypes.number.isRequired,
+    contacts: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      jobPosition: PropTypes.string,
+      state: PropTypes.string.isRequired,
+    })),
+  };
 
-ContactList.propTypes = {
-  suppliers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    jobPosition: PropTypes.string,
-  })),
-};
+  static defaultProps = {
+    contacts: [],
+  };
 
-ContactList.defaultProps = {
-  suppliers: {},
-};
+  openContactFormModal = (contact) => {
+    const { isModalVisible, preloadContact } = this.props;
 
-export default ContactList;
+    preloadContact(contact);
+    isModalVisible(true, CONTACT_FORM_MODAL);
+  };
+
+  removeContact = (contact) => {
+    const { supplierId, removeContact } = this.props;
+
+    removeContact(supplierId, contact);
+  };
+
+  render() {
+    const { contacts } = this.props;
+    return (
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Poste</th>
+            <th>Etat</th>
+            <th className="align-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts.map(contact => (
+            <tr key={contact.id}>
+              <td>{contact.name}</td>
+              <td>{contact.email}</td>
+              <td>{contact.jobPosition}</td>
+              <td>{contact.state}</td>
+              <td className="actions">
+                <ButtonGroup>
+                  <Button className="action-button" onClick={() => this.openContactFormModal(contact)}><Glyphicon glyph="pencil" /></Button>
+                  <Button className="action-button" onClick={() => this.removeContact(contact)}><Glyphicon glyph="remove" /></Button>
+                </ButtonGroup>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    );
+  }
+}
+
+const mapStateToProps = (state, ownProps) => ({});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  isModalVisible,
+  preloadContact,
+  removeContact,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
