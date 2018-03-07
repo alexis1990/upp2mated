@@ -186,8 +186,18 @@ export function addContact(supplierId, contact) {
         dispatch(displayToastr(true, 'Contact ajouté', 'success'));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(displayToastr(true, 'Impossible d\'ajouter le contact', 'error'));
+      });
+}
+
+export function updateContact(supplierId, contact) {
+  return dispatch =>
+    axios.put(`/u2m-api/v1/suppliers/${supplierId}/contact`, contact)
+      .then((response) => {
+        dispatch(displayToastr(true, 'Contact modifié', 'success'));
+      })
+      .catch((error) => {
+        dispatch(displayToastr(true, 'Impossible de modifier le contact', 'error'));
       });
 }
 

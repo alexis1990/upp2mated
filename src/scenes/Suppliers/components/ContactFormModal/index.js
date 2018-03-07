@@ -6,7 +6,7 @@ import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field, FieldArray, Form, reduxForm } from 'redux-form';
 import renderInput from '../../../../components/Fields/input';
-import { addContact, fetchSupplier } from '../../actions';
+import { addContact, updateContact, fetchSupplier } from '../../actions';
 import { isModalVisible } from '../../../../components/Modal/actions';
 import ContactListForm from './ContactListForm';
 
@@ -34,13 +34,16 @@ class ContactFormModal extends React.Component {
   };
 
   saveOrUpdateContact = (form) => {
-    const { contact, addContact, supplierId, history, location, isModalVisible } = this.props;
+    const { contact, addContact, updateContact, supplierId, history, location, isModalVisible } = this.props;
 
     console.log(form);
     if (form.id) {
-      console.log('update d\'un contact existant.');
+      updateContact(supplierId, form).then(() => {
+        isModalVisible(false, CONTACT_FORM_MODAL);
+        history.push(location);
+      });
     } else {
-      addContact(supplierId, form, history, location).then(() => {
+      addContact(supplierId, form).then(() => {
         isModalVisible(false, CONTACT_FORM_MODAL);
         history.push(location);
       });
@@ -93,6 +96,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   isModalVisible,
   addContact,
+  updateContact,
   fetchSupplier,
 }, dispatch);
 
