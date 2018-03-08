@@ -69,10 +69,6 @@ class Supplier extends Component {
                         <SupplierCard supplier={supplier} />
                       </Col>
                       <Col xs={12} md={12} lg={12}>
-                        <Row>
-                          <Col xs={11} md={11} lg={11}><h3>Contacts</h3></Col>
-                          <Col xs={1} md={1} lg={1}><Button bsStyle="btn btn-action-button" onClick={() => this.openContactFormModal()}>Ajouter un contact</Button></Col>
-                        </Row>
                         <ContactList supplierId={this.props.supplier.id} contacts={supplier.contactPersonList} />
                       </Col>
                     </Tab.Pane>
