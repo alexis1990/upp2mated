@@ -39,39 +39,41 @@ class ContactList extends React.Component {
   render() {
     const { contacts } = this.props;
     return (
-      <Col xs={12} md={12} lg={12}>
-        <Row>
-          <Col xs={11} md={11} lg={11}><h3>Contacts</h3></Col>
-          <Col xs={1} md={1} lg={1}><Button bsStyle="btn btn-action-button" onClick={() => this.openContactFormModal()}>Ajouter un contact</Button></Col>
-        </Row>
-        <Table responsive>
-          <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Email</th>
-              <th>Poste</th>
-              <th>Etat</th>
-              <th className="align-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map(contact => (
-              <tr key={contact.id}>
-                <td>{contact.name}</td>
-                <td>{contact.email}</td>
-                <td>{contact.jobPosition}</td>
-                <td>{contact.state}</td>
-                <td className="actions">
-                  <ButtonGroup>
-                    <Button className="action-button" onClick={() => this.openContactFormModal(contact)}><Glyphicon glyph="pencil" /></Button>
-                    <Button className="action-button" onClick={() => this.removeContact(contact)}><Glyphicon glyph="remove" /></Button>
-                  </ButtonGroup>
-                </td>
+      <Row>
+        <Col xs={12} md={12} lg={12}>
+          <Row>
+            <Col xs={10} md={10} lg={10}><h3>Contacts</h3></Col>
+            <Col xs={2} md={2} lg={2}><Button bsStyle="btn btn-action-button pull-right" onClick={() => this.openContactFormModal()}>Ajouter un contact</Button></Col>
+          </Row>
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Poste</th>
+                <th>Etat</th>
+                <th className="align-center">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Col>
+            </thead>
+            <tbody>
+              {contacts.map(contact => (
+                <tr key={contact.id}>
+                  <td>{contact.name}</td>
+                  <td>{contact.email}</td>
+                  <td>{contact.jobPosition}</td>
+                  <td>{contact.state}</td>
+                  <td className="actions">
+                    <ButtonGroup>
+                      <Button className="action-button" onClick={() => this.openContactFormModal(contact)}><Glyphicon glyph="pencil" /></Button>
+                      <Button className="action-button" onClick={() => this.removeContact(contact)}><Glyphicon glyph="remove" /></Button>
+                    </ButtonGroup>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
     );
   }
 }
