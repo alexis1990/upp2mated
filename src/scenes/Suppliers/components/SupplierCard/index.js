@@ -4,17 +4,17 @@ import { Col, Row, OverlayTrigger, Tooltip, Glyphicon } from 'react-bootstrap';
 
 
 const tooltipVatNumber = (
-  <Tooltip>
+  <Tooltip id="tooltipVatNumber">
     <strong>Lorem ipsum onrli ielero poieun zneu alm</strong> Lorem ipsum onrli ielero
   </Tooltip>
 );
 const tooltipSiret = (
-  <Tooltip>
+  <Tooltip id="tooltipSiret">
     <strong>Lorem ipsum onrli ielero poieun zneu alm</strong> Lorem ipsum onrli ielero
   </Tooltip>
 );
 const tooltipBuns = (
-  <Tooltip>
+  <Tooltip id="tooltipBuns">
     <strong>Lorem ipsum onrli ielero poieun zneu alm</strong> Lorem ipsum onrli ielero
   </Tooltip>
 );
@@ -85,7 +85,7 @@ const SupplierCard = ({ supplier }) => (
   </Row>
 );
 
-SupplierCard.Proptypes = {
+SupplierCard.propTypes = {
   supplier: PropTypes.shape({
     name: PropTypes.string.isRequired,
     socialCapital: PropTypes.string.isRequired,
@@ -98,6 +98,10 @@ SupplierCard.Proptypes = {
     organization: PropTypes.string.isRequired,
     costCenter: PropTypes.string.isRequired,
   }),
+};
+
+SupplierCard.defaultProps = {
+  supplier: {},
 };
 
 export default SupplierCard;

@@ -15,7 +15,7 @@ const required = value => (value ? undefined : ' ');
 
 class ContactFormModal extends React.Component {
   static propTypes = {
-    supplierId: PropTypes.number.isRequired,
+    supplierId: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
