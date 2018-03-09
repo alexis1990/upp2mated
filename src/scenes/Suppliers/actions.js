@@ -222,3 +222,14 @@ export function preloadContact(contact) {
     payload: contact,
   };
 }
+
+export function askInformationsToSupplier(supplierId, contactId) {
+  return dispatch =>
+    axios.post(`/supplier/${supplierId}/supplier-card`, contactId)
+      .then((response) => {
+        console.log('success');
+      })
+      .catch((error) => {
+        console.log('fail');
+      });
+}

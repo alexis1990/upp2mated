@@ -3,13 +3,15 @@ import { Button, Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { fetchSupplier, keepInMemoryActiveTab } from '../actions';
+import { fetchSupplier, keepInMemoryActiveTab, askInformationsToSupplier } from '../actions';
 import ContactList from '../components/ContactList/index';
 import Spinner from '../../../components/Spinner';
 import '../styles/style.css';
 import SupplierCard from '../components/SupplierCard/index';
 import ContactFormModal, { CONTACT_FORM_MODAL } from '../components/ContactFormModal';
+import AskInformationSupplierModal, { ASK_INFORMATION_SUPPLIER_MODAL } from '../components/AskInformationSupplierModal';
 import Modal from '../../../components/Modal/';
+import { isModalVisible } from '../../../components/Modal/actions';
 
 class Supplier extends Component {
   componentDidMount() {
@@ -22,12 +24,18 @@ class Supplier extends Component {
     keepInMemoryActiveTab(tabIndex);
   };
 
+  askToSupplier = () => {
+    const { isModalVisible } = this.props;
+    isModalVisible(true, ASK_INFORMATION_SUPPLIER_MODAL);
+  };
+
   render() {
-    const { supplier, isLoading, activeTab, isVisible } = this.props;
+    const { supplier, isLoading, activeTab, isVisible, match } = this.props;
 
     return (
       <Grid className="supplier" fluid>
-        <Modal isVisible={isVisible} activeNameModal={CONTACT_FORM_MODAL} component={<ContactFormModal supplierId={this.props.match.params.id} />} />
+        <Modal isVisible={isVisible} activeNameModal={CONTACT_FORM_MODAL} component={<ContactFormModal supplierId={match.params.id} />} />
+        <Modal isVisible={isVisible} activeNameModal={ASK_INFORMATION_SUPPLIER_MODAL} component={<AskInformationSupplierModal supplierId={match.params.id} contacts={supplier.contactPersonList} />} />
         {
           isLoading || typeof supplier === 'undefined' ?
             <Spinner />
@@ -61,7 +69,7 @@ class Supplier extends Component {
                           </Link>
                         </Col>
                         <Col sm={2} smPush={6}>
-                          <Button bsStyle="btn btn-action-button">Demander au fournisseur ses informations</Button>
+                          <Button bsStyle="btn btn-action-button" onClick={() => this.askToSupplier()}>Demander au fournisseur ses informations</Button>
                         </Col>
                       </Row>
                       <Col xs={12} md={12} lg={12}>
@@ -95,6 +103,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchSupplier,
   keepInMemoryActiveTab,
+  askInformationsToSupplier,
+  isModalVisible
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Supplier);
