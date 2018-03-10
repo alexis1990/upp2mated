@@ -35,7 +35,7 @@ class Supplier extends Component {
     return (
       <Grid className="supplier" fluid>
         <Modal isVisible={isVisible} activeNameModal={CONTACT_FORM_MODAL} component={<ContactFormModal supplierId={match.params.id} />} />
-        <Modal isVisible={isVisible} activeNameModal={ASK_INFORMATION_SUPPLIER_MODAL} component={<AskInformationSupplierModal supplierId={match.params.id} contacts={supplier.contactPersonList} />} />
+        <Modal isVisible={isVisible} activeNameModal={ASK_INFORMATION_SUPPLIER_MODAL} component={<AskInformationSupplierModal supplier={supplier} contacts={supplier.contactPersonList} />} />
         {
           isLoading || typeof supplier === 'undefined' ?
             <Spinner />
@@ -65,11 +65,11 @@ class Supplier extends Component {
                       <Row>
                         <Col sm={2} smPush={6}>
                           <Link to={`/suppliers/supplier/edit/${supplier.id}`}>
-                            <Button bsStyle="btn btn-action-button">Editer la fiche fournisseur</Button>
+                            <Button bsClass="btn btn-action-button">Editer la fiche fournisseur</Button>
                           </Link>
                         </Col>
                         <Col sm={2} smPush={6}>
-                          <Button bsStyle="btn btn-action-button" onClick={() => this.askToSupplier()}>Demander au fournisseur ses informations</Button>
+                          <Button bsClass="btn btn-action-button" onClick={() => this.askToSupplier()}>Demander au fournisseur ses informations</Button>
                         </Col>
                       </Row>
                       <Col xs={12} md={12} lg={12}>
@@ -104,7 +104,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   fetchSupplier,
   keepInMemoryActiveTab,
   askInformationsToSupplier,
-  isModalVisible
+  isModalVisible,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Supplier);

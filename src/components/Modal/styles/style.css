@@ -22,7 +22,7 @@
   width: 50%;
   z-index: 10000;
   max-height: 600px;
-  overflow: scroll;
+  overflow: visible !important;
   overflow-x: hidden; }
   .modal_container.visible {
     -webkit-animation: open 400ms;

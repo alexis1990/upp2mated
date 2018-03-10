@@ -225,11 +225,11 @@ export function preloadContact(contact) {
 
 export function askInformationsToSupplier(supplierId, contactId) {
   return dispatch =>
-    axios.post(`/supplier/${supplierId}/supplier-card`, contactId)
+    axios.post(`/u2m-api/v1/supplier-action/supplier/${supplierId}/supplier-card?contactId=${contactId}`)
       .then((response) => {
-        console.log('success');
+        dispatch(displayToastr(true, 'Demande envoyé au fournisseur', 'success'));
       })
       .catch((error) => {
-        console.log('fail');
+        dispatch(displayToastr(true, 'Impossible d\'envoyer la demande au fournisseur', 'error'));
       });
 }
