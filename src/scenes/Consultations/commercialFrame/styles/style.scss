@@ -1,8 +1,45 @@
-// .table{
-// 	td{
-// 		input{
-// 			height:100% !important;
-// 			border:0 !important;
-// 		}
-// 	}
-// }
+.header-frame {
+    border: 1px solid rgba(102,102,102,0.5);
+    padding: 20px;
+}
+.body-frame {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid rgba(102,102,102,0.5);
+    border-top:none;
+    .frame{
+        padding:0;
+        margin-top: 20px;
+        .categories{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(102,102,102,0.5);
+            padding: 10px;
+        }
+        .sub-category-block{
+            padding: 0;
+            height: 100%;
+            .sub-category{
+                height: 100%;
+                border: 1px solid rgba(102,102,102,0.5);
+                padding: 10px;
+            }
+            .designations {
+                padding: 0;
+                .column{
+                    padding:0;
+                    border-top: 1px solid rgba(102,102,102,0.5);
+                    border-right: 1px solid rgba(102,102,102,0.5);
+                    border-left: 1px solid rgba(102,102,102,0.5);
+                    div{
+                        padding:0;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}

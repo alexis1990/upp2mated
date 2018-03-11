@@ -18,6 +18,12 @@ body {
   line-height: normal;
   letter-spacing: 1px; }
 
+.progress-bar-table {
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in; }
+
 .hidden {
   opacity: 0;
   top: 500;
@@ -106,3 +112,21 @@ input[type="checkbox"] {
 
 .align-left {
   text-align: left; }
+
+.small-button {
+  width: auto;
+  height: 25px;
+  background: inherit;
+  background-color: #0189a9;
+  border: none;
+  border-radius: 5px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-family: 'Khand-Regular', 'Khand';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  padding-top: 3px; }
+  .small-button a {
+    color: white; }
