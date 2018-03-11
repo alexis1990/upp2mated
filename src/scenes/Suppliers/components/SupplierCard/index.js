@@ -88,15 +88,15 @@ const SupplierCard = ({ supplier }) => (
 SupplierCard.propTypes = {
   supplier: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    socialCapital: PropTypes.string.isRequired,
-    headquarterAdress: PropTypes.string.isRequired,
+    socialCapital: PropTypes.string,
+    headquarterAdress: PropTypes.string,
     principalActivites: PropTypes.array,
-    intraCommunityVatNumber: PropTypes.string.isRequired,
-    siret: PropTypes.string.isRequired,
-    buns: PropTypes.string.isRequired,
+    intraCommunityVatNumber: PropTypes.string,
+    siret: PropTypes.string,
+    buns: PropTypes.string,
     purchaseCategorySet: PropTypes.array,
-    organization: PropTypes.string.isRequired,
-    costCenter: PropTypes.string.isRequired,
+    organization: PropTypes.string,
+    costCenter: PropTypes.string,
   }),
 };
 

@@ -3,7 +3,7 @@ import { Button, Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { fetchSupplier, keepInMemoryActiveTab, askInformationsToSupplier } from '../actions';
+import { askInformationsToSupplier, fetchSupplier, keepInMemoryActiveTab } from '../actions';
 import ContactList from '../components/ContactList/index';
 import Spinner from '../../../components/Spinner';
 import '../styles/style.css';
@@ -12,6 +12,7 @@ import ContactFormModal, { CONTACT_FORM_MODAL } from '../components/ContactFormM
 import AskInformationSupplierModal, { ASK_INFORMATION_SUPPLIER_MODAL } from '../components/AskInformationSupplierModal';
 import Modal from '../../../components/Modal/';
 import { isModalVisible } from '../../../components/Modal/actions';
+
 
 class Supplier extends Component {
   componentDidMount() {
@@ -77,7 +78,7 @@ class Supplier extends Component {
                         <SupplierCard supplier={supplier} />
                       </Col>
                       <Col xs={12} md={12} lg={12}>
-                        <ContactList supplierId={this.props.supplier.id} contacts={supplier.contactPersonList} />
+                        <ContactList contacts={supplier.contactPersonList} supplierId={supplier.id} />
                       </Col>
                     </Tab.Pane>
                     <Tab.Pane eventKey="second"></Tab.Pane>

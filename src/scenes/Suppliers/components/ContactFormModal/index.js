@@ -5,10 +5,12 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field, FieldArray, Form, reduxForm } from 'redux-form';
+import pending from 'react-pending';
 import renderInput from '../../../../components/Fields/input';
-import { addContact, updateContact, fetchSupplier } from '../../actions';
+import { addContact, fetchSupplier, updateContact } from '../../actions';
 import { isModalVisible } from '../../../../components/Modal/actions';
 import ContactListForm from './ContactListForm';
+import Spinner from '../../../../components/Spinner';
 
 export const CONTACT_FORM_MODAL = 'Suppliers.Contact';
 const required = value => (value ? undefined : ' ');
@@ -34,9 +36,8 @@ class ContactFormModal extends React.Component {
   };
 
   saveOrUpdateContact = (form) => {
-    const { contact, addContact, updateContact, supplierId, history, location, isModalVisible } = this.props;
+    const { addContact, updateContact, supplierId, history, location, isModalVisible } = this.props;
 
-    console.log(form);
     if (form.id) {
       updateContact(supplierId, form).then(() => {
         isModalVisible(false, CONTACT_FORM_MODAL);
@@ -75,10 +76,10 @@ class ContactFormModal extends React.Component {
               </Row>
               <Row className="buttons-actions">
                 <Col lg={6}>
-                  <Button type="button" bsStyle="btn btn-action-button" onClick={() => isModalVisible(false, CONTACT_FORM_MODAL)}>Annuler</Button>
+                  <Button type="button" bsClass="btn btn-action-button" onClick={() => isModalVisible(false, CONTACT_FORM_MODAL)}>Annuler</Button>
                 </Col>
                 <Col lg={6}>
-                  <Button type="submit" bsStyle="btn btn-action-button">{isNewContact ? 'Sauvegarder' : 'Mettre à jour'}</Button>
+                  <Button type="submit" bsClass="btn btn-action-button">{isNewContact ? 'Sauvegarder' : 'Mettre à jour'}</Button>
                 </Col>
               </Row>
             </Form>
@@ -101,6 +102,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 }, dispatch);
 
 export default compose(
+  pending(Spinner)(({ supplierId }) => !!supplierId),
   reduxForm({
     form: 'Suppliers.contact',
     initialValues: {

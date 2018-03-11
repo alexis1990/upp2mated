@@ -26,6 +26,7 @@ class ManageSupplier extends Component {
   render() {
     const { supplier, match } = this.props;
     const supplierId = match.params.id;
+
     return (
       <Grid fluid>
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
@@ -50,7 +51,7 @@ class ManageSupplier extends Component {
                   <FinancialHealth supplierId={supplierId} contactPersonList={this.state.contactPersonList} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="third">
-                  <ContactList suppliers={this.state.contactPersonList} />
+                  <ContactList contacts={this.state.contactPersonList} supplierId={supplierId} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

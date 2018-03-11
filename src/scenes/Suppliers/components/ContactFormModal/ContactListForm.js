@@ -11,7 +11,7 @@ const ContactListForm = ({ fields }) => {
     <Row>
       <Row>
         <Col xs={3} md={3} lg={3}>
-          <Button bsStyle="btn btn-action-button" onClick={() => fields.push({})}>Ajouter un numéro</Button>
+          <Button bsClass="btn btn-action-button" onClick={() => fields.push({})}>Ajouter un numéro</Button>
         </Col>
       </Row>
       {fields.map((contactInfo, index) => (

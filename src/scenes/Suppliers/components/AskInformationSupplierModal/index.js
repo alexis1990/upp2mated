@@ -3,23 +3,25 @@ import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Select from 'react-select';
+import pending from 'react-pending';
 import 'react-select/dist/react-select.css';
 import { bindActionCreators, compose } from 'redux';
 import { isModalVisible } from '../../../../components/Modal/actions';
 import { askInformationsToSupplier } from '../../actions';
+import Spinner from '../../../../components/Spinner';
 
 export const ASK_INFORMATION_SUPPLIER_MODAL = 'Suppliers.AskInformation';
 
-class ContactFormModal extends React.Component {
+class AskInformationSupplierModal extends React.Component {
   static propTypes = {
     supplier: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
     }),
-    contacts: PropTypes.shape({
+    contacts: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-    }),
+    })),
   };
 
   static defaultProps = {
@@ -87,12 +89,12 @@ class ContactFormModal extends React.Component {
           </Row>
           <Row className="buttons-actions">
             <Col lg={6}>
-              <Button type="button" bsStyle="btn btn-action-button" onClick={() => isModalVisible(false, ASK_INFORMATION_SUPPLIER_MODAL)}>Annuler</Button>
+              <Button type="button" bsClass="btn btn-action-button" onClick={() => isModalVisible(false, ASK_INFORMATION_SUPPLIER_MODAL)}>Annuler</Button>
             </Col>
             <Col lg={6}>
               <Button
                 type="button"
-                bsStyle="btn btn-action-button"
+                bsClass="btn btn-action-button"
                 disabled={contactId === -1 || contactId === null}
                 onClick={() => this.askInformationsToSupplier()}
               >
@@ -115,4 +117,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   askInformationsToSupplier,
 }, dispatch);
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(ContactFormModal);
+export default compose(
+  pending(Spinner)(({ supplier }) => !!supplier && !!supplier.id),
+  connect(mapStateToProps, mapDispatchToProps),
+)(AskInformationSupplierModal);

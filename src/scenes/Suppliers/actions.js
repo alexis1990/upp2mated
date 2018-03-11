@@ -19,6 +19,7 @@ function loadSupplier(isLoading, contact) {
 
 export function fetchSuppliers(pageId) {
   return (dispatch) => {
+    // todo dispatch inutile ?
     dispatch(loadSuppliers(true, { content: [] }));
     axios.get(`/u2m-api/v1/suppliers/?page=${pageId}`)
       .then((response) => {
@@ -32,6 +33,7 @@ export function fetchSuppliers(pageId) {
 
 export function fetchSupplier(id) {
   return (dispatch) => {
+    // todo dispatch inutile ?
     dispatch(loadSupplier(true, { contactPersonList: [] }));
     return axios.get(`/u2m-api/v1/suppliers/${id}`)
       .then((response) => {

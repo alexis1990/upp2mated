@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, ButtonGroup, Col, Glyphicon, Row, Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import pending from 'react-pending';
+import { bindActionCreators, compose } from 'redux';
 import { isModalVisible } from '../../../../components/Modal/actions';
 import { preloadContact, removeContact } from '../../actions';
 import { CONTACT_FORM_MODAL } from '../ContactFormModal';
+import Spinner from '../../../../components/Spinner';
 
 class ContactList extends React.Component {
   static propTypes = {
@@ -43,7 +45,7 @@ class ContactList extends React.Component {
         <Col xs={12} md={12} lg={12}>
           <Row>
             <Col xs={10} md={10} lg={10}><h3>Contacts</h3></Col>
-            <Col xs={2} md={2} lg={2}><Button bsStyle="btn btn-action-button pull-right" onClick={() => this.openContactFormModal()}>Ajouter un contact</Button></Col>
+            <Col xs={2} md={2} lg={2}><Button bsClass="btn btn-action-button pull-right" onClick={() => this.openContactFormModal()}>Ajouter un contact</Button></Col>
           </Row>
           <Table responsive>
             <thead>
@@ -86,4 +88,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   removeContact,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default compose(
+  pending(Spinner)(({ supplierId }) => !!supplierId),
+  connect(mapStateToProps, mapDispatchToProps),
+)(ContactList);
