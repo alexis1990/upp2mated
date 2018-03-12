@@ -14,23 +14,24 @@ export function removeCategory(category) {
     }
 }
 
-export function addSubCategory(selectedSubCategory) {
+export function addSubCategory(selectedSubCategory, categoryPositionIndex) {
+    
     const subCategory = {...selectedSubCategory, designations: []}
     return {
         type: types.ADD_SUB_CATEGORY,
         payload: {
             subCategory: subCategory,
-            categoryId: subCategory.categoryId
+            categoryPositionIndex: categoryPositionIndex
         }
     }
 }
 
-export function removeSubCategory(categoryId, subCategoryId) {
+export function removeSubCategory(subCategoryId, categoryPositionIndex) {
     return {
         type: types.REMOVE_SUB_CATEGORY,
         payload: {
             subCategoryId: subCategoryId,
-            categoryId: categoryId
+            categoryPositionIndex: categoryPositionIndex
         }
     }
 }

@@ -21,7 +21,7 @@ export function commercialFrameReducer(state = initialState, action = action) {
             return update(state, {
                 values: {
                     categories: {
-                        [action.payload.categoryId]: {
+                        [action.payload.categoryPositionIndex]: {
                             subCategory: { $push: [ action.payload.subCategory] }
                         }
                     }
@@ -31,7 +31,7 @@ export function commercialFrameReducer(state = initialState, action = action) {
             return update(state, {
                 values: {
                     categories: {
-                        [action.payload.categoryId]: {
+                        [action.payload.categoryPositionIndex]: {
                             subCategory: { 
                                 $apply: subCategory => subCategory.filter(s => s.id !== action.payload.subCategoryId)
                             }
@@ -56,7 +56,6 @@ export function commercialFrameReducer(state = initialState, action = action) {
                 }
             })
         case types.REMOVE_DESIGNATION:
-        console.log('action.payload', action.payload)
             return update(state, {
                 values: {
                     categories: {
