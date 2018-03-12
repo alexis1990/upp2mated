@@ -40,7 +40,31 @@ class DesignationModal extends Component {
     constructor(props) {
         super();
         this.onRowSelect = this.onRowSelect.bind(this)
+        this.state = {
+            selectedDesignation: []
+        }
     }
+
+    onMountLoadSelectedCategoryFromStore(nextProps) {
+        if(nextProps.categories.length > 0){
+            return nextProps.categories
+            .map((category) => category.subCategory)
+            .map((subCategories) => subCategories.map((subCategory) => subCategory.designations))
+            .reduce((newSelectedDesignation, oldSelectedDesignation) => newSelectedDesignation.concat(oldSelectedDesignation), [])
+            .reduce((newSelectedDesignation, oldSelectedDesignation) => newSelectedDesignation.concat(oldSelectedDesignation), [])
+            .map((designation) => designation.id)
+        }
+    }
+
+    componentWillReceiveProps(nextProps) { 
+            const onMountLoadSelectedDesignation = this.onMountLoadSelectedCategoryFromStore(nextProps);
+            console.log('onMountLoadSelectedDesignation', onMountLoadSelectedDesignation)
+            this.setState({
+                selectedDesignation : onMountLoadSelectedDesignation
+            })
+
+    }
+
     onRowSelect(row, isSelected, e) {
         const { addDesignation, removeDesignation, parentsCategories } = this.props;
         isSelected ? addDesignation(row, parentsCategories) : removeDesignation(row, parentsCategories) ;
@@ -50,7 +74,8 @@ class DesignationModal extends Component {
         const selectRowProp = {
             mode: 'checkbox',
             clickToSelect: true,
-            onSelect: this.onRowSelect
+            onSelect: this.onRowSelect,
+            selected: this.state.selectedDesignation
         };
         const { categoryId, subCategoryId } = this.props;
         // const filteredDesignations =  designations.filter((designation) => designation.categoryId === stateModal.data.categoryId )
@@ -69,6 +94,7 @@ class DesignationModal extends Component {
 
 function mapStateToProps(state) {
     return {
+        categories: state.form.CF.values.categories,
         parentsCategories: state.modal.data,
     }
 }
