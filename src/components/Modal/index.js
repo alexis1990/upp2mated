@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { FormGroup, FormControl, Grid, Row, Glyphicon, Col, Button } from 'react-bootstrap'
-import { connect } from 'react-redux'
-import { isModalVisible } from './actions'
-import { bindActionCreators } from 'redux'
-import './styles/style.css'
+import React from 'react';
+import { Button, Glyphicon, Grid, Row } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { isModalVisible } from './actions';
+import './styles/style.css';
 
 const Modal = ({ component, isVisible, isModalVisible, nameModal, activeNameModal }) => (
 	<div>
@@ -17,15 +17,10 @@ const Modal = ({ component, isVisible, isModalVisible, nameModal, activeNameModa
 	</div>
 );
 
-function mapStateToProps(state) {
-	return {
-		nameModal: state.modal.name
-	};
-}
+const mapStateToProps = state => ({
+  nameModal: state.modal.name,
+});
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ isModalVisible }, dispatch)
-}
-
+const mapDispatchToProps = dispatch => bindActionCreators({ isModalVisible }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);

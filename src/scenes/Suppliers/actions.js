@@ -19,6 +19,7 @@ function loadSupplier(isLoading, contact) {
 
 export function fetchSuppliers(pageId) {
   return (dispatch) => {
+    // todo dispatch inutile ?
     dispatch(loadSuppliers(true, { content: [] }));
     axios.get(`/u2m-api/v1/suppliers/?page=${pageId}`)
       .then((response) => {
@@ -32,13 +33,27 @@ export function fetchSuppliers(pageId) {
 
 export function fetchSupplier(id) {
   return (dispatch) => {
+    // todo dispatch inutile ?
     dispatch(loadSupplier(true, { contactPersonList: [] }));
-    axios.get(`/u2m-api/v1/suppliers/${id}`)
+    return axios.get(`/u2m-api/v1/suppliers/${id}`)
       .then((response) => {
         dispatch(loadSupplier(false, response));
       })
       .catch((error) => {
         console.log('ERRORloadSupplier', error);
+      });
+  };
+}
+
+export function updateSupplierCard(supplierId, supplierCard, history) {
+  return (dispatch) => {
+    axios.post(`/u2m-api/v1/suppliers/${supplierId}/update/b`, supplierCard)
+      .then((response) => {
+        dispatch(displayToastr(true, 'Fiche fournisseur mise à jour', 'success'));
+        history.push(`/suppliers/${supplierId}`);
+      })
+      .catch((error) => {
+        dispatch(displayToastr(true, 'Impossible de mettre à jour la fiche fournisseur', 'error'));
       });
   };
 }
@@ -150,11 +165,73 @@ export function deleteSupplier(supplierId) {
 }
 
 export function getFinancialHealth(supplierId) {
-	return(dispatch) => {
-		axios.get(`/u2m-api/v1/suppliers/${supplierId}/financial-health/`)
-		.then((resolve) => {
-			console.log('RESOLVEEE', resolve)
-		})
-		.catch((reject)=> console.log('REJJ'))
-	}
+  return (dispatch) => {
+    axios.get(`/u2m-api/v1/suppliers/${supplierId}/financial-health/`)
+      .then((resolve) => {
+        console.log('RESOLVEEE', resolve);
+      })
+      .catch((reject) => console.log('REJJ'));
+  };
+}
+
+export function keepInMemoryActiveTab(tabIndex) {
+  return {
+    type: types.SUPPLIER_VIEW_ACTIVE_TAB,
+    payload: tabIndex,
+  };
+}
+
+export function addContact(supplierId, contact) {
+  return dispatch =>
+    axios.post(`/u2m-api/v1/suppliers/${supplierId}/contact`, contact)
+      .then((response) => {
+        dispatch(displayToastr(true, 'Contact ajouté', 'success'));
+      })
+      .catch((error) => {
+        dispatch(displayToastr(true, 'Impossible d\'ajouter le contact', 'error'));
+      });
+}
+
+export function updateContact(supplierId, contact) {
+  return dispatch =>
+    axios.put(`/u2m-api/v1/suppliers/${supplierId}/contact`, contact)
+      .then((response) => {
+        dispatch(displayToastr(true, 'Contact modifié', 'success'));
+      })
+      .catch((error) => {
+        dispatch(displayToastr(true, 'Impossible de modifier le contact', 'error'));
+      });
+}
+
+export function removeContact(supplierId, contact) {
+  return dispatch =>
+    axios.delete(`/u2m-api/v1/suppliers/${supplierId}/contact/${contact.id}`)
+      .then((response) => {
+        dispatch(displayToastr(true, 'Contact supprimé', 'success'));
+        dispatch({
+          type: types.REMOVE_SUPPLIER_CONTACT,
+          payload: contact.id,
+        });
+      })
+      .catch((error) => {
+        dispatch(displayToastr(true, 'Impossible de supprimer le contact', 'error'));
+      });
+}
+
+export function preloadContact(contact) {
+  return {
+    type: types.PRELOAD_SUPPLIER_CONTACT,
+    payload: contact,
+  };
+}
+
+export function askInformationsToSupplier(supplierId, contactId) {
+  return dispatch =>
+    axios.post(`/u2m-api/v1/supplier-action/supplier/${supplierId}/supplier-card?contactId=${contactId}`)
+      .then((response) => {
+        dispatch(displayToastr(true, 'Demande envoyé au fournisseur', 'success'));
+      })
+      .catch((error) => {
+        dispatch(displayToastr(true, 'Impossible d\'envoyer la demande au fournisseur', 'error'));
+      });
 }

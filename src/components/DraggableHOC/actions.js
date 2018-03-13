@@ -1,4 +1,4 @@
-import * as types from './actionTypes'
+import * as types from './actionTypes';
 
 
 export function addChangeSet(draggableElementId, draggableElementType, draggableElementAction) {
@@ -7,7 +7,7 @@ export function addChangeSet(draggableElementId, draggableElementType, draggable
     payload: {
       about: draggableElementType,
       aboutEntityId: draggableElementId,
-      action: draggableElementAction
-    }
-  }
+      action: draggableElementAction,
+    },
+  };
 }

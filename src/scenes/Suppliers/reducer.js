@@ -3,6 +3,8 @@ import * as types from './actionTypes';
 
 export function suppliersReducer(state = initialState, action = action) {
   switch (action.type) {
+    case types.SUPPLIER_VIEW_ACTIVE_TAB:
+      return { ...state, activeTab: action.payload };
     case types.LOAD_SUPPLIERS:
       return {
         ...state,
@@ -36,6 +38,24 @@ export function suppliersReducer(state = initialState, action = action) {
           ...state.suppliers,
           content: state.suppliers.content.filter(supplier => supplier.id !== action.payload),
         },
+      };
+    case types.PRELOAD_SUPPLIER_CONTACT:
+      return {
+        ...state,
+        contact: {
+          values: {
+            ...action.payload,
+          },
+        },
+      };
+    case types.REMOVE_SUPPLIER_CONTACT:
+      return {
+        ...state,
+        supplier: {
+          ...state.supplier,
+          contactPersonList: state.supplier.contactPersonList.filter(contact => contact.id !== action.payload),
+        },
+
       };
     default:
       return state;

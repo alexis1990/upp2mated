@@ -8,11 +8,30 @@
       "experimentalObjectRestSpread": true
     }
   },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
   "plugins": [
     "react"
   ],
-  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb"
+  ],
   "rules": {
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "to"
+        ]
+      }
+    ],
     "no-set-state": "off",
     // todo rules to enable later
     "react/jsx-filename-extension": "off",
