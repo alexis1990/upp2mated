@@ -1,6 +1,6 @@
 import initialState from './initialState'
 import * as types from './actionTypes'
-import update from 'react-addons-update'; // ES6
+import update from 'immutability-helper';
 
 export function commercialFrameReducer(state = initialState, action = action) {
     switch (action.type) {
@@ -8,29 +8,62 @@ export function commercialFrameReducer(state = initialState, action = action) {
             return {
                 ...state, values: {
                     ...state.values, categories: state.values.categories.concat(action.payload)
-                } 
+                }
+            };
+        case types.REMOVE_CATEGORY:
+            return {
+                ...state, values: {
+                    ...state.values, 
+                    categories: state.values.categories.filter((category) => category.id !== action.payload.id)
+                }
             };
         case types.ADD_SUB_CATEGORY:
-            const { categoryId, subCategory } = action.payload;
             return update(state, {
-                values :{
+                values: {
                     categories: {
-                        [categoryId]: {
-                            subCategory: {$push: [subCategory]}
+                        [action.payload.categoryPositionIndex]: {
+                            subCategory: { $push: [ action.payload.subCategory] }
+                        }
+                    }
+                }
+            })
+        case types.REMOVE_SUB_CATEGORY:
+            return update(state, {
+                values: {
+                    categories: {
+                        [action.payload.categoryPositionIndex]: {
+                            subCategory: { 
+                                $apply: subCategory => subCategory.filter(s => s.id !== action.payload.subCategoryId)
+                            }
                         }
                     }
                 }
             })
         case types.ADD_DESIGNATION:
-            const { parentsCategories, designation } = action.payload;
             return update(state, {
-                values :{
+                values: {
                     categories: {
-                        [parentsCategories.categoryId]: {
+                        [action.payload.parentsCategories.categoryId]: {
                             subCategory: {
-                                [parentsCategories.subCategoryId]: {
+                                [action.payload.parentsCategories.subCategoryId]: {
                                     designations: {
-                                        $push: [designation]
+                                        $push: [action.payload.designation]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        case types.REMOVE_DESIGNATION:
+            return update(state, {
+                values: {
+                    categories: {
+                        [action.payload.parentsCategories.categoryId]: {
+                            subCategory: {
+                                [action.payload.parentsCategories.subCategoryId]: {
+                                    designations: {
+                                        $apply: designations => designations.filter(d => d.id !== action.payload.designation.id)
                                     }
                                 }
                             }

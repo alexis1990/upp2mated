@@ -1,0 +1,11 @@
+.sub-categories{
+    table{
+        thead{
+            tr{
+                th:first-child { 
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+}
