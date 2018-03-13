@@ -20,12 +20,13 @@ class SubCategory extends Component {
                     <Col xs={5} md={5}>
                         <Field type="text" disabled={true} name={`categories[${categoryId}].subCategory[${subCategoryId}].name`} placeholder="Nom" component={renderInput}>Nom</Field>
                     </Col>
-                    <Col xs={12} md={12}>
-                        <Button onClick={this.addDesignation.bind(this)} bsStyle="action-button font-icon">
-                            <Glyphicon glyph="plus" />
-                        </Button>
-                    </Col>
                     <ToggleableComponent>
+                        <Col xs={12} md={12}>
+                            <Button onClick={this.addDesignation.bind(this)} bsStyle="action-button font-icon">
+                                <Glyphicon glyph="plus" />
+                            </Button>
+                        </Col>
+
                         <Col xs={7} md={12} className="designations">
                             {subCategory.designations && subCategory.designations.map((designation, designationId) =>
                                 <Col xs={7} md={12}>
