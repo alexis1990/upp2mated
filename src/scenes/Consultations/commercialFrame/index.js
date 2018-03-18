@@ -22,6 +22,11 @@ class CF extends Component {
     isModalVisible(true, 'categories', {})
   }
 
+  openIntercom() {
+    const { isModalVisible } = this.props;
+    isModalVisible(true, 'intercom', {})
+  }
+
   addSubCategory(category, categoryPositionIndex) {
     const { isModalVisible } = this.props;
     isModalVisible(
@@ -40,25 +45,15 @@ class CF extends Component {
     return (
       <Grid fluid>
         <Row className="show-grid header-frame">
-          <Col xs={12} md={1}>
+          <Col xs={12} md={6}>
             <Button onClick={this.addCategory.bind(this)} bsStyle="action-button font-icon">
               <Glyphicon glyph="plus" />
             </Button>
           </Col>
-          <Col xs={12} md={3}>
-            Catégories
-          </Col>
-          <Col xs={12} md={2}>
-            Sous Catégorie
-          </Col>
-          <Col xs={6} md={2}>
-            Désignation
-          </Col>
-          <Col xs={6} md={2}>
-            Volumes
-          </Col>
-          <Col xs={6} md={2}>
-            Description
+          <Col xs={12} md={6} className="align-right">
+            <Button onClick={this.openIntercom.bind(this)} bsStyle="action-button">
+              Intercom
+            </Button>
           </Col>
         </Row>
         <Row className="show-grid is-flex body-frame">
